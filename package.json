@@ -1,0 +1,102 @@
+{
+  "name": "vue-fantable",
+  "version": "0.0.1",
+  "main": "libs/main.js",
+  "description": "Vue table component",
+  "author": "Fall Zhang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Happy-Coding-Clans/vue-easytable.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "libs"
+  ],
+  "scripts": {
+    "test": "echo 'no test'",
+    "lint:all": "eslint packages/**",
+    "lint:fix": "eslint packages/** --fix",
+    "build": "rollup --config build/rollup.config.js",
+    "build:versions": "node build/build-versions.js",
+    "build:clean": "rimraf libs",
+    "build:locale": "node build/build-locale.js",
+    "build:all": "npm run build:clean && npm run build:entry && npm run build:versions && npm run build:locale && npm run build:comps && npm run build:main && npm run build:umd && npm run build:style",
+    "prepare": "npx husky install && npm run test",
+    "commit": "czg"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "lodash-es": "^4.17.21",
+    "resize-observer-polyfill": "^1.5.1",
+    "vue": "^2.7.15"
+  },
+  "peerDependencies": {
+    "vue": ">= 2.7.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.0.0",
+    "cross-env": "^7.0.3",
+    "cz-git": "^1.8.0",
+    "czg": "^1.8.0",
+    "echarts": "^5.4.3",
+    "eslint": "^8.55.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.0",
+    "rollup": "^4.9.0",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-less": "^1.1.3",
+    "rollup-plugin-vue": "^6.0.0",
+    "vite": "^5.0.8",
+    "vitest": "^1.0.4"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts,jsx,tsx}": "eslint --fix"
+  },
+  "bugs": {
+    "url": "https://github.com/Happy-Coding-Clans/vue-easytable/issues"
+  },
+  "homepage": "https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/README.md",
+  "docVersions": [
+    {
+      "value": "/vue-easytable",
+      "label": "2.27.1"
+    },
+    {
+      "value": "/vue-easytable/2.26.0",
+      "label": "2.26.0"
+    }
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "vue",
+    "table",
+    "grid",
+    "vue-component",
+    "components",
+    "list",
+    "scrolling",
+    "infinite",
+    "virtualized",
+    "edit",
+    "expand",
+    "radio",
+    "checkbox",
+    "sort",
+    "filter",
+    "fixed",
+    "selection",
+    "ellipsis",
+    "header",
+    "body",
+    "footer",
+    "span"
+  ]
+}

@@ -1,0 +1,44 @@
+name: deploy docs
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/deploy-docs.yml"
+      - "examples/**"
+      - "package.json"
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: master
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install outer env
+        run: npm install
+
+      - name: Install innner env
+        run: |
+          cd examples
+          npm install
+          npm install vue@2.6.12 vue-template-compiler@2.6.12
+           
+      - name: Build doc
+        run: |
+          cd examples
+          npx vue-cli-service build
+
+      - name: Deploy Doc 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: ./examples/dist
+          clean: false

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <!-- 引入样式 -->
+        <link
+            rel="stylesheet"
+            href="../../../../libs/theme-default/index.css"
+        />
+    </head>
+
+    <body>
+        <div id="app">
+            <ve-table
+                :columns="columns"
+                :table-data="tableData"
+                :expand-option="expandOption"
+                row-key-field-name="rowKey"
+                :edit-option="editOption"
+            ></ve-table>
+        </div>
+    </body>
+    <!-- 先引入 Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- 引入组件库 -->
+    <script src="../../../../libs/umd/index.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    editOption: {
+                        // cell value change
+                        cellValueChange: ({ row, column }) => {
+                            console.log("cellValueChange row::", row);
+                            console.log("cellValueChange column::", column);
+                        },
+                    },
+                    expandOption: {
+                        defaultExpandedRowKeys: [1001, 1003],
+                        render: ({ row, column, rowIndex }, h) => {
+                            return h(
+                                "div",
+                                {
+                                    style: {
+                                        color: "red",
+                                    },
+                                },
+                                row.name,
+                            );
+                        },
+                    },
+                    columns: [
+                        {
+                            field: "",
+                            key: "a",
+                            type: "expand",
+                            title: "",
+                            width: 50,
+                            align: "center",
+                        },
+                        {
+                            field: "date",
+                            key: "b",
+                            title: "Date",
+                            width: 200,
+                            align: "center",
+                            renderBodyCell: ({ row }, h) => {
+                                return h("div", row.date);
+                            },
+                        },
+                        {
+                            field: "hobby",
+                            key: "c",
+                            title: "Hobby",
+                            width: 300,
+                            align: "left",
+                            edit: true,
+                        },
+                        {
+                            field: "address",
+                            key: "d",
+                            title: "Address",
+                            width: "",
+                            align: "left",
+                            edit: true,
+                        },
+                    ],
+                    tableData: [
+                        {
+                            rowKey: 1001,
+                            name: "John",
+                            date: "1900-05-20",
+                            hobby: "coding",
+                            address: "No.1 Century Avenue, Shanghai",
+                        },
+                        {
+                            rowKey: 1002,
+                            name: "Dickerson",
+                            date: "1910-06-20",
+                            hobby: "coding",
+                            address: "No.1 Century Avenue, Beijing",
+                        },
+                        {
+                            rowKey: 1003,
+                            name: "Larsen",
+                            date: "2000-07-20",
+                            hobby: "coding and coding repeat",
+                            address: "No.1 Century Avenue, Chongqing",
+                        },
+                        {
+                            rowKey: 1004,
+                            name: "Geneva",
+                            date: "2010-08-20",
+                            hobby: "coding and coding repeat",
+                            address: "No.1 Century Avenue, Xiamen",
+                        },
+                        {
+                            rowKey: 1005,
+                            name: "Jami",
+                            date: "2020-09-20",
+                            hobby: "coding and coding repeat",
+                            address: "No.1 Century Avenue, Shenzhen",
+                        },
+                    ],
+                };
+            },
+        });
+    </script>
+</html>
