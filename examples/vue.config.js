@@ -1,4 +1,3 @@
-const OpenBrowserPlugin = require("open-browser-webpack-plugin");
 const path = require("path");
 
 const PORT = 8111;
@@ -7,6 +6,7 @@ module.exports = {
     // 发布资源文件引用方式
     publicPath: "./",
     devServer: {
+        open:true,
         port: PORT,
     },
 
@@ -47,9 +47,6 @@ module.exports = {
                     "vue-easytable": path.resolve(__dirname, "../"),
                 },
             },
-            plugins: [
-                new OpenBrowserPlugin({ url: `http://localhost:${PORT}` }),
-            ],
         };
     },
 };
