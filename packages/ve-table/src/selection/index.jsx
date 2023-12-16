@@ -11,7 +11,7 @@ import {
   getTotalWidthByColKeys,
   getPreviewColKey,
   getNextColKey,
-} from '../util'
+} from '../util/index'
 import {
   COMPS_NAME,
   EMIT_EVENTS,

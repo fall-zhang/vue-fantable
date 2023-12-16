@@ -1,9 +1,9 @@
 import clickoutside from '../../src/directives/clickoutside.js'
-import VeCheckbox from 'vue-easytable/packages/ve-checkbox'
-import VeRadio from 'vue-easytable/packages/ve-radio'
+import VeCheckbox from '@/ve-checkbox/index.js'
+import VeRadio from '@/ve-radio/index.js'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 import { clsName } from './util/index'
-import { isFunction, isBoolean } from '../../src/utils'
+import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
 import { getViewportOffset, getViewportOffsetWithinContainer } from '../../src/utils/dom'
 
@@ -174,9 +174,10 @@ export default {
     },
     // dropdown items class
     dropdownItemsClass() {
+      const ddShow = clsName('dd-show')
       return {
         [clsName('dd')]: true,
-        [clsName('dd-show')]: this.isDropdownVisible
+        [ddShow]: this.isDropdownVisible
       }
     },
   },

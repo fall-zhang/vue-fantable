@@ -1,5 +1,5 @@
-import { clsName } from '../util'
-import FooterTr from './footer-tr'
+import { clsName } from '../util/index'
+import FooterTr from './footer-tr.jsx'
 import { COMPS_NAME } from '../util/constant'
 export default {
   name: COMPS_NAME.VE_TABLE_FOOTER,

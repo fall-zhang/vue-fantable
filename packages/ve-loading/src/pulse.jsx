@@ -1,4 +1,4 @@
-import { clsName } from './util'
+import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
 import { getValByUnit } from '../../src/utils/index.js'
 

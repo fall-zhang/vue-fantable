@@ -1,5 +1,5 @@
-import { getParentCompByName } from '../../src/utils'
-import { clsName } from './util'
+import { getParentCompByName } from '../../src/utils/index'
+import { clsName } from './util/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 
 export default {

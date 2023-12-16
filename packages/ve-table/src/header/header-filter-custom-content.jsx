@@ -1,8 +1,8 @@
-import VeDropdown from 'vue-easytable/packages/ve-dropdown'
+import VeDropdown from '@/ve-dropdown/index.js'
 import { COMPS_NAME } from '../util/constant'
-import { clsName } from '../util'
+import { clsName } from '../util/index'
 import { isFunction, isBoolean } from '../../../src/utils/index'
-import VeIcon from 'vue-easytable/packages/ve-icon'
+import VeIcon from '@/ve-icon/index.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 
 export default {

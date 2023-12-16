@@ -1,12 +1,12 @@
-import BodyTr from './body-tr'
-import BodyTrScrolling from './body-tr-scrolling'
-import ExpandTr from './expand-tr'
-import VueDomResizeObserver from '../../../src/comps/resize-observer'
+import BodyTr from './body-tr.jsx'
+import BodyTrScrolling from './body-tr-scrolling.jsx'
+import ExpandTr from './expand-tr.jsx'
+import VueDomResizeObserver from '../../../src/comps/resize-observer/index.js'
 import {
   getDomResizeObserverCompKey,
   getFixedTotalWidthByColumnKey,
   clsName,
-} from '../util'
+} from '../util/index.js'
 import { getValByUnit } from '../../../src/utils/index.js'
 import emitter from '../../../src/mixins/emitter'
 import {

@@ -1,7 +1,7 @@
-import FooterTd from './footer-td'
-import { clsName } from '../util'
+import FooterTd from './footer-td.jsx'
+import { clsName } from '../util/index.js'
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from '../util/constant'
-import VueDomResizeObserver from '../../../src/comps/resize-observer'
+import VueDomResizeObserver from '../../../src/comps/resize-observer/index'
 import emitter from '../../../src/mixins/emitter'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,

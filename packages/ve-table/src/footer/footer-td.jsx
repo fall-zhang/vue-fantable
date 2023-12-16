@@ -1,4 +1,4 @@
-import { getFixedTotalWidthByColumnKey, clsName } from '../util'
+import { getFixedTotalWidthByColumnKey, clsName } from '../util/index'
 import { getValByUnit } from '../../../src/utils/index.js'
 
 import { COMPS_NAME } from '../util/constant'

@@ -1,4 +1,4 @@
-import { clsName } from './util'
+import { clsName } from './util/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 
 export default {
@@ -36,11 +36,12 @@ export default {
   computed: {
     radioClass() {
       const disableState = this.disabled
+      const disabled = clsName('disabled')
       return [
         clsName('container'),
         {
           [clsName('checked')]: this.internalIsSelected,
-          [clsName('disabled')]: disableState
+          [disabled]: disableState
         },
       ]
     },

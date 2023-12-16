@@ -1,6 +1,6 @@
 import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
-import VeIcon from 'vue-easytable/packages/ve-icon'
+import VeIcon from '../../ve-icon/index'
 import { ICON_NAMES } from '../../src/utils/constant'
 import { getMousePosition, getViewportOffset } from '../../src/utils/dom'
 import {
@@ -471,7 +471,7 @@ export default {
             else {
               panelY = clickTop - currentPanelHeight
             }
-            
+
             contextmenuPanelEl.style.left = panelX + 'px'
             contextmenuPanelEl.style.top = panelY + 'px'
           }
@@ -639,15 +639,13 @@ export default {
                     menu.type !==
                     CONTEXTMENU_NODE_TYPES.SEPARATOR
                   ) {
+                    const nodeActive = clsName('node-active')
+                    const nodeDisable = clsName('node-disabled')
                     contextmenuNodeProps = {
                       class: {
                         [clsName('node')]: true,
-                        [clsName('node-active')]:
-                          activeMenuIds.includes(
-                            menu.id,
-                          ),
-                        [clsName('node-disabled')]:
-                          menu.disabled,
+                        [nodeActive]: activeMenuIds.includes(menu.id),
+                        [nodeDisable]: menu.disabled
                       },
                       on: {
                         mouseover: (event) => {

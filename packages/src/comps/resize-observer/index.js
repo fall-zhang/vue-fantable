@@ -1,2 +1,2 @@
-import VueDomResizeObserver from './src/index'
+import VueDomResizeObserver from './src/index.jsx'
 export default VueDomResizeObserver

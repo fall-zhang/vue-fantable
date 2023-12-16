@@ -1,8 +1,8 @@
 import Pager from './pager.jsx'
-import VeSelect from 'vue-easytable/packages/ve-select'
-import VeIcon from 'vue-easytable/packages/ve-icon'
+import VeSelect from '@/ve-select/index.js'
+import VeIcon from '@/ve-icon/index.js'
 import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from './util/constant'
-import { clsName } from './util'
+import { clsName } from './util/index'
 import { createLocale } from '../../src/utils/index'
 import { ICON_NAMES } from '../../src/utils/constant'
 

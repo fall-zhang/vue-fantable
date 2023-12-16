@@ -1,7 +1,7 @@
-import BodyCheckboxContent from './body-checkbox-content'
-import BodyRadioContent from './body-radio-content'
-import ExpandTrIcon from './expand-tr-icon'
-import { clsName, getRowKeysByRangeRowKeys } from '../util'
+import BodyCheckboxContent from './body-checkbox-content.jsx'
+import BodyRadioContent from './body-radio-content.jsx'
+import ExpandTrIcon from './expand-tr-icon.jsx'
+import { clsName, getRowKeysByRangeRowKeys } from '../util/index.js'
 import { isNumber, isBoolean, isEmptyValue } from '../../../src/utils/index.js'
 
 import {

@@ -1,4 +1,4 @@
-import { getChildCompsByName } from '../../src/utils'
+import { getChildCompsByName } from '../../src/utils/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 
 export default {

@@ -1,13 +1,13 @@
 /* thanks for  https://github.com/tobiasahlin/SpinKit*/
 
-import { clsName } from './util'
-import { COMPS_NAME } from '../src/util/constant'
-import Plane from './plane'
-import Bounce from './bounce'
-import Wave from './wave'
-import Pulse from './pulse'
-import Flow from './flow'
-import Grid from './grid'
+import { clsName } from './util/index'
+import { COMPS_NAME } from './util/constant'
+import Plane from './plane.jsx'
+import Bounce from './bounce.jsx'
+import Wave from './wave.jsx'
+import Pulse from './pulse.jsx'
+import Flow from './flow.jsx'
+import Grid from './grid.jsx'
 
 export default {
   name: COMPS_NAME.VE_LOADING,
@@ -16,10 +16,12 @@ export default {
     // loading class
     loadingClass() {
       const { visible, fullscreen } = this
+      const clsFixed = clsName('fixed')
+      const clsHide = clsName('hide')
       return {
         [clsName('overlay')]: true,
-        [clsName('fixed')]: fullscreen,
-        [clsName('hide')]: !visible,
+        [clsFixed]: fullscreen,
+        [clsHide]: !visible,
       }
     },
 
@@ -40,8 +42,8 @@ export default {
       props: {
         width,
         height,
-        color,
-      },
+        color
+      }
     }
 
     return (

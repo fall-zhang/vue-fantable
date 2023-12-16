@@ -1,7 +1,7 @@
-import HeaderTh from './header-th'
-import { clsName, getDomResizeObserverCompKey } from '../util'
+import HeaderTh from './header-th.jsx'
+import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import VueDomResizeObserver from '../../../src/comps/resize-observer'
+import VueDomResizeObserver from '../../../src/comps/resize-observer/index.js'
 import emitter from '../../../src/mixins/emitter'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_TR,

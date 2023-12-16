@@ -20,8 +20,8 @@ import {
   getSelectionRangeKeys,
   getSelectionRangeIndexes,
   setColumnFixed,
-  cancelColumnFixed,
-} from './util'
+  cancelColumnFixed
+} from './util/index'
 import {
   onBeforeCopy,
   onAfterCopy,
@@ -30,7 +30,7 @@ import {
   onBeforeCut,
   onAfterCut,
   onBeforeDelete,
-  onAfterDelete,
+  onAfterDelete
 } from './util/clipboard'
 import {
   getValByUnit,
@@ -41,13 +41,13 @@ import {
   isEmptyArray,
   isBoolean,
   isDefined,
-  createLocale,
+  createLocale
 } from '../../src/utils/index.js'
 import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from '../../src/utils/constant'
 import { getScrollbarWidth } from '../../src/utils/scroll-bar'
 import {
   requestAnimationTimeout,
-  cancelAnimationTimeout,
+  cancelAnimationTimeout
 } from '../../src/utils/request-animation-timeout'
 import { isInputKeyCode } from '../../src/utils/event-key-codes'
 import Hooks from '../../src/utils/hooks-manager'
@@ -65,18 +65,18 @@ import {
   CONTEXTMENU_NODE_TYPES,
   AUTOFILLING_DIRECTION,
   CURRENT_CELL_SELECTION_TYPES,
-  COLUMN_FIXED_TYPE,
+  COLUMN_FIXED_TYPE
 } from './util/constant'
-import Colgroup from './colgroup'
-import Header from './header'
-import Body from './body'
-import Footer from './footer'
-import EditInput from './editor/index'
-import Selection from './selection/index'
+import Colgroup from './colgroup/index.jsx'
+import Header from './header/index.jsx'
+import Body from './body/index.jsx'
+import Footer from './footer/index.jsx'
+import EditInput from './editor/index.jsx'
+import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
-import VueDomResizeObserver from '../../src/comps/resize-observer'
-import VeContextmenu from 'vue-easytable/packages/ve-contextmenu'
-import ColumnResizer from './column-resizer'
+import VueDomResizeObserver from '../../src/comps/resize-observer/index'
+import VeContextmenu from '@/ve-contextmenu/index.js'
+import ColumnResizer from './column-resizer/index.jsx'
 
 const t = createLocale(LOCALE_COMP_NAME)
 
@@ -493,9 +493,9 @@ export default {
         const { bufferScale } = virtualScrollOption
 
         let realBufferScale =
-                    isNumber(bufferScale) && bufferScale > 0
-                      ? bufferScale
-                      : defaultVirtualScrollBufferScale
+          isNumber(bufferScale) && bufferScale > 0
+            ? bufferScale
+            : defaultVirtualScrollBufferScale
 
         result = realBufferScale * virtualScrollVisibleCount
       }
@@ -579,9 +579,10 @@ export default {
     },
     // table class
     tableClass() {
+      const borderY = clsName('border-y')
       return {
         [clsName('border-x')]: this.borderX,
-        [clsName('border-y')]: this.borderY,
+        [borderY]: this.borderY,
       }
     },
     // table container class
@@ -595,18 +596,25 @@ export default {
         isAutofillStarting,
         enableCellSelection,
       } = this
-
-      return {
+      const virtualScroll = clsName('virtual-scroll')
+      const leftScrolling = clsName('container-left-scrolling')
+      const rightScrolling = clsName('container-right-scrolling')
+      const verticalScroll = clsName('container-vertical-scrolling')
+      const cellEditing = clsName('is-cell-editing')
+      const autofilling = clsName('autofilling')
+      const cellSelection = clsName('enable-cell-selection')
+      const result = {
         [clsName('container')]: true,
-        [clsName('virtual-scroll')]: isVirtualScroll,
-        [clsName('container-left-scrolling')]: isLeftScrolling,
-        [clsName('container-right-scrolling')]: isRightScrolling,
-        [clsName('container-vertical-scrolling')]: isVerticalScrolling,
-        [clsName('is-cell-editing')]: isCellEditing,
-        [clsName('autofilling')]: isAutofillStarting,
+        [virtualScroll]: isVirtualScroll,
+        [leftScrolling]: isLeftScrolling,
+        [rightScrolling]: isRightScrolling,
+        [verticalScroll]: isVerticalScrolling,
+        [cellEditing]: isCellEditing,
+        [autofilling]: isAutofillStarting,
         // 如果开启单元格选择，则关闭 user-select
-        [clsName('enable-cell-selection')]: enableCellSelection,
+        [cellSelection]: enableCellSelection,
       }
+      return result
     },
     // table body class
     tableBodyClass() {
@@ -623,10 +631,11 @@ export default {
         clickHighlight = rowStyleOption.clickHighlight
         stripe = rowStyleOption.stripe
       }
-
+      const clsStripe = clsName('stripe')
+      const rowHover = clsName('stripe')
       result = {
-        [clsName('stripe')]: stripe === true, // 默认不开启
-        [clsName('row-hover')]: hoverHighlight !== false, // 默认开启
+        [clsStripe]: stripe === true, // 默认不开启
+        [rowHover]: hoverHighlight !== false, // 默认开启
         [clsName('row-highlight')]: clickHighlight !== false, // 默认开启
       }
 
@@ -642,7 +651,7 @@ export default {
       return this.colgroups.some(
         (x) =>
           x.fixed === COLUMN_FIXED_TYPE.LEFT ||
-                    x.fixed === COLUMN_FIXED_TYPE.RIGHT,
+          x.fixed === COLUMN_FIXED_TYPE.RIGHT,
       )
     },
     // has left fixed column
@@ -663,7 +672,7 @@ export default {
 
       return (
         !isEmptyValue(editingCell.rowKey) &&
-                !isEmptyValue(editingCell.colKey)
+        !isEmptyValue(editingCell.colKey)
       )
     },
     // has edit column
@@ -719,8 +728,8 @@ export default {
         result = false
       } else if (
         cellSelectionOption &&
-                isBoolean(cellSelectionOption.enable) &&
-                cellSelectionOption.enable === false
+        isBoolean(cellSelectionOption.enable) &&
+        cellSelectionOption.enable === false
       ) {
         result = false
       }
@@ -1225,7 +1234,7 @@ export default {
       this.cellSelectionData.currentCell.colKey = colKey
       this.cellSelectionData.currentCell.rowKey = rowKey
       this.cellSelectionData.currentCell.rowIndex =
-                this.allRowKeys.indexOf(rowKey)
+        this.allRowKeys.indexOf(rowKey)
     },
 
     // cell selection end cell change
@@ -1233,7 +1242,7 @@ export default {
       this.cellSelectionData.normalEndCell.colKey = colKey
       this.cellSelectionData.normalEndCell.rowKey = rowKey
       this.cellSelectionData.normalEndCell.rowIndex =
-                this.allRowKeys.indexOf(rowKey)
+        this.allRowKeys.indexOf(rowKey)
     },
 
     // cell selection auto fill cell change
@@ -1291,10 +1300,10 @@ export default {
       const { allRowKeys } = this
       this.bodyIndicatorRowKeys.startRowKey = startRowKey
       this.bodyIndicatorRowKeys.startRowKeyIndex =
-                allRowKeys.indexOf(startRowKey)
+        allRowKeys.indexOf(startRowKey)
       this.bodyIndicatorRowKeys.endRowKey = endRowKey
       this.bodyIndicatorRowKeys.endRowKeyIndex =
-                allRowKeys.indexOf(endRowKey)
+        allRowKeys.indexOf(endRowKey)
     },
 
     // clear body indicator RowKeys
@@ -1327,7 +1336,7 @@ export default {
       let normalEndCellData = {}
 
       const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-                cellSelectionRangeData
+        cellSelectionRangeData
 
       // cell selection range auto fill
       if (
@@ -1386,7 +1395,7 @@ export default {
       ) {
         if (
           currentCell.rowKey !== rowKey ||
-                    currentCell.colKey !== colKey
+          currentCell.colKey !== colKey
         ) {
           if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
             currentCellData = {
@@ -1510,13 +1519,13 @@ export default {
 
       if (
         isEmptyValue(currentCell.rowKey) ||
-                isEmptyValue(currentCell.colKey)
+        isEmptyValue(currentCell.colKey)
       ) {
         result = ''
       } else {
         if (
           !isEmptyValue(normalEndCell.rowKey) &&
-                    !isEmptyValue(normalEndCell.colKey)
+          !isEmptyValue(normalEndCell.colKey)
         ) {
           result = CURRENT_CELL_SELECTION_TYPES.RANGE
         } else {
@@ -1544,27 +1553,14 @@ export default {
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         switch (keyCode) {
-        case KEY_CODES.TAB: {
-          let direction
-          if (shiftKey) {
-            direction = CELL_SELECTION_DIRECTION.LEFT
-          } else {
-            direction = CELL_SELECTION_DIRECTION.RIGHT
-          }
+          case KEY_CODES.TAB: {
+            let direction
+            if (shiftKey) {
+              direction = CELL_SELECTION_DIRECTION.LEFT
+            } else {
+              direction = CELL_SELECTION_DIRECTION.RIGHT
+            }
 
-          this.selectCellByDirection({
-            direction,
-          })
-
-          this.clearCellSelectionNormalEndCell()
-
-          this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          event.preventDefault()
-          break
-        }
-        case KEY_CODES.ARROW_LEFT: {
-          const direction = CELL_SELECTION_DIRECTION.LEFT
-          if (enableStopEditing) {
             this.selectCellByDirection({
               direction,
             })
@@ -1573,149 +1569,162 @@ export default {
 
             this[INSTANCE_METHODS.STOP_EDITING_CELL]()
             event.preventDefault()
+            break
           }
+          case KEY_CODES.ARROW_LEFT: {
+            const direction = CELL_SELECTION_DIRECTION.LEFT
+            if (enableStopEditing) {
+              this.selectCellByDirection({
+                direction,
+              })
 
-          break
-        }
-        case KEY_CODES.ARROW_RIGHT: {
-          const direction = CELL_SELECTION_DIRECTION.RIGHT
+              this.clearCellSelectionNormalEndCell()
 
-          if (enableStopEditing) {
-            this.selectCellByDirection({
-              direction,
-            })
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+              event.preventDefault()
+            }
 
-            this.clearCellSelectionNormalEndCell()
-
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            event.preventDefault()
+            break
           }
-          break
-        }
-        case KEY_CODES.ARROW_UP: {
-          const direction = CELL_SELECTION_DIRECTION.UP
+          case KEY_CODES.ARROW_RIGHT: {
+            const direction = CELL_SELECTION_DIRECTION.RIGHT
 
-          if (enableStopEditing) {
-            this.selectCellByDirection({
-              direction,
-            })
+            if (enableStopEditing) {
+              this.selectCellByDirection({
+                direction,
+              })
 
-            this.clearCellSelectionNormalEndCell()
+              this.clearCellSelectionNormalEndCell()
 
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            event.preventDefault()
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+              event.preventDefault()
+            }
+            break
           }
-          break
-        }
-        case KEY_CODES.ARROW_DOWN: {
-          const direction = CELL_SELECTION_DIRECTION.DOWN
+          case KEY_CODES.ARROW_UP: {
+            const direction = CELL_SELECTION_DIRECTION.UP
 
-          if (enableStopEditing) {
-            this.selectCellByDirection({
-              direction,
-            })
+            if (enableStopEditing) {
+              this.selectCellByDirection({
+                direction,
+              })
 
-            this.clearCellSelectionNormalEndCell()
+              this.clearCellSelectionNormalEndCell()
 
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            event.preventDefault()
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+              event.preventDefault()
+            }
+            break
           }
-          break
-        }
-        case KEY_CODES.ENTER: {
-          let direction
-          // add new line
-          if (altKey) {
-            const editInputEditor =
-                                this.$refs[this.editInputRef]
+          case KEY_CODES.ARROW_DOWN: {
+            const direction = CELL_SELECTION_DIRECTION.DOWN
 
-            editInputEditor.textareaAddNewLine()
-          }
-          // direction up
-          else if (shiftKey) {
-            direction = CELL_SELECTION_DIRECTION.UP
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          }
-          // stop editing and stay in current cell
-          else if (ctrlKey) {
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          }
-          // direction down
-          else {
-            direction = CELL_SELECTION_DIRECTION.DOWN
-            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          }
+            if (enableStopEditing) {
+              this.selectCellByDirection({
+                direction,
+              })
 
-          if (direction) {
-            this.clearCellSelectionNormalEndCell()
-            this.selectCellByDirection({
-              direction,
-            })
-          }
-          event.preventDefault()
-          break
-        }
-        case KEY_CODES.SPACE: {
-          if (!isCellEditing) {
-            // start editing and enter a space
-            this[INSTANCE_METHODS.START_EDITING_CELL]({
-              rowKey,
-              colKey,
-              defaultValue: ' ',
-            })
-            event.preventDefault()
-          }
+              this.clearCellSelectionNormalEndCell()
 
-          break
-        }
-        case KEY_CODES.BACK_SPACE: {
-          if (!isCellEditing) {
-            // start editing and clear value
-            this[INSTANCE_METHODS.START_EDITING_CELL]({
-              rowKey,
-              colKey,
-              defaultValue: '',
-            })
-            event.preventDefault()
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+              event.preventDefault()
+            }
+            break
           }
+          case KEY_CODES.ENTER: {
+            let direction
+            // add new line
+            if (altKey) {
+              const editInputEditor =
+                this.$refs[this.editInputRef]
 
-          break
-        }
-        case KEY_CODES.DELETE: {
-          if (!isCellEditing) {
-            // delete cell selection range value
-            this.deleteCellSelectionRangeValue()
-            event.preventDefault()
-          }
+              editInputEditor.textareaAddNewLine()
+            }
+            // direction up
+            else if (shiftKey) {
+              direction = CELL_SELECTION_DIRECTION.UP
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            }
+            // stop editing and stay in current cell
+            else if (ctrlKey) {
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            }
+            // direction down
+            else {
+              direction = CELL_SELECTION_DIRECTION.DOWN
+              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            }
 
-          break
-        }
-        case KEY_CODES.F2: {
-          if (!isCellEditing) {
-            if (currentColumn.edit) {
-              // start editing cell and don't allow stop eidting by direction key
-              this.enableStopEditing = false
-              this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey,
+            if (direction) {
+              this.clearCellSelectionNormalEndCell()
+              this.selectCellByDirection({
+                direction,
               })
             }
             event.preventDefault()
+            break
           }
+          case KEY_CODES.SPACE: {
+            if (!isCellEditing) {
+              // start editing and enter a space
+              this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey,
+                defaultValue: ' ',
+              })
+              event.preventDefault()
+            }
 
-          break
-        }
-        default: {
-          // enter text directly
-          if (isInputKeyCode(event)) {
-            this[INSTANCE_METHODS.START_EDITING_CELL]({
-              rowKey,
-              colKey,
-              defaultValue: '',
-            })
+            break
           }
-          break
-        }
+          case KEY_CODES.BACK_SPACE: {
+            if (!isCellEditing) {
+              // start editing and clear value
+              this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey,
+                defaultValue: '',
+              })
+              event.preventDefault()
+            }
+
+            break
+          }
+          case KEY_CODES.DELETE: {
+            if (!isCellEditing) {
+              // delete cell selection range value
+              this.deleteCellSelectionRangeValue()
+              event.preventDefault()
+            }
+
+            break
+          }
+          case KEY_CODES.F2: {
+            if (!isCellEditing) {
+              if (currentColumn.edit) {
+                // start editing cell and don't allow stop eidting by direction key
+                this.enableStopEditing = false
+                this[INSTANCE_METHODS.START_EDITING_CELL]({
+                  rowKey,
+                  colKey,
+                })
+              }
+              event.preventDefault()
+            }
+
+            break
+          }
+          default: {
+            // enter text directly
+            if (isInputKeyCode(event)) {
+              this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey,
+                defaultValue: '',
+              })
+            }
+            break
+          }
         }
       }
     },
@@ -1809,10 +1818,10 @@ export default {
     rowToVisible(keyCode, nextRowKey) {
       const tableContainerRef = this.$refs[this.tableContainerRef]
       const tableContentWrapperRef =
-                this.$refs[this.tableContentWrapperRef].$el
+        this.$refs[this.tableContentWrapperRef].$el
 
       const { isVirtualScroll, headerTotalHeight, footerTotalHeight } =
-                this
+        this
 
       const {
         clientHeight: containerClientHeight,
@@ -1825,7 +1834,7 @@ export default {
 
       if (nextRowEl) {
         const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
-                    nextRowEl
+          nextRowEl
 
         const parentOffsetTop = tableContentWrapperRef.offsetTop
 
@@ -1834,14 +1843,14 @@ export default {
           let diff = 0
           if (isVirtualScroll) {
             diff =
-                            headerTotalHeight -
-                            (trOffsetTop -
-                                (containerScrollTop - parentOffsetTop))
+              headerTotalHeight -
+              (trOffsetTop -
+                (containerScrollTop - parentOffsetTop))
           } else {
             diff =
-                            containerScrollTop +
-                            headerTotalHeight -
-                            trOffsetTop
+              containerScrollTop +
+              headerTotalHeight -
+              trOffsetTop
           }
 
           if (diff > 0) {
@@ -1853,17 +1862,17 @@ export default {
           let diff = 0
           if (isVirtualScroll) {
             diff =
-                            trOffsetTop -
-                            (containerScrollTop - parentOffsetTop) +
-                            trClientHeight +
-                            footerTotalHeight -
-                            containerClientHeight
+              trOffsetTop -
+              (containerScrollTop - parentOffsetTop) +
+              trClientHeight +
+              footerTotalHeight -
+              containerClientHeight
           } else {
             diff =
-                            trOffsetTop +
-                            trClientHeight +
-                            footerTotalHeight -
-                            (containerClientHeight + containerScrollTop)
+              trOffsetTop +
+              trClientHeight +
+              footerTotalHeight -
+              (containerClientHeight + containerScrollTop)
           }
 
           if (diff >= 0) {
@@ -1918,7 +1927,7 @@ export default {
       let result = 0
 
       const { isVirtualScroll, tableData, virtualScrollBufferCount } =
-                this
+        this
 
       const virtualScrollEndIndex = this.virtualScrollEndIndex
 
@@ -2010,7 +2019,7 @@ export default {
       //存在差值
       if (dValue) {
         this.virtualScrollPositions[index].bottom =
-                    this.virtualScrollPositions[index].bottom - dValue
+          this.virtualScrollPositions[index].bottom - dValue
         this.virtualScrollPositions[index].height = height
         for (
           let k = index + 1;
@@ -2018,9 +2027,9 @@ export default {
           k++
         ) {
           this.virtualScrollPositions[k].top =
-                        this.virtualScrollPositions[k - 1].bottom
+            this.virtualScrollPositions[k - 1].bottom
           this.virtualScrollPositions[k].bottom =
-                        this.virtualScrollPositions[k].bottom - dValue
+            this.virtualScrollPositions[k].bottom - dValue
         }
 
         // 更新 virtual phantom 列表总高度
@@ -2035,13 +2044,13 @@ export default {
       let totalHeight = 0
       if (this.virtualScrollPositions.length) {
         totalHeight =
-                    this.virtualScrollPositions[
-                      this.virtualScrollPositions.length - 1
-                    ].bottom
+          this.virtualScrollPositions[
+            this.virtualScrollPositions.length - 1
+          ].bottom
       }
 
       this.$refs[this.virtualPhantomRef].style.height =
-                totalHeight + 'px'
+        totalHeight + 'px'
     },
     // set virtual scroll start offset
     setVirtualScrollStartOffset() {
@@ -2053,12 +2062,12 @@ export default {
 
       if (start >= 1) {
         let size =
-                    this.virtualScrollPositions[start].top -
-                    (this.virtualScrollPositions[start - aboveCount]
-                      ? this.virtualScrollPositions[start - aboveCount].top
-                      : 0)
+          this.virtualScrollPositions[start].top -
+          (this.virtualScrollPositions[start - aboveCount]
+            ? this.virtualScrollPositions[start - aboveCount].top
+            : 0)
         startOffset =
-                    this.virtualScrollPositions[start - 1].bottom - size
+          this.virtualScrollPositions[start - 1].bottom - size
       }
 
       this.setTableContentTopValue({ top: startOffset })
@@ -2184,12 +2193,12 @@ export default {
 
         this.virtualScrollStartIndex = startIndex
         this.virtualScrollEndIndex =
-                    startIndex + this.virtualScrollVisibleCount
+          startIndex + this.virtualScrollVisibleCount
 
         // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
         this.$nextTick(() => {
           const tableContainerRef =
-                        this.$refs[this.tableContainerRef]
+            this.$refs[this.tableContainerRef]
           this.tableContainerVirtualScrollHandler(tableContainerRef)
           this.setVirtualPhantomHeight()
         })
@@ -2200,21 +2209,21 @@ export default {
     setScrolling(tableContainerRef) {
       if (this.hasFixedColumn) {
         const { scrollWidth, clientWidth, scrollLeft } =
-                    tableContainerRef
+          tableContainerRef
 
         const { previewTableContainerScrollLeft: previewScrollLeft } =
-                    this
+          this
 
         // 仅横向滚动需要处理
         if (
           previewScrollLeft === 0 ||
-                    previewScrollLeft !== scrollLeft
+          previewScrollLeft !== scrollLeft
         ) {
           this.previewTableContainerScrollLeft = scrollLeft
 
           this.isLeftScrolling = scrollLeft > 0
           this.isRightScrolling =
-                        scrollWidth - clientWidth > scrollLeft
+            scrollWidth - clientWidth > scrollLeft
         }
         this.isLeftScrolling = scrollLeft > 0
         this.isRightScrolling = scrollWidth - clientWidth > scrollLeft
@@ -2231,16 +2240,16 @@ export default {
       const tableContainerRef = this.$refs[this.tableContainerRef]
       if (tableContainerRef) {
         const { scrollWidth, clientWidth, scrollHeight, clientHeight } =
-                    tableContainerRef
+          tableContainerRef
 
         if (scrollWidth && clientWidth) {
           this.hasXScrollBar =
-                        scrollWidth - clientWidth ? true : false
+            scrollWidth - clientWidth ? true : false
         }
 
         if (scrollHeight && clientHeight) {
           this.hasYScrollBar =
-                        scrollHeight - clientHeight ? true : false
+            scrollHeight - clientHeight ? true : false
         }
       }
     },
@@ -2322,18 +2331,18 @@ export default {
 
           // 同 afterCellValueChange，未来被移除
           cellValueChange &&
-                        cellValueChange({
-                          row: currentRow,
-                          column: currentColumn,
-                          changeValue,
-                        })
+            cellValueChange({
+              row: currentRow,
+              column: currentColumn,
+              changeValue,
+            })
 
           afterCellValueChange &&
-                        afterCellValueChange({
-                          row: currentRow,
-                          column: currentColumn,
-                          changeValue,
-                        })
+            afterCellValueChange({
+              row: currentRow,
+              column: currentColumn,
+              changeValue,
+            })
 
           // celar editing cell
           this.clearEditingCell()
@@ -2468,7 +2477,7 @@ export default {
 
         if (
           shiftKey &&
-                    (startRowKeyIndex > -1 || currentCell.rowIndex > -1)
+          (startRowKeyIndex > -1 || currentCell.rowIndex > -1)
         ) {
           newStartRowKey = isEmptyValue(currentCell.rowKey)
             ? startRowKey
@@ -2480,9 +2489,9 @@ export default {
           // 左键点击 || 不在当前选择行内
           if (
             mouseEventClickType ===
-                            MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
-                        currentRowIndex < startRowKeyIndex ||
-                        currentRowIndex > endRowKeyIndex
+            MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
+            currentRowIndex < startRowKeyIndex ||
+            currentRowIndex > endRowKeyIndex
           ) {
             newStartRowKey = rowKey
             newEndRowKey = rowKey
@@ -2498,17 +2507,17 @@ export default {
         this.isBodyCellMousedown = true
 
         const isClearByRightClick =
-                    isClearSelectionByBodyCellRightClick({
-                      mouseEventClickType,
-                      cellData: {
-                        rowKey,
-                        colKey,
-                      },
-                      cellSelectionData,
-                      cellSelectionRangeData,
-                      colgroups,
-                      allRowKeys,
-                    })
+          isClearSelectionByBodyCellRightClick({
+            mouseEventClickType,
+            cellData: {
+              rowKey,
+              colKey,
+            },
+            cellSelectionData,
+            cellSelectionRangeData,
+            colgroups,
+            allRowKeys,
+          })
 
         if (isClearByRightClick) {
           // clear header indicator colKeys
@@ -2710,7 +2719,7 @@ export default {
         // 值的比较（currentCell.colKey 会变化）
         if (
           JSON.stringify(colKeys) !=
-                    JSON.stringify([currentCell.colKey])
+          JSON.stringify([currentCell.colKey])
         ) {
           this.$refs[this.cellSelectionRef].clearCurrentCellRect()
         }
@@ -2718,7 +2727,7 @@ export default {
       }
 
       const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } =
-                headerIndicatorColKeys
+        headerIndicatorColKeys
 
       let newStartColKey = startColKey
       let newEndColKey = endColKey
@@ -2764,10 +2773,10 @@ export default {
         // 左键点击 || 不在当前选择列内
         if (
           mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
-                    currentCellStartColIndex < startColKeyIndex ||
-                    currentCellEndColIndex < startColKeyIndex ||
-                    currentCellStartColIndex > endColKeyIndex ||
-                    currentCellEndColIndex > endColKeyIndex
+          currentCellStartColIndex < startColKeyIndex ||
+          currentCellEndColIndex < startColKeyIndex ||
+          currentCellStartColIndex > endColKeyIndex ||
+          currentCellEndColIndex > endColKeyIndex
         ) {
           newStartColKey = currentCellStartColKey
           newEndColKey = currentCellEndColKey
@@ -2791,7 +2800,7 @@ export default {
 
       if (
         isHeaderCellMousedown &&
-                !isOperationColumn(column.key, colgroups)
+        !isOperationColumn(column.key, colgroups)
       ) {
         let colKeys
         if (isGroupHeader) {
@@ -2897,8 +2906,8 @@ export default {
       }
       if (
         editingCell &&
-                editingCell.rowKey == rowKey &&
-                editingCell.colKey == colKey
+        editingCell.rowKey == rowKey &&
+        editingCell.colKey == colKey
       ) {
         return false
       }
@@ -3257,8 +3266,8 @@ export default {
 
       if (
         response &&
-                Array.isArray(response.data) &&
-                response.data.length
+        Array.isArray(response.data) &&
+        response.data.length
       ) {
         if (isFunction(beforePasteCallback)) {
           const allowPasting = beforePasteCallback(response)
@@ -3277,7 +3286,7 @@ export default {
         }
 
         const { startColKey, endColKey, startRowKey, endRowKey } =
-                    response.selectionRangeKeys
+          response.selectionRangeKeys
 
         this.cellSelectionCurrentCellChange({
           rowKey: startRowKey,
@@ -3482,11 +3491,15 @@ export default {
     /*
         set cell selection and column to visible
         */
-    [INSTANCE_METHODS.SET_CELL_SELECTION]({
-      rowKey,
-      colKey,
-      isScrollToRow = true,
-    }) {
+    [INSTANCE_METHODS.SET_CELL_SELECTION](receive) {
+      let {
+        rowKey,
+        colKey,
+        isScrollToRow
+      } = receive
+      if (isScrollToRow === undefined) {
+        isScrollToRow = true
+      }
       const { enableCellSelection } = this
 
       if (!enableCellSelection) {
@@ -3512,13 +3525,17 @@ export default {
     /*
         set range cell selection and column to visible
         */
-    [INSTANCE_METHODS.SET_RANGE_CELL_SELECTION]({
-      startRowKey,
-      startColKey,
-      endRowKey,
-      endColKey,
-      isScrollToStartCell = false,
-    }) {
+    [INSTANCE_METHODS.SET_RANGE_CELL_SELECTION](receive) {
+      let {
+        startRowKey,
+        startColKey,
+        endRowKey,
+        endColKey,
+        isScrollToStartCell
+      } = receive
+      if (isScrollToRow === undefined) {
+        isScrollToStartCell = false
+      }
       const { enableCellSelection } = this
 
       if (!enableCellSelection) {
@@ -3527,9 +3544,9 @@ export default {
 
       if (
         isEmptyValue(startRowKey) ||
-                isEmptyValue(startColKey) ||
-                isEmptyValue(endRowKey) ||
-                isEmptyValue(endColKey)
+        isEmptyValue(startColKey) ||
+        isEmptyValue(endRowKey) ||
+        isEmptyValue(endColKey)
       ) {
         return false
       }
@@ -3734,7 +3751,7 @@ export default {
             */
       if (
         editingCell.rowKey === rowKey &&
-                editingCell.colKey === colKey
+        editingCell.colKey === colKey
       ) {
         return false
       }
@@ -3771,7 +3788,7 @@ export default {
 
       if (
         cellSelectionData.currentCell.colKey !== colKey ||
-                cellSelectionData.currentCell.rowKey !== rowKey
+        cellSelectionData.currentCell.rowKey !== rowKey
       ) {
         this.cellSelectionCurrentCellChange({
           rowKey,
@@ -3845,9 +3862,9 @@ export default {
       class: clsName('header'),
       style: {
         cursor:
-                    this.isColumnResizerHover || this.isColumnResizing
-                      ? 'col-resize'
-                      : '',
+          this.isColumnResizerHover || this.isColumnResizing
+            ? 'col-resize'
+            : '',
       },
       props: {
         columnsOptionResetTime: this.columnsOptionResetTime,
@@ -3874,7 +3891,7 @@ export default {
         },
       },
     }
-
+    const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
     // body props
     const bodyProps = {
       ref: this.tableBodyRef,
@@ -3904,10 +3921,10 @@ export default {
         bodyIndicatorRowKeys,
       },
       on: {
-        [EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE]:
-                    debouncedBodyCellWidthChange,
+        [widthChange]:
+          debouncedBodyCellWidthChange,
         [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
-                    this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
+          this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
       },
     }
 
@@ -3980,7 +3997,7 @@ export default {
       on: {
         scroll: () => {
           const tableContainerRef =
-                        this.$refs[this.tableContainerRef]
+            this.$refs[this.tableContainerRef]
 
           this.hooks.triggerHook(
             HOOKS_NAME.TABLE_CONTAINER_SCROLL,
@@ -4072,6 +4089,10 @@ export default {
     }
 
     // edit input props
+    const inputClick = EMIT_EVENTS.EDIT_INPUT_CLICK
+    const inputValueChange = EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE
+    const inputCopy = EMIT_EVENTS.EDIT_INPUT_COPY
+    const inputPaste = EMIT_EVENTS.EDIT_INPUT_PASTE
     const editInputProps = {
       ref: this.editInputRef,
       props: {
@@ -4092,19 +4113,19 @@ export default {
       },
       on: {
         // edit input click
-        [EMIT_EVENTS.EDIT_INPUT_CLICK]: () => {
+        [inputClick]: () => {
           this.enableStopEditing = false
         },
         // edit input value change
-        [EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE]: (value) => {
+        [inputValueChange]: (value) => {
           this.updateEditingCellValue(value)
         },
         // copy
-        [EMIT_EVENTS.EDIT_INPUT_COPY]: (e) => {
+        [inputCopy]: (e) => {
           this.editorCopy(e)
         },
         // paste
-        [EMIT_EVENTS.EDIT_INPUT_PASTE]: (e) => {
+        [inputPaste]: (e) => {
           this.editorPaste(e)
         },
         // cut
@@ -4175,9 +4196,9 @@ export default {
           {enableCellSelection && <EditInput {...editInputProps} />}
           {/* contextmenu */}
           {(this.enableHeaderContextmenu ||
-                        this.enableBodyContextmenu) && (
-            <VeContextmenu {...contextmenuProps} />
-          )}
+            this.enableBodyContextmenu) && (
+              <VeContextmenu {...contextmenuProps} />
+            )}
           {/* column resizer */}
           {enableColumnResize && (
             <ColumnResizer {...columnResizerProps} />

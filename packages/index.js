@@ -1,5 +1,8 @@
 // This file is auto gererated by build/build-entry.js
 
+// next line only for test
+// import VeCheckbox from './ve-checkbox'
+
 import VeCheckbox from './ve-checkbox/index.js'
 import VeCheckboxGroup from './ve-checkbox-group/index.js'
 import VeContextmenu from './ve-contextmenu/index.js'

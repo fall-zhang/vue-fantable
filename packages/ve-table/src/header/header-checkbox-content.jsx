@@ -1,6 +1,6 @@
-import VeCheckbox from 'vue-easytable/packages/ve-checkbox'
+import VeCheckbox from '@/ve-checkbox/index.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import { clsName } from '../util'
+import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'
 export default {
   name: COMPS_NAME.VE_TABLE_HEADER_CHECKBOX_CONTENT,

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VeLoading from './loading.jsx'
 import { addClass, removeClass } from '../../src/utils/dom'
-import { clsName } from './util'
+import { clsName } from './util/index'
 import { SPIN_NAMES, COMPS_NAME } from '../src/util/constant'
 
 // default options

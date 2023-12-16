@@ -1,4 +1,4 @@
-import { clsName } from '../util'
+import { clsName } from '../util/index'
 import { COMPS_NAME, HOOKS_NAME } from '../util/constant'
 import { isNumber } from '../../../src/utils/index.js'
 

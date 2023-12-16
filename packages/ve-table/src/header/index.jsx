@@ -1,5 +1,5 @@
-import { clsName } from '../util'
-import HeaderTr from './header-tr'
+import { clsName } from '../util/index'
+import HeaderTr from './header-tr.jsx'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
 export default {

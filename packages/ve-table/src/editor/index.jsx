@@ -1,4 +1,4 @@
-import { clsName, getFixedTotalWidthByColumnKey } from '../util'
+import { clsName, getFixedTotalWidthByColumnKey } from '../util/index'
 import { INSTANCE_METHODS } from './constant'
 import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'

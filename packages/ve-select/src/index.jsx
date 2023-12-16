@@ -72,9 +72,10 @@ export default {
   computed: {
     // icon class
     iconClass() {
+      const toggleIcon = clsName('toggle-icon')
       return {
         [clsName('show')]: this.dropdownVisible,
-        [clsName('toggle-icon')]: true,
+        [toggleIcon]: true,
       }
     },
   },

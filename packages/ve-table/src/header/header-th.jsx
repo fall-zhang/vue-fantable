@@ -1,16 +1,16 @@
-import HeaderCheckboxContent from './header-checkbox-content'
-import HeaderFilterContent from './header-filter-content'
-import HeaderFilterCustomContent from './header-filter-custom-content'
+import HeaderCheckboxContent from './header-checkbox-content.jsx'
+import HeaderFilterContent from './header-filter-content.jsx'
+import HeaderFilterCustomContent from './header-filter-custom-content.jsx'
 import {
   getFixedTotalWidthByColumnKey,
   clsName,
   getColKeysByRangeColKeys,
   getColKeysByHeaderColumn,
-} from '../util'
+} from '../util/index.js'
 import { getValByUnit, isEmptyValue } from '../../../src/utils/index.js'
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
-import VeIcon from 'vue-easytable/packages/ve-icon'
+import VeIcon from '@/ve-icon/index.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 
 export default {

@@ -1,4 +1,4 @@
-import locale from 'vue-easytable/packages/ve-locale'
+import locale from '@/ve-locale/index.js'
 import { isFunction } from '../utils/index'
 
 /*
