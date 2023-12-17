@@ -5,8 +5,6 @@ const cssimport = require("gulp-cssimport");
 const less = require("gulp-less");
 const autoprefixer = require("gulp-autoprefixer");
 
-const cssimportOpt = {};
-
 // compile theme default
 function compileThemeDefault() {
     return (
