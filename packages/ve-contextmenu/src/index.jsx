@@ -10,7 +10,7 @@ import {
   INSTANCE_METHODS
 } from './util/constant'
 import { getRandomId } from '../../src/utils/random'
-import { debounce, cloneDeep } from 'lodash-es'
+import { debounce, cloneDeep } from 'utils'
 import eventsOutside from '../../src/directives/events-outside'
 
 export default {

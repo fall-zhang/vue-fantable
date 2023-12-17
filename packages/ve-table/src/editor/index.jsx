@@ -6,7 +6,7 @@ import focus from '../../../src/directives/focus.js'
 import { autoResize } from '../../../src/utils/auto-resize'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '../../../src/utils/dom'
-import { debounce } from 'lodash-es'
+import { debounce } from 'utils'
 
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,

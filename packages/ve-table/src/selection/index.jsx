@@ -23,7 +23,7 @@ import {
 import { INSTANCE_METHODS } from './constant'
 import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
-import { debounce } from 'lodash-es'
+import { debounce } from 'utils'
 
 export default {
   name: COMPS_NAME.VE_TABLE_SELECTION,
