@@ -7,9 +7,7 @@ Vx.x.x(TPL)
 -   Style changes
 -   Dependencies Changes
 
-V0.0.1
+### V0.0.1
 
-### Dependencies Changes
+#### Dependencies Changes
 
-- 先能打包
-- 最后加上 TS

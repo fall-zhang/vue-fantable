@@ -1,33 +1,16 @@
-[![npm](https://img.shields.io/npm/v/vue-easytable.svg)](https://www.npmjs.com/package/vue-easytable)
-[![vue2](https://img.shields.io/badge/vue-2.6+-brightgreen.svg)](https://vuejs.org/)
-[![NPM downloads](https://img.shields.io/npm/dm/vue-easytable.svg?style=flat)](https://npmjs.org/package/vue-easytable)
-[![codecov](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable/branch/master/graph/badge.svg?token=UJy3LHInUn)](https://codecov.io/gh/Happy-Coding-Clans/vue-easytable)
 [![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
-[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/gBm3k6r)
-[![Gitter](https://badges.gitter.im/vue-easytable/community.svg)](https://gitter.im/vue-easytable/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# vue-easytable
+
+# vue-fantable
 
 **English** | [中文](./README-CN.md)
 
-<p>
-  <a href="https://www.patreon.com/huangshuwei" target="_blank">
-    <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patreon">
-  </a>
-</p>
+> *If* *I have seen* *further, it* *is* *by* *standing* *on* the shoulders of giants.
+
 
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo or name will show up here with a link you provided. [Become a sponsor](https://www.patreon.com/huangshuwei)
-
-<h3 align="center">Gold Sponsor</h3>
-<h3 align="center">Silver Sponsor</h3>
-<p align="center">
-  <a href="https://costcertified.com/" target="_blank">
-    <img width="150px" src="https://huangshuwei.gitee.io/site/sponsors/silver-sponsor/Mamadou-Wann.svg" alt="Become a Patreon">
-  </a>
-</p>
-<h3 align="center">Generous Sponsor</h3>
 
 ## Introduction
 
@@ -36,7 +19,7 @@ A powerful data table based on vue2.x You can use it as data grid、Microsoft Ex
 ## Characteristics
 
 -   Support 300000 rows of data display through virtual scroll
--   Free forever. Of course, you can also choose to donate
+-   Free forever. Of course, you can also choose to donate, ensure the long-term maintenance of the project
 
 ## API & Examples
 
