@@ -20,16 +20,13 @@
     "test": "echo 'no test'",
     "lint:all": "eslint packages/**",
     "lint:fix": "eslint packages/** --fix",
-    "build": "rollup --config build/rollup.config.js",
-    "build:versions": "node build/build-versions.js",
-    "build:clean": "rimraf libs",
+    "build": "rollup --config rollup.config.js",
     "build:locale": "node build/build-locale.js",
     "build:all": "npm run build:clean && npm run build:entry && npm run build:versions && npm run build:locale && npm run build:comps && npm run build:main && npm run build:umd && npm run build:style",
     "prepare": "npx husky install && npm run test",
     "commit": "czg"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.1.0",
     "lodash-es": "^4.17.21",
     "resize-observer-polyfill": "^1.5.1",
     "vue": "^2.7.15"
@@ -42,6 +39,8 @@
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-sucrase": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/pluginutils": "^5.1.0",
     "cross-env": "^7.0.3",
     "cz-git": "^1.8.0",
     "czg": "^1.8.0",
