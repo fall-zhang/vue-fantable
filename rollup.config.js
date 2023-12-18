@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // console.log(__dirname);
 // import { jsxExtension } from './common.js'
+// 打包前清除所有文件
 // 添加 CSS
 export default {
   input: [
@@ -30,7 +31,9 @@ export default {
     vuePlugin({
       target: 'broswer'
     }),
-    less(),
+    less({
+      output:'dist/css/index.dist.css'
+    }),
     sucrase({
       exclude: ['node_modules/**'],
       transforms: ['jsx']
