@@ -27,8 +27,6 @@
     "commit": "czg"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21",
-    "resize-observer-polyfill": "^1.5.1",
     "vue": "^2.7.15"
   },
   "peerDependencies": {
@@ -40,6 +38,8 @@
     }
   },
   "devDependencies": {
+    "lodash-es": "^4.17.21",
+    "resize-observer-polyfill": "^1.5.1",
     "@commitlint/cli": "^18.0.0",
     "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-alias": "^5.1.0",
