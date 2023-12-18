@@ -2,66 +2,66 @@
 编译输出umd 文件 index.js
 */
 
-const path = require("path");
-const webpack = require("webpack");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const ProgressBarPlugin = require("progress-bar-webpack-plugin");
-const config = require("./config");
-const { libraryName } = require("./common");
+const path = require('path')
+const webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const config = require('./config')
+const { libraryName } = require('./common')
 
 module.exports = function (env) {
-    return {
-        mode: "production",
-        entry: {
-            index: ["./packages/index.js"],
+  return {
+    mode: 'production',
+    entry: {
+      index: ['./packages/index.js'],
+    },
+
+    output: {
+      path: path.join(__dirname, '../libs/umd'),
+      filename: 'index.js',
+      chunkFilename: '[id].js',
+      libraryTarget: 'umd',
+      libraryExport: 'default',
+      library: libraryName,
+      umdNamedDefine: true,
+      globalObject: "typeof self !== 'undefined' ? self : this",
+    },
+
+    module: {
+      rules: [
+        // babel-loader
+        {
+          test: /\.(js|jsx)$/,
+          use: 'babel-loader',
+          exclude: /node_modules/,
         },
 
-        output: {
-            path: path.join(__dirname, "../libs/umd"),
-            filename: "index.js",
-            chunkFilename: "[id].js",
-            libraryTarget: "umd",
-            libraryExport: "default",
-            library: libraryName,
-            umdNamedDefine: true,
-            globalObject: "typeof self !== 'undefined' ? self : this",
+        // vue loader
+        {
+          test: /\.vue$/,
+          use: [
+            {
+              loader: 'vue-loader',
+            },
+          ],
         },
+      ],
+    },
 
-        module: {
-            rules: [
-                // babel-loader
-                {
-                    test: /\.(js|jsx)$/,
-                    use: "babel-loader",
-                    exclude: /node_modules/,
-                },
+    optimization: {
+      minimize: true,
+    },
 
-                // vue loader
-                {
-                    test: /\.vue$/,
-                    use: [
-                        {
-                            loader: "vue-loader",
-                        },
-                    ],
-                },
-            ],
-        },
+    resolve: {
+      extensions: ['.js', '.jsx', '.vue'],
+      modules: [path.resolve('./node_modules')],
+      alias: config.alias,
+    },
 
-        optimization: {
-            minimize: true,
-        },
+    externals: {
+      vue: config.externals.vue,
+    },
 
-        resolve: {
-            extensions: [".js", ".jsx", ".vue"],
-            modules: [path.resolve("./node_modules")],
-            alias: config.alias,
-        },
-
-        externals: {
-            vue: config.externals.vue,
-        },
-
-        plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
-    };
-};
+    plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
+  }
+}

@@ -2,7 +2,8 @@ import less from 'rollup-plugin-less'
 import vuePlugin from 'rollup-plugin-vue'
 import alias from '@rollup/plugin-alias'
 import sucrase from '@rollup/plugin-sucrase'
-import resolve from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 import { fileURLToPath } from 'node:url'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // console.log(__dirname);
@@ -11,12 +12,20 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default {
   input: [
     'packages/index.js',
+    'packages/theme-dark/index.less',
+    'packages/theme-default/index.less',
   ],
-  output: {
-    file: 'libs/main.js',
+  output: [{
+    dir:'libs',
     format: 'es',
+    plugins: [],
     manualChunks: []
-  },
+  },{
+    dir:'dist',
+    format: 'es',
+    plugins: [terser()],
+    manualChunks: []
+  }],
   plugins: [
     vuePlugin({
       target: 'broswer'
