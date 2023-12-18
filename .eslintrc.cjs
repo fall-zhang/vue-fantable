@@ -4,6 +4,7 @@ module.exports = {
     browser: true,
     es2021: true
   },
+  root:true,
   // 启用 globals，去定义一些全局变量，eslint 会忽略
   // globals: {
   //   defineProps: true,
