@@ -1,5 +1,5 @@
-import debounce from "./debounce.js";
-import cloneDeep from "./cloneDeep.js";
+import debounce from './debounce.js'
+import cloneDeep from './cloneDeep.js'
 
 export {
   debounce,

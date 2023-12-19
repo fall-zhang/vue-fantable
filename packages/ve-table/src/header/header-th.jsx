@@ -10,7 +10,7 @@ import {
 import { getValByUnit, isEmptyValue } from '../../../src/utils/index.js'
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
-import VeIcon from '@/ve-icon/index.js'
+import VeIcon from '@P/ve-icon/index.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 
 export default {

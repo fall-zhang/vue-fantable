@@ -1,6 +1,6 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME, COLUMN_TYPES } from '../util/constant'
-import VeIcon from '@/ve-icon/index.js'
+import VeIcon from '@P/ve-icon/index.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 
 export default {

@@ -1,4 +1,4 @@
-import VeRadio from '@/ve-radio/index.js'
+import VeRadio from '@P/ve-radio/index.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'

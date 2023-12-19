@@ -15,7 +15,6 @@ import VeRadio from './ve-radio/index.js'
 import VeSelect from './ve-select/index.js'
 import VeTable from './ve-table/index.js'
 
-
 const version = '2.27.1'
 const components = [
   VeCheckbox,
