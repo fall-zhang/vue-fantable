@@ -6,6 +6,7 @@ module.exports = {
     },
     extends: ["plugin:vue/essential", "eslint:recommended"],
     rules: {
+        indent: [2, 2],
         "no-console": "off",
         "no-debugger": "off",
         "no-unused-vars": "off",
@@ -47,9 +48,6 @@ module.exports = {
                 ],
             },
         ],
-    },
-    parserOptions: {
-        parser: "babel-eslint",
     },
     globals: {},
 };

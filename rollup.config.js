@@ -15,14 +15,9 @@ export default {
   input: [
     'packages/index.js',
     'packages/theme-dark/index.less',
-    'packages/theme-default/index.less',
+    // 'packages/theme-default/index.less',
   ],
   output: [{
-    dir: 'libs',
-    format: 'es',
-    plugins: [],
-    manualChunks: []
-  }, {
     dir: 'dist',
     format: 'es',
     plugins: [terser()],
@@ -42,8 +37,8 @@ export default {
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
-        { find: '@', replacement: __dirname + '/packages' },
-        { find: 'utils', replacement: __dirname + '/packages/utils/index.js' },
+        { find: '@P/', replacement: __dirname + '/packages/' },
+        { find: '@U/', replacement: __dirname + '/packages/utils/' },
       ]
     }),
     // 让 Rollup 查找到外部模块，打包到产物内
@@ -53,7 +48,7 @@ export default {
     })
     // alias({
     //   entries: [
-    //     { find: 'utils', replacement: '../../../utils' },
+    //     { find: '../utils/index.js', replacement: '../../../utils' },
     //     { find: 'batman-1.0.0', replacement: './joker-1.5.0' }
     //   ]
     // })

@@ -14,7 +14,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "libs"
+    "libs",
+    "dist"
   ],
   "scripts": {
     "test": "echo 'no test'",
