@@ -4,7 +4,7 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  root:true,
+  root: true,
   // 启用 globals，去定义一些全局变量，eslint 会忽略
   // globals: {
   //   defineProps: true,
@@ -14,7 +14,7 @@ module.exports = {
   //   reactive: true
   // },
   // 后面的配置会覆盖前者
-  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended'],
+  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
     ecmaFeatures: {
