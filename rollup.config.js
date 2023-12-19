@@ -11,18 +11,19 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // 打包前清除所有文件
 // 添加 CSS
 export default {
+  clean: true,
   input: [
     'packages/index.js',
     'packages/theme-dark/index.less',
     'packages/theme-default/index.less',
   ],
   output: [{
-    dir:'libs',
+    dir: 'libs',
     format: 'es',
     plugins: [],
     manualChunks: []
-  },{
-    dir:'dist',
+  }, {
+    dir: 'dist',
     format: 'es',
     plugins: [terser()],
     manualChunks: []
@@ -32,7 +33,7 @@ export default {
       target: 'broswer'
     }),
     less({
-      output:'dist/css/index.dist.css'
+      output: 'dist/css/index.dist.css'
     }),
     sucrase({
       exclude: ['node_modules/**'],
@@ -66,4 +67,4 @@ export default {
 }
 
 // 如果打包时间过长，添加缓存功能
-// 
+//
