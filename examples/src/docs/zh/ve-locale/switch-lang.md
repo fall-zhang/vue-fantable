@@ -18,8 +18,8 @@
     </div>
 </template>
 <script>
-    import zhCN from "vue-easytable/libs/locale/lang/zh-CN";
-    import enUS from "vue-easytable/libs/locale/lang/en-US";
+    import zhCN from "vue-easytable/packages/src/locale/lang/zh-CN";
+    import enUS from "vue-easytable/packages/src/locale/lang/en-US";
 
     export default {
         methods: {

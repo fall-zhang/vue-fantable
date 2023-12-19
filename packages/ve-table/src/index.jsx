@@ -346,11 +346,11 @@ export default {
       defaultVirtualScrollMinRowHeight: 40,
       // default placeholder per scrolling row count
       defaultPlaceholderPerScrollingRowCount: 8,
-      //起始索引
+      // 起始索引
       virtualScrollStartIndex: 0,
       // preview virtual scroll start index
       previewVirtualScrollStartIndex: 0,
-      //结束索引
+      // 结束索引
       virtualScrollEndIndex: 0,
       // is scrolling
       showVirtualScrollingPlaceholder: false,
@@ -422,7 +422,7 @@ export default {
       currentCellSelectionType: '',
       /*
             table offest height（开启虚拟滚动时使用）
-            1、当 :max-height="500" 时使用 max-height 
+            1、当 :max-height="500" 时使用 max-height
             2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
             */
       tableOffestHeight: 0,
@@ -430,7 +430,7 @@ export default {
       tableHeight: 0,
       // highlight row key
       highlightRowKey: '',
-      /* 
+      /*
             editing cell
             */
       editingCell: {
@@ -441,7 +441,7 @@ export default {
       },
       // 编辑单元格每次开始编辑前的初始值
       editorInputStartValue: '',
-      /* 
+      /*
             是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
 
             像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
@@ -492,7 +492,7 @@ export default {
       if (virtualScrollOption) {
         const { bufferScale } = virtualScrollOption
 
-        let realBufferScale =
+        const realBufferScale =
           isNumber(bufferScale) && bufferScale > 0
             ? bufferScale
             : defaultVirtualScrollBufferScale
@@ -536,7 +536,7 @@ export default {
     },
     // table container style
     tableContainerStyle() {
-      let maxHeight = getValByUnit(this.maxHeight)
+      const maxHeight = getValByUnit(this.maxHeight)
 
       let tableContainerHeight = null
       if (this.isVirtualScroll) {
@@ -548,7 +548,7 @@ export default {
           )
         }
       } else {
-        /* 
+        /*
                 fixed:虚拟滚动表格行展开的 ve-table 存在固定头时（sticky 冲突），表格样式错乱的问题
                 fixed:When there is a fixed header in the ve-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
                 */
@@ -1553,14 +1553,27 @@ export default {
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         switch (keyCode) {
-          case KEY_CODES.TAB: {
-            let direction
-            if (shiftKey) {
-              direction = CELL_SELECTION_DIRECTION.LEFT
-            } else {
-              direction = CELL_SELECTION_DIRECTION.RIGHT
-            }
+        case KEY_CODES.TAB: {
+          let direction
+          if (shiftKey) {
+            direction = CELL_SELECTION_DIRECTION.LEFT
+          } else {
+            direction = CELL_SELECTION_DIRECTION.RIGHT
+          }
 
+          this.selectCellByDirection({
+            direction,
+          })
+
+          this.clearCellSelectionNormalEndCell()
+
+          this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+          event.preventDefault()
+          break
+        }
+        case KEY_CODES.ARROW_LEFT: {
+          const direction = CELL_SELECTION_DIRECTION.LEFT
+          if (enableStopEditing) {
             this.selectCellByDirection({
               direction,
             })
@@ -1569,162 +1582,149 @@ export default {
 
             this[INSTANCE_METHODS.STOP_EDITING_CELL]()
             event.preventDefault()
-            break
           }
-          case KEY_CODES.ARROW_LEFT: {
-            const direction = CELL_SELECTION_DIRECTION.LEFT
-            if (enableStopEditing) {
-              this.selectCellByDirection({
-                direction,
-              })
 
-              this.clearCellSelectionNormalEndCell()
+          break
+        }
+        case KEY_CODES.ARROW_RIGHT: {
+          const direction = CELL_SELECTION_DIRECTION.RIGHT
 
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-              event.preventDefault()
-            }
+          if (enableStopEditing) {
+            this.selectCellByDirection({
+              direction,
+            })
 
-            break
+            this.clearCellSelectionNormalEndCell()
+
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            event.preventDefault()
           }
-          case KEY_CODES.ARROW_RIGHT: {
-            const direction = CELL_SELECTION_DIRECTION.RIGHT
+          break
+        }
+        case KEY_CODES.ARROW_UP: {
+          const direction = CELL_SELECTION_DIRECTION.UP
 
-            if (enableStopEditing) {
-              this.selectCellByDirection({
-                direction,
-              })
+          if (enableStopEditing) {
+            this.selectCellByDirection({
+              direction,
+            })
 
-              this.clearCellSelectionNormalEndCell()
+            this.clearCellSelectionNormalEndCell()
 
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-              event.preventDefault()
-            }
-            break
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            event.preventDefault()
           }
-          case KEY_CODES.ARROW_UP: {
-            const direction = CELL_SELECTION_DIRECTION.UP
+          break
+        }
+        case KEY_CODES.ARROW_DOWN: {
+          const direction = CELL_SELECTION_DIRECTION.DOWN
 
-            if (enableStopEditing) {
-              this.selectCellByDirection({
-                direction,
-              })
+          if (enableStopEditing) {
+            this.selectCellByDirection({
+              direction,
+            })
 
-              this.clearCellSelectionNormalEndCell()
+            this.clearCellSelectionNormalEndCell()
 
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-              event.preventDefault()
-            }
-            break
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+            event.preventDefault()
           }
-          case KEY_CODES.ARROW_DOWN: {
-            const direction = CELL_SELECTION_DIRECTION.DOWN
-
-            if (enableStopEditing) {
-              this.selectCellByDirection({
-                direction,
-              })
-
-              this.clearCellSelectionNormalEndCell()
-
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-              event.preventDefault()
-            }
-            break
-          }
-          case KEY_CODES.ENTER: {
-            let direction
-            // add new line
-            if (altKey) {
-              const editInputEditor =
+          break
+        }
+        case KEY_CODES.ENTER: {
+          let direction
+          // add new line
+          if (altKey) {
+            const editInputEditor =
                 this.$refs[this.editInputRef]
 
-              editInputEditor.textareaAddNewLine()
-            }
-            // direction up
-            else if (shiftKey) {
-              direction = CELL_SELECTION_DIRECTION.UP
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            }
-            // stop editing and stay in current cell
-            else if (ctrlKey) {
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            }
-            // direction down
-            else {
-              direction = CELL_SELECTION_DIRECTION.DOWN
-              this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-            }
+            editInputEditor.textareaAddNewLine()
+          }
+          // direction up
+          else if (shiftKey) {
+            direction = CELL_SELECTION_DIRECTION.UP
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+          }
+          // stop editing and stay in current cell
+          else if (ctrlKey) {
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+          }
+          // direction down
+          else {
+            direction = CELL_SELECTION_DIRECTION.DOWN
+            this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+          }
 
-            if (direction) {
-              this.clearCellSelectionNormalEndCell()
-              this.selectCellByDirection({
-                direction,
+          if (direction) {
+            this.clearCellSelectionNormalEndCell()
+            this.selectCellByDirection({
+              direction,
+            })
+          }
+          event.preventDefault()
+          break
+        }
+        case KEY_CODES.SPACE: {
+          if (!isCellEditing) {
+            // start editing and enter a space
+            this[INSTANCE_METHODS.START_EDITING_CELL]({
+              rowKey,
+              colKey,
+              defaultValue: ' ',
+            })
+            event.preventDefault()
+          }
+
+          break
+        }
+        case KEY_CODES.BACK_SPACE: {
+          if (!isCellEditing) {
+            // start editing and clear value
+            this[INSTANCE_METHODS.START_EDITING_CELL]({
+              rowKey,
+              colKey,
+              defaultValue: '',
+            })
+            event.preventDefault()
+          }
+
+          break
+        }
+        case KEY_CODES.DELETE: {
+          if (!isCellEditing) {
+            // delete cell selection range value
+            this.deleteCellSelectionRangeValue()
+            event.preventDefault()
+          }
+
+          break
+        }
+        case KEY_CODES.F2: {
+          if (!isCellEditing) {
+            if (currentColumn.edit) {
+              // start editing cell and don't allow stop eidting by direction key
+              this.enableStopEditing = false
+              this[INSTANCE_METHODS.START_EDITING_CELL]({
+                rowKey,
+                colKey,
               })
             }
             event.preventDefault()
-            break
           }
-          case KEY_CODES.SPACE: {
-            if (!isCellEditing) {
-              // start editing and enter a space
-              this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey,
-                defaultValue: ' ',
-              })
-              event.preventDefault()
-            }
 
-            break
+          break
+        }
+        default: {
+          // enter text directly
+          if (isInputKeyCode(event)) {
+            this[INSTANCE_METHODS.START_EDITING_CELL]({
+              rowKey,
+              colKey,
+              defaultValue: '',
+            })
           }
-          case KEY_CODES.BACK_SPACE: {
-            if (!isCellEditing) {
-              // start editing and clear value
-              this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey,
-                defaultValue: '',
-              })
-              event.preventDefault()
-            }
-
-            break
-          }
-          case KEY_CODES.DELETE: {
-            if (!isCellEditing) {
-              // delete cell selection range value
-              this.deleteCellSelectionRangeValue()
-              event.preventDefault()
-            }
-
-            break
-          }
-          case KEY_CODES.F2: {
-            if (!isCellEditing) {
-              if (currentColumn.edit) {
-                // start editing cell and don't allow stop eidting by direction key
-                this.enableStopEditing = false
-                this[INSTANCE_METHODS.START_EDITING_CELL]({
-                  rowKey,
-                  colKey,
-                })
-              }
-              event.preventDefault()
-            }
-
-            break
-          }
-          default: {
-            // enter text directly
-            if (isInputKeyCode(event)) {
-              this[INSTANCE_METHODS.START_EDITING_CELL]({
-                rowKey,
-                colKey,
-                defaultValue: '',
-              })
-            }
-            break
-          }
+          break
+        }
         }
       }
     },
@@ -1735,18 +1735,18 @@ export default {
 
       const { rowKey, colKey } = cellSelectionData.currentCell
 
-      let columnIndex = colgroups.findIndex((x) => x.key === colKey)
-      let rowIndex = allRowKeys.indexOf(rowKey)
+      const columnIndex = colgroups.findIndex((x) => x.key === colKey)
+      const rowIndex = allRowKeys.indexOf(rowKey)
 
       if (direction === CELL_SELECTION_DIRECTION.LEFT) {
         if (columnIndex > 0) {
-          let nextColumn = colgroups[columnIndex - 1]
+          const nextColumn = colgroups[columnIndex - 1]
           this.cellSelectionData.currentCell.colKey = nextColumn.key
           this.columnToVisible(nextColumn)
         }
       } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
         if (columnIndex < colgroups.length - 1) {
-          let nextColumn = colgroups[columnIndex + 1]
+          const nextColumn = colgroups[columnIndex + 1]
           this.cellSelectionData.currentCell.colKey = nextColumn.key
           this.columnToVisible(nextColumn)
         }
@@ -1897,8 +1897,8 @@ export default {
       const aboveCount = this.getVirtualScrollAboveCount()
       const belowCount = this.getVirtualScrollBelowCount()
 
-      let start = startIndex - aboveCount
-      let end = endIndex + belowCount
+      const start = startIndex - aboveCount
+      const end = endIndex + belowCount
 
       this.virtualScrollVisibleIndexs.start = start
       this.virtualScrollVisibleIndexs.end = end - 1
@@ -2009,14 +2009,14 @@ export default {
 
     // list item height change
     bodyRowHeightChange({ rowKey, height }) {
-      //获取真实元素大小，修改对应的尺寸缓存
+      // 获取真实元素大小，修改对应的尺寸缓存
       const index = this.virtualScrollPositions.findIndex(
         (x) => x.rowKey === rowKey,
       )
 
-      let oldHeight = this.virtualScrollPositions[index].height
-      let dValue = oldHeight - height
-      //存在差值
+      const oldHeight = this.virtualScrollPositions[index].height
+      const dValue = oldHeight - height
+      // 存在差值
       if (dValue) {
         this.virtualScrollPositions[index].bottom =
           this.virtualScrollPositions[index].bottom - dValue
@@ -2035,7 +2035,7 @@ export default {
         // 更新 virtual phantom 列表总高度
         this.setVirtualPhantomHeight()
 
-        //更新真实偏移量
+        // 更新真实偏移量
         this.setVirtualScrollStartOffset()
       }
     },
@@ -2061,7 +2061,7 @@ export default {
       let startOffset = 0
 
       if (start >= 1) {
-        let size =
+        const size =
           this.virtualScrollPositions[start].top -
           (this.virtualScrollPositions[start - aboveCount]
             ? this.virtualScrollPositions[start - aboveCount].top
@@ -2074,7 +2074,7 @@ export default {
     },
     // set table content top value
     setTableContentTopValue({ top }) {
-      //this.$refs[this.tableContentWrapperRef].style.transform = `translate3d(0,${startOffset}px,0)`;
+      // this.$refs[this.tableContentWrapperRef].style.transform = `translate3d(0,${startOffset}px,0)`;
       window.requestAnimationFrame(() => {
         const ele = this.$refs[this.tableContentWrapperRef]
         if (ele) {
@@ -2096,8 +2096,8 @@ export default {
       let tempIndex = null
 
       while (start <= end) {
-        let midIndex = parseInt((start + end) / 2)
-        let midValue = list[midIndex].bottom
+        const midIndex = parseInt((start + end) / 2)
+        const midValue = list[midIndex].bottom
         if (midValue === value) {
           return midIndex + 1
         } else if (midValue < value) {
@@ -2118,21 +2118,21 @@ export default {
         virtualScrollOption,
       } = this
 
-      //当前滚动位置
-      let scrollTop = tableContainerRef.scrollTop
+      // 当前滚动位置
+      const scrollTop = tableContainerRef.scrollTop
 
-      //此时的开始索引
-      let visibleStartIndex = this.getVirtualScrollStartIndex(scrollTop)
+      // 此时的开始索引
+      const visibleStartIndex = this.getVirtualScrollStartIndex(scrollTop)
       this.virtualScrollStartIndex = visibleStartIndex
 
-      //此时的结束索引
-      let visibleEndIndex = visibleStartIndex + visibleCount
+      // 此时的结束索引
+      const visibleEndIndex = visibleStartIndex + visibleCount
       this.virtualScrollEndIndex = visibleEndIndex
 
       const visibleAboveCount = this.getVirtualScrollAboveCount()
       const visibleBelowCount = this.getVirtualScrollBelowCount()
 
-      //此时的偏移量
+      // 此时的偏移量
       this.setVirtualScrollStartOffset()
 
       if (!this.showVirtualScrollingPlaceholder) {
@@ -2153,7 +2153,7 @@ export default {
         const visibleAboveCount = this.getVirtualScrollAboveCount()
         const visibleBelowCount = this.getVirtualScrollBelowCount()
 
-        let startRowIndex = visibleStartIndex - visibleAboveCount
+        const startRowIndex = visibleStartIndex - visibleAboveCount
 
         scrolling({
           startRowIndex: startRowIndex > 0 ? startRowIndex : 0,
@@ -2244,12 +2244,12 @@ export default {
 
         if (scrollWidth && clientWidth) {
           this.hasXScrollBar =
-            scrollWidth - clientWidth ? true : false
+            !!(scrollWidth - clientWidth)
         }
 
         if (scrollHeight && clientHeight) {
           this.hasYScrollBar =
-            scrollHeight - clientHeight ? true : false
+            !!(scrollHeight - clientHeight)
         }
       }
     },
@@ -2303,7 +2303,7 @@ export default {
       if (isCellEditing) {
         const { rowKey, colKey } = editingCell
 
-        let currentRow = this.tableData.find(
+        const currentRow = this.tableData.find(
           (x) => x[rowKeyFieldName] === rowKey,
         )
 
@@ -2947,7 +2947,7 @@ export default {
     // update editing cell value
     updateEditingCellValue(value) {
       const { editingCell } = this
-      let { row, column } = editingCell
+      const { row, column } = editingCell
       row[column.field] = value
       this.editingCell.row = row
     },
@@ -2992,11 +2992,11 @@ export default {
       const { afterMenuClick } = contextmenuHeaderOption
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-        let selectionRangeKeys = getSelectionRangeKeys({
+        const selectionRangeKeys = getSelectionRangeKeys({
           cellSelectionRangeData,
         })
 
-        let selectionRangeIndexes = getSelectionRangeIndexes({
+        const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData,
           colgroups,
           allRowKeys,
@@ -3091,11 +3091,11 @@ export default {
       const { afterMenuClick } = contextmenuBodyOption
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-        let selectionRangeKeys = getSelectionRangeKeys({
+        const selectionRangeKeys = getSelectionRangeKeys({
           cellSelectionRangeData,
         })
 
-        let selectionRangeIndexes = getSelectionRangeIndexes({
+        const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData,
           colgroups,
           allRowKeys,
@@ -3586,11 +3586,11 @@ export default {
       const { rowKey, colKey } = cellSelectionData.currentCell
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-        let selectionRangeKeys = getSelectionRangeKeys({
+        const selectionRangeKeys = getSelectionRangeKeys({
           cellSelectionRangeData,
         })
 
-        let selectionRangeIndexes = getSelectionRangeIndexes({
+        const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData,
           colgroups,
           allRowKeys,
@@ -3746,7 +3746,7 @@ export default {
 
       currentRow = cloneDeep(currentRow)
 
-      /* 
+      /*
             调用API编辑的情况，需要关闭之前编辑的单元格
             */
       if (
@@ -4197,8 +4197,8 @@ export default {
           {/* contextmenu */}
           {(this.enableHeaderContextmenu ||
             this.enableBodyContextmenu) && (
-              <VeContextmenu {...contextmenuProps} />
-            )}
+            <VeContextmenu {...contextmenuProps} />
+          )}
           {/* column resizer */}
           {enableColumnResize && (
             <ColumnResizer {...columnResizerProps} />

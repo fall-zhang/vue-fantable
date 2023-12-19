@@ -39,8 +39,8 @@ VeLocale.update(lang);
 ```
 <script src="//unpkg.com/vue"></script>
 <script src="//unpkg.com/vue-easytable"></script>
-<script src="//unpkg.com/vue-easytable/libs/locale/lang/en-US.js"></script>
-<script src="//unpkg.com/vue-easytable/libs/locale/lang/zh-CN.js"></script>
+<script src="//unpkg.com/vue-easytable/src/libs/locale/lang/en-US.js"></script>
+<script src="//unpkg.com/vue-easytable/src/libs/locale/lang/zh-CN.js"></script>
 
 <script>
   // Switch to English
