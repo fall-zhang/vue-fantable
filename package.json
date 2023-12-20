@@ -15,7 +15,8 @@
   },
   "files": [
     "libs",
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "test": "echo 'no test'",

@@ -5,21 +5,26 @@ import sucrase from '@rollup/plugin-sucrase'
 import resolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import { fileURLToPath } from 'node:url'
+import { defineConfig } from 'rollup'
+
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // console.log(__dirname);
 // import { jsxExtension } from './common.js'
 // 打包前清除所有文件
 // 添加 CSS
-export default {
+
+const libConfig = defineConfig({
   clean: true,
-  input: [
-    'packages/index.js',
-    'packages/theme-dark/index.less',
-    // 'packages/theme-default/index.less',
-  ],
+  sourcemap: 'inline',
+  input: 'packages/index.js',
+  external: ['vue'],
   output: [{
-    dir: 'dist',
     format: 'es',
+    // entryFileNames: 'entry-[name].js',
+    dir: './dist',
+    entryFileNames: `node/[name].js`,
+    chunkFileNames: 'node/chunks/dep-[hash].js',
+    exports: 'named',
     plugins: [terser()],
     manualChunks: []
   }],
@@ -46,19 +51,12 @@ export default {
       // 将自定义选项传递给解析插件
       moduleDirectories: ['node_modules']
     })
-    // alias({
-    //   entries: [
-    //     { find: '../utils/index.js', replacement: '../../../utils' },
-    //     { find: 'batman-1.0.0', replacement: './joker-1.5.0' }
-    //   ]
-    // })
   ],
-  // 不打包到产物内，视为外部引用
-  external: ['vue']
-  // 警告处理
-  // onwarn(warning, warn) {
-
-  // }
+})
+export default () => {
+  return defineConfig([
+    libConfig
+  ])
 }
 
 // 如果打包时间过长，添加缓存功能
