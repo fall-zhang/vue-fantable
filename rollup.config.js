@@ -1,4 +1,4 @@
-import less from 'rollup-plugin-less'
+// import less from 'rollup-plugin-less'
 import vuePlugin from 'rollup-plugin-vue'
 import alias from '@rollup/plugin-alias'
 import sucrase from '@rollup/plugin-sucrase'
@@ -13,17 +13,17 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // 打包前清除所有文件
 // 添加 CSS
 
-const libConfig = defineConfig({
+const distConfig = defineConfig({
   clean: true,
   sourcemap: 'inline',
-  input: 'packages/index.js',
+  input: ['packages/index.js'],
   external: ['vue'],
   output: [{
     format: 'es',
     // entryFileNames: 'entry-[name].js',
     dir: './dist',
-    entryFileNames: `node/[name].js`,
-    chunkFileNames: 'node/chunks/dep-[hash].js',
+    entryFileNames: `[name].js`,
+    chunkFileNames: 'chunks/dep-[hash].js',
     exports: 'named',
     plugins: [terser()],
     manualChunks: []
@@ -32,9 +32,46 @@ const libConfig = defineConfig({
     vuePlugin({
       target: 'broswer'
     }),
-    less({
-      output: 'dist/css/index.dist.css'
+    sucrase({
+      exclude: ['node_modules/**'],
+      transforms: ['jsx']
     }),
+    alias({
+      entries: [
+        // { find: 'packages/', replacement: '@/' },
+        { find: '@P/', replacement: __dirname + '/packages/' },
+        { find: '@U/', replacement: __dirname + '/packages/utils/' },
+      ]
+    }),
+    // 让 Rollup 查找到外部模块，打包到产物内
+    resolve({
+      // 将自定义选项传递给解析插件
+      moduleDirectories: ['node_modules']
+    })
+  ],
+})
+const libConfig = defineConfig({
+  clean: true,
+  sourcemap: 'inline',
+  input: ['packages/index.js', 'packages/ve-table/index.js', 'packages/ve-icon/index.js'],
+  external: ['vue'],
+  output: [{
+    format: 'es',
+    // entryFileNames: 'entry-[name].js',
+    dir: './libs',
+    // entryFileNames: `[name].js`,
+    chunkFileNames: 'chunks/[name]-[hash].js',
+    exports: 'named',
+    // plugins: [],
+    // manualChunks: []
+  }],
+  plugins: [
+    vuePlugin({
+      target: 'broswer'
+    }),
+    // less({
+    //   output: 'dist/css/index.dist.css'
+    // }),
     sucrase({
       exclude: ['node_modules/**'],
       transforms: ['jsx']
@@ -55,7 +92,8 @@ const libConfig = defineConfig({
 })
 export default () => {
   return defineConfig([
-    libConfig
+    libConfig,
+    distConfig
   ])
 }
 

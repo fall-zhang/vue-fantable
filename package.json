@@ -49,6 +49,8 @@
     "@rollup/plugin-sucrase": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/pluginutils": "^5.1.0",
+    "postcss": "^8.4.32",
+    "postcss-load-config": "^5.0.2",
     "cross-env": "^7.0.3",
     "cz-git": "^1.8.0",
     "czg": "^1.8.0",
