@@ -10,7 +10,6 @@
     "lint:fix": "vue-cli-service lint --fix"
   },
   "dependencies": {
-    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
     "axios": "^1.6.2",
     "clipboard": "^2.0.11",
     "core-js": "^3.34.0",
