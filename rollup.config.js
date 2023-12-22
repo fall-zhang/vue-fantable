@@ -1,4 +1,5 @@
 // import less from 'rollup-plugin-less'
+import path from 'node:path'
 import vuePlugin from 'rollup-plugin-vue'
 import alias from '@rollup/plugin-alias'
 import sucrase from '@rollup/plugin-sucrase'
@@ -8,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'rollup'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
-// console.log(__dirname);
+console.log(path.join(__dirname + '/packages/utils/'))
 // import { jsxExtension } from './common.js'
 // 打包前清除所有文件
 // 添加 CSS
@@ -39,8 +40,8 @@ const distConfig = defineConfig({
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
-        { find: '@P/', replacement: __dirname + '/packages/' },
-        { find: '@U/', replacement: __dirname + '/packages/utils/' },
+        { find: '@P', replacement: path.join(__dirname + 'packages') },
+        { find: '@U', replacement: path.join(__dirname + 'packages/utils') },
       ]
     }),
     // 让 Rollup 查找到外部模块，打包到产物内
@@ -53,10 +54,10 @@ const distConfig = defineConfig({
 
 const libConfig = defineConfig({
   // clean: true,
-  // sourcemap: 'inline',
   input: ['packages/index.js'],
   external: ['vue'],
   output: [{
+    sourcemap: 'inline',
     format: 'es',
     // entryFileNames: 'entry-[name].js',
     dir: './libs',
@@ -80,8 +81,8 @@ const libConfig = defineConfig({
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
-        { find: '@P/', replacement: __dirname + '/packages/' },
-        { find: '@U/', replacement: __dirname + '/packages/utils/' },
+        { find: '@P', replacement: path.join(__dirname + 'packages') },
+        { find: '@U', replacement: path.join(__dirname + 'packages/utils') },
       ]
     }),
     // 让 Rollup 查找到外部模块，打包到产物内

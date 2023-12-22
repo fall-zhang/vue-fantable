@@ -7,6 +7,12 @@
     "paths": {
       "@/*": [
         "packages/*"
+      ],
+      "@U/*": [
+        "packages/utils/*"
+      ],
+      "@P/*": [
+        "packages/*"
       ]
     },
     "lib": [
