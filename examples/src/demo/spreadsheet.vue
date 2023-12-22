@@ -1,7 +1,7 @@
 <template>
     <div class="spreadsheet">
         <div>
-            {{ currentLocal["description"] }}
+            {{ currentLocal }}
             <br />
             <br />
         </div>
@@ -224,7 +224,7 @@ export default {
     computed: {
         // current local
         currentLocal() {
-            return locale[this.currentDocLang]["completeDemo"]["demo2"];
+            return locale[this.currentDocLang]["completeDemo"]["demo2"]["description"];
         },
         columns() {
             let columns = [

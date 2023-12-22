@@ -2,12 +2,17 @@
 fork from:
 https://github.com/ElemeFE/element
 */
-
-import ResizeObserver from 'resize-observer-polyfill'
-
+import { debounce } from '@U/index.js'
+// import ResizeObserver from 'resize-observer-polyfill'
+class ResizeObserverPro extends ResizeObserver {
+  constructor(callback) {
+    super(debounce(callback, 40))
+  }
+}
 /* istanbul ignore next */
 const resizeHandler = function (entries) {
-  for (let entry of entries) {
+  // console.log("🚀 ~ file: resize-event.js:10 ~ resizeHandler ~ entries:", entries)
+  for (const entry of entries) {
     const listeners = entry.target.__resizeListeners__ || []
     if (listeners.length) {
       listeners.forEach((fn) => {
@@ -21,7 +26,7 @@ const resizeHandler = function (entries) {
 export const addResizeListener = function (element, fn) {
   if (!element.__resizeListeners__) {
     element.__resizeListeners__ = []
-    element.__ro__ = new ResizeObserver(resizeHandler)
+    element.__ro__ = new ResizeObserverPro(resizeHandler)
     element.__ro__.observe(element)
   }
   element.__resizeListeners__.push(fn)

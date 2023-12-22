@@ -1,7 +1,7 @@
 export default function debounce(func, wait, immediate) {
-  var timeout
+  let timeout
   return function() {
-    var context = this, args = arguments
+    const context = this; const args = arguments
     clearTimeout(timeout)
     if (immediate && !timeout) func.apply(context, args)
     timeout = setTimeout(function() {

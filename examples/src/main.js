@@ -27,19 +27,19 @@ Vue.component("anchor", Anchor);
 
 // 仅用作示例
 import {
-    Switch,
-    Row,
-    Col,
-    Radio,
-    RadioButton,
-    RadioGroup,
-    Select,
-    Option,
-    DatePicker,
-    InputNumber,
-    Input,
-    Button,
-    CascaderPanel,
+  Switch,
+  Row,
+  Col,
+  Radio,
+  RadioButton,
+  RadioGroup,
+  Select,
+  Option,
+  DatePicker,
+  InputNumber,
+  Input,
+  Button,
+  CascaderPanel,
 } from "element-ui";
 Vue.use(Switch);
 Vue.use(Row);
@@ -62,16 +62,16 @@ Vue.use(VueLazyContainer);
 // product
 /* import "../../libs/theme-default/index.css";
 import {
-    VeCheckbox,
-    VeCheckboxGroup,
-    VeDropdown,
-    VeIcon,
-    VeLoading,
-    VeLocale,
-    VePagination,
-    VeRadio,
-    VeSelect,
-    VeTable
+VeCheckbox,
+VeCheckboxGroup,
+VeDropdown,
+VeIcon,
+VeLoading,
+VeLocale,
+VePagination,
+VeRadio,
+VeSelect,
+VeTable
 } from "../../libs/main.js";
 import zhCN from "../../libs/locale/lang/zh-CN";
 import enUS from "../../libs/locale/lang/en-US";
@@ -86,26 +86,26 @@ dev mode
 */
 
 if (window.env === "dev") {
-    const docTheme = getDocTheme();
-    if (docTheme && docTheme === "dark") {
-        require("../../packages/theme-dark/index.less");
-    } else {
-        require("../../packages/theme-default/index.less");
-    }
+  const docTheme = getDocTheme();
+  if (docTheme && docTheme === "dark") {
+    require("../../packages/theme-dark/index.less");
+  } else {
+    require("../../packages/theme-default/index.less");
+  }
 }
 
 import {
-    VeCheckbox,
-    VeCheckboxGroup,
-    VeContextmenu,
-    VeDropdown,
-    VeIcon,
-    VeLoading,
-    VeLocale,
-    VePagination,
-    VeRadio,
-    VeSelect,
-    VeTable,
+  VeCheckbox,
+  VeCheckboxGroup,
+  VeContextmenu,
+  VeDropdown,
+  VeIcon,
+  VeLoading,
+  VeLocale,
+  VePagination,
+  VeRadio,
+  VeSelect,
+  VeTable,
 } from "../../packages/index.js";
 
 Vue.use(VeCheckbox);
@@ -131,25 +131,25 @@ import vueEasytable from "../../libs/main.js";
 Vue.use(vueEasytable); */
 
 router.beforeEach((to, from, next) => {
-    NProgress.start();
+  NProgress.start();
 
-    next();
+  next();
 
-    NProgress.done();
+  NProgress.done();
 });
 
 router.afterEach(() => {
-    Vue.nextTick(() => {
-        const blocks = document.querySelectorAll("pre code:not(.hljs)");
-        Array.prototype.forEach.call(blocks, hljs.highlightBlock);
+  Vue.nextTick(() => {
+    const blocks = document.querySelectorAll("pre code:not(.hljs)");
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock);
 
-        window.scroll(0, 0);
-    });
-    NProgress.done(); // 结束Progress
+    window.scroll(0, 0);
+  });
+  NProgress.done(); // 结束Progress
 });
 
 new Vue({
-    el: "#app",
-    router,
-    render: (h) => h(APP),
+  el: "#app",
+  router,
+  render: (h) => h(APP),
 });
