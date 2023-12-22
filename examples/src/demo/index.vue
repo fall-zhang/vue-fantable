@@ -23,21 +23,21 @@ import I18nMixins from "../comp/mixins/i18n-mixins";
 import NormalDataGrid from "./normal-data-grid.vue";
 import Spreadsheet from "./spreadsheet.vue";
 export default {
-    name: "demo",
-    components: {
-        NormalDataGrid,
-        Spreadsheet,
+  name: "demoVue",
+  components: {
+    NormalDataGrid,
+    Spreadsheet,
+  },
+  mixins: [I18nMixins],
+  data() {
+    return {};
+  },
+  computed: {
+    // current local
+    currentLocal() {
+      return locale[this.currentDocLang]["completeDemo"];
     },
-    mixins: [I18nMixins],
-    data() {
-        return {};
-    },
-    computed: {
-        // current local
-        currentLocal() {
-            return locale[this.currentDocLang]["completeDemo"];
-        },
-    },
+  },
 };
 </script>
 <style lang="less">

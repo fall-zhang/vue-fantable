@@ -1,10 +1,6 @@
 <template>
     <div v-if="catalogData && catalogData.length > 0" class="catalog-container">
-        <div
-            v-show="!showCatalogList2"
-            class="catalog-corner"
-            @click.stop="toggleCatalogList()"
-        >
+        <div v-show="!showCatalogList2" class="catalog-corner" @click.stop="toggleCatalogList()">
             <span>{{ catalogTitle }}</span>
         </div>
         <ul v-show="showCatalogList2" class="catalog-ul">
@@ -12,12 +8,7 @@
                 {{ catalogTitle }}
                 <i class="catalog-li-title-down icon iconfont icon-shouqi1"></i>
             </li>
-            <li
-                v-for="(item, index) in catalogData"
-                :key="index"
-                :title="item.label"
-                class="catalog-li"
-            >
+            <li v-for="(item, index) in catalogData" :key="index" :title="item.label" class="catalog-li">
                 <a href="javascript:void(0);" @click.stop="goAnchor(item.id)">
                     {{ item.label }}
                 </a>
@@ -32,37 +23,37 @@ import { goTobyAnchorId } from "@/utils/index";
 import I18nMixins from "./mixins/i18n-mixins";
 
 export default {
-    mixins: [I18nMixins],
-    props: {
-        catalogData: {
-            type: Array,
-            required: true,
-        },
-        showCatalogList: {
-            type: Boolean,
-            default: true,
-        },
+  mixins: [I18nMixins],
+  props: {
+    catalogData: {
+      type: Array,
+      required: true,
     },
-    data() {
-        return {
-            showCatalogList2: this.showCatalogList,
-        };
+    showCatalogList: {
+      type: Boolean,
+      default: true,
     },
-    computed: {
-        // catalog title
-        catalogTitle() {
-            return locale[this.currentDocLang]["anchorCatalogTitle"];
-        },
+  },
+  data() {
+    return {
+      showCatalogList2: this.showCatalogList,
+    };
+  },
+  computed: {
+    // catalog title
+    catalogTitle() {
+      return locale[this.currentDocLang]["anchorCatalogTitle"];
     },
-    methods: {
-        goAnchor(id) {
-            goTobyAnchorId(this, id);
-        },
+  },
+  methods: {
+    goAnchor(id) {
+      goTobyAnchorId(this, id);
+    },
 
-        toggleCatalogList() {
-            this.showCatalogList2 = !this.showCatalogList2;
-        },
+    toggleCatalogList() {
+      this.showCatalogList2 = !this.showCatalogList2;
     },
+  },
 };
 </script>
 

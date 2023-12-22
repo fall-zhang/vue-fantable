@@ -1,4 +1,3 @@
-import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
 import VeIcon from '../../ve-icon/index'
 import { ICON_NAMES } from '../../src/utils/constant'
@@ -7,7 +6,8 @@ import {
   INIT_DATA,
   EMIT_EVENTS,
   CONTEXTMENU_NODE_TYPES,
-  INSTANCE_METHODS
+  INSTANCE_METHODS,
+  COMPS_NAME
 } from './util/constant'
 import { getRandomId } from '../../src/utils/random'
 import { debounce, cloneDeep } from '@U/index.js'
@@ -23,7 +23,6 @@ export default {
     options(contextmenu)
     [
     {
-    
     id: 1,
     label: "菜单1",
     disabled:true
@@ -59,7 +58,7 @@ export default {
   },
   data() {
     return {
-      /* 
+      /*
       internal options:
       [
       {
@@ -163,7 +162,7 @@ export default {
     options: {
       handler: function (val) {
         if (Array.isArray(val) && val.length > 0) {
-          /* 
+          /*
           如果配置项修改,则重新销毁并创建
           */
           this.removeOrEmptyPanels(true)
@@ -314,7 +313,7 @@ export default {
 
       if (Array.isArray(options)) {
         //
-        let menus = options.map((option) => {
+        const menus = options.map((option) => {
           return {
             hasChildren: hasChildren(option),
             ...option,
@@ -326,7 +325,7 @@ export default {
           parentDeep: currentMenu
             ? currentMenu.deep
             : INIT_DATA.PARENT_DEEP,
-          menus: menus,
+          menus,
         })
       }
     },
@@ -373,7 +372,7 @@ export default {
     showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
       const { getParentContextmenuPanelEl } = this
 
-      let contextmenuPanelEl = document.querySelector(
+      const contextmenuPanelEl = document.querySelector(
         `#${contextmenuId}`,
       )
 
@@ -403,9 +402,7 @@ export default {
           if (clickRight >= currentPanelWidth) {
             panelX = clickLeft
             this.isPanelRightDirection = true
-          }
-          // 右方宽度不够显示在鼠标点击左方
-          else {
+          } else { // 右方宽度不够显示在鼠标点击左方
             panelX = clickLeft - currentPanelWidth
             this.isPanelRightDirection = false
           }
@@ -413,9 +410,7 @@ export default {
           // 下方高度够显示
           if (clickBottom >= currentPanelHeight) {
             panelY = clickTop
-          }
-          // 下方高度不够显示在鼠标点击上方
-          else {
+          } else { // 下方高度不够显示在鼠标点击上方
             panelY = clickTop - currentPanelHeight
           }
 
@@ -445,20 +440,14 @@ export default {
               // 右方宽度够显示
               if (parentPanelRight >= currentPanelWidth) {
                 panelX = parentPanelLeft + parentPanelWidth
-              }
-              // 右方宽度不够显示在鼠标点击左方
-              else {
+              } else { // 右方宽度不够显示在鼠标点击左方
                 panelX = parentPanelLeft - parentPanelWidth
               }
-            }
-            // 如果默认展示在左方向
-            else {
+            } else { // 如果默认展示在左方向
               // 左方宽度够显示
               if (parentPanelLeft >= currentPanelWidth) {
                 panelX = parentPanelLeft - parentPanelWidth
-              }
-              // 左方宽度不够显示在鼠标点击右方
-              else {
+              } else { // 左方宽度不够显示在鼠标点击右方
                 panelX = parentPanelLeft + parentPanelWidth
               }
             }
@@ -466,9 +455,7 @@ export default {
             // 下方高度够显示
             if (clickBottom >= currentPanelHeight) {
               panelY = clickTop
-            }
-            // 下方高度不够显示在鼠标点击上方
-            else {
+            } else { // 下方高度不够显示在鼠标点击上方
               panelY = clickTop - currentPanelHeight
             }
 
@@ -500,7 +487,7 @@ export default {
       const { panelOptions } = this
 
       panelOptions.forEach((panelOption) => {
-        let contextmenuPanelEl = document.querySelector(
+        const contextmenuPanelEl = document.querySelector(
           `#${panelOption.parentId}`,
         )
         if (contextmenuPanelEl) {
@@ -521,14 +508,14 @@ export default {
 
     // add context menu panel to body
     addContextmenuPanelToBody({ contextmenuId }) {
-      let contextmenuPanelEl = document.querySelector(
+      const contextmenuPanelEl = document.querySelector(
         `#${contextmenuId}`,
       )
 
       if (contextmenuPanelEl) {
         return false
       } else {
-        let containerEl = document.createElement('div')
+        const containerEl = document.createElement('div')
 
         containerEl.setAttribute('id', contextmenuId)
 
@@ -675,10 +662,7 @@ export default {
                         },
                       },
                     }
-                  }
-                  // separator
-                  else {
-                    //
+                  } else { // separator
                     contextmenuNodeProps = {
                       class: {
                         [clsName(

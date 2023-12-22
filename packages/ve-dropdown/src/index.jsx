@@ -143,9 +143,9 @@ export default {
 
     // 获取最大宽度(不设置则是无穷大)
     getMaxWidth() {
-      var result = Infinity,
-        maxWidth = this.maxWidth,
-        width = this.width
+      let result = Infinity
+      const maxWidth = this.maxWidth
+      const width = this.width
 
       if (maxWidth && maxWidth > 0 && maxWidth > width) {
         result = maxWidth
@@ -161,6 +161,7 @@ export default {
           if (x.selected) {
             return x.label
           }
+          return null
         })
     },
     // operation buttons class
@@ -285,7 +286,7 @@ export default {
         return false
       }
 
-      let rootEl = document.querySelector(`#${rootId}`)
+      const rootEl = document.querySelector(`#${rootId}`)
 
       if (rootEl) {
         // remove first
@@ -339,7 +340,7 @@ export default {
     removeOrEmptyRootPanel() {
       const { rootId } = this
 
-      let rootEl = document.querySelector(`#${rootId}`)
+      const rootEl = document.querySelector(`#${rootId}`)
       if (rootEl) {
         rootEl.innerHTML = ''
       }
@@ -354,7 +355,7 @@ export default {
         appendToElTagName,
       } = this
 
-      let rootEl = document.querySelector(`#${rootId}`)
+      const rootEl = document.querySelector(`#${rootId}`)
 
       if (rootEl) {
         const { width: currentPanelWidth, height: currentPanelHeight } =
@@ -397,9 +398,7 @@ export default {
         // 右方宽度够显示
         if (triggerElRight >= currentPanelWidth) {
           panelX = triggerElLeft + scrollLeft
-        }
-        // 右方宽度不够显示在鼠标点击左方
-        else {
+        } else { // 右方宽度不够显示在鼠标点击左方
           panelX = triggerElLeft - currentPanelWidth + scrollLeft
         }
 
@@ -410,9 +409,7 @@ export default {
             triggerElHeight +
             defaultInstance +
             scrollTop
-        }
-        // 下方高度不够显示在鼠标点击上方
-        else {
+        } else { // 下方高度不够显示在鼠标点击上方
           panelY =
             triggerElTop -
             currentPanelHeight -
@@ -427,9 +424,9 @@ export default {
 
     // 设置文本框的值
     setInputValue() {
-      var result, labels
+      let result = null
 
-      labels = this.selectedLabels
+      const labels = this.selectedLabels
       if (Array.isArray(labels) && labels.length > 0) {
         result = labels.join()
       }
@@ -523,14 +520,14 @@ export default {
       this.rootId = this.getRandomIdWithPrefix()
       this.dropdownItemsPanelId = this.getRandomIdWithPrefix()
 
-      let rootEl = document.querySelector(`#${this.rootId}`)
+      const rootEl = document.querySelector(`#${this.rootId}`)
 
       if (rootEl) {
         return false
       } else {
         // fixed unit test error: [Vue warn]: Error in v-on handler: "TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'."
         this.$nextTick(() => {
-          let containerEl = document.createElement('div')
+          const containerEl = document.createElement('div')
 
           containerEl.setAttribute('id', this.rootId)
 
@@ -626,11 +623,13 @@ export default {
               class={[clsName('items-li-a'), getTextAlignClass()]}
               href="javascript:void(0);"
             >
-              {this.showRadio ? (
-                <VeRadio {...radioProps}>{item.label}</VeRadio>
-              ) : (
-                item.label
-              )}
+              {this.showRadio
+                ? (
+                  <VeRadio {...radioProps}>{item.label}</VeRadio>
+                )
+                : (
+                  item.label
+                )}
             </a>
           </li>
         )

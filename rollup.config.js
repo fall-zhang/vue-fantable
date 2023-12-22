@@ -14,8 +14,8 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 // 添加 CSS
 
 const distConfig = defineConfig({
-  clean: true,
-  sourcemap: 'inline',
+  // clean: true,
+  // sourcemap: 'inline',
   input: ['packages/index.js'],
   external: ['vue'],
   output: [{
@@ -50,20 +50,21 @@ const distConfig = defineConfig({
     })
   ],
 })
+
 const libConfig = defineConfig({
-  clean: true,
-  sourcemap: 'inline',
-  input: ['packages/index.js', 'packages/ve-table/index.js', 'packages/ve-icon/index.js'],
+  // clean: true,
+  // sourcemap: 'inline',
+  input: ['packages/index.js'],
   external: ['vue'],
   output: [{
     format: 'es',
     // entryFileNames: 'entry-[name].js',
     dir: './libs',
-    // entryFileNames: `[name].js`,
+    entryFileNames: `main.js`,
     chunkFileNames: 'chunks/[name]-[hash].js',
     exports: 'named',
     // plugins: [],
-    // manualChunks: []
+    manualChunks: []
   }],
   plugins: [
     vuePlugin({

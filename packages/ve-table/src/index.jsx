@@ -801,7 +801,7 @@ export default {
         this.initColumnWidthByColumnResize()
 
         // 排除首次
-        if (newVal != oldVal && oldVal) {
+        if (newVal !== oldVal && oldVal) {
           this.columnsOptionResetTime++
           // 需要等待 initColumns 和 initGroupColumns 先执行
           this.initScrolling()
@@ -849,9 +849,7 @@ export default {
         if (newVal) {
           this.initVirtualScrollPositions()
           this.initVirtualScroll()
-        }
-        // disable virtual scroll
-        else {
+        } else { // disable virtual scroll
           // clear table content top value
           this.setTableContentTopValue({ top: 0 })
         }
@@ -1388,9 +1386,7 @@ export default {
           // return if within the range
           return false
         }
-      }
-      // cell selection single auto fill
-      else if (
+      } else if ( // cell selection single auto fill
         currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
       ) {
         if (
@@ -1639,18 +1635,12 @@ export default {
                 this.$refs[this.editInputRef]
 
             editInputEditor.textareaAddNewLine()
-          }
-          // direction up
-          else if (shiftKey) {
+          } else if (shiftKey) { // direction up
             direction = CELL_SELECTION_DIRECTION.UP
             this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          }
-          // stop editing and stay in current cell
-          else if (ctrlKey) {
+          } else if (ctrlKey) { // stop editing and stay in current cell
             this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-          }
-          // direction down
-          else {
+          } else { // direction down
             direction = CELL_SELECTION_DIRECTION.DOWN
             this[INSTANCE_METHODS.STOP_EDITING_CELL]()
           }
@@ -1856,9 +1846,7 @@ export default {
           if (diff > 0) {
             tableContainerRef.scrollTop = containerScrollTop - diff
           }
-        }
-        // arrow down
-        else if (keyCode === KEY_CODES.ARROW_DOWN) {
+        } else if (keyCode === KEY_CODES.ARROW_DOWN) { // arrow down
           let diff = 0
           if (isVirtualScroll) {
             diff =
@@ -2653,9 +2641,7 @@ export default {
           enableHeaderContextmenu: this.enableHeaderContextmenu,
           t,
         })
-      }
-      // body contextmenu
-      else {
+      } else { // body contextmenu
         // set body contextmenu options before contextmen show
         this.contextmenuOptions = setBodyContextmenuOptions({
           enableBodyContextmenu: this.enableBodyContextmenu,
@@ -2718,7 +2704,7 @@ export default {
       if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
         // 值的比较（currentCell.colKey 会变化）
         if (
-          JSON.stringify(colKeys) !=
+          JSON.stringify(colKeys) !==
           JSON.stringify([currentCell.colKey])
         ) {
           this.$refs[this.cellSelectionRef].clearCurrentCellRect()
@@ -2906,8 +2892,8 @@ export default {
       }
       if (
         editingCell &&
-        editingCell.rowKey == rowKey &&
-        editingCell.colKey == colKey
+        editingCell.rowKey === rowKey &&
+        editingCell.colKey === colKey
       ) {
         return false
       }
@@ -2970,9 +2956,7 @@ export default {
       // header contextmenu
       if (this.contextMenuType === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         this.headerContextmenuItemClick(type)
-      }
-      // body contextmenu
-      else {
+      } else { // body contextmenu
         this.bodyContextmenuItemClick(type)
       }
     },
@@ -3018,18 +3002,12 @@ export default {
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
           editInputEditor.textareaSelect()
           document.execCommand('cut')
-        }
-        // copy
-        else if (CONTEXTMENU_NODE_TYPES.COPY === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.COPY === type) {
           editInputEditor.textareaSelect()
           document.execCommand('copy')
-        }
-        // empty column
-        else if (CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN === type) { // empty column
           this.deleteCellSelectionRangeValue()
-        }
-        // left fixed column to
-        else if (CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO === type) { // left fixed column to
           this.cloneColumns = setColumnFixed({
             cloneColumns: this.cloneColumns,
             cellSelectionRangeData,
@@ -3037,9 +3015,7 @@ export default {
             colgroups,
             enableColumnResize,
           })
-        }
-        // cancel left fixed column to
-        else if (
+        } else if ( // cancel left fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
         ) {
           this.cloneColumns = cancelColumnFixed({
@@ -3048,9 +3024,7 @@ export default {
             fixedType: COLUMN_FIXED_TYPE.LEFT,
             enableColumnResize,
           })
-        }
-        // right fixed column to
-        else if (
+        } else if ( // right fixed column to
           CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO === type
         ) {
           this.cloneColumns = setColumnFixed({
@@ -3060,9 +3034,7 @@ export default {
             colgroups,
             enableColumnResize,
           })
-        }
-        // cancel right fixed column to
-        else if (
+        } else if ( // cancel right fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO === type
         ) {
           this.cloneColumns = cancelColumnFixed({
@@ -3124,42 +3096,31 @@ export default {
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
           editInputEditor.textareaSelect()
           document.execCommand('cut')
-        }
-        // copy
-        else if (CONTEXTMENU_NODE_TYPES.COPY === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.COPY === type) { // copy
           editInputEditor.textareaSelect()
           document.execCommand('copy')
-        }
+        } else if (CONTEXTMENU_NODE_TYPES.REMOVE_ROW === type) {
         // paste todo
         // else if (CONTEXTMENU_NODE_TYPES.PASTE === type) {
         //     editInputEditor.textareaSelect();
         //     document.execCommand("paste", null, null);
         // }
         // remove rows
-        else if (CONTEXTMENU_NODE_TYPES.REMOVE_ROW === type) {
           tableData.splice(
             startRowIndex,
             endRowIndex - startRowIndex + 1,
           )
-        }
-        // empty rows
-        else if (CONTEXTMENU_NODE_TYPES.EMPTY_ROW === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.EMPTY_ROW === type) { // empty rows
           this.deleteCellSelectionRangeValue()
-        }
-        // empty rows
-        else if (CONTEXTMENU_NODE_TYPES.EMPTY_CELL === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.EMPTY_CELL === type) { // empty rows
           this.deleteCellSelectionRangeValue()
-        }
-        // insert row above
-        else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE === type) { // insert row above
           tableData.splice(
             currentRowIndex,
             0,
             createEmptyRowData({ colgroups, rowKeyFieldName }),
           )
-        }
-        // insert row below
-        else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) {
+        } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) { // insert row below
           tableData.splice(
             currentRowIndex + 1,
             0,

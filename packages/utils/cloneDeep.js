@@ -16,9 +16,10 @@
  * // => false
  */
 export default function deepClone(receive) {
-  if (window.structuredClone) {
-    return structuredClone(receive)
-  }
+  console.log(typeof receive)
+  // if (structuredClone) {
+  //   return structuredClone(receive)
+  // }
   return goClone(receive)
 }
 

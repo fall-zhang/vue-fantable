@@ -74,7 +74,7 @@ export default {
             value={this.$parent.newPageSizeOption}
             popperAppendTo={this.$parent.popperAppendTo}
             on-input={this.handleChange}
-            //v-model={this.$parent.newPageSizeOption}
+          // v-model={this.$parent.newPageSizeOption}
           />
         )
       },
@@ -82,7 +82,7 @@ export default {
       methods: {
         handleChange(items) {
           if (Array.isArray(items) && items.length > 0) {
-            let item = items.find((x) => x.selected)
+            const item = items.find((x) => x.selected)
             if (item) {
               this.$parent.pageSizeChangeHandler(item.value)
             }
@@ -96,7 +96,7 @@ export default {
         jumperEnter(event) {
           if (event.keyCode !== 13) return
 
-          var val = this.$parent.getValidNum(event.target.value)
+          const val = this.$parent.getValidNum(event.target.value)
           // bug fixed #483
           event.target.value = val
           this.$parent.jumpPageHandler(val)
@@ -105,14 +105,14 @@ export default {
       render() {
         return (
           <span class={clsName('goto')}>
-                        &nbsp;{t('goto')}&nbsp;
+            &nbsp;{t('goto')}&nbsp;
             <input
               class={clsName('goto-input')}
               domProps-value={this.$parent.newPageIndex}
               on-keyup={this.jumperEnter}
               type="input"
             />
-                        &nbsp;{t('page')}&nbsp;
+            &nbsp;{t('page')}&nbsp;
           </span>
         )
       },
@@ -168,9 +168,9 @@ export default {
   data() {
     return {
       newPageIndex:
-                this.pageIndex && this.pageIndex > 0
-                  ? parseInt(this.pageIndex)
-                  : 1,
+        this.pageIndex && this.pageIndex > 0
+          ? parseInt(this.pageIndex)
+          : 1,
 
       newPageSize: this.pageSize,
     }
@@ -182,11 +182,11 @@ export default {
     },
     newPageSizeOption() {
       return this.pageSizeOption.map((x) => {
-        var temp = {}
+        const temp = {}
 
         temp.value = x
         temp.label = x + t('itemsPerPage')
-        if (this.newPageSize == x) {
+        if (this.newPageSize === x) {
           temp.selected = true
         }
 
@@ -247,7 +247,7 @@ export default {
 
     // 改变页面大小
     pageSizeChangeHandler() {
-      let item = this.newPageSizeOption.find((x) => x.selected)
+      const item = this.newPageSizeOption.find((x) => x.selected)
 
       if (item) {
         this.newPageSize = item.value
@@ -259,9 +259,9 @@ export default {
     // 回到初始页码
     goBackPageIndex() {
       this.newPageIndex =
-                this.pageIndex && this.pageIndex > 0
-                  ? parseInt(this.pageIndex)
-                  : 1
+        this.pageIndex && this.pageIndex > 0
+          ? parseInt(this.pageIndex)
+          : 1
     },
 
     // 还原每页大小
@@ -272,10 +272,10 @@ export default {
     },
   },
   render() {
-    let template = <ul class="ve-pagination"></ul>
+    const template = <ul class="ve-pagination"></ul>
 
-    var comps = {
-      //'total','prev','pager','next','sizer','jumper'
+    const comps = {
+      // 'total','prev','pager','next','sizer','jumper'
       total: <total></total>,
       prev: <prev></prev>,
       pager: (

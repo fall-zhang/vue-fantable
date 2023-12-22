@@ -96,9 +96,9 @@ export default {
 
     // 显示选中的信息
     showSelectInfo() {
-      var result, labels
+      let result
 
-      labels = this.selectedLabels()
+      const labels = this.selectedLabels()
       if (Array.isArray(labels) && labels.length > 0) {
         result = labels.join()
       } else {
@@ -116,6 +116,7 @@ export default {
           if (x.selected) {
             return x.label
           }
+          return ''
         })
     },
 
@@ -147,7 +148,7 @@ export default {
         width: this.width,
       },
       on: {
-        //change: this.dropdownChange,
+        // change: this.dropdownChange,
         // v-model
         input: (val) => {
           this.internalOptions = val
