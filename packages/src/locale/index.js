@@ -1,6 +1,7 @@
 import locale from '@P/ve-locale/index.js'
-import { isFunction } from '../utils/index'
-
+function isFunction(val) {
+  return typeof val === 'function'
+}
 /*
  * @createI18N
  * @desc create i18n

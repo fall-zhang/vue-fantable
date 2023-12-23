@@ -127,7 +127,7 @@ export function getParentCompByName(context, name) {
  * @param {string} name - child comp name
  */
 export function getChildCompsByName(context, name) {
-  let result = []
+  const result = []
 
   let childrens = context.$children
 
