@@ -62,7 +62,8 @@ const libConfig = defineConfig({
     // entryFileNames: 'entry-[name].js',
     dir: './libs',
     entryFileNames: `main.js`,
-    chunkFileNames: 'chunks/[name]-[hash].js',
+    // 'chunks/[name]-[hash:10].js'
+    chunkFileNames: '[name].js',
     exports: 'named',
     // plugins: [],
     manualChunks: []

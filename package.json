@@ -20,12 +20,12 @@
   ],
   "scripts": {
     "test": "echo 'no test'",
-    "lint:all": "eslint packages/**",
-    "lint:fix": "eslint packages/** --fix",
-    "build": "npm run remove && rollup --config rollup.config.js",
-    "build:locale": "node build/build-locale.js",
-    "remove": "rimraf dist && rimraf libs",
-    "build:all": "npm run build:clean && npm run build:entry && npm run build:versions && npm run build:locale && npm run build:comps && npm run build:main && npm run build:umd && npm run build:style",
+    "lint": "eslint packages/ --ext .js,.jsx",
+    "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
+    "build": "npm run build:remove && npm run build:js",
+    "build:remove": "rimraf dist && rimraf libs",
+    "build:js": "rollup --config rollup.config.js",
+    "build:css": "node build/build-locale.js",
     "prepare": "npx husky install && npm run test",
     "commit": "czg"
   },
@@ -41,7 +41,7 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.0.0",
+    "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -53,21 +53,21 @@
     "cz-git": "^1.8.0",
     "czg": "^1.8.0",
     "echarts": "^5.4.3",
-    "eslint": "^8.55.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-vue": "^9.19.2",
     "husky": "^8.0.3",
-    "lint-staged": "^15.0.0",
+    "lint-staged": "^15.2.0",
     "lodash-es": "^4.17.21",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",
     "resize-observer-polyfill": "^1.5.1",
-    "eslint-config-standard": "^17.1.0",
     "rimraf": "^5.0.5",
-    "rollup": "^4.9.0",
+    "rollup": "^4.9.1",
     "rollup-plugin-less": "^1.1.3",
     "rollup-plugin-vue": "^6.0.0",
-    "vite": "^5.0.8",
-    "vitest": "^1.0.4"
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0"
   },
   "lint-staged": {
     "*.{vue,js,ts,jsx,tsx}": [
