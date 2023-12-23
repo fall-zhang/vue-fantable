@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { later } from "../util";
-import veTable from "@/ve-table";
+import veTable from "@/ve-table/ve-table";
 
 describe("veTable column hidden", () => {
     const TABLE_DATA = [

@@ -2,20 +2,21 @@
 
 // next line only for test
 // import VeCheckbox from './ve-checkbox'
-
-import VeCheckbox from './ve-checkbox/index.js'
-import VeCheckboxGroup from './ve-checkbox-group/index.js'
-import VeContextmenu from './ve-contextmenu/index.js'
-import VeDropdown from './ve-dropdown/index.js'
-import VeIcon from './ve-icon/index.js'
-import VeLoading from './ve-loading/index.js'
-import VeLocale from './ve-locale/index.js'
-import VePagination from './ve-pagination/index.js'
-import VeRadio from './ve-radio/index.js'
-import VeSelect from './ve-select/index.js'
-import VeTable from './ve-table/index.js'
-
-const version = '2.27.1'
+import Vue from 'vue'
+import VeCheckbox from './ve-checkbox/ve-checkbox.js'
+import VeCheckboxGroup from './ve-checkbox-group/ve-checkbox-group.js'
+import VeContextmenu from './ve-contextmenu/ve-contextmenu.js'
+import VeDropdown from './ve-dropdown/ve-dropdown.js'
+import VeIcon from './ve-icon/ve-icon.js'
+import VeLoading from './ve-loading/ve-loading.js'
+import VeLocale from './ve-locale/ve-locale.js'
+import VePagination from './ve-pagination/ve-pagination.js'
+// import VeSelect from './ve-select/index.js'
+// import VeTable from './ve-table/index.js'
+const VeRadio = () => import('./ve-radio/ve-radio.js')
+const VeSelect = () => import('./ve-select/ve-select.js')
+const VeTable = () => import('./ve-table/ve-table.js')
+const version = Vue.version
 const components = [
   VeCheckbox,
   VeCheckboxGroup,

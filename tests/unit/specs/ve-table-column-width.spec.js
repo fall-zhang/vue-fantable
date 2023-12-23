@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veTable from "@/ve-table";
+import veTable from "@/ve-table/ve-table";
 
 describe("veTable clolum width", () => {
     const TABLE_DATA = [

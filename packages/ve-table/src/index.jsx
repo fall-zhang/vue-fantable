@@ -75,7 +75,7 @@ import EditInput from './editor/index.jsx'
 import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
 import VueDomResizeObserver from '../../src/comps/resize-observer/index'
-import VeContextmenu from '@P/ve-contextmenu/index.js'
+// import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index.jsx'
 
 const t = createLocale(LOCALE_COMP_NAME)

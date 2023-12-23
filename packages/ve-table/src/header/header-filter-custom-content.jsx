@@ -1,8 +1,8 @@
-import VeDropdown from '@P/ve-dropdown/index.js'
+import VeDropdown from '@P/ve-dropdown/ve-dropdown.js'
 import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 import { isFunction, isBoolean } from '../../../src/utils/index'
-import VeIcon from '@P/ve-icon/index.js'
+import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 
 export default {

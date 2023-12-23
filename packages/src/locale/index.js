@@ -1,4 +1,4 @@
-import locale from '@P/ve-locale/index.js'
+import locale from '@P/ve-locale/ve-locale.js'
 function isFunction(val) {
   return typeof val === 'function'
 }

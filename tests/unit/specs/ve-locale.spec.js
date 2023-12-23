@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veLocale from "@/ve-locale";
+import veLocale from "@P/ve-locale/ve-locale";
 import { later } from "../util";
 import zhCN from "@/src/locale/lang/zh-CN";
 import enUS from "@/src/locale/lang/en-US";

@@ -1,6 +1,6 @@
 import clickoutside from '../../src/directives/clickoutside.js'
-import VeCheckbox from '@P/ve-checkbox/index.js'
-import VeRadio from '@P/ve-radio/index.js'
+import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
+import VeRadio from '@P/ve-radio/ve-radio.js'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 import { clsName } from './util/index'
 import { isFunction, isBoolean } from '../../src/utils/index'

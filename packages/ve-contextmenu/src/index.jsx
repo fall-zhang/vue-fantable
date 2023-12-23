@@ -1,5 +1,5 @@
 import { clsName } from './util/index'
-import VeIcon from '../../ve-icon/index'
+import VeIcon from '../../ve-icon/ve-icon'
 import { ICON_NAMES } from '../../src/utils/constant'
 import { getMousePosition, getViewportOffset } from '../../src/utils/dom'
 import {

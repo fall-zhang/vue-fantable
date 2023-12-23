@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veLoading from "@/ve-loading";
+import veLoading from "@/ve-loading/ve-loading";
 import { later } from "../util";
 
 describe("veLoading", () => {

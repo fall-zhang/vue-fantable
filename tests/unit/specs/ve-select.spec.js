@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veSelect from "@/ve-select";
+import veSelect from "@P/ve-select/ve-select";
 import { later } from "../util";
 
 describe("veSelect", () => {

@@ -1,6 +1,6 @@
 import Pager from './pager.jsx'
-import VeSelect from '@P/ve-select/index.js'
-import VeIcon from '@P/ve-icon/index.js'
+import VeSelect from '@P/ve-select/ve-select.js'
+import VeIcon from '@P/ve-icon/ve-icon.js'
 import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { createLocale } from '../../src/utils/index'

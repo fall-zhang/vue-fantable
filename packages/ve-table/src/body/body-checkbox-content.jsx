@@ -1,4 +1,4 @@
-import VeCheckbox from '@P/ve-checkbox/index.js'
+import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'

@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
-import veTable from "@/ve-table";
-import veIcon from "@/ve-table";
+import veTable from "@/ve-table/ve-table";
+import veIcon from "@/ve-table/ve-table";
 import { later } from "../util";
 
 describe("veTable header filter", () => {

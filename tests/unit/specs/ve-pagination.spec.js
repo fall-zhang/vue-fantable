@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import vePagination from "@/ve-pagination";
+import vePagination from "@/ve-pagination/ve-pagination";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
 

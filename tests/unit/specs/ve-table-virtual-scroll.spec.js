@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veTable from "@/ve-table";
+import veTable from "@/ve-table/ve-table";
 import { later, mockScrollTo } from "../util";
 import bodyTrScrolling from "@/ve-table/src/body/body-tr-scrolling.jsx";
 

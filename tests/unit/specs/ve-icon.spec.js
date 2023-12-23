@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import veIcon from "@/ve-icon";
+import veIcon from "@P/ve-icon/ve-icon";
 import { later } from "../util";
 
 describe("veIcon", () => {

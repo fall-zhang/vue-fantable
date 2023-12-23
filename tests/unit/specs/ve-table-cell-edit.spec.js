@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { cloneDeep } from "lodash-es";
-import veTable from "@/ve-table";
+import veTable from "@/ve-table/ve-table";
 import CellEditor from "@/ve-table/src/editor/index.jsx";
 import { later } from "../util";
 import { KEY_CODES } from "../constant";
