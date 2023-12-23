@@ -101,7 +101,7 @@ export default {
         EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
         {
           rowIndex: this.rowIndex,
-          height: height,
+          height,
         },
       )
     },

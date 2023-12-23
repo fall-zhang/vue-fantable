@@ -95,7 +95,7 @@ export default {
         EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
         {
           rowIndex: this.rowIndex,
-          height: height,
+          height,
         },
       )
     },

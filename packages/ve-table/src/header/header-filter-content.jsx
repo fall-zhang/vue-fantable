@@ -66,11 +66,11 @@ export default {
       props: {
         value: filterList,
         showOperation: true,
-        isMultiple: isMultiple,
+        isMultiple,
         showRadio: true, // when single selection
         confirmFilterText: t('confirmFilter'),
         resetFilterText: t('resetFilter'),
-        beforeVisibleChange: beforeVisibleChange,
+        beforeVisibleChange,
       },
       on: {
         [EMIT_EVENTS.HEADER_FILTER_CONFIRM]: this.filterConfirm,

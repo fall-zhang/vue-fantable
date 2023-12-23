@@ -188,7 +188,7 @@ export default {
          * @param {string} fixed - 固定方式
          */
     getTheadThClass({ fixed }) {
-      let result = {
+      const result = {
         [clsName('header-th')]: true,
         [clsName('fixed-left')]: fixed === 'left',
         [clsName('fixed-right')]: fixed === 'right',
@@ -229,7 +229,7 @@ export default {
 
           let showIndicator = false
           if (!isGroupHeader) {
-            if (indicatorColKeys.indexOf(column['key']) > -1) {
+            if (indicatorColKeys.indexOf(column.key) > -1) {
               showIndicator = true
             }
           } else {
@@ -274,7 +274,7 @@ export default {
          * @param {number} rowIndex - 当前行号
          */
     getTheadThStyle({ _keys, align, fixed }, rowIndex) {
-      let result = {}
+      const result = {}
 
       const colgroups = this.colgroups
       const headerRows = this.headerRows
@@ -312,8 +312,8 @@ export default {
             totalWidth = getValByUnit(totalWidth)
           }
         }
-        result['left'] = fixed === 'left' ? totalWidth : ''
-        result['right'] = fixed === 'right' ? totalWidth : ''
+        result.left = fixed === 'left' ? totalWidth : ''
+        result.right = fixed === 'right' ? totalWidth : ''
       }
 
       // header row th fixed top
@@ -331,7 +331,7 @@ export default {
         }
         rowHeight = getValByUnit(rowHeight)
 
-        result['top'] = rowHeight
+        result.top = rowHeight
       }
 
       return result

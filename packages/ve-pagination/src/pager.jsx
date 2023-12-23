@@ -36,7 +36,7 @@ export default {
 
     showJumpNext() {
       if (this.pageCount > this.pagingCount + 2) {
-        //if (this.pageIndex < this.pageCount - this.numOffset) {
+        // if (this.pageIndex < this.pageCount - this.numOffset) {
         if (this.pageIndex <= this.pageCount - this.pagingCount) {
           return true
         }
@@ -46,10 +46,10 @@ export default {
 
     // 当前要显示的数字按钮集合
     pagingCounts() {
-      let startNum,
-        result = [],
-        showJumpPrev = this.showJumpPrev,
-        showJumpNext = this.showJumpNext
+      let startNum
+      const result = []
+      const showJumpPrev = this.showJumpPrev
+      const showJumpNext = this.showJumpNext
 
       if (showJumpPrev && !showJumpNext) {
         startNum = this.pageCount - this.pagingCount

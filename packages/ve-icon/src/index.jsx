@@ -26,7 +26,7 @@ export default {
     iconStyle() {
       const { color, size } = this
 
-      let result = {
+      const result = {
         color,
         'font-size': getValByUnit(size),
       }

@@ -10,11 +10,11 @@ const trim = function (string) {
 // add class
 export function addClass(el, cls) {
   if (!el) return
-  var curClass = el.className
-  var classes = (cls || '').split(' ')
+  let curClass = el.className
+  const classes = (cls || '').split(' ')
 
-  for (var i = 0, j = classes.length; i < j; i++) {
-    var clsName = classes[i]
+  for (let i = 0, j = classes.length; i < j; i++) {
+    const clsName = classes[i]
     if (!clsName) continue
 
     if (el.classList) {
@@ -31,11 +31,11 @@ export function addClass(el, cls) {
 // remove class
 export function removeClass(el, cls) {
   if (!el || !cls) return
-  var classes = cls.split(' ')
-  var curClass = ' ' + el.className + ' '
+  const classes = cls.split(' ')
+  let curClass = ' ' + el.className + ' '
 
-  for (var i = 0, j = classes.length; i < j; i++) {
-    var clsName = classes[i]
+  for (let i = 0, j = classes.length; i < j; i++) {
+    const clsName = classes[i]
     if (!clsName) continue
 
     if (el.classList) {
@@ -52,8 +52,7 @@ export function removeClass(el, cls) {
 // has class
 export function hasClass(el, cls) {
   if (!el || !cls) return false
-  if (cls.indexOf(' ') !== -1)
-    throw new Error('className should not contain space.')
+  if (cls.indexOf(' ') !== -1) { throw new Error('className should not contain space.') }
   if (el.classList) {
     return el.classList.contains(cls)
   } else {
@@ -61,7 +60,7 @@ export function hasClass(el, cls) {
   }
 }
 
-/*获取当前元素的偏移（相对于整个document）
+/* 获取当前元素的偏移（相对于整个document）
  *   offsetTop：元素最顶端距离文档顶端的距离，包含滚动条
  *   offsetleft：元素最左侧距离文档左侧的距离，包含滚动条
  *   left：元素最左侧距离文档左侧的距离，不包含滚动条
@@ -72,20 +71,20 @@ export function hasClass(el, cls) {
  *   bottom2：元素最底端距离文档最底部的距离，不包含滚动条
  * */
 export function getViewportOffset(triggerEl) {
-  var doc = document.documentElement,
-    box =
+  const doc = document.documentElement
+  const box =
             typeof triggerEl.getBoundingClientRect !== 'undefined'
               ? triggerEl.getBoundingClientRect()
-              : 0,
-    scrollLeft =
-            (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0),
-    scrollTop =
-            (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0),
-    offsetLeft = box.left + window.pageXOffset,
-    offsetTop = box.top + window.pageYOffset
+              : 0
+  const scrollLeft =
+            (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0)
+  const scrollTop =
+            (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
+  const offsetLeft = box.left + window.pageXOffset
+  const offsetTop = box.top + window.pageYOffset
 
-  var left = offsetLeft - scrollLeft,
-    top = offsetTop - scrollTop
+  const left = offsetLeft - scrollLeft
+  const top = offsetTop - scrollTop
 
   return {
     offsetTop,
@@ -99,7 +98,7 @@ export function getViewportOffset(triggerEl) {
   }
 }
 
-/*获取当前元素的偏移(相对于外层容器)
+/* 获取当前元素的偏移(相对于外层容器)
  *   offsetTop：元素最顶端距离文档顶端的距离，包含滚动条
  *   offsetleft：元素最左侧距离文档左侧的距离，包含滚动条
  *   left：元素最左侧距离文档左侧的距离，不包含滚动条
@@ -144,20 +143,20 @@ export function getViewportOffsetWithinContainer(triggerEl, containerEl) {
   }
 }
 
-/*获取鼠标相对于文档的坐标
+/* 获取鼠标相对于文档的坐标
  *   left：鼠标点击位置距离文档左侧的距离，包含滚动条
  *   top: 鼠标点击位置距离文档顶端的距离，包含滚动条
  *   right:鼠标点击位置距离文档右侧的距离，不包含滚动条
  *   bottom：鼠标点击位置距离文档底端的距离，不包含滚动条
  * */
 export function getMousePosition(event) {
-  var x = 0,
-    y = 0,
-    doc = document.documentElement,
-    body = document.body
+  let x = 0
+  let y = 0
+  const doc = document.documentElement
+  const body = document.body
   if (!event) event = window.event
   if (window.pageYoffset) {
-    //pageYoffset是Netscape特有
+    // pageYoffset是Netscape特有
     x = window.pageXOffset
     y = window.pageYOffset
   } else {
@@ -171,8 +170,8 @@ export function getMousePosition(event) {
   x += event.clientX
   y += event.clientY
 
-  let right = doc.clientWidth - event.clientX
-  let bottom = doc.clientHeight - event.clientY
+  const right = doc.clientWidth - event.clientX
+  const bottom = doc.clientHeight - event.clientY
 
   return { left: x, top: y, right, bottom }
 }

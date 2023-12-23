@@ -259,7 +259,7 @@ export default {
         if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
           if (currentRowKey === rowKey) {
             // cell selection
-            if (column['key'] === colKey) {
+            if (column.key === colKey) {
               result[clsName('cell-selection')] = true
             }
           }
@@ -305,14 +305,14 @@ export default {
 
     // get ellipsis content style
     getEllipsisContentStyle() {
-      let result = {}
+      const result = {}
 
       const { ellipsis } = this.column
 
       if (ellipsis) {
         const { lineClamp } = ellipsis
 
-        let _lineClamp = isNumber(lineClamp) ? lineClamp : 1
+        const _lineClamp = isNumber(lineClamp) ? lineClamp : 1
         result['-webkit-line-clamp'] = _lineClamp
       }
 
@@ -452,9 +452,8 @@ export default {
             e.stopPropagation()
             this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
           }
-        }
-        // expand row by click cell(td)
-        else if (trigger === EXPAND_TRIGGER_TYPES.CELL) {
+        } else if (trigger === EXPAND_TRIGGER_TYPES.CELL) {
+          // expand row by click cell(td)
           e.stopPropagation()
           this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
         }

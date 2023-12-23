@@ -175,15 +175,15 @@ export default {
         2、class of each column
         */
     columnCollection() {
-      let columnCollection = []
+      const columnCollection = []
 
       const { colgroups } = this
 
       colgroups.forEach((col) => {
         const colKey = col.key
 
-        let columnCollectionItem = {
-          colKey: colKey,
+        const columnCollectionItem = {
+          colKey,
           class: {
             [clsName('last-left-fixed-column')]:
                             this.isLastLeftFixedColumn(col),
@@ -217,9 +217,9 @@ export default {
             totalWidth = getValByUnit(totalWidth)
           }
 
-          columnCollectionItem.style['left'] =
+          columnCollectionItem.style.left =
                         fixed === 'left' ? totalWidth : ''
-          columnCollectionItem.style['right'] =
+          columnCollectionItem.style.right =
                         fixed === 'right' ? totalWidth : ''
         }
 
@@ -251,7 +251,7 @@ export default {
 
     // disable row selected row keys
     disableCheckboxSelectedRowKeys() {
-      let result = []
+      const result = []
 
       const { checkboxOption, internalCheckboxSelectedRowKeys } = this
 
@@ -277,7 +277,7 @@ export default {
 
     // disable row unselected row keys
     disableCheckboxUnselectedRowKeys() {
-      let result = []
+      const result = []
 
       const { checkboxOption, internalCheckboxSelectedRowKeys } = this
 
@@ -693,7 +693,7 @@ export default {
       } = this
       const { selectedRowChange, selectedRowKeys } = checkboxOption
 
-      let internalCheckboxSelectedRowKeysTemp =
+      const internalCheckboxSelectedRowKeysTemp =
                 internalCheckboxSelectedRowKeys.slice(0)
 
       // will selected
@@ -745,10 +745,10 @@ export default {
       // selected all
       if (isSelected) {
         // except disable Row Unselected keys
-        let allSelectedKeys = allRowKeys.slice(0)
+        const allSelectedKeys = allRowKeys.slice(0)
         if (disableCheckboxUnselectedRowKeys.length > 0) {
           disableCheckboxUnselectedRowKeys.forEach((rowkey) => {
-            let index = allSelectedKeys.indexOf(rowkey)
+            const index = allSelectedKeys.indexOf(rowkey)
             if (index > -1) {
               allSelectedKeys.splice(index, 1)
             }
@@ -772,7 +772,7 @@ export default {
                 selectedAllChange({
                   isSelected,
                   selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
-                  //changeRowKeys:
+                  // changeRowKeys:
                 })
     },
 

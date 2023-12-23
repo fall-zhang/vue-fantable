@@ -91,7 +91,7 @@ function Loading(options = {}) {
     options.fullscreen = true
   }
 
-  let loadingInstance = createInstance(options)
+  const loadingInstance = createInstance(options)
 
   // set parent
   options.parent__ = options.fullscreen ? document.body : options.target

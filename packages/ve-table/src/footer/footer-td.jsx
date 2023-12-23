@@ -121,7 +121,7 @@ export default {
          * @param {string} fixed - 固定方式
          */
     getBodyTdClass({ fixed }) {
-      let result = {
+      const result = {
         [clsName('footer-td')]: true,
       }
 
@@ -163,7 +163,7 @@ export default {
         const { rowKey, colKey } = cellSelectionData.currentCell
         if (
           rowData[rowKeyFieldName] === rowKey &&
-                    column['key'] === colKey
+                    column.key === colKey
         ) {
           result[clsName('cell-selection')] = true
         }
@@ -180,7 +180,7 @@ export default {
          * @param {bool} fixed - 固定方式
          */
     getBodyTdStyle({ key, align, fixed }) {
-      let result = {}
+      const result = {}
 
       const { colgroups, rowIndex, footerRows } = this
 
@@ -205,8 +205,8 @@ export default {
           totalWidth = getValByUnit(totalWidth)
         }
 
-        result['left'] = fixed === 'left' ? totalWidth : ''
-        result['right'] = fixed === 'right' ? totalWidth : ''
+        result.left = fixed === 'left' ? totalWidth : ''
+        result.right = fixed === 'right' ? totalWidth : ''
       }
 
       // footer rows th fixed bottom
@@ -224,7 +224,7 @@ export default {
         }
         rowHeight = getValByUnit(rowHeight)
 
-        result['bottom'] = rowHeight
+        result.bottom = rowHeight
       }
 
       return result

@@ -11,7 +11,7 @@ export default {
       console.error(msg)
     }
 
-    var handler = (e) => {
+    const handler = (e) => {
       if (!el.contains(e.target) && el !== e.target) {
         binding.value(e)
       } else {

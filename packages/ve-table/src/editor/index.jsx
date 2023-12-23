@@ -11,7 +11,7 @@ import { debounce } from '@U/index.js'
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
   directives: {
-    focus: focus,
+    focus,
   },
   mixins: [emitter],
   props: {
@@ -356,7 +356,7 @@ export default {
             maxWidth -= scrollBarWidth
           }
 
-          /* 
+          /*
                     If the right fixed column is included, the max width of the textarea needs to be subtracted from the sum of the right fixed columns
                     如果包含右固定列，编辑框最大宽度需要去减去右固定列之和的宽度
                     */
@@ -378,9 +378,9 @@ export default {
             this.$refs[this.textareaInputRef],
             {
               minHeight: Math.min(cellHeight, maxHeight),
-              maxHeight: maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
+              maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
               minWidth: Math.min(cellWidth, maxWidth),
-              maxWidth: maxWidth, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
+              maxWidth, // TEXTAREA should never be wider than visible part of the viewport (should not cover the scrollbar)
             },
             true, // observe textarea change\cut\paste etc.
           )

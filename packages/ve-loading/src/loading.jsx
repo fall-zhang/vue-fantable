@@ -1,4 +1,4 @@
-/* thanks for  https://github.com/tobiasahlin/SpinKit*/
+/* thanks for  https://github.com/tobiasahlin/SpinKit */
 
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
@@ -55,7 +55,7 @@ export default {
           <div class={clsName('spin')}>
             <this.name {...spinProps}></this.name>
           </div>
-          <div style={{ color: color }} class={clsName('spin-tip')}>
+          <div style={{ color }} class={clsName('spin-tip')}>
             {this.tip}
           </div>
         </div>

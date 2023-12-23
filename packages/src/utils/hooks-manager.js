@@ -1,4 +1,4 @@
-/* 
+/*
 hook system
 
 */
@@ -7,7 +7,7 @@ export default class Hooks {
     // ...
 
     this.hooks = {
-      /* 
+      /*
             table-scroll1:[
                 function(){},
                 function(){}
@@ -16,7 +16,7 @@ export default class Hooks {
                 function(){},
                 function(){}
             ]
-            
+
             */
     }
   }

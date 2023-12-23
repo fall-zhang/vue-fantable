@@ -318,9 +318,9 @@ export default {
       // groupColumns
       groupColumns: [],
       /*
-            存储当前隐藏列信息
-            hidden columns
-            */
+        存储当前隐藏列信息
+        hidden columns
+        */
       hiddenColumns: [],
       /*
             // virtual scroll positions（非响应式）

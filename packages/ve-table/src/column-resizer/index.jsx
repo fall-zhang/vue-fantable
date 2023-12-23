@@ -274,7 +274,7 @@ export default {
     const columnResizerHandlerProps = {
       class: {
         [clsName('column-resizer-handler')]: true,
-        ['active']: isColumnResizerHover || isColumnResizing,
+        active: isColumnResizerHover || isColumnResizing,
       },
       style: {
         left: left - columnResizerHandlerWidth + 'px',

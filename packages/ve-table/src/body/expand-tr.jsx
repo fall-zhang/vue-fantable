@@ -66,9 +66,8 @@ export default {
       // defalut expand all rows
       if (expandOption.defaultExpandAllRows) {
         result = true
-      }
-      // defaultExpandedRowKeys includes currentRowKey
-      else if (expandedRowkeys.includes(currentRowKey)) {
+      } else if (expandedRowkeys.includes(currentRowKey)) {
+        // defaultExpandedRowKeys includes currentRowKey
         result = true
       }
 
@@ -76,7 +75,7 @@ export default {
     },
     // expand row class
     expanRowClass() {
-      let result = {
+      const result = {
         [clsName('expand-tr')]: true,
       }
       return result
@@ -89,14 +88,14 @@ export default {
 
     // expand td content style
     expandTdContentStyle() {
-      let result = {}
+      const result = {}
 
       const { hasLeftFixedColumn, tableViewportWidth } = this
 
       if (hasLeftFixedColumn) {
         // table width
         if (tableViewportWidth) {
-          result['width'] = tableViewportWidth + 'px'
+          result.width = tableViewportWidth + 'px'
         }
       }
 
@@ -107,7 +106,7 @@ export default {
     // get expande row content
     getExpandRowContent(h) {
       const { expandOption } = this
-      let result =
+      const result =
                 expandOption.render &&
                 expandOption.render(
                   {
@@ -127,7 +126,7 @@ export default {
     let result = null
 
     if (isRowExpanded) {
-      let content = getExpandRowContent(h)
+      const content = getExpandRowContent(h)
       result = (
         <tr class={this.expanRowClass}>
           <td class={clsName('expand-td')} colSpan={columnCount}>

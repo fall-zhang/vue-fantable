@@ -23,7 +23,7 @@ export default {
     spinStyle() {
       const { color, width, height } = this
 
-      let result = {
+      const result = {
         width: getValByUnit(width),
         height: getValByUnit(height),
         'background-color': color,

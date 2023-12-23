@@ -80,7 +80,7 @@ export default {
     getLabelContent() {
       const { label, $slots } = this
 
-      return label ? label : $slots.default
+      return label || $slots.default
     },
 
     initModel() {

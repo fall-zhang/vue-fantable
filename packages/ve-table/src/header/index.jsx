@@ -141,7 +141,7 @@ export default {
     // init sort columns
     initSortColumns() {
       const { colgroups } = this
-      let sortColumns = {}
+      const sortColumns = {}
       colgroups.forEach((item) => {
         if (typeof item.sortBy === 'string') {
           sortColumns[item.field] = item.sortBy

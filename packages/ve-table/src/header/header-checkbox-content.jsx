@@ -55,7 +55,7 @@ export default {
       class: clsName('checkbox-wrapper'),
       props: {
         isControlled: true,
-        isSelected: isSelected,
+        isSelected,
         indeterminate: isIndeterminate,
       },
       on: {

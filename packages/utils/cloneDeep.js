@@ -1,7 +1,7 @@
 /**
  * This method is like `clone` except that it recursively clones `value`.
  * Object inheritance is preserved.
- * 
+ *
  * @since 1.0.0
  * @category Lang
  * @param {*} value The value to recursively clone.

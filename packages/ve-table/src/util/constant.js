@@ -136,12 +136,12 @@ export const EMIT_EVENTS = {
 
 // hooks name
 export const HOOKS_NAME = {
-  //table container scroll
+  // table container scroll
   TABLE_CONTAINER_SCROLL: 'table-container-scroll',
   // table-container-mouseup
   TABLE_CONTAINER_MOUSEUP: 'table-container-mouseup',
   // table-container-mousemove
-  //TABLE_CONTAINER_MOUSEMOVE: "table-container-mousemove",
+  // TABLE_CONTAINER_MOUSEMOVE: "table-container-mousemove",
   // table size change
   TABLE_SIZE_CHANGE: 'table-size-change',
   // table td width change
@@ -152,7 +152,7 @@ export const HOOKS_NAME = {
     */
   CLIPBOARD_CELL_VALUE_CHANGE: 'clipboard-cell-value-change',
   // header cell mousedown
-  //HEADER_CELL_MOUSEDOWN: "header-cell-mousedown",
+  // HEADER_CELL_MOUSEDOWN: "header-cell-mousedown",
   // header cell mousemove
   HEADER_CELL_MOUSEMOVE: 'header-cell-mousemove',
   // body cell mousemove
@@ -241,7 +241,7 @@ export const CONTEXTMENU_NODE_TYPES = {
   // copy
   COPY: 'COPY',
   // paste todo
-  //PASTE: "PASTE",
+  // PASTE: "PASTE",
   // insert row above
   INSERT_ROW_ABOVE: 'INSERT_ROW_ABOVE',
   // insert row below
@@ -251,11 +251,11 @@ export const CONTEXTMENU_NODE_TYPES = {
   // empty row
   EMPTY_ROW: 'EMPTY_ROW',
   // remove column
-  //REMOVE_COLUMN: "REMOVE_COLUMN",
+  // REMOVE_COLUMN: "REMOVE_COLUMN",
   // empty column
   EMPTY_COLUMN: 'EMPTY_COLUMN',
   // hide column
-  //HIDE_COLUMN: "HIDE_COLUMN",
+  // HIDE_COLUMN: "HIDE_COLUMN",
   // empty cell
   EMPTY_CELL: 'EMPTY_CELL',
   // left fixed column to

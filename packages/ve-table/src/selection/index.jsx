@@ -490,7 +490,7 @@ export default {
       const {
         left: cellLeft,
         top: cellTop,
-        //height: cellHeight,
+        // height: cellHeight,
         width: cellWidth,
       } = cellEl.getBoundingClientRect()
 
@@ -580,7 +580,7 @@ export default {
         }
 
         let mackUpRect
-        /* 
+        /*
                 当没有 currentCellRect 或 normalCellRect 时 进行纠正，否则只更新top值
                 */
         if (
@@ -589,7 +589,7 @@ export default {
                     (isNormalEndCellOverflow &&
                         !this.cellSelectionRect.normalEndCellRect.height)
         ) {
-          let mackUpRectParams = {
+          const mackUpRectParams = {
             tableLeft,
             tableTop,
             colKey: mackUpColKey,
@@ -600,25 +600,22 @@ export default {
               ...mackUpRectParams,
               isFirstRow: true,
             })
-          }
-          // 下方超出
-          else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+          } else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+            // 下方超出
             mackUpRect = this.getCellPositionByColKey({
               ...mackUpRectParams,
               isLastRow: true,
             })
           }
-        }
-        // 仅更新 top 值
-        else {
+        } else {
+          // 仅更新 top 值
           // 上方超出
           if (mackUpRowIndex < virtualScrollVisibleIndexs.start) {
             mackUpRect = {
               top: 0,
             }
-          }
-          // 下方超出
-          else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+          } else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
+            // 下方超出
             mackUpRect = {
               top: tableEl.clientHeight,
             }
@@ -657,7 +654,7 @@ export default {
         2、auto fill area
         */
     getSelectionCurrent({ fixedType }) {
-      let result = {
+      const result = {
         selectionCurrent: null,
         autoFillArea: null,
       }
@@ -746,7 +743,7 @@ export default {
         2、auto fill area
         */
     getSelectionAreas({ fixedType }) {
-      let result = {
+      const result = {
         normalArea: null,
         autoFillArea: null,
       }
@@ -819,9 +816,8 @@ export default {
         borders.leftBorder.left = currentCellRect.left - 1
         borders.rightBorder.left =
                     normalEndCellRect.left + normalEndCellRect.width - 1
-      }
-      // end cell column key left or equal
-      else if (leftmostColKey === normalEndCell.colKey) {
+      } else if (leftmostColKey === normalEndCell.colKey) {
+        // end cell column key left or equal
         borders.borderWidth =
                     currentCellRect.left -
                     normalEndCellRect.left +
@@ -847,9 +843,8 @@ export default {
         borders.bottomBorder.top =
                     normalEndCellRect.top + normalEndCellRect.height - 1
         borders.leftBorder.top = currentCellRect.top
-      }
-      // end cell above or equal
-      else if (normalEndCellRect.top <= currentCellRect.top) {
+      } else if (normalEndCellRect.top <= currentCellRect.top) {
+        // end cell above or equal
         borders.borderHeight =
                     currentCellRect.top -
                     normalEndCellRect.top +
@@ -1033,9 +1028,8 @@ export default {
         borders.bottomBorder.top =
                     autoFillEndCellRect.top + autoFillEndCellRect.height - 1
         borders.bottomBorder.left = areaPostions.bottomBorder.left
-      }
-      // end cell above
-      else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
+      } else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
+        // end cell above
         autofillingDirection = AUTOFILLING_DIRECTION.UP
 
         rangeColKey1 = leftColKey
@@ -1061,12 +1055,11 @@ export default {
 
         borders.leftBorder.top = autoFillEndCellRect.top
         borders.leftBorder.left = areaPostions.leftBorder.left
-      }
-      // auto fill end cell right
-      else if (
+      } else if (
         rightmostColKey === autoFillEndCell.colKey &&
                 !isEmptyValue(rightmostColKey)
       ) {
+        // auto fill end cell right
         autofillingDirection = AUTOFILLING_DIRECTION.RIGHT
 
         rangeColKey1 = getNextColKey({
@@ -1093,12 +1086,11 @@ export default {
 
         borders.bottomBorder.top = areaPostions.bottomBorder.top
         borders.bottomBorder.left = areaPostions.rightBorder.left - 1
-      }
-      // auto fill end cell left
-      else if (
+      } else if (
         leftmostColKey === autoFillEndCell.colKey &&
                 !isEmptyValue(leftmostColKey)
       ) {
+        // auto fill end cell left
         autofillingDirection = AUTOFILLING_DIRECTION.LEFT
 
         rangeColKey1 = getPreviewColKey({
@@ -1152,7 +1144,7 @@ export default {
         colgroups,
       })
 
-      let fixedColKeys = getColKeysByFixedTypeWithinColKeys({
+      const fixedColKeys = getColKeysByFixedTypeWithinColKeys({
         colKeys: totalColKeys,
         fixedType,
         colgroups,
@@ -1208,9 +1200,7 @@ export default {
           colKeys: totalColKeys,
           colgroups,
         })
-      }
-      // middle normal area
-      else {
+      } else { // middle normal area
         isRender = isExistNotFixedColKey({
           colKeys: totalColKeys,
           colgroups,
@@ -1386,9 +1376,8 @@ export default {
           colKeys: totalColKeys,
           colgroups,
         })
-      }
-      // middle normal area
-      else {
+      } else {
+        // middle normal area
         isRender = isExistNotFixedColKey({
           colKeys: totalColKeys,
           colgroups,
@@ -1428,7 +1417,7 @@ export default {
       )
     },
 
-    /* 
+    /*
         get table first row cell by col key
         用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
         */
@@ -1445,7 +1434,7 @@ export default {
       return result
     },
 
-    /* 
+    /*
         get table last row cell by col key
         用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
         */

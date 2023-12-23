@@ -100,7 +100,7 @@ export function getDomResizeObserverCompKey(
 ) {
   let result = originalKey
 
-  if (result || result == 0) {
+  if (result || result === 0) {
     result = originalKey + '@' + columnsOptionResetTime
   }
 
@@ -138,7 +138,7 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     // 只计算左列固定的
     result = colgroups.reduce((total, currentVal, index) => {
       return index < currentIndex &&
-                currentVal.fixed == COLUMN_FIXED_TYPE.LEFT
+                currentVal.fixed === COLUMN_FIXED_TYPE.LEFT
         ? currentVal._realTimeWidth + total
         : total
     }, 0)
@@ -146,7 +146,7 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     // 只计算右列固定的
     result = colgroups.reduce((total, currentVal, index) => {
       return index > currentIndex &&
-                currentVal.fixed == COLUMN_FIXED_TYPE.RIGHT
+                currentVal.fixed === COLUMN_FIXED_TYPE.RIGHT
         ? currentVal._realTimeWidth + total
         : total
     }, 0)
@@ -194,7 +194,7 @@ export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
  * @return {number} width
  */
 export function getTotalWidthByColKeys({ colKeys, colgroups }) {
-  let result = colgroups.reduce((total, currentVal, index) => {
+  const result = colgroups.reduce((total, currentVal, index) => {
     return colKeys.indexOf(currentVal.key) > -1
       ? currentVal._realTimeWidth + total
       : total
@@ -214,8 +214,8 @@ export function getTotalWidthByColKeys({ colKeys, colgroups }) {
 }
  */
 export function initGroupColumns(cloneColumns) {
-  let colgroups = []
-  let groupColumns = []
+  const colgroups = []
+  const groupColumns = []
 
   // set column level
   let maxLevel = 1
@@ -420,14 +420,14 @@ export function setHeaderContextmenuOptions({
   enableHeaderContextmenu,
   t,
 }) {
-  let result = []
+  const result = []
 
   if (enableHeaderContextmenu) {
-    let selectionRangeKeys = getSelectionRangeKeys({
+    const selectionRangeKeys = getSelectionRangeKeys({
       cellSelectionRangeData,
     })
 
-    let selectionRangeIndexes = getSelectionRangeIndexes({
+    const selectionRangeIndexes = getSelectionRangeIndexes({
       cellSelectionRangeData,
       colgroups,
       allRowKeys,
@@ -490,9 +490,7 @@ export function setHeaderContextmenuOptions({
           } else {
             isContinue = false
           }
-        }
-        // left fixed column to
-        else if (
+        } else if (// left fixed column to
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO
         ) {
@@ -500,18 +498,14 @@ export function setHeaderContextmenuOptions({
           if (isOperationCol) {
             contentmenuCollectionItem.disabled = true
           }
-        }
-        // calcel left fixed column to
-        else if (
+        } else if (// calcel left fixed column to
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO
         ) {
           if (leftFixedColKeys.length < 1) {
             contentmenuCollectionItem.disabled = true
           }
-        }
-        // right fixed column to
-        else if (
+        } else if (// right fixed column to
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO
         ) {
@@ -519,9 +513,7 @@ export function setHeaderContextmenuOptions({
           if (isOperationCol) {
             contentmenuCollectionItem.disabled = true
           }
-        }
-        // calcel right fixed column to
-        else if (
+        } else if (// calcel right fixed column to
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO
         ) {
@@ -563,13 +555,13 @@ export function setBodyContextmenuOptions({
   bodyIndicatorRowKeys,
   t,
 }) {
-  let result = []
+  const result = []
   if (enableBodyContextmenu) {
-    let selectionRangeKeys = getSelectionRangeKeys({
+    const selectionRangeKeys = getSelectionRangeKeys({
       cellSelectionRangeData,
     })
 
-    let selectionRangeIndexes = getSelectionRangeIndexes({
+    const selectionRangeIndexes = getSelectionRangeIndexes({
       cellSelectionRangeData,
       colgroups,
       allRowKeys,
@@ -615,9 +607,7 @@ export function setBodyContextmenuOptions({
         ) {
           contentmenuCollectionItem.label =
                         contentmenuCollectionItem.label.replace('$1', rowCount)
-        }
-        // empty row. 选中整行时支持
-        else if (
+        } else if (// empty row. 选中整行时支持
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.EMPTY_ROW
         ) {
@@ -630,16 +620,12 @@ export function setBodyContextmenuOptions({
           } else {
             isContinue = false
           }
-        }
-        // empty cell.没选中整行时支持
-        else if (
+        } else if (// empty cell.没选中整行时支持
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.EMPTY_CELL
         ) {
           isContinue = !isWholeRowSelection
-        }
-        // remove column.没选中整行时支持
-        else if (
+        } else if (// remove column.没选中整行时支持
           contentmenuCollectionItem.type ===
                     CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN
         ) {
@@ -667,7 +653,7 @@ export function setBodyContextmenuOptions({
 
 // create empty row data
 export function createEmptyRowData({ colgroups, rowKeyFieldName }) {
-  let rowData = {
+  const rowData = {
     [rowKeyFieldName]: getRandomId(),
   }
 
@@ -972,7 +958,7 @@ export function getSelectionRangeData({
     result = tableData
       .slice(startRowIndex, endRowIndex + 1)
       .map((rowData) => {
-        let newRow = {}
+        const newRow = {}
 
         fieldNames.forEach((fieldName) => {
           newRow[fieldName] = rowData[fieldName] ?? ''
@@ -984,7 +970,7 @@ export function getSelectionRangeData({
     result = tableData
       .slice(startRowIndex, endRowIndex + 1)
       .map((rowData) => {
-        let newRow = []
+        const newRow = []
 
         fieldNames.forEach((fieldName) => {
           newRow.push(rowData[fieldName] ?? '')
@@ -1061,21 +1047,21 @@ function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
       if (isEmptyValue(mostObj.colKey)) {
         mostObj = {
           colKey,
-          colIndex: colIndex,
+          colIndex,
         }
       } else {
         if (type === 'leftmost') {
           if (colIndex < mostObj.colIndex) {
             mostObj = {
               colKey,
-              colIndex: colIndex,
+              colIndex,
             }
           }
         } else if (type === 'rightmost') {
           if (colIndex > mostObj.colIndex) {
             mostObj = {
               colKey,
-              colIndex: colIndex,
+              colIndex,
             }
           }
         }
@@ -1190,14 +1176,14 @@ export function cellAutofill({
         cellSelectionRangeData
 
   // source selection range
-  let sourceSelectionRangeIndexes = {
+  const sourceSelectionRangeIndexes = {
     startRowIndex: -1,
     endRowIndex: -1,
     startColIndex: -1,
     endColIndex: -1,
   }
   // target selection range
-  let targetSelectionRangeIndexes = {
+  const targetSelectionRangeIndexes = {
     startRowIndex: -1,
     endRowIndex: -1,
     startColIndex: -1,
@@ -1399,7 +1385,7 @@ export function cellAutofill({
     }
   }
 
-  let response = {
+  const response = {
     direction,
     sourceSelectionRangeIndexes,
     targetSelectionRangeIndexes,
@@ -1419,7 +1405,7 @@ export function cellAutofill({
       sourceSelectionRangeIndexes.endRowIndex + 1,
     )
     .map((rowData) => {
-      let newData = {
+      const newData = {
         [rowKeyFieldName]: rowData[rowKeyFieldName],
       }
       sourceFieldNames.forEach((fieldName) => {
@@ -1440,7 +1426,7 @@ export function cellAutofill({
       targetSelectionRangeIndexes.endRowIndex + 1,
     )
     .map((rowData) => {
-      let newData = {
+      const newData = {
         [rowKeyFieldName]: rowData[rowKeyFieldName],
       }
       targetFieldNames.forEach((fieldName) => {
@@ -1492,6 +1478,7 @@ export function setColumnFixed({
       if (colKeys.indexOf(colKey) > -1) {
         return true
       }
+      return null
     }
   })
 

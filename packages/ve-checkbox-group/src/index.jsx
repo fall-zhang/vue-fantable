@@ -20,7 +20,7 @@ export default {
   watch: {
     // 更新子组件选中状态
     value(newVal) {
-      let children = getChildCompsByName(this, COMPS_NAME.VE_CHECKBOX)
+      const children = getChildCompsByName(this, COMPS_NAME.VE_CHECKBOX)
 
       if (children.length > 0) {
         children.forEach((child) => {
@@ -32,7 +32,7 @@ export default {
 
   methods: {
     updateModel(label, checkedVal) {
-      let index = this.value.indexOf(label)
+      const index = this.value.indexOf(label)
       if (index > -1) {
         if (!checkedVal) {
           this.value.splice(index, 1)

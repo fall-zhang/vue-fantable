@@ -121,7 +121,7 @@ export function encodeToSpreadsheetStr(arr) {
         } else {
           str += val
         }
-      } else if (val === null || val === void 0) {
+      } else if (val === null || val === undefined) {
         // void 0 resolves to undefined
         str += ''
       } else {
@@ -186,9 +186,7 @@ export function onAfterCopy({ event, selectionRangeData }) {
 
   if (event.clipboardData) {
     event.clipboardData.setData('text/plain', spreadsheetStr)
-  }
-  // IE browser
-  else if (window.clipboardData) {
+  } else if (window.clipboardData) { // IE browser
     window.clipboardData.setData('Text', spreadsheetStr)
   }
 }
@@ -209,9 +207,7 @@ export function onBeforePaste({
 
   if (event.clipboardData) {
     pastedData = event.clipboardData.getData('text/plain')
-  }
-  // IE browser
-  else if (window.clipboardData) {
+  } else if (window.clipboardData) { // IE browser
     pastedData = window.clipboardData.getData('Text')
   }
 
@@ -219,7 +215,7 @@ export function onBeforePaste({
     return null
   }
 
-  let decodePasteData = decodeSpreadsheetStr(pastedData)
+  const decodePasteData = decodeSpreadsheetStr(pastedData)
 
   const startColIndex = colgroups.findIndex(
     (x) => x.key === cellSelectionRangeData.leftColKey,
@@ -234,7 +230,7 @@ export function onBeforePaste({
     allRowKeys.length - 1,
   )
 
-  let response = {
+  const response = {
     selectionRangeIndexes: {
       startColIndex,
       endColIndex,
@@ -257,7 +253,7 @@ export function onBeforePaste({
   response.data = decodePasteData
     .slice(0, endRowIndex - startRowIndex + 1)
     .map((rowData) => {
-      let newRow = {}
+      const newRow = {}
 
       rowData.forEach((cellData, cellIndex) => {
         if (cellIndex <= endColIndex - startColIndex) {
@@ -358,9 +354,7 @@ export function onAfterCut({
 
   if (event.clipboardData) {
     event.clipboardData.setData('text/plain', spreadsheetStr)
-  }
-  // IE browser
-  else if (window.clipboardData) {
+  } else if (window.clipboardData) { // IE browser
     window.clipboardData.setData('Text', spreadsheetStr)
   }
 }

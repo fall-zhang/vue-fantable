@@ -29,7 +29,7 @@ export default {
       default: false,
     },
   },
-  emits:['input'],
+  emits: ['input'],
   data() {
     return {
       // 当前checkbox 选中状态
@@ -92,7 +92,7 @@ export default {
       this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
 
       if (this.isCheckBoxGroup()) {
-        //update parent comp:checkbox-group
+        // update parent comp:checkbox-group
         this.checkboxGroup.updateModel(this.label, isChecked)
       }
     },
@@ -103,19 +103,19 @@ export default {
         this,
         COMPS_NAME.VE_CHECKBOX_GROUP,
       )
-      return this.checkboxGroup ? true : false
+      return !!this.checkboxGroup
     },
 
     // get label content
     getLabelContent() {
       const { label, $slots } = this
 
-      return label ? label : $slots.default
+      return label || $slots.default
     },
 
     initModel() {
       if (this.isCheckBoxGroup()) {
-        let checkboxGroup = this.checkboxGroup
+        const checkboxGroup = this.checkboxGroup
         if (
           Array.isArray(checkboxGroup.value) &&
           checkboxGroup.value.length > 0

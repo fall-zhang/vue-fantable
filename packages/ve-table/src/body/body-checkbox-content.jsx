@@ -113,7 +113,7 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
       class: clsName('checkbox-wrapper'),
       props: {
         isControlled: true,
-        isSelected: isSelected,
+        isSelected,
         disabled,
       },
       on: {
