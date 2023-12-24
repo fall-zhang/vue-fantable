@@ -5,9 +5,6 @@
     "baseUrl": "./",
     "moduleResolution": "node",
     "paths": {
-      "@U/*": [
-        "packages/utils/*"
-      ],
       "@P/*": [
         "packages/*"
       ]

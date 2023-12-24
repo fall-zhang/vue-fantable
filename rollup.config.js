@@ -1,4 +1,4 @@
-// import less from 'rollup-plugin-less'
+// import css from 'rollup-plugin-css-only'
 import path from 'node:path'
 import vuePlugin from 'rollup-plugin-vue'
 import alias from '@rollup/plugin-alias'
@@ -54,10 +54,10 @@ const distConfig = defineConfig({
 
 const libConfig = defineConfig({
   // clean: true,
-  input: ['packages/index.js'],
+  input: 'packages/index.js',
   external: ['vue'],
   output: [{
-    sourcemap: 'inline',
+    // sourcemap: 'inline',
     format: 'es',
     // entryFileNames: 'entry-[name].js',
     dir: './libs',
@@ -65,16 +65,13 @@ const libConfig = defineConfig({
     // 'chunks/[name]-[hash:10].js'
     chunkFileNames: '[name].js',
     exports: 'named',
-    // plugins: [],
+    plugins: [],
     manualChunks: []
   }],
   plugins: [
     vuePlugin({
       target: 'broswer'
     }),
-    // less({
-    //   output: 'dist/css/index.dist.css'
-    // }),
     sucrase({
       exclude: ['node_modules/**'],
       transforms: ['jsx']
@@ -101,4 +98,3 @@ export default () => {
 }
 
 // 如果打包时间过长，添加缓存功能
-//
