@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { cloneDeep } from '@U/index.js'
+import { cloneDeep } from '@P/utils/index.js'
 import { merge } from 'lodash-es'
 import defaultLang from '../src/locale/lang/en-US'
 

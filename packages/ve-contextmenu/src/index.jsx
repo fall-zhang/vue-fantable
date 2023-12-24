@@ -10,7 +10,7 @@ import {
   COMPS_NAME
 } from './util/constant'
 import { getRandomId } from '../../src/utils/random'
-import { debounce, cloneDeep } from '@U/index.js'
+import { debounce, cloneDeep } from '@P/utils/index.js'
 import eventsOutside from '../../src/directives/events-outside'
 
 export default {

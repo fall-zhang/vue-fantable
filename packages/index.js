@@ -11,11 +11,12 @@ import VeIcon from './ve-icon/ve-icon.js'
 import VeLoading from './ve-loading/ve-loading.js'
 import VeLocale from './ve-locale/ve-locale.js'
 import VePagination from './ve-pagination/ve-pagination.js'
-// import VeSelect from './ve-select/index.js'
-// import VeTable from './ve-table/index.js'
-const VeRadio = () => import('./ve-radio/ve-radio.js')
-const VeSelect = () => import('./ve-select/ve-select.js')
-const VeTable = () => import('./ve-table/ve-table.js')
+import VeRadio from './ve-radio/ve-radio.js'
+import VeSelect from './ve-select/ve-select.js'
+import VeTable from './ve-table/ve-table.js'
+// const VeRadio = () => import('./ve-radio/ve-radio.js')
+// const VeSelect = () => import('./ve-select/ve-select.js')
+// const VeTable = () => import('./ve-table/ve-table.js')
 const version = Vue.version
 const components = [
   VeCheckbox,
