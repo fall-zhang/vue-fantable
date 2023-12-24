@@ -171,6 +171,8 @@ If you want to contribute,just create a
 
 ## Contributors
 
+Thanks to vue-easytable. This project is inherited from vue-easytable@2.27.1.
+
 Thanks to the following friends for their contributions 🙏
 
 <a href="https://github.com/Happy-Coding-Clans/vue-easytable/graphs/contributors">
