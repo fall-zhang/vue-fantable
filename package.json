@@ -28,10 +28,10 @@
     "test": "echo 'no test'",
     "lint": "eslint packages/ --ext .js,.jsx",
     "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
-    "build": "npm run build:remove && npm run build:js",
+    "build": "npm run build:remove && npm run build:js && npm run build:css",
     "build:remove": "rimraf dist && rimraf libs",
     "build:js": "rollup --config rollup.config.js",
-    "build:css": "lessc packages/theme-default/index.less libs/theme-default.css",
+    "build:css": "lessc packages/theme-default/index.less libs/theme-default.css && lessc packages/theme-dark/index.less libs/theme-dark.css",
     "build:vite": "vite build -c build/vite.config.js",
     "prepare": "npx husky install && npm run test",
     "commit": "czg"
