@@ -137,6 +137,7 @@ new Vue({
   - [x] 保证项目示例（文档）可以运行
   - [x] 移除其它包依赖，只依赖 vue
   - [ ] 添加页面或者能运行该组件的内容
+  - [ ] 使用 google font 替代 iconfont，避免风险
   - [ ] 模块拆分，打包优化
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
 - [ ] 之后加上 TS
