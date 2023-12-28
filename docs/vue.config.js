@@ -1,24 +1,24 @@
-const path = require("path");
+const path = require('path')
 module.exports = {
   // 发布资源文件引用方式
-  publicPath: "./",
+  publicPath: './',
   devServer: {
     open: true,
     port: 8771,
   },
   lintOnSave: false,
-  transpileDependencies: ["highlight.js"],
+  transpileDependencies: ['highlight.js'],
   runtimeCompiler: true,
   configureWebpack: (config) => {
     return {
-      devtool: "source-map",
+      devtool: 'source-map',
       module: {
         rules: [
           {
             test: /\.md$/,
             use: [
               {
-                loader: "vue-loader",
+                loader: 'vue-loader',
                 options: {
                   compilerOptions: {
                     preserveWhitespace: false,
@@ -28,7 +28,7 @@ module.exports = {
               {
                 loader: path.resolve(
                   __dirname,
-                  //`./build/md-loader/index.js?v=${new Date().getTime()}` // disable loader cache.
+                  // `./build/md-loader/index.js?v=${new Date().getTime()}` // disable loader cache.
                   `./build/md-loader/index.js`, // disable loader cache.
                 ),
               },
@@ -39,12 +39,12 @@ module.exports = {
       resolve: {
         alias: {
           // 需要和组件库 alias 名称一致
-          "vue-easytable": path.resolve(__dirname, "../"),
-          "@": path.resolve(__dirname, "./src"),
-          "@U": path.resolve(__dirname, "../packages/utils"),
-          "@P": path.resolve(__dirname, "../packages"),
+          'vue-easytable': path.resolve(__dirname, '../'),
+          '@': path.resolve(__dirname, './src'),
+          '@U': path.resolve(__dirname, '../packages/utils'),
+          '@P': path.resolve(__dirname, '../packages'),
         },
       },
-    };
+    }
   },
-};
+}
