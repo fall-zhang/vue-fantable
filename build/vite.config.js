@@ -1,11 +1,13 @@
 // vite.config.js
-// 无法导出为多个 css 文件，因此弃用
+// 无法导出为多个 css 文件，因此暂时弃用
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 const pathResolve = (file) => {
   return resolve(__dirname, '../packages/' + file)
 }
 export default defineConfig({
+  // index.html 所在目录路径
+  // root: 'build',
   resolve: {
     alias: {
       '@P': resolve(__dirname, '../packages'),
