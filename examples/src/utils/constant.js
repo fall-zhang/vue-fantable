@@ -1,8 +1,8 @@
 /* doc lang */
 export const DOC_LANG = {
-    EN: "en",
-    ZH: "zh",
-};
+  EN: 'en',
+  ZH: 'zh',
+}
 
 // doc theme
 // export const DOC_THEME = {
@@ -11,7 +11,7 @@ export const DOC_LANG = {
 // };
 
 // doc lang cookie
-export const DOC_LANG_COOKIE = "doc_lang_cookie";
+export const DOC_LANG_COOKIE = 'doc_lang_cookie'
 
 // doc theme cookie
-export const DOC_THEME_COOKIE = "doc_lang_cookie";
+export const DOC_THEME_COOKIE = 'doc_lang_cookie'

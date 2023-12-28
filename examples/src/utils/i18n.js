@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
-import { DOC_LANG_COOKIE, DOC_LANG } from "./constant";
+import Cookies from 'js-cookie'
+import { DOC_LANG_COOKIE, DOC_LANG } from './constant'
 
 /*
  * @createI18N
@@ -7,7 +7,8 @@ import { DOC_LANG_COOKIE, DOC_LANG } from "./constant";
  * @param {object} locale
  * @return {object}
  */
-/* export function createI18N(locale) {
+/*
+export function createI18N(locale) {
     return function(path, ...args) {
         let result = "";
 

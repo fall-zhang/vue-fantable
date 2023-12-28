@@ -7,7 +7,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint --fix"
+    "lint:fix": "eslint src/ --fix --ext .js,.jsx"
   },
   "dependencies": {
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
