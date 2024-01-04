@@ -213,9 +213,7 @@ export default {
         this.columnsOptionResetTime,
       ),
       class: clsName('header-tr'),
-      props: {
-        tagName: 'tr',
-      },
+      tagName: 'tr',
       on: {
         'on-dom-resize-change': trHeightChange,
       },

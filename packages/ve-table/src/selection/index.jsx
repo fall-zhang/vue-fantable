@@ -24,6 +24,7 @@ import { INSTANCE_METHODS } from './constant'
 import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
 import { debounce } from '@P/utils/index.js'
+import eventCenter from '@P/events/event-center'
 
 export default {
   name: COMPS_NAME.VE_TABLE_SELECTION,
@@ -438,7 +439,7 @@ export default {
         }
       }
 
-      this.$emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result)
+      eventCenter.emit(EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE, result)
     },
 
     // get cell position

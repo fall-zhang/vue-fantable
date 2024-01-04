@@ -3,6 +3,7 @@ import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 import { clsName } from './util/index'
 // import VeIcon from '../../ve-icon/ve-icon'
 import { ICON_NAMES } from '../../src/utils/constant'
+import eventCenter from '@P/events/event-center'
 
 export default {
   name: COMPS_NAME.VE_SELECT,
@@ -124,7 +125,7 @@ export default {
     dropdownChange() {
       // 使用户传入的v-model 生效
       this.$emit('input', this.internalOptions)
-      this.$emit(EMIT_EVENTS.SELECT_CHANGE, this.internalOptions)
+      eventCenter.emit(EMIT_EVENTS.SELECT_CHANGE, this.internalOptions)
     },
   },
   render() {

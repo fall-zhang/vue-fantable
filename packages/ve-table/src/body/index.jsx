@@ -1,7 +1,3 @@
-import BodyTr from './body-tr.jsx'
-import BodyTrScrolling from './body-tr-scrolling.jsx'
-import ExpandTr from './expand-tr.jsx'
-import VueDomResizeObserver from '../../../src/comps/resize-observer/index.js'
 import {
   getDomResizeObserverCompKey,
   getFixedTotalWidthByColumnKey,
@@ -15,6 +11,7 @@ import {
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
+import eventCenter from '@P/events/event-center'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY,
@@ -386,22 +383,22 @@ export default {
   },
   mounted() {
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
       this.checkboxSelectedRowChange(params)
     })
 
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
       this.checkboxSelectedAllChange(params)
     })
 
     // receive radio row selected change from VE_TABLE_BODY_RADIO_CONTENT
-    this.$on(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE, (params) => {
       this.radioSelectedRowChange(params)
     })
 
     // recieve tr click
-    this.$on(EMIT_EVENTS.BODY_ROW_CLICK, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_ROW_CLICK, (params) => {
       this.rowClick(params)
     })
 
@@ -522,7 +519,7 @@ export default {
       // 行高亮功能
       if (rowKeyFieldName) {
         const rowKey = rowData[rowKeyFieldName]
-        this.$emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey })
+        eventCenter.emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey })
       }
 
       // 行展开功能
@@ -577,7 +574,7 @@ export default {
     tdSizeChange({ key, width }) {
       const { colsWidths } = this
       colsWidths.set(key, width)
-      this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
+      eventCenter.emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
     },
 
     // init internal expand row keys
@@ -819,7 +816,7 @@ export default {
 
       this.virtualScrollRepeatRenderedRowKeys = rowKeys.filter(
         (rowKey) => {
-          return previewRenderedRowKeys.indexOf(rowKey) != -1
+          return previewRenderedRowKeys.indexOf(rowKey) !== -1
         },
       )
 
@@ -858,10 +855,8 @@ export default {
                 column.key,
                 this.columnsOptionResetTime,
               ),
-              props: {
-                tagName: 'td',
-                id: column.key,
-              },
+              tagName: 'td',
+              id: column.key,
               on: {
                 'on-dom-resize-change': tdSizeChange,
               },
@@ -918,7 +913,7 @@ export default {
             if (
               virtualScrollRepeatRenderedRowKeys.indexOf(
                 rowData[this.rowKeyFieldName],
-              ) != -1
+              ) !== -1
             ) {
               return [
                 // body tr

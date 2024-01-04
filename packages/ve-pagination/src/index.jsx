@@ -5,7 +5,7 @@ import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { createLocale } from '../../src/utils/index'
 import { ICON_NAMES } from '../../src/utils/constant'
-
+import eventCenter from '@P/events/event-center.js'
 const t = createLocale(LOCALE_COMP_NAME)
 
 export default {
@@ -226,14 +226,14 @@ export default {
 
     jumpPageHandler(newPageIndex) {
       this.newPageIndex = newPageIndex
-      this.$emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
+      eventCenter.emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
     },
 
     // 上一页
     prevPage() {
       if (this.newPageIndex > 1) {
         this.newPageIndex = this.newPageIndex - 1
-        this.$emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
+        eventCenter.emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
       }
     },
 
@@ -241,7 +241,7 @@ export default {
     nextPage() {
       if (this.newPageIndex < this.pageCount) {
         this.newPageIndex = this.newPageIndex + 1
-        this.$emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
+        eventCenter.emit(EMIT_EVENTS.PAGE_NUMBER_CHANGE, this.newPageIndex)
       }
     },
 
@@ -252,7 +252,7 @@ export default {
       if (item) {
         this.newPageSize = item.value
         this.newPageIndex = 1
-        this.$emit(EMIT_EVENTS.PAGE_SIZE_CHANGE, this.newPageSize)
+        eventCenter.emit(EMIT_EVENTS.PAGE_SIZE_CHANGE, this.newPageSize)
       }
     },
 

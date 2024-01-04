@@ -67,23 +67,19 @@ import {
   CURRENT_CELL_SELECTION_TYPES,
   COLUMN_FIXED_TYPE
 } from './util/constant'
-import Colgroup from './colgroup/index.jsx'
-import Header from './header/index.jsx'
-import Body from './body/index.jsx'
-import Footer from './footer/index.jsx'
-import EditInput from './editor/index.jsx'
-import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
-import VueDomResizeObserver from '../../src/comps/resize-observer/index'
 // import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
-import ColumnResizer from './column-resizer/index.jsx'
-
+import eventCenter from '@P/events/event-center'
+import VueDomResizeObserver from '@P/src/comps/resize-observer'
 const t = createLocale(LOCALE_COMP_NAME)
 
 export default {
   name: COMPS_NAME.VE_TABLE,
   directives: {
     'click-outside': clickoutside,
+  },
+  components: {
+    VueDomResizeObserver
   },
   mixins: [emitter],
   props: {
@@ -915,22 +911,22 @@ export default {
     this.hooks = new Hooks()
 
     // receive sort change
-    this.$on(EMIT_EVENTS.SORT_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.SORT_CHANGE, (params) => {
       this.updateColgroupsBySortChange(params)
     })
 
     // receive row selected change
-    this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
       this.selectedAllChange(params)
     })
 
     // receive selected all info
-    this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
 
     // receive multiple header row height change
-    this.$on(
+    eventCenter.on(
       EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.headerRowHeightChange({ rowIndex, height })
@@ -938,12 +934,12 @@ export default {
     )
 
     // receive virtual scroll row height change
-    this.$on(EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
+    eventCenter.on(EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
       this.bodyRowHeightChange({ rowKey, height })
     })
 
     // receive footer row height change
-    this.$on(
+    eventCenter.on(
       EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.footRowHeightChange({ rowIndex, height })
@@ -951,82 +947,82 @@ export default {
     )
 
     // recieve body cell click
-    this.$on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
       this.bodyCellClick(params)
     })
 
     // recieve body cell mouseover
-    this.$on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
       this.bodyCellMouseover(params)
     })
 
     // recieve body cell mousedown
-    this.$on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
       this.bodyCellMousedown(params)
     })
 
     // recieve body cell mousemove
-    this.$on(EMIT_EVENTS.BODY_CELL_MOUSEMOVE, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEMOVE, (params) => {
       this.bodyCellMousemove(params)
     })
 
     // recieve body cell mouseup
-    this.$on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
       this.bodyCellMouseup(params)
     })
 
     // recieve selection corner mousedown
-    this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
+    eventCenter.on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
       this.cellSelectionCornerMousedown(params)
     })
 
     // recieve selection corner mouseup
-    this.$on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
+    eventCenter.on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
       this.cellSelectionCornerMouseup(params)
     })
 
     // autofilling direction change
-    this.$on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
       this.autofillingDirectionChange(params)
     })
 
     // recieve body cell contextmenu(right click)
-    this.$on(EMIT_EVENTS.BODY_CELL_CONTEXTMENU, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_CONTEXTMENU, (params) => {
       this.bodyCellContextmenu(params)
     })
 
     // recieve body cell double click
-    this.$on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
+    eventCenter.on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
       this.bodyCellDoubleClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    this.$on(EMIT_EVENTS.HEADER_CELL_CLICK, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_CLICK, (params) => {
       this.headerCellClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    this.$on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
       this.headerCellContextmenu(params)
     })
 
     // recieve header cell mousedown
-    this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
       this.headerCellMousedown(params)
     })
 
     // recieve header cell mouseover
-    this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
       this.headerCellMouseover(params)
     })
 
     // recieve header cell mousemove
-    this.$on(EMIT_EVENTS.HEADER_CELL_MOUSEMOVE, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEMOVE, (params) => {
       this.headerCellMousemove(params)
     })
 
     // recieve header cell mouseleave
-    this.$on(EMIT_EVENTS.HEADER_CELL_MOUSELEAVE, (params) => {
+    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSELEAVE, (params) => {
       this.headerCellMouseleave(params)
     })
 
@@ -1765,6 +1761,7 @@ export default {
         return false
       }
 
+      console.log(this.$refs)
       const tableContainerRef = this.$refs[this.tableContainerRef]
 
       const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
@@ -1943,9 +1940,7 @@ export default {
 
       if (isVirtualScroll || (hasLeftFixedColumn && expandOption)) {
         const props = {
-          props: {
-            tagName: 'div',
-          },
+          tagName: 'div',
           style: {
             width: '100%',
           },
@@ -3494,9 +3489,12 @@ export default {
         endColKey,
         isScrollToStartCell
       } = receive
-      if (isScrollToRow === undefined) {
-        isScrollToStartCell = false
-      }
+      // 原
+      // if (isScrollToRow === undefined) {
+      //   isScrollToStartCell = false
+      // }
+      // 现
+      isScrollToStartCell = false
       const { enableCellSelection } = this
 
       if (!enableCellSelection) {
@@ -3927,9 +3925,7 @@ export default {
         've-table': true,
         [clsName('border-around')]: this.borderAround,
       },
-      props: {
-        tagName: 'div',
-      },
+      tagName: 'div',
       on: {
         'on-dom-resize-change': ({ height }) => {
           this.tableOffestHeight = height
@@ -4006,9 +4002,7 @@ export default {
     const tableWrapperProps = {
       ref: this.tableContentWrapperRef,
       class: [clsName('content-wrapper')],
-      props: {
-        tagName: 'div',
-      },
+      tagName: 'div',
       on: {
         'on-dom-resize-change': ({ height }) => {
           this.tableHeight = height

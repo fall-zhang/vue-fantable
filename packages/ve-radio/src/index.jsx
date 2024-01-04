@@ -1,6 +1,6 @@
 import { clsName } from './util/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
-
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_RADIO,
   props: {
@@ -73,7 +73,7 @@ export default {
       if (!this.isControlled) {
         this.$emit('input', isChecked)
       }
-      this.$emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
+      eventCenter.emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
     },
 
     // get label content

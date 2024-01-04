@@ -1,7 +1,5 @@
-import BodyTd from './body-td.jsx'
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from '../util/constant'
-import VueDomResizeObserver from '../../../src/comps/resize-observer/index.js'
 import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue } from '../../../src/utils/index.js'
 export default {
@@ -339,10 +337,8 @@ radio
     if (this.isVirtualScroll) {
       const props = {
         class: this.trClass,
-        props: {
-          tagName: 'tr',
-          id: this.currentRowKey,
-        },
+        tagName: 'tr',
+        id: this.currentRowKey,
         attrs: {
           [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         },

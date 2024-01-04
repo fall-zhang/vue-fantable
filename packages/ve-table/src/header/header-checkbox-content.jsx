@@ -2,6 +2,7 @@ import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_HEADER_CHECKBOX_CONTENT,
   mixins: [emitter],
@@ -23,7 +24,7 @@ export default {
   },
   mounted() {
     // receive selected all info
-    this.$on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
   },

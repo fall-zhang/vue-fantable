@@ -85,7 +85,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      /*  this.$emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
+      /*  eventCenter.emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
                 rowIndex: this.rowIndex,
                 height: height
             }); */
@@ -228,9 +228,7 @@ export default {
 
     const props = {
       class: this.trClass,
-      props: {
-        tagName: 'tr',
-      },
+      tagName: 'tr',
       attrs: {
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
       },

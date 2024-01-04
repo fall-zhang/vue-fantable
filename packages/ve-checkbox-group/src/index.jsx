@@ -1,6 +1,6 @@
 import { getChildCompsByName } from '../../src/utils/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
-
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP,
   props: {
@@ -44,7 +44,7 @@ export default {
       }
 
       this.$emit('input', this.value)
-      this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value)
+      eventCenter.emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value)
     },
   },
   render() {

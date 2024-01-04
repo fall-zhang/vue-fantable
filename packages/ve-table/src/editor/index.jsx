@@ -7,7 +7,7 @@ import { autoResize } from '../../../src/utils/auto-resize'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '../../../src/utils/dom'
 import { debounce } from '@P/utils/index.js'
-
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
   directives: {
@@ -433,7 +433,7 @@ export default {
 
     // textarea value change
     textareaValueChange(val) {
-      this.$emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
+      eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
     },
 
     // textarea select
@@ -510,16 +510,16 @@ export default {
           }
         },
         click: () => {
-          this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
         },
         copy: (e) => {
-          this.$emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
+          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
         },
         paste: (e) => {
-          this.$emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
+          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
         },
         cut: (e) => {
-          this.$emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
+          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
         },
       },
     }

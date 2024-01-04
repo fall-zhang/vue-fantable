@@ -1,7 +1,7 @@
 import { getParentCompByName } from '../../src/utils/index'
 import { clsName } from './util/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
-
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {
@@ -89,7 +89,7 @@ export default {
       if (!this.isControlled) {
         this.$emit('input', isChecked)
       }
-      this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
+      eventCenter.emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
 
       if (this.isCheckBoxGroup()) {
         // update parent comp:checkbox-group

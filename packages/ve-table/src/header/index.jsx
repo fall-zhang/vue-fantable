@@ -2,6 +2,7 @@ import { clsName } from '../util/index'
 import HeaderTr from './header-tr.jsx'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER,
   mixins: [emitter],
@@ -108,7 +109,7 @@ export default {
   },
   mounted() {
     // receive sort change
-    this.$on(EMIT_EVENTS.SORT_CHANGE, (params) => {
+    eventCenter.on(EMIT_EVENTS.SORT_CHANGE, (params) => {
       this.sortChange(params)
     })
   },

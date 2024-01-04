@@ -1,6 +1,3 @@
-import BodyCheckboxContent from './body-checkbox-content.jsx'
-import BodyRadioContent from './body-radio-content.jsx'
-import ExpandTrIcon from './expand-tr-icon.jsx'
 import { clsName, getRowKeysByRangeRowKeys } from '../util/index.js'
 import { isNumber, isBoolean, isEmptyValue } from '../../../src/utils/index.js'
 
@@ -12,6 +9,7 @@ import {
   COMPS_CUSTOM_ATTRS,
 } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
+import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
@@ -450,12 +448,12 @@ export default {
         if (!trigger || trigger === EXPAND_TRIGGER_TYPES.ICON) {
           if (eventTargetName !== 'TD') {
             e.stopPropagation()
-            this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+            eventCenter.emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
           }
         } else if (trigger === EXPAND_TRIGGER_TYPES.CELL) {
           // expand row by click cell(td)
           e.stopPropagation()
-          this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+          eventCenter.emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
         }
       }
     },

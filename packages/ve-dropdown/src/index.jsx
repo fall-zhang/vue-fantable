@@ -6,7 +6,7 @@ import { clsName } from './util/index'
 import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
 import { getViewportOffset, getViewportOffsetWithinContainer } from '../../src/utils/dom'
-
+import eventCenter from '@P/events/event-center.js'
 export default {
   name: COMPS_NAME.VE_DROPDOWN,
   directives: {
@@ -252,7 +252,7 @@ export default {
     confirm() {
       // 使用户传入的v-model 生效
       this.$emit('input', this.internalOptions)
-      this.$emit(EMIT_EVENTS.FILTER_CONFIRM, this.internalOptions)
+      eventCenter.emit(EMIT_EVENTS.FILTER_CONFIRM, this.internalOptions)
       this.hideDropDown()
     },
 
@@ -269,7 +269,7 @@ export default {
         // 使用户传入的v-model 生效
         this.$emit('input', this.internalOptions)
 
-        this.$emit(EMIT_EVENTS.FILTER_RESET, this.internalOptions)
+        eventCenter.emit(EMIT_EVENTS.FILTER_RESET, this.internalOptions)
       }
 
       this.hideDropDown()
@@ -301,7 +301,7 @@ export default {
 
       this.internalVisible = true
 
-      this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      eventCenter.emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
     },
 
     // hide dropdown
@@ -313,7 +313,7 @@ export default {
         return false
       }
 
-      this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      eventCenter.emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
 
       setTimeout(() => {
         this.internalVisible = false
@@ -469,9 +469,9 @@ export default {
       }
 
       // 使用户传入的v-model 生效
-      this.$emit('input', this.internalOptions)
+      eventCenter.emit('input', this.internalOptions)
 
-      this.$emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
+      eventCenter.emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
     },
 
     // 获取样式名称
@@ -502,7 +502,7 @@ export default {
         return i
       })
 
-      this.$emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
+      eventCenter.emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
     },
 
     // get random id
