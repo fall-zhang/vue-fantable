@@ -1,8 +1,7 @@
 // This file is auto gererated by build/build-entry.js
 
 // next line only for test
-// import VeCheckbox from './ve-checkbox'
-import Vue from 'vue'
+import { createApp } from 'vue'
 import VeCheckbox from './ve-checkbox/ve-checkbox.js'
 import VeCheckboxGroup from './ve-checkbox-group/ve-checkbox-group.js'
 import VeContextmenu from './ve-contextmenu/ve-contextmenu.js'
@@ -14,10 +13,8 @@ import VePagination from './ve-pagination/ve-pagination.js'
 import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
 import VeTable from './ve-table/ve-table.js'
-// const VeRadio = () => import('./ve-radio/ve-radio.js')
-// const VeSelect = () => import('./ve-select/ve-select.js')
-// const VeTable = () => import('./ve-table/ve-table.js')
-const version = Vue.version
+const app = createApp({})
+const version = '3.4.4'
 const components = [
   VeCheckbox,
   VeCheckboxGroup,
@@ -32,13 +29,13 @@ const components = [
   VeTable
 ]
 
-const install = Vue => {
+function install (app) {
   components.forEach(Component => {
-    Vue.use(Component)
+    app.use(Component)
   })
 
-  Vue.prototype.$veLoading = VeLoading
-  Vue.prototype.$veLocale = VeLocale
+  app.config.globalProperties.$veLoading = VeLoading
+  app.config.globalProperties.$veLocale = VeLocale
 }
 
 /* istanbul ignore if */

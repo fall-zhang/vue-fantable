@@ -11,7 +11,7 @@ export default [
     redirect: '/en',
   }, // 默认路由
   {
-    path: '*', // 页面不存在的情况下会跳到首页
+    path: '/:pathMatch(.*)*', // 页面不存在的情况下会跳到首页
     redirect: '/',
   },
   {

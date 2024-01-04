@@ -16,7 +16,7 @@
  * // => false
  */
 export default function deepClone(receive) {
-  console.log(typeof receive)
+  // console.log(typeof receive)
   // if (structuredClone) {
   //   return structuredClone(receive)
   // }

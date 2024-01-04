@@ -1,4 +1,4 @@
-<anchor label="用法"/>
+<fa-anchor label="用法"/>
 
 引入 `VeTable`
 

@@ -3,7 +3,6 @@ fork from:
 https://github.com/ElemeFE/element
 */
 import { debounce } from '@P/utils/index.js'
-// import ResizeObserver from 'resize-observer-polyfill'
 class ResizeObserverPro extends ResizeObserver {
   constructor(callback) {
     super(debounce(callback, 40))

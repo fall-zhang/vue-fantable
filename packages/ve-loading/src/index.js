@@ -1,9 +1,9 @@
-import Vue from 'vue'
+// Vue2 的 vue.extend 是做什么的？
+import { nextTick, createApp } from 'vue'
 import VeLoading from './loading.jsx'
 import { addClass, removeClass } from '../../src/utils/dom'
 import { clsName } from './util/index'
 import { SPIN_NAMES, COMPS_NAME } from '../src/util/constant'
-
 // default options
 const defaultOptions = {
   name: 'plane',
@@ -25,43 +25,45 @@ const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 // parent lock class
 const PARENT_LOCK_CLASS = clsName('parent-lock')
 
-const LoadingConstructor = Vue.extend(VeLoading)
-
-// show
-LoadingConstructor.prototype.show = function () {
-  Vue.nextTick(() => {
-    if (this.lock) {
-      addClass(this.parent__, PARENT_LOCK_CLASS)
+const LoadingConstructor = {
+  template: VeLoading,
+  data() {
+    return {
     }
-    this.visible = true
-  })
-}
-
-// close
-LoadingConstructor.prototype.close = function () {
-  Vue.nextTick(() => {
-    if (this.lock) {
+  },
+  methods: {
+    show() {
+      nextTick(() => {
+        if (this.lock) {
+          addClass(this.parent__, PARENT_LOCK_CLASS)
+        }
+        this.visible = true
+      })
+    },
+    close() {
+      nextTick(() => {
+        if (this.lock) {
+          removeClass(this.parent__, PARENT_LOCK_CLASS)
+        }
+        this.visible = false
+      })
+    },
+    destroy () {
+      removeClass(this.parent__, PARENT_RELATIVE_CLASS)
       removeClass(this.parent__, PARENT_LOCK_CLASS)
+
+      if (this.$el && this.$el.parentNode) {
+        this.$el.parentNode.removeChild(this.$el)
+      }
+      this.$destroy()
+      this.visible = false
     }
-    this.visible = false
-  })
-}
-
-// destroy
-LoadingConstructor.prototype.destroy = function () {
-  removeClass(this.parent__, PARENT_RELATIVE_CLASS)
-  removeClass(this.parent__, PARENT_LOCK_CLASS)
-
-  if (this.$el && this.$el.parentNode) {
-    this.$el.parentNode.removeChild(this.$el)
   }
-  this.$destroy()
-  this.visible = false
 }
 
 // create instance
 function createInstance(options = {}) {
-  return new LoadingConstructor({
+  return createApp(LoadingConstructor).mount({
     el: document.createElement('div'),
     data: options,
   })

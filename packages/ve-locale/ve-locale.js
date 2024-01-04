@@ -1,29 +1,18 @@
-import Vue from 'vue'
+import { shallowRef } from 'vue'
 import { cloneDeep } from '@P/utils/index.js'
 import { merge } from 'lodash-es'
-import defaultLang from '../src/locale/lang/en-US'
+import LangEN from '../src/locale/lang/en-US'
 
-const { defineReactive } = Vue.util
-const proto = Vue.prototype
-
-proto.$veTableMessages = proto.$veTableMessages || {}
-
-defineReactive(
-  proto,
-  '$veTableMessages',
-  cloneDeep({
-    lang: defaultLang,
-  }),
-)
+const defaultLang = shallowRef(cloneDeep(LangEN))
 
 export default {
   getMessage() {
-    return proto.$veTableMessages.lang
+    return defaultLang.value
   },
   use(lang) {
     this.update(lang)
   },
   update(lang = {}) {
-    merge(proto.$veTableMessages.lang, lang)
+    defaultLang.value = merge(defaultLang.value, lang)
   },
 }

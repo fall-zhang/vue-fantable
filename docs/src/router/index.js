@@ -1,11 +1,26 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import NProgress from 'nprogress' // Progress 进度条
 import routerConfig from './router.config.js'
-// import routerConfig from "./router.config-test.js";
-
-Vue.use(VueRouter)
-
-export default new VueRouter({
-  linkActiveClass: 'active',
-  routes: routerConfig,
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: routerConfig
 })
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+
+  next()
+
+  NProgress.done()
+})
+
+router.afterEach(() => {
+  nextTick(() => {
+    const blocks = document.querySelectorAll('pre code:not(.hljs)')
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+
+    window.scroll(0, 0)
+  })
+  NProgress.done() // 结束Progress
+})
+export default router
