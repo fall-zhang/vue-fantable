@@ -25,7 +25,6 @@ module.exports = {
   plugins: ['vue'],
   rules: {
     // js 处理
-    'no-undef': 0, // 未命名变量不报错：当未命名变量的检查交给 ts 类型检查器时使用
     'no-unused-vars': 1, // 未使用的变量
     'comma-dangle': 0,
     'space-before-function-paren': 0, // function 前面的空格

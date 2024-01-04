@@ -1,7 +1,7 @@
 // This file is auto gererated by build/build-entry.js
 
 // next line only for test
-import { createApp } from 'vue'
+// import { createApp } from 'vue'
 import VeCheckbox from './ve-checkbox/ve-checkbox.js'
 import VeCheckboxGroup from './ve-checkbox-group/ve-checkbox-group.js'
 import VeContextmenu from './ve-contextmenu/ve-contextmenu.js'
@@ -13,7 +13,7 @@ import VePagination from './ve-pagination/ve-pagination.js'
 import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
 import VeTable from './ve-table/ve-table.js'
-const app = createApp({})
+// const app = createApp({})
 const version = '3.4.4'
 const components = [
   VeCheckbox,
