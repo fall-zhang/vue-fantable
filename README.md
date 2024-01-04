@@ -137,7 +137,7 @@ app.mounted('#app')
   - [x] 保证项目示例（文档）可以运行
   - [ ] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
   - [ ] 添加页面或者能运行该组件的内容
-  - [ ] 使用 google font 替代 iconfont，避免风险
+  - [ ] 使用 google font 替代 iconfont，避免版权风险
   - [ ] 模块拆分，打包优化
   - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue

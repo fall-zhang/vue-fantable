@@ -67,10 +67,17 @@ import {
   CURRENT_CELL_SELECTION_TYPES,
   COLUMN_FIXED_TYPE
 } from './util/constant'
+import Colgroup from './colgroup/index.jsx'
+import Header from './header/index.jsx'
+import Body from './body/index.jsx'
+import Footer from './footer/index.jsx'
+import EditInput from './editor/index.jsx'
+import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
-// import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
+import VueDomResizeObserver from '../../src/comps/resize-observer/index'
+import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
+import ColumnResizer from './column-resizer/index.jsx'
 import eventCenter from '@P/events/event-center'
-import VueDomResizeObserver from '@P/src/comps/resize-observer'
 const t = createLocale(LOCALE_COMP_NAME)
 
 export default {
@@ -79,7 +86,7 @@ export default {
     'click-outside': clickoutside,
   },
   components: {
-    VueDomResizeObserver
+    VueDomResizeObserver, ColumnResizer, Colgroup
   },
   mixins: [emitter],
   props: {
@@ -1761,7 +1768,6 @@ export default {
         return false
       }
 
-      console.log(this.$refs)
       const tableContainerRef = this.$refs[this.tableContainerRef]
 
       const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
@@ -2180,8 +2186,7 @@ export default {
 
         // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
         this.$nextTick(() => {
-          const tableContainerRef =
-            this.$refs[this.tableContainerRef]
+          const tableContainerRef = this.$refs[this.tableContainerRef]
           this.tableContainerVirtualScrollHandler(tableContainerRef)
           this.setVirtualPhantomHeight()
         })
@@ -2191,8 +2196,8 @@ export default {
     // set scrolling
     setScrolling(tableContainerRef) {
       if (this.hasFixedColumn) {
-        const { scrollWidth, clientWidth, scrollLeft } =
-          tableContainerRef
+        console.log(tableContainerRef)
+        const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
 
         const { previewTableContainerScrollLeft: previewScrollLeft } =
           this
@@ -2239,6 +2244,7 @@ export default {
 
     // init scrolling
     initScrolling() {
+      console.log(this.$refs)
       this.setScrolling(this.$refs[this.tableContainerRef])
     },
 
@@ -3953,8 +3959,8 @@ export default {
       style: tableContainerStyle,
       on: {
         scroll: () => {
-          const tableContainerRef =
-            this.$refs[this.tableContainerRef]
+          console.log(this.$refs)
+          const tableContainerRef = this.$refs[this.tableContainerRef]
 
           this.hooks.triggerHook(
             HOOKS_NAME.TABLE_CONTAINER_SCROLL,

@@ -2,7 +2,7 @@ import {
   addResizeListener,
   removeResizeListener,
 } from '../../../utils/resize-event'
-import { useSlots, defineProps } from 'vue'
+import { useSlots, defineProps, h } from 'vue'
 export default {
   name: 'VueDomResizeObserver',
   props: {
@@ -36,11 +36,12 @@ export default {
   render() {
     console.log(this)
     console.log(this.$slots)
-    const currentTag = this.tagName
-    if (this.$slots) {
-      return <currentTag is={currentTag}>{this.$slots?.default}</currentTag>
+    // const CurrentTag = this.tagName
+    // const render =
+    if (this.$slots?.default) {
+      return <this.tagName>{h(this.$slots?.default)}</this.tagName>
     } else {
-      return <currentTag is={currentTag}></currentTag>
+      return <this.tagName></this.tagName>
     }
   }
   // setup() {
