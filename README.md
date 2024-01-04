@@ -136,9 +136,12 @@ new Vue({
   - [x] 打包 CSS、less 内容
   - [x] 保证项目示例（文档）可以运行
   - [x] 移除其它包依赖，只依赖 vue
+  - [ ] 更新示例为 vite，代替
+  - [ ] 更新示例为 vue3
   - [ ] 添加页面或者能运行该组件的内容
   - [ ] 使用 google font 替代 iconfont，避免风险
   - [ ] 模块拆分，打包优化
+  - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
 - [ ] 之后加上 TS
   - [ ] 添加测试用例

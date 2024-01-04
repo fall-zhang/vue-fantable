@@ -39,10 +39,10 @@
     "commit": "czg"
   },
   "dependencies": {
-    "vue": "^2.7.16"
+    "vue": "^3.4.0"
   },
   "peerDependencies": {
-    "vue": ">= 2.7.0"
+    "vue": ">= 3.4.0"
   },
   "config": {
     "commitizen": {

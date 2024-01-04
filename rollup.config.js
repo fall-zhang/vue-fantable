@@ -9,11 +9,6 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'rollup'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
-console.log(path.join(__dirname + '/packages/utils/'))
-// import { jsxExtension } from './common.js'
-// 打包前清除所有文件
-// 添加 CSS
-
 const distConfig = defineConfig({
   // clean: true,
   // sourcemap: 'inline',
