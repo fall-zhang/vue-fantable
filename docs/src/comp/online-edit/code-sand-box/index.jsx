@@ -1,6 +1,7 @@
 import LZString from 'lz-string'
 
 export default {
+  name: 'code-sand-box',
   props: {
     btnName: {
       type: String,

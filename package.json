@@ -81,7 +81,7 @@
     "vitest": "^1.1.1"
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx}": [
+    "*.{vue,js,jsx}": [
       "eslint --fix"
     ]
   },

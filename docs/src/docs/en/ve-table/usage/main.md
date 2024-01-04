@@ -1,4 +1,4 @@
-<anchor label="Usage"/>
+<fa-anchor label="Usage"/>
 
 import `VeTable`
 

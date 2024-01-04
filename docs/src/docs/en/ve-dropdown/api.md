@@ -1,4 +1,4 @@
-<anchor label="API" />
+<fa-anchor label="API" />
 
 ### props
 

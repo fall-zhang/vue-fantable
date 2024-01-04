@@ -605,7 +605,7 @@ export const db = {
     data: [
       {
         param: 'expandable',
-        desc: `	1、Whether the row rendering function is allowed to expand. Returns a Boolean value\r2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
+        desc: `1、Whether the row rendering function is allowed to expand. Returns a Boolean value\r2、Receive 3 parameter,<code>row</code>:Current row data、<code>column</code>:Column option、<code>rowIndex</code>:rowIndex`,
         type: '<code>Function({row,column,rowIndex})</code>',
         optionalVal: '-',
         default: '-',

@@ -1,4 +1,4 @@
-<anchor  label="基本功能"></anchor>
+<fa-anchor  label="基本功能"></fa-anchor>
 :::demo
 
 ```html
@@ -22,7 +22,7 @@
 
 :::
 
-<anchor  label="设置 width"></anchor>
+<fa-anchor  label="设置 width"></fa-anchor>
 :::demo
 
 ```html
@@ -46,7 +46,7 @@
 
 :::
 
-<anchor  label="多选功能"></anchor>
+<fa-anchor  label="多选功能"></fa-anchor>
 :::demo
 
 ```html
@@ -70,7 +70,7 @@
 
 :::
 
-<anchor  label="input 文本框下拉"></anchor>
+<fa-anchor  label="input 文本框下拉"></fa-anchor>
 :::demo
 
 ```html
@@ -94,7 +94,7 @@
 
 :::
 
-<anchor  label="事件"></anchor>
+<fa-anchor  label="事件"></fa-anchor>
 :::demo
 
 ```html

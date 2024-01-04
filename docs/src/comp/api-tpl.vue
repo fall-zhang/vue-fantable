@@ -1,6 +1,6 @@
 <template>
     <div class="api-tpl">
-        <anchor :is-edit="false" :label="getAnchor" />
+        <fa-anchor :is-edit="false" :label="getAnchor" />
         <div class="api-tpl-desc">{{ desc }}</div>
         <ve-table
             class="tpl-table"
@@ -18,61 +18,61 @@
 
 <script>
 export default {
-    name: "api-tpl",
-    props: {
-        desc: {
-            type: String,
-            required: true,
-        },
-        anchor: {
-            type: String,
-            default: null,
-        },
-        tableData: {
-            type: Array,
-            required: true,
-        },
-        columns: {
-            type: Array,
-            required: true,
-        },
-        expandOption: {
-            type: Object,
-            default: function () {
-                return null;
-            },
-        },
+  name: 'api-tpl',
+  props: {
+    desc: {
+      type: String,
+      required: true,
     },
+    anchor: {
+      type: String,
+      default: null,
+    },
+    tableData: {
+      type: Array,
+      required: true,
+    },
+    columns: {
+      type: Array,
+      required: true,
+    },
+    expandOption: {
+      type: Object,
+      default: function () {
+        return null
+      },
+    },
+  },
 
-    data() {
-        return {
-            cellSelectionOption: {
-                // default true
-                enable: false,
-            },
-            cloneTable: [],
-        };
+  data() {
+    return {
+      cellSelectionOption: {
+        // default true
+        enable: false,
+      },
+      cloneTable: [],
+    }
+  },
+  computed: {
+    getAnchor() {
+      return this.anchor ? this.anchor : this.desc
     },
-    computed: {
-        getAnchor() {
-            return this.anchor ? this.anchor : this.desc;
-        },
+  },
+  watch: {
+    // auto create row key
+    tableData: {
+      handler: function (val) {
+        if (val) {
+          this.cloneTable = val.map((item, index) => {
+            item.__key__ = index
+            return item
+          })
+        }
+      },
+      immediate: true,
     },
-    watch: {
-        // auto create row key
-        tableData: {
-            handler: function (val) {
-                if (val) {
-                    this.cloneTable = val.map((item, index) => {
-                        item.__key__ = index;
-                        return item;
-                    });
-                }
-            },
-            immediate: true,
-        },
-    },
-};
+  },
+}
 </script>
 <style lang="less">
 .api-tpl {

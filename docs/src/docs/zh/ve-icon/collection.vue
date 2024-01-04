@@ -1,5 +1,5 @@
 <template>
-    <anchor label="图标集合" :is-edit="false">
+    <fa-anchor label="图标集合" :is-edit="false">
         <div class="icon-container">
             <div
                 v-for="iconName in Object.values(this.icons)"
@@ -12,33 +12,34 @@
                 <span class="icon-name">{{ iconName }}</span>
             </div>
         </div>
-    </anchor>
+    </fa-anchor>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            // icon list
-            icons: {
-                FILTER: "filter",
+  name: 'FanIcon',
+  data() {
+    return {
+      // icon list
+      icons: {
+        FILTER: 'filter',
 
-                DOUBLE_RIGHT_ARROW: "double-right-arrow",
-                DOUBLE_LEFT_ARROW: "double-left-arrow",
+        DOUBLE_RIGHT_ARROW: 'double-right-arrow',
+        DOUBLE_LEFT_ARROW: 'double-left-arrow',
 
-                TOP_ARROW: "top-arrow",
-                RIGHT_ARROW: "right-arrow",
-                BOTTOM_ARROW: "bottom-arrow",
-                LEFT_ARROW: "left-arrow",
+        TOP_ARROW: 'top-arrow',
+        RIGHT_ARROW: 'right-arrow',
+        BOTTOM_ARROW: 'bottom-arrow',
+        LEFT_ARROW: 'left-arrow',
 
-                SORT_TOP_ARROW: "sort-top-arrow",
-                SORT_BOTTOM_ARROW: "sort-bottom-arrow",
+        SORT_TOP_ARROW: 'sort-top-arrow',
+        SORT_BOTTOM_ARROW: 'sort-bottom-arrow',
 
-                SEARCH: "search",
-            },
-        };
-    },
-};
+        SEARCH: 'search',
+      },
+    }
+  },
+}
 </script>
 
 <style lang="less" scoped>

@@ -1,5 +1,5 @@
 <template>
-    <anchor label="loading 集合" :is-edit="false">
+    <fa-anchor label="loading 集合" :is-edit="false">
         <div class="loading-container">
             <div
                 v-for="name in Object.values(SPIN_NAMES)"
@@ -10,31 +10,32 @@
                 <span class="loading-name">{{ name }}</span>
             </div>
         </div>
-    </anchor>
+    </fa-anchor>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            SPIN_NAMES: {
-                PLANE: "plane",
-                GRID: "grid",
-                WAVE: "wave",
-                FLOW: "flow",
-                BOUNCE: "bounce",
-                PULSE: "pulse",
-            },
-        };
-    },
-    mounted() {
-        Object.values(this.SPIN_NAMES).forEach((spinName) => {
-            this.$veLoading({
-                target: `#loading-${spinName}`,
-                name: spinName,
-            }).show();
-        });
-    },
-};
+  name: 'FanLoading',
+  data() {
+    return {
+      SPIN_NAMES: {
+        PLANE: 'plane',
+        GRID: 'grid',
+        WAVE: 'wave',
+        FLOW: 'flow',
+        BOUNCE: 'bounce',
+        PULSE: 'pulse',
+      },
+    }
+  },
+  mounted() {
+    Object.values(this.SPIN_NAMES).forEach((spinName) => {
+      this.$veLoading({
+        target: `#loading-${spinName}`,
+        name: spinName,
+      }).show()
+    })
+  },
+}
 </script>
 <style lang="less" scoped>
 .loading-container {

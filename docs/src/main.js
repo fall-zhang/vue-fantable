@@ -2,13 +2,12 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import Vue from 'vue'
+import { createApp, nextTick } from 'vue'
+
 import APP from '@/comp/app.vue'
-import router from '@/router/index'
+import Router from '@/router/index'
 
 import { getDocTheme } from '@/utils/cookies'
-
-import NProgress from 'nprogress' // Progress 进度条
 
 import '@/css/index.less'
 import '@/css/custom.less'
@@ -22,23 +21,6 @@ import 'highlight.js/styles/color-brewer.css'
 
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'
-
-// 仅用作示例
-import {
-  Switch,
-  Row,
-  Col,
-  Radio,
-  RadioButton,
-  RadioGroup,
-  Select,
-  Option,
-  DatePicker,
-  InputNumber,
-  Input,
-  Button,
-  CascaderPanel,
-} from 'element-ui'
 
 // vue-lazy-container
 import VueLazyContainer from 'vue-lazy-container'
@@ -56,22 +38,12 @@ import {
   VeSelect,
   VeTable,
 } from '../../packages/index.js'
-Vue.component('demo-block', DemoBlock)
-Vue.component('anchor', Anchor)
-Vue.use(Switch)
-Vue.use(Row)
-Vue.use(Col)
-Vue.use(Radio)
-Vue.use(RadioButton)
-Vue.use(RadioGroup)
-Vue.use(Select)
-Vue.use(Option)
-Vue.use(DatePicker)
-Vue.use(InputNumber)
-Vue.use(Input)
-Vue.use(Button)
-Vue.use(CascaderPanel)
-Vue.use(VueLazyContainer)
+
+const app = createApp(APP)
+app.use(Router)
+app.component('demo-block', DemoBlock)
+app.component('fa-anchor', Anchor)
+app.use(VueLazyContainer)
 
 // product
 /* import "../../libs/theme-default/index.css";
@@ -102,54 +74,32 @@ dev mode
 if (window.env === 'dev') {
   const docTheme = getDocTheme()
   if (docTheme && docTheme === 'dark') {
-    require('../../packages/theme-dark/index.less')
+    import('@P/theme-dark/index.less')
   } else {
-    require('../../packages/theme-default/index.less')
+    import('@P/theme-default/index.less')
   }
 }
 
-Vue.use(VeCheckbox)
-Vue.use(VeCheckboxGroup)
-Vue.use(VeContextmenu)
-Vue.use(VeDropdown)
-Vue.use(VeIcon)
-Vue.use(VePagination)
-Vue.use(VeRadio)
-Vue.use(VeSelect)
-Vue.use(VeTable)
+app.use(VeCheckbox)
+app.use(VeCheckboxGroup)
+app.use(VeContextmenu)
+app.use(VeDropdown)
+app.use(VeIcon)
+app.use(VePagination)
+app.use(VeRadio)
+app.use(VeSelect)
+app.use(VeTable)
 
-Vue.prototype.$veLoading = VeLoading
-Vue.prototype.$veLocale = VeLocale
+app.config.globalProperties.$veLoading = VeLoading
+app.config.globalProperties.$veLocale = VeLocale
 
 // 全部引入
 /* import "../../packages/theme-default/index.less";
 import vueEasytable from "../../packages/index.js";
-Vue.use(vueEasytable); */
+app.use(vueEasytable); */
 
 /* import "../../libs/theme-default/index.css";
 import vueEasytable from "../../libs/main.js";
-Vue.use(vueEasytable); */
+app.use(vueEasytable); */
 
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-
-  next()
-
-  NProgress.done()
-})
-
-router.afterEach(() => {
-  Vue.nextTick(() => {
-    const blocks = document.querySelectorAll('pre code:not(.hljs)')
-    Array.prototype.forEach.call(blocks, hljs.highlightBlock)
-
-    window.scroll(0, 0)
-  })
-  NProgress.done() // 结束Progress
-})
-
-new Vue({
-  el: '#app',
-  router,
-  render: (h) => h(APP),
-})
+app.mount('#app')

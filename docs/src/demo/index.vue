@@ -12,33 +12,33 @@
                     {{ currentLocal.demo2.selection }}
                 </div>
             </div>
-            <Spreadsheet />
+            <SpreadSheet />
         </div>
     </div>
 </template>
 
 <script>
-import locale from "../comp/locale";
-import I18nMixins from "../comp/mixins/i18n-mixins";
-import NormalDataGrid from "./normal-data-grid.vue";
-import Spreadsheet from "./spreadsheet.vue";
+import locale from '../comp/locale'
+import I18nMixins from '../comp/mixins/i18n-mixins'
+import NormalDataGrid from './normal-data-grid.vue'
+import SpreadSheet from './SpreadSheet.vue'
 export default {
-  name: "demoVue",
+  name: 'demoVue',
   components: {
     NormalDataGrid,
-    Spreadsheet,
+    SpreadSheet,
   },
   mixins: [I18nMixins],
   data() {
-    return {};
+    return {}
   },
   computed: {
     // current local
     currentLocal() {
-      return locale[this.currentDocLang]["completeDemo"];
+      return locale[this.currentDocLang].completeDemo
     },
   },
-};
+}
 </script>
 <style lang="less">
 .site-demo-container {
