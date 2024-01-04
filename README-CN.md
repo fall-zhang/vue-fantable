@@ -39,16 +39,14 @@ yarn add vue-fantable
 讲一下内容添加到 main.js:
 
 ```javascript
-import Vue from "vue";
+import {createApp} from "vue";
 import "vue-easytable/libs/theme-default/index.css";
+import App from './app.vue'
 import VueEasytable from "vue-easytable";
+const app = createApp(App)
+app.use(VueEasytable);
 
-Vue.use(VueEasytable);
-
-new Vue({
-  el: "#app",
-  render: (h) => h(App),
-});
+app.mounted('#app')
 ```
 
 示例:

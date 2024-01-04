@@ -44,16 +44,14 @@ yarn add vue-fantable
 讲一下内容添加到 main.js:
 
 ```javascript
-import Vue from "vue";
+import {createApp} from "vue";
 import "vue-easytable/libs/theme-default/index.css";
+import App from './app.vue'
 import VueEasytable from "vue-easytable";
+const app = createApp(App)
+app.use(VueEasytable);
 
-Vue.use(VueEasytable);
-
-new Vue({
-  el: "#app",
-  render: (h) => h(App),
-});
+app.mounted('#app')
 ```
 
 示例:
@@ -133,11 +131,11 @@ new Vue({
 
 - [x] 保证项目可以打包构建
   - [x] 更新项目依赖
-  - [x] 打包 CSS、less 内容
-  - [x] 保证项目示例（文档）可以运行
+  - [x] 并且转移到 ESM，且 Vue2 调用时不会出错
+  - [x] 可以打包 CSS、less 内容
   - [x] 移除其它包依赖，只依赖 vue
-  - [ ] 更新示例为 vite，代替
-  - [ ] 更新示例为 vue3
+  - [x] 保证项目示例（文档）可以运行
+  - [ ] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
   - [ ] 添加页面或者能运行该组件的内容
   - [ ] 使用 google font 替代 iconfont，避免风险
   - [ ] 模块拆分，打包优化
@@ -147,7 +145,7 @@ new Vue({
   - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）
 
-如果没有你想要的的功能，请告诉[我们]()
+如果没有你想要的的功能，请告诉[我]()
 
 ## 支持环境
 
