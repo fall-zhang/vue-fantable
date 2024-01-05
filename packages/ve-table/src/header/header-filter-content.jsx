@@ -66,15 +66,13 @@ export default {
             this.column.filter
 
     const compProps = {
-      props: {
-        value: filterList,
-        showOperation: true,
-        isMultiple,
-        showRadio: true, // when single selection
-        confirmFilterText: t('confirmFilter'),
-        resetFilterText: t('resetFilter'),
-        beforeVisibleChange,
-      },
+      value: filterList,
+      showOperation: true,
+      isMultiple,
+      showRadio: true, // when single selection
+      confirmFilterText: t('confirmFilter'),
+      resetFilterText: t('resetFilter'),
+      beforeVisibleChange,
       on: {
         [EMIT_EVENTS.HEADER_FILTER_CONFIRM]: this.filterConfirm,
         [EMIT_EVENTS.HEADER_FILTER_RESET]: this.filterReset,

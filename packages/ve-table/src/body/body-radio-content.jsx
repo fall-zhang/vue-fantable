@@ -98,11 +98,9 @@ Object.keys(radioOption).includes('selectedRowKey')
 
     const radioProps = {
       class: clsName('radio-wrapper'),
-      props: {
-        isControlled: true,
-        isSelected,
-        disabled,
-      },
+      isControlled: true,
+      isSelected,
+      disabled,
       on: {
         'on-radio-change': () => selectedChange(),
       },

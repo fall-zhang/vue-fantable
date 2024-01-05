@@ -15,7 +15,7 @@ export default {
   computed: {
     // loading class
     loadingClass() {
-      const { visible, fullscreen } = this
+      const { visible, fullscreen } = this.$attrs
       const clsFixed = clsName('fixed')
       const clsHide = clsName('hide')
       return {
@@ -27,7 +27,7 @@ export default {
 
     // loading style
     loadingStyle() {
-      const { overlayBackgroundColor } = this
+      const { overlayBackgroundColor } = this.$attrs
 
       return {
         'background-color': overlayBackgroundColor,
@@ -36,16 +36,14 @@ export default {
   },
 
   render() {
-    const { width, height, color } = this
+    console.log(this)
+    const { width, height, color } = this.$attrs
 
     const spinProps = {
-      props: {
-        width,
-        height,
-        color
-      }
+      width,
+      height,
+      color
     }
-
     return (
       <div
         style={this.loadingStyle}
@@ -53,10 +51,10 @@ export default {
       >
         <div class={clsName('spin-container')}>
           <div class={clsName('spin')}>
-            <this.name {...spinProps}></this.name>
+            <this.$attrs.name {...spinProps}></this.$attrs.name>
           </div>
-          <div style={{ color }} class={clsName('spin-tip')}>
-            {this.tip}
+          <div style={{ color: this.$attrs.color }} class={clsName('spin-tip')}>
+            {this.$attrs.tip}
           </div>
         </div>
       </div>

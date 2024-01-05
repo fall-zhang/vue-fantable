@@ -67,10 +67,10 @@ import {
   CURRENT_CELL_SELECTION_TYPES,
   COLUMN_FIXED_TYPE
 } from './util/constant'
-import Colgroup from './colgroup/index.jsx'
+import ColGroup from './colgroup/index.jsx'
 import TableHeader from './header/index.jsx'
-import Body from './body/index.jsx'
-import Footer from './footer/index.jsx'
+import TableBody from './body/index.jsx'
+import TableFooter from './footer/index.jsx'
 import EditInput from './editor/index.jsx'
 import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
@@ -86,7 +86,7 @@ export default {
     'click-outside': clickoutside,
   },
   components: {
-    VueDomResizeObserver, ColumnResizer, Colgroup, TableHeader, Body, Footer, EditInput, Selection, VeContextmenu
+    VueDomResizeObserver, ColumnResizer, ColGroup, TableHeader, TableBody, TableFooter, EditInput, Selection, VeContextmenu
   },
   mixins: [emitter],
   props: {
@@ -2244,7 +2244,6 @@ export default {
 
     // init scrolling
     initScrolling() {
-      console.log(this.$refs)
       this.setScrolling(this.$refs[this.tableContainerRef])
     },
 
@@ -3859,30 +3858,28 @@ export default {
     const bodyProps = {
       ref: this.tableBodyRef,
       class: [clsName('body'), this.tableBodyClass],
-      props: {
-        tableViewportWidth,
-        columnsOptionResetTime: this.columnsOptionResetTime,
-        colgroups,
-        expandOption,
-        checkboxOption,
-        actualRenderTableData,
-        rowKeyFieldName,
-        radioOption,
-        virtualScrollOption,
-        isVirtualScroll,
-        cellStyleOption,
-        cellSpanOption: this.cellSpanOption,
-        eventCustomOption: this.eventCustomOption,
-        cellSelectionOption: this.cellSelectionOption,
-        hasFixedColumn: this.hasFixedColumn,
-        cellSelectionData,
-        cellSelectionRangeData,
-        allRowKeys,
-        editOption,
-        highlightRowKey: this.highlightRowKey,
-        showVirtualScrollingPlaceholder,
-        bodyIndicatorRowKeys,
-      },
+      tableViewportWidth,
+      columnsOptionResetTime: this.columnsOptionResetTime,
+      colgroups,
+      expandOption,
+      checkboxOption,
+      actualRenderTableData,
+      rowKeyFieldName,
+      radioOption,
+      virtualScrollOption,
+      isVirtualScroll,
+      cellStyleOption,
+      cellSpanOption: this.cellSpanOption,
+      eventCustomOption: this.eventCustomOption,
+      cellSelectionOption: this.cellSelectionOption,
+      hasFixedColumn: this.hasFixedColumn,
+      cellSelectionData,
+      cellSelectionRangeData,
+      allRowKeys,
+      editOption,
+      highlightRowKey: this.highlightRowKey,
+      showVirtualScrollingPlaceholder,
+      bodyIndicatorRowKeys,
       on: {
         [widthChange]:
           debouncedBodyCellWidthChange,
@@ -3894,18 +3891,16 @@ export default {
     // footer props
     const footerProps = {
       class: [clsName('footer')],
-      props: {
-        colgroups,
-        footerData: this.footerData,
-        rowKeyFieldName,
-        cellStyleOption,
-        fixedFooter,
-        cellSpanOption: this.cellSpanOption,
-        eventCustomOption: this.eventCustomOption,
-        hasFixedColumn: this.hasFixedColumn,
-        allRowKeys,
-        footerRows: this.footerRows,
-      },
+      colgroups,
+      footerData: this.footerData,
+      rowKeyFieldName,
+      cellStyleOption,
+      fixedFooter,
+      cellSpanOption: this.cellSpanOption,
+      eventCustomOption: this.eventCustomOption,
+      hasFixedColumn: this.hasFixedColumn,
+      allRowKeys,
+      footerRows: this.footerRows,
       nativeOn: {
         click: () => {
           this[INSTANCE_METHODS.STOP_EDITING_CELL]()
@@ -4024,22 +4019,20 @@ export default {
     // selection props
     const selectionProps = {
       ref: this.cellSelectionRef,
-      props: {
-        tableEl: this.$refs[this.tableRef],
-        allRowKeys,
-        colgroups,
-        parentRendered: this.parentRendered,
-        hooks: this.hooks,
-        cellSelectionData,
-        isAutofillStarting: this.isAutofillStarting,
-        cellSelectionRangeData,
-        currentCellSelectionType: this.currentCellSelectionType,
-        showVirtualScrollingPlaceholder,
-        isVirtualScroll,
-        virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
-        isCellEditing: this.isCellEditing,
-        cellAutofillOption: this.cellAutofillOption,
-      },
+      tableEl: this.$refs[this.tableRef],
+      allRowKeys,
+      colgroups,
+      parentRendered: this.parentRendered,
+      hooks: this.hooks,
+      cellSelectionData,
+      isAutofillStarting: this.isAutofillStarting,
+      cellSelectionRangeData,
+      currentCellSelectionType: this.currentCellSelectionType,
+      showVirtualScrollingPlaceholder,
+      isVirtualScroll,
+      virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
+      isCellEditing: this.isCellEditing,
+      cellAutofillOption: this.cellAutofillOption,
       on: {
         [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (newData) => {
           this.cellSelectionRangeDataChange(newData)
@@ -4054,22 +4047,20 @@ export default {
     const inputPaste = EMIT_EVENTS.EDIT_INPUT_PASTE
     const editInputProps = {
       ref: this.editInputRef,
-      props: {
-        hooks: this.hooks,
-        parentRendered: this.parentRendered,
-        inputStartValue: this.editorInputStartValue,
-        rowKeyFieldName,
-        tableData: this.tableData,
-        cellSelectionData,
-        colgroups,
-        editingCell: this.editingCell,
-        isCellEditing: this.isCellEditing,
-        allRowKeys,
-        hasXScrollBar: this.hasXScrollBar,
-        hasYScrollBar: this.hasYScrollBar,
-        hasRightFixedColumn: this.hasRightFixedColumn,
-        scrollBarWidth: this.getScrollBarWidth(),
-      },
+      hooks: this.hooks,
+      parentRendered: this.parentRendered,
+      inputStartValue: this.editorInputStartValue,
+      rowKeyFieldName,
+      tableData: this.tableData,
+      cellSelectionData,
+      colgroups,
+      editingCell: this.editingCell,
+      isCellEditing: this.isCellEditing,
+      allRowKeys,
+      hasXScrollBar: this.hasXScrollBar,
+      hasYScrollBar: this.hasYScrollBar,
+      hasRightFixedColumn: this.hasRightFixedColumn,
+      scrollBarWidth: this.getScrollBarWidth(),
       on: {
         // edit input click
         [inputClick]: () => {
@@ -4097,10 +4088,8 @@ export default {
     // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
     const contextmenuProps = {
       ref: this.contextmenuRef,
-      props: {
-        eventTarget: this.contextmenuEventTarget,
-        options: contextmenuOptions,
-      },
+      eventTarget: this.contextmenuEventTarget,
+      options: contextmenuOptions,
       on: {
         'on-node-click': (type) => {
           this.contextmenuItemClick(type)
@@ -4110,18 +4099,16 @@ export default {
 
     // column resizer props
     const columnResizerProps = {
-      props: {
-        parentRendered: this.parentRendered,
-        tableContainerEl: this.$refs[this.tableContainerRef],
-        hooks: this.hooks,
-        colgroups,
-        isColumnResizerHover: this.isColumnResizerHover,
-        isColumnResizing: this.isColumnResizing,
-        setIsColumnResizerHover: this.setIsColumnResizerHover,
-        setIsColumnResizing: this.setIsColumnResizing,
-        setColumnWidth: this.setColumnWidth,
-        columnWidthResizeOption: this.columnWidthResizeOption,
-      },
+      parentRendered: this.parentRendered,
+      tableContainerEl: this.$refs[this.tableContainerRef],
+      hooks: this.hooks,
+      colgroups,
+      isColumnResizerHover: this.isColumnResizerHover,
+      isColumnResizing: this.isColumnResizing,
+      setIsColumnResizerHover: this.setIsColumnResizerHover,
+      setIsColumnResizing: this.setIsColumnResizing,
+      setColumnWidth: this.setColumnWidth,
+      columnWidthResizeOption: this.columnWidthResizeOption,
     }
 
     return (
@@ -4134,16 +4121,16 @@ export default {
             <VueDomResizeObserver {...tableWrapperProps}>
               <table {...tableProps}>
                 {/* colgroup */}
-                <Colgroup
+                <ColGroup
                   colgroups={colgroups}
                   enableColumnResize={enableColumnResize}
                 />
                 {/* table header */}
                 {showHeader && <TableHeader {...headerProps} />}
                 {/* table body */}
-                <Body {...bodyProps} />
+                <TableBody {...bodyProps} />
                 {/* table footer */}
-                <Footer {...footerProps} />
+                <TableFooter {...footerProps} />
               </table>
               {/* cell selection */}
               {enableCellSelection && (

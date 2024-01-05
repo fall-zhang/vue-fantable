@@ -54,11 +54,9 @@ export default {
 
     const checkboxProps = {
       class: clsName('checkbox-wrapper'),
-      props: {
-        isControlled: true,
-        isSelected,
-        indeterminate: isIndeterminate,
-      },
+      isControlled: true,
+      isSelected,
+      indeterminate: isIndeterminate,
       on: {
         'on-checked-change': (isSelectedParam) =>
           selectedChange(isSelectedParam),

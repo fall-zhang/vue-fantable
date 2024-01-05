@@ -5,11 +5,11 @@ import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
 import emitter from '../../../src/mixins/emitter'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_TR,
-  mixins: [emitter],
   components: {
     VueDomResizeObserver,
     HeaderTh
   },
+  mixins: [emitter],
   props: {
     columnsOptionResetTime: {
       type: Number,

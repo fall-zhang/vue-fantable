@@ -5,10 +5,10 @@ import emitter from '../../../src/mixins/emitter'
 import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER,
-  mixins: [emitter],
   components: {
     HeaderTr
   },
+  mixins: [emitter],
   props: {
     columnsOptionResetTime: {
       type: Number,

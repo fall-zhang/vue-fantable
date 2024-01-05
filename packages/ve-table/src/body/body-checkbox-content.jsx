@@ -111,11 +111,9 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
 
     const checkboxProps = {
       class: clsName('checkbox-wrapper'),
-      props: {
-        isControlled: true,
-        isSelected,
-        disabled,
-      },
+      isControlled: true,
+      isSelected,
+      disabled,
       on: {
         'on-checked-change': (isSelected) => selectedChange(isSelected),
       },

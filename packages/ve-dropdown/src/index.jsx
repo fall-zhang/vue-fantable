@@ -573,12 +573,10 @@ export default {
       content = internalOptions.map((item, index) => {
         const checkboxProps = {
           key: item.label,
-          props: {
-            isControlled: true,
-            label: item.label,
-            showLine: item.showLine,
-            isSelected: item.selected,
-          },
+          isControlled: true,
+          label: item.label,
+          showLine: item.showLine,
+          isSelected: item.selected,
           on: {
             'on-checked-change': (isChecked) =>
               this.checkedChangeControl(item, isChecked),
@@ -601,10 +599,8 @@ export default {
     } else {
       content = internalOptions.map((item, index) => {
         const radioProps = {
-          props: {
-            isControlled: true,
-            isSelected: item.selected,
-          },
+          isControlled: true,
+          isSelected: item.selected,
           on: {
             'on-radio-change': () => { },
           },

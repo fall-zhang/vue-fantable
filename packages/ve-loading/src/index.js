@@ -1,5 +1,5 @@
 // Vue2 的 vue.extend 是做什么的？
-import { nextTick, createApp } from 'vue'
+import { nextTick, createApp, h } from 'vue'
 import VeLoading from './loading.jsx'
 import { addClass, removeClass } from '../../src/utils/dom'
 import { clsName } from './util/index'
@@ -26,11 +26,6 @@ const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 const PARENT_LOCK_CLASS = clsName('parent-lock')
 
 const LoadingConstructor = {
-  template: VeLoading,
-  data() {
-    return {
-    }
-  },
   methods: {
     show() {
       nextTick(() => {
@@ -58,14 +53,16 @@ const LoadingConstructor = {
       this.$destroy()
       this.visible = false
     }
-  }
+  },
+  ...VeLoading,
 }
 
 // create instance
 function createInstance(options = {}) {
-  return createApp(LoadingConstructor).mount({
+  console.log(options)
+  return createApp(LoadingConstructor, options).mount({
     el: document.createElement('div'),
-    data: options,
+    // data: options,
   })
 }
 

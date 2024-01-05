@@ -12,7 +12,7 @@ import {
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
 import eventCenter from '@P/events/event-center'
-
+import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY,
   mixins: [emitter],
@@ -599,16 +599,14 @@ export default {
     getExpandRowComp({ rowData, rowIndex }) {
       if (this.isExpandRow({ rowData, rowIndex })) {
         const expandTrProps = {
-          props: {
-            tableViewportWidth: this.tableViewportWidth,
-            colgroups: this.colgroups,
-            expandOption: this.expandOption,
-            expandedRowkeys: this.expandedRowkeys,
-            expandColumn: this.expandColumn,
-            rowKeyFieldName: this.rowKeyFieldName,
-            rowData,
-            rowIndex,
-          },
+          tableViewportWidth: this.tableViewportWidth,
+          colgroups: this.colgroups,
+          expandOption: this.expandOption,
+          expandedRowkeys: this.expandedRowkeys,
+          expandColumn: this.expandColumn,
+          rowKeyFieldName: this.rowKeyFieldName,
+          rowData,
+          rowIndex,
         }
 
         return <ExpandTr {...expandTrProps} />
@@ -872,42 +870,38 @@ export default {
         {actualRenderTableData.map((rowData, rowIndex) => {
           const trProps = {
             key: this.getTrKey({ rowData, rowIndex }),
-            props: {
-              rowIndex,
+            rowIndex,
+            rowData,
+            colgroups,
+            expandOption,
+            expandedRowkeys,
+            checkboxOption,
+            radioOption,
+            rowKeyFieldName,
+            allRowKeys: this.allRowKeys,
+            expandRowChange,
+            internalCheckboxSelectedRowKeys,
+            internalRadioSelectedRowKey,
+            isVirtualScroll,
+            isExpandRow: isExpandRow({
               rowData,
-              colgroups,
-              expandOption,
-              expandedRowkeys,
-              checkboxOption,
-              radioOption,
-              rowKeyFieldName,
-              allRowKeys: this.allRowKeys,
-              expandRowChange,
-              internalCheckboxSelectedRowKeys,
-              internalRadioSelectedRowKey,
-              isVirtualScroll,
-              isExpandRow: isExpandRow({
-                rowData,
-                rowIndex,
-              }),
-              cellStyleOption,
-              cellSpanOption: this.cellSpanOption,
-              highlightRowKey: this.highlightRowKey,
-              eventCustomOption: this.eventCustomOption,
-              cellSelectionData: this.cellSelectionData,
-              editOption: this.editOption,
-              columnCollection: this.columnCollection,
-              cellSelectionRangeData: this.cellSelectionRangeData,
-              bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
-            },
+              rowIndex,
+            }),
+            cellStyleOption,
+            cellSpanOption: this.cellSpanOption,
+            highlightRowKey: this.highlightRowKey,
+            eventCustomOption: this.eventCustomOption,
+            cellSelectionData: this.cellSelectionData,
+            editOption: this.editOption,
+            columnCollection: this.columnCollection,
+            cellSelectionRangeData: this.cellSelectionRangeData,
+            bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
           }
 
           if (showVirtualScrollingPlaceholder) {
             const trPropsScrolling = {
               key: this.getTrKey({ rowData, rowIndex }),
-              props: {
-                colgroups,
-              },
+              colgroups,
             }
 
             if (

@@ -157,19 +157,17 @@ export default {
       return colgroups.map((column) => {
         const tdProps = {
           key: column.key,
-          props: {
-            rowIndex,
-            rowData,
-            column,
-            colgroups,
-            rowKeyFieldName,
-            cellStyleOption,
-            cellSelectionData: this.cellSelectionData,
-            footerRows: this.footerRows,
-            fixedFooter: this.fixedFooter,
-            cellSpanOption: this.cellSpanOption,
-            eventCustomOption: this.eventCustomOption,
-          },
+          rowIndex,
+          rowData,
+          column,
+          colgroups,
+          rowKeyFieldName,
+          cellStyleOption,
+          cellSelectionData: this.cellSelectionData,
+          footerRows: this.footerRows,
+          fixedFooter: this.fixedFooter,
+          cellSpanOption: this.cellSpanOption,
+          eventCustomOption: this.eventCustomOption,
         }
         return <FooterTd {...tdProps} />
       })

@@ -347,10 +347,8 @@ export default {
         if (!checkboxOption.hideSelectAll) {
           // checkbox content props
           const checkboxProps = {
-            props: {
-              column: this.groupColumnItem,
-              checkboxOption: this.checkboxOption,
-            },
+            column: this.groupColumnItem,
+            checkboxOption: this.checkboxOption,
           }
 
           result = <HeaderCheckboxContent {...checkboxProps} />
@@ -428,9 +426,7 @@ export default {
       if (groupColumnItem.filter) {
         // filter content props
         const filterProps = {
-          props: {
-            column: this.groupColumnItem,
-          },
+          column: this.groupColumnItem,
         }
         result = <HeaderFilterContent {...filterProps} />
       }
@@ -446,9 +442,7 @@ export default {
       if (groupColumnItem.filterCustom) {
         // filter content props
         const filterProps = {
-          props: {
-            column: this.groupColumnItem,
-          },
+          column: this.groupColumnItem,
         }
         result = <HeaderFilterCustomContent {...filterProps} />
       }

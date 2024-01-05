@@ -131,20 +131,18 @@ export default {
   render() {
     const { isInput } = this
 
-    const props = {
+    const dropdownProps = {
       class: 've-select',
-      props: {
-        isSelect: true,
-        width: this.width,
-        maxWidth: this.maxWidth,
-        isMultiple: this.isMultiple,
-        textAlign: this.textAlign,
-        isInput: this.isInput,
-        // v-model
-        value: this.internalOptions,
-        hideByItemClick: true,
-        popperAppendTo: this.popperAppendTo,
-      },
+      isSelect: true,
+      width: this.width,
+      maxWidth: this.maxWidth,
+      isMultiple: this.isMultiple,
+      textAlign: this.textAlign,
+      isInput: this.isInput,
+      // v-model
+      value: this.internalOptions,
+      hideByItemClick: true,
+      popperAppendTo: this.popperAppendTo,
       style: {
         width: this.width,
       },
@@ -181,7 +179,7 @@ export default {
     }
 
     return (
-      <VeDropdown {...props}>
+      <VeDropdown {...dropdownProps}>
         <span>
           {content}
           <VeIcon
