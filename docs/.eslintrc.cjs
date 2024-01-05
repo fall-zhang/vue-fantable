@@ -5,10 +5,8 @@ module.exports = {
     es2021: true
   },
   root: true,
-  // 启用 globals，去定义一些全局变量，eslint 会忽略
   // 后面的配置会覆盖前者
-  // 'plugin:vue/vue3-recommended'
-  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/essential'],
+  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
     ecmaFeatures: {
