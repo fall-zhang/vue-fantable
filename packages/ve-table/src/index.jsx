@@ -1950,10 +1950,9 @@ export default {
           style: {
             width: '100%',
           },
-          on: {
-            'on-dom-resize-change': ({ width }) => {
-              this.tableViewportWidth = width
-            },
+          'on-dom-resize-change': ({ width }) => {
+            console.log('---------')
+            this.tableViewportWidth = width
           },
         }
 
@@ -3900,10 +3899,8 @@ export default {
       hasFixedColumn: this.hasFixedColumn,
       allRowKeys,
       footerRows: this.footerRows,
-      nativeOn: {
-        click: () => {
-          this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-        },
+      click: () => {
+        this[INSTANCE_METHODS.STOP_EDITING_CELL]()
       },
     }
 
@@ -3924,15 +3921,14 @@ export default {
         [clsName('border-around')]: this.borderAround,
       },
       tagName: 'div',
-      on: {
-        'on-dom-resize-change': ({ height }) => {
-          this.tableOffestHeight = height
-          this.initVirtualScroll()
-          // fixed #404
-          this.initScrolling()
-          this.setScrollBarStatus()
-          this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE)
-        },
+      'on-dom-resize-change': ({ height }) => {
+        console.log('---------')
+        this.tableOffestHeight = height
+        this.initVirtualScroll()
+        // fixed #404
+        this.initScrolling()
+        this.setScrollBarStatus()
+        this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE)
       },
       directives: [
         {
@@ -4001,10 +3997,9 @@ export default {
       ref: this.tableContentWrapperRef,
       class: [clsName('content-wrapper')],
       tagName: 'div',
-      on: {
-        'on-dom-resize-change': ({ height }) => {
-          this.tableHeight = height
-        },
+      'on-dom-resize-change': ({ height }) => {
+        console.log('---------')
+        this.tableHeight = height
       },
     }
 

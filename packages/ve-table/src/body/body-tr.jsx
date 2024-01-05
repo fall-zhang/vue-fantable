@@ -343,17 +343,16 @@ radio
         attrs: {
           [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         },
-        on: {
-          'on-dom-resize-change': ({ key, height }) => {
-            this.dispatch(
-              COMPS_NAME.VE_TABLE,
-              EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,
-              {
-                rowKey: key,
-                height,
-              },
-            )
-          },
+        'on-dom-resize-change': ({ key, height }) => {
+          console.log('---------')
+          this.dispatch(
+            COMPS_NAME.VE_TABLE,
+            EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,
+            {
+              rowKey: key,
+              height,
+            },
+          )
         },
         nativeOn: events,
       }

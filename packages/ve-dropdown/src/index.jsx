@@ -7,6 +7,7 @@ import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
 import { getViewportOffset, getViewportOffsetWithinContainer } from '../../src/utils/dom'
 import eventCenter from '@P/events/event-center.js'
+import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_DROPDOWN,
   directives: {
@@ -118,6 +119,7 @@ export default {
       default: null,
     },
   },
+  emits: ['input'],
   data() {
     return {
       internalVisible: false,
@@ -655,7 +657,7 @@ export default {
             class={[isSelect ? clsName('dt-selected') : '']}
             style={{ width: width + 'px' }}
           >
-            {this.$slots.default}
+            {h(this.$slots.default)}
           </a>
         </dt>
         <div style={{ display: 'none' }}>
@@ -668,7 +670,7 @@ export default {
               }}
             >
               {/* custome content */}
-              {isCustomContent && this.$slots['custom-content']}
+              {isCustomContent && h(this.$slots['custom-content'])}
               {/* not custom content */}
               {!isCustomContent && (
                 <div>

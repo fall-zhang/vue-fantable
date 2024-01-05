@@ -1,6 +1,7 @@
 import { getChildCompsByName } from '../../src/utils/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
 import eventCenter from '@P/events/event-center'
+import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP,
   props: {
@@ -35,10 +36,12 @@ export default {
       const index = this.value.indexOf(label)
       if (index > -1) {
         if (!checkedVal) {
+          // eslint-disable-next-line vue/no-mutating-props
           this.value.splice(index, 1)
         }
       } else {
         if (checkedVal) {
+          // eslint-disable-next-line vue/no-mutating-props
           this.value.push(label)
         }
       }
@@ -48,6 +51,6 @@ export default {
     },
   },
   render() {
-    return <div class="ve-checkbox-group">{this.$slots.default}</div>
+    return <div class="ve-checkbox-group">{h(this.$slots.default)}</div>
   },
 }

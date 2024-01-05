@@ -100,6 +100,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
+      console.log('---------')
       this.dispatch(
         COMPS_NAME.VE_TABLE,
         EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
@@ -218,14 +219,12 @@ export default {
       ),
       class: clsName('header-tr'),
       tagName: 'tr',
-      on: {
-        'on-dom-resize-change': trHeightChange,
-      },
+      'on-dom-resize-change': trHeightChange,
       nativeOn: events,
     }
 
     return (
-      <VueDomResizeObserver {...trProps}>
+      <VueDomResizeObserver {...trProps} >
         {groupColumn.map((groupColumnItem) => {
           // th props
           const thProps = {

@@ -12,6 +12,7 @@ import emitter from '../../../src/mixins/emitter'
 import eventCenter from '@P/events/event-center.js'
 import ExpandTrIcon from './expand-tr-icon.jsx'
 import BodyCheckboxContent from './body-checkbox-content.jsx'
+import BodyRadioContent from './body-radio-content.jsx'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
@@ -643,11 +644,9 @@ export default {
     const tdProps = {
       class: this.bodyTdClass(),
       style: this.bodyTdStyle(),
-      attrs: {
-        rowspan,
-        colspan,
-        [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
-      },
+      rowspan,
+      colspan,
+      [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
       on: events,
     }
 

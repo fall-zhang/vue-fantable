@@ -85,6 +85,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
+      console.log('---------')
       /*  eventCenter.emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
                 rowIndex: this.rowIndex,
                 height: height
@@ -231,9 +232,7 @@ export default {
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
       },
       nativeOn: events,
-      on: {
-        'on-dom-resize-change': this.trHeightChange,
-      },
+      'on-dom-resize-change': this.trHeightChange,
     }
 
     return (

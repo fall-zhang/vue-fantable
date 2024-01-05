@@ -15,6 +15,7 @@ export default {
       default: null,
     },
   },
+  emits: ['dom-resize-change'],
   mounted() {
     addResizeListener(this.$el, this.resizeListener)
   },
@@ -24,7 +25,10 @@ export default {
   methods: {
     resizeListener(contentRect) {
       const { left, top, width, height } = contentRect
-      this.$emit('on-dom-resize-change', {
+      console.log(654654)
+      // console.log(654654, this.$parent)
+
+      this.$emit('dom-resize-change', {
         key: this.id,
         left,
         top,
