@@ -13,8 +13,13 @@ import {
 } from '../util/constant'
 import eventCenter from '@P/events/event-center'
 import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
+import BodyTr from './body-tr.jsx'
+import ExpandTr from './expand-tr.jsx'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY,
+  components: {
+    BodyTr
+  },
   mixins: [emitter],
   props: {
     tableViewportWidth: {

@@ -10,9 +10,14 @@ import {
 } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
 import eventCenter from '@P/events/event-center.js'
+import ExpandTrIcon from './expand-tr-icon.jsx'
+import BodyCheckboxContent from './body-checkbox-content.jsx'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
+  components: {
+    BodyCheckboxContent, ExpandTrIcon
+  },
   mixins: [emitter],
   props: {
     rowData: {
@@ -365,13 +370,11 @@ export default {
       if (this.column.type === COLUMN_TYPES.CHECKBOX) {
         // checkbox content props
         const checkboxProps = {
-          props: {
-            column: this.column,
-            checkboxOption: this.checkboxOption,
-            rowKey: this.rowData[this.rowKeyFieldName],
-            internalCheckboxSelectedRowKeys:
+          column: this.column,
+          checkboxOption: this.checkboxOption,
+          rowKey: this.rowData[this.rowKeyFieldName],
+          internalCheckboxSelectedRowKeys:
                             this.internalCheckboxSelectedRowKeys,
-          },
         }
 
         return <BodyCheckboxContent {...checkboxProps} />
@@ -384,13 +387,11 @@ export default {
       if (this.column.type === COLUMN_TYPES.RADIO) {
         // radio props
         const radioProps = {
-          props: {
-            column: this.column,
-            radioOption: this.radioOption,
-            rowKey: this.rowData[this.rowKeyFieldName],
-            internalRadioSelectedRowKey:
+          column: this.column,
+          radioOption: this.radioOption,
+          rowKey: this.rowData[this.rowKeyFieldName],
+          internalRadioSelectedRowKey:
                             this.internalRadioSelectedRowKey,
-          },
         }
 
         return <BodyRadioContent {...radioProps} />
@@ -573,14 +574,12 @@ export default {
 
     // expand icon props
     const expandIconProps = {
-      props: {
-        rowData,
-        column,
-        expandOption,
-        expandedRowkeys,
-        rowKeyFieldName,
-        cellClick,
-      },
+      rowData,
+      column,
+      expandOption,
+      expandedRowkeys,
+      rowKeyFieldName,
+      cellClick,
     }
 
     const { rowspan, colspan } = this.getCellSpan()

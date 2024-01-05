@@ -228,9 +228,10 @@ export default {
 
     this.$nextTick(() => {
       const targetEl =
-        this.appendToElTagName === 'BODY'
-          ? document
-          : this.popperAppendToEl
+      this.appendToElTagName === 'BODY'
+        ? document
+        : this.popperAppendToEl
+      if (!targetEl) return
       targetEl.removeEventListener(
         'scroll',
         this.changDropdownPanelPosition,
