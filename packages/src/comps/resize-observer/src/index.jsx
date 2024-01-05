@@ -34,8 +34,8 @@ export default {
     },
   },
   render() {
-    console.log(this)
-    console.log(this.$slots)
+    // console.log(this)
+    // console.log(this.$slots)
     // const CurrentTag = this.tagName
     // const render =
     if (this.$slots?.default) {
