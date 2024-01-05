@@ -15,6 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'vue-easytable': pathResolve(__dirname, '../'),
+      vue: 'vue/dist/vue.esm-bundler.js',
       '@': pathResolve(__dirname, 'src'),
       '@C': pathResolve(__dirname, 'src/components'),
       '@A': pathResolve(__dirname, 'src/assets'),
