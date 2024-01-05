@@ -59,6 +59,7 @@ export default {
       },
     },
   },
+  emits: ['input'],
   data() {
     return {
       visible: false,
@@ -85,7 +86,6 @@ export default {
       this.init()
     },
   },
-
   created() {
     this.init()
   },
@@ -146,17 +146,15 @@ export default {
       style: {
         width: this.width,
       },
-      on: {
-        // change: this.dropdownChange,
-        // v-model
-        input: (val) => {
-          this.internalOptions = val
-          this.dropdownChange()
-        },
-        // dropdown visible change
-        'dropdown-visible-change': (visible) => {
-          this.dropdownVisible = visible
-        },
+      // change: this.dropdownChange,
+      // v-model
+      onInput: (val) => {
+        this.internalOptions = val
+        this.dropdownChange()
+      },
+      // dropdown visible change
+      onDropdownVisibleChange: (visible) => {
+        this.dropdownVisible = visible
       },
     }
 

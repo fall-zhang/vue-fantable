@@ -595,9 +595,8 @@ export default {
     } = customEvents
 
     const events = {
-      click: (e) => {
+      onClick: (e) => {
         this.cellClick(e, click)
-
         if (
           this.isSortableCloumn &&
                     e.target instanceof HTMLTableCellElement
@@ -605,28 +604,28 @@ export default {
           this.sortChange()
         }
       },
-      dblclick: (e) => {
+      onDblclick: (e) => {
         this.cellDblclick(e, dblclick)
       },
-      contextmenu: (e) => {
+      onContextmenu: (e) => {
         this.cellContextmenu(e, contextmenu)
       },
-      mouseenter: (e) => {
+      onMouseenter: (e) => {
         this.cellMouseenter(e, mouseenter)
       },
-      mouseleave: (e) => {
+      onMouseleave: (e) => {
         this.cellMouseleave(e, mouseleave)
       },
-      mousemove: (e) => {
+      onMousemove: (e) => {
         this.cellMousemove(e, mousemove)
       },
-      mouseover: (e) => {
+      onMouseover: (e) => {
         this.cellMouseover(e, mouseover)
       },
-      mousedown: (e) => {
+      onMousedown: (e) => {
         this.cellMousedown(e, mousedown)
       },
-      mouseup: (e) => {
+      onMouseup: (e) => {
         this.cellMouseup(e, mouseup)
       },
     }
@@ -638,7 +637,7 @@ export default {
         rowspan: groupColumnItem._rowspan,
         colspan: groupColumnItem._colspan,
       },
-      on: events,
+      ...events,
     }
 
     return (

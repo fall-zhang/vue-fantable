@@ -101,9 +101,7 @@ Object.keys(radioOption).includes('selectedRowKey')
       isControlled: true,
       isSelected,
       disabled,
-      on: {
-        'on-radio-change': () => selectedChange(),
-      },
+      onRadioChange: () => selectedChange(),
     }
 
     return <VeRadio {...radioProps} />

@@ -87,9 +87,7 @@ export default {
       visible: this.internalVisible,
       beforeVisibleChange:
                     this.column.filterCustom.beforeVisibleChange,
-      on: {
-        'on-dropdown-visible-change': this.visibleChange,
-      },
+      onDropdownVisibleChange: this.visibleChange,
     }
 
     return (

@@ -580,10 +580,8 @@ export default {
           label: item.label,
           showLine: item.showLine,
           isSelected: item.selected,
-          on: {
-            'on-checked-change': (isChecked) =>
-              this.checkedChangeControl(item, isChecked),
-          },
+          onCheckedChange: (isChecked) =>
+            this.checkedChangeControl(item, isChecked),
         }
 
         return (
@@ -604,9 +602,7 @@ export default {
         const radioProps = {
           isControlled: true,
           isSelected: item.selected,
-          on: {
-            'on-radio-change': () => { },
-          },
+          onRadioChange: () => { },
         }
 
         return (
@@ -616,7 +612,7 @@ export default {
               clsName('items-li'),
               item.selected ? 'active' : '',
             ]}
-            on-click={(e) => singleSelectOptionClick(e, item)}
+            onClick={(e) => singleSelectOptionClick(e, item)}
           >
             <a
               class={[clsName('items-li-a'), getTextAlignClass()]}
@@ -690,7 +686,7 @@ export default {
                           this.operationFilterClass,
                         ]}
                         href="javascript:void(0)"
-                        on-click={reset}
+                        onClick={reset}
                       >
                         {this.resetFilterText}
                       </a>
@@ -699,7 +695,7 @@ export default {
                           'operation-item',
                         )}
                         href="javascript:void(0)"
-                        on-click={this.confirm}
+                        onClick={this.confirm}
                       >
                         {this.confirmFilterText}
                       </a>

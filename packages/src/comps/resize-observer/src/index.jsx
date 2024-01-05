@@ -25,9 +25,6 @@ export default {
   methods: {
     resizeListener(contentRect) {
       const { left, top, width, height } = contentRect
-      console.log(654654)
-      // console.log(654654, this.$parent)
-
       this.$emit('dom-resize-change', {
         key: this.id,
         left,
@@ -35,6 +32,10 @@ export default {
         width,
         height,
       })
+      // let parent = this.$parent
+      // while (!parent.name) {
+      //   parent = parent.$parent
+      // }
     },
   },
   render() {
@@ -43,7 +44,7 @@ export default {
     // const CurrentTag = this.tagName
     // const render =
     if (this.$slots?.default) {
-      return <this.tagName>{h(this.$slots?.default)}</this.tagName>
+      return <this.tagName>{this.$slots?.default()}</this.tagName>
     } else {
       return <this.tagName></this.tagName>
     }
@@ -51,7 +52,6 @@ export default {
   // setup() {
   //   const slot = useSlots()
   //   const prop = defineProps()
-  //   console.log('🚀 ~ file: index.jsx:44 ~ setup ~ prop:', prop)
   //   return () => (<div>{slot.default}</div>)
   // },
 }

@@ -167,7 +167,7 @@ export default {
             class={clsName('input')}
             type="checkbox"
             value={label}
-            on-change={checkboxChange}
+            onChange={checkboxChange}
           />
 
           <span class={clsName('inner')}></span>

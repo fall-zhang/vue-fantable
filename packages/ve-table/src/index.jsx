@@ -1950,8 +1950,7 @@ export default {
           style: {
             width: '100%',
           },
-          'on-dom-resize-change': ({ width }) => {
-            console.log('---------')
+          onDomResizeChange: ({ width }) => {
             this.tableViewportWidth = width
           },
         }
@@ -3851,7 +3850,10 @@ export default {
         },
       },
     }
-    const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
+    // const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
+    const widthChange = 'onBodyCellWidthChange'
+    // const heightRowChange = EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE
+    const heightRowChange = 'onHighlightRowChange'
     // body props
     const bodyProps = {
       ref: this.tableBodyRef,
@@ -3878,12 +3880,8 @@ export default {
       highlightRowKey: this.highlightRowKey,
       showVirtualScrollingPlaceholder,
       bodyIndicatorRowKeys,
-      on: {
-        [widthChange]:
-          debouncedBodyCellWidthChange,
-        [EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE]:
-          this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
-      },
+      [widthChange]: debouncedBodyCellWidthChange,
+      [heightRowChange]: this[INSTANCE_METHODS.SET_HIGHLIGHT_ROW],
     }
 
     // footer props
@@ -3921,8 +3919,7 @@ export default {
         [clsName('border-around')]: this.borderAround,
       },
       tagName: 'div',
-      'on-dom-resize-change': ({ height }) => {
-        console.log('---------')
+      onDomResizeChange: ({ height }) => {
         this.tableOffestHeight = height
         this.initVirtualScroll()
         // fixed #404
@@ -3945,50 +3942,48 @@ export default {
       ref: this.tableContainerRef,
       class: this.tableContainerClass,
       style: tableContainerStyle,
-      on: {
-        scroll: () => {
-          console.log(this.$refs)
-          const tableContainerRef = this.$refs[this.tableContainerRef]
+      onScroll: () => {
+        console.log(this.$refs)
+        const tableContainerRef = this.$refs[this.tableContainerRef]
 
-          this.hooks.triggerHook(
-            HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+        this.hooks.triggerHook(
+          HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+          tableContainerRef,
+        )
+        this.setScrolling(tableContainerRef)
+
+        if (isVirtualScroll) {
+          this.tableContainerVirtualScrollHandler(
             tableContainerRef,
           )
-          this.setScrolling(tableContainerRef)
 
-          if (isVirtualScroll) {
-            this.tableContainerVirtualScrollHandler(
-              tableContainerRef,
-            )
+          const {
+            virtualScrollStartIndex: startIndex,
+            previewVirtualScrollStartIndex: previewStartIndex,
+          } = this
 
-            const {
-              virtualScrollStartIndex: startIndex,
-              previewVirtualScrollStartIndex: previewStartIndex,
-            } = this
+          const differ = Math.abs(startIndex - previewStartIndex)
 
-            const differ = Math.abs(startIndex - previewStartIndex)
+          this.previewVirtualScrollStartIndex = startIndex
 
-            this.previewVirtualScrollStartIndex = startIndex
-
-            // default placeholder per scrolling row count
-            if (
-              differ > this.defaultPlaceholderPerScrollingRowCount
-            ) {
-              this.showVirtualScrollingPlaceholder = true
-            } else {
-              this.showVirtualScrollingPlaceholder = false
-            }
-
-            this.debounceScrollEnded()
+          // default placeholder per scrolling row count
+          if (
+            differ > this.defaultPlaceholderPerScrollingRowCount
+          ) {
+            this.showVirtualScrollingPlaceholder = true
+          } else {
+            this.showVirtualScrollingPlaceholder = false
           }
-        },
-        mouseup: () => {
-          // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
-          this.tableContainerMouseup()
-        },
-        mousemove: (event) => {
-          // todo
-        },
+
+          this.debounceScrollEnded()
+        }
+      },
+      onMouseup: () => {
+        // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
+        this.tableContainerMouseup()
+      },
+      onMousemove: (event) => {
+        // todo
       },
     }
 
@@ -3997,8 +3992,7 @@ export default {
       ref: this.tableContentWrapperRef,
       class: [clsName('content-wrapper')],
       tagName: 'div',
-      'on-dom-resize-change': ({ height }) => {
-        console.log('---------')
+      onDomResizeChange: ({ height }) => {
         this.tableHeight = height
       },
     }
@@ -4009,7 +4003,8 @@ export default {
       class: [clsName('content'), tableClass],
       style: tableStyle,
     }
-
+    // const cellSelectionRangeChange = EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE
+    const cellSelectionRangeChange = 'onCellSelectionRangeDataChange'
     // selection props
     const selectionProps = {
       ref: this.cellSelectionRef,
@@ -4027,18 +4022,22 @@ export default {
       virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
       isCellEditing: this.isCellEditing,
       cellAutofillOption: this.cellAutofillOption,
-      on: {
-        [EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE]: (newData) => {
-          this.cellSelectionRangeDataChange(newData)
-        },
+      [cellSelectionRangeChange]: (newData) => {
+        this.cellSelectionRangeDataChange(newData)
       },
     }
 
     // edit input props
-    const inputClick = EMIT_EVENTS.EDIT_INPUT_CLICK
-    const inputValueChange = EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE
-    const inputCopy = EMIT_EVENTS.EDIT_INPUT_COPY
-    const inputPaste = EMIT_EVENTS.EDIT_INPUT_PASTE
+    // const inputClick = EMIT_EVENTS.EDIT_INPUT_CLICK
+    // const inputValueChange = EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE
+    // const inputCopy = EMIT_EVENTS.EDIT_INPUT_COPY
+    // const inputPaste = EMIT_EVENTS.EDIT_INPUT_PASTE
+    // const inputCut = EMIT_EVENTS.EDIT_INPUT_CUT
+    const inputClick = 'onEditInputClick'
+    const inputValueChange = 'onEditInputValueChange'
+    const inputCopy = 'onEditInputCopy'
+    const inputPaste = 'onEditInputPaste'
+    const inputCut = 'onEditInputCut'
     const editInputProps = {
       ref: this.editInputRef,
       hooks: this.hooks,
@@ -4055,27 +4054,25 @@ export default {
       hasYScrollBar: this.hasYScrollBar,
       hasRightFixedColumn: this.hasRightFixedColumn,
       scrollBarWidth: this.getScrollBarWidth(),
-      on: {
-        // edit input click
-        [inputClick]: () => {
-          this.enableStopEditing = false
-        },
-        // edit input value change
-        [inputValueChange]: (value) => {
-          this.updateEditingCellValue(value)
-        },
-        // copy
-        [inputCopy]: (e) => {
-          this.editorCopy(e)
-        },
-        // paste
-        [inputPaste]: (e) => {
-          this.editorPaste(e)
-        },
-        // cut
-        [EMIT_EVENTS.EDIT_INPUT_CUT]: (e) => {
-          this.editorCut(e)
-        },
+      // edit input click
+      [inputClick]: () => {
+        this.enableStopEditing = false
+      },
+      // edit input value change
+      [inputValueChange]: (value) => {
+        this.updateEditingCellValue(value)
+      },
+      // copy
+      [inputCopy]: (e) => {
+        this.editorCopy(e)
+      },
+      // paste
+      [inputPaste]: (e) => {
+        this.editorPaste(e)
+      },
+      // cut
+      [inputCut]: (e) => {
+        this.editorCut(e)
       },
     }
 
@@ -4084,10 +4081,8 @@ export default {
       ref: this.contextmenuRef,
       eventTarget: this.contextmenuEventTarget,
       options: contextmenuOptions,
-      on: {
-        'on-node-click': (type) => {
-          this.contextmenuItemClick(type)
-        },
+      onNodeClick: (type) => {
+        this.contextmenuItemClick(type)
       },
     }
 

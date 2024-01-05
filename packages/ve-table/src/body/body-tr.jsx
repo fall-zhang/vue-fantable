@@ -249,6 +249,8 @@ radio
 
     // get td content
     const getTdContent = () => {
+      // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
+      const onExpandRowChange = 'onExpandRowChange'
       return colgroups.map((column) => {
         const tdProps = {
           key: column.key,
@@ -273,10 +275,8 @@ radio
           cellSelectionRangeData: this.cellSelectionRangeData,
           bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
           editOption: this.editOption,
-          on: {
-            [EMIT_EVENTS.EXPAND_ROW_CHANGE]: () =>
-              expandRowChange(rowData, rowIndex),
-          },
+          [onExpandRowChange]: () =>
+            expandRowChange(rowData, rowIndex),
         }
         return <BodyTd {...tdProps} />
       })
@@ -343,8 +343,7 @@ radio
         attrs: {
           [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         },
-        'on-dom-resize-change': ({ key, height }) => {
-          console.log('---------')
+        onDomResizeChange: ({ key, height }) => {
           this.dispatch(
             COMPS_NAME.VE_TABLE,
             EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,

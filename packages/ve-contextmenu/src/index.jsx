@@ -605,15 +605,13 @@ export default {
                 },
               },
             ],
-            on: {
-              click: () => {
-                if (panelIndex !== 0) {
-                  this.isChildrenPanelsClicked = true
-                }
-              },
-              contextmenu: (e) => {
-                e.preventDefault()
-              },
+            onClick: () => {
+              if (panelIndex !== 0) {
+                this.isChildrenPanelsClicked = true
+              }
+            },
+            onContextmenu: (e) => {
+              e.preventDefault()
             },
           }
           return (
@@ -634,32 +632,30 @@ export default {
                         [nodeActive]: activeMenuIds.includes(menu.id),
                         [nodeDisable]: menu.disabled
                       },
-                      on: {
-                        mouseover: (event) => {
-                          // disable
-                          if (!menu.disabled) {
-                            debounceCreatePanelByHover(
-                              {
-                                event,
-                                menu,
-                              },
-                            )
-                          }
-                        },
-                        click: () => {
-                          if (
-                            !menu.disabled &&
+                      onMouseover: (event) => {
+                        // disable
+                        if (!menu.disabled) {
+                          debounceCreatePanelByHover(
+                            {
+                              event,
+                              menu,
+                            },
+                          )
+                        }
+                      },
+                      onClick: () => {
+                        if (
+                          !menu.disabled &&
                             !hasChildren(menu)
-                          ) {
-                            this.$emit(
-                              EMIT_EVENTS.ON_NODE_CLICK,
-                              menu.type,
-                            )
-                            setTimeout(() => {
-                              emptyContextmenuPanels()
-                            }, 50)
-                          }
-                        },
+                        ) {
+                          this.$emit(
+                            EMIT_EVENTS.ON_NODE_CLICK,
+                            menu.type,
+                          )
+                          setTimeout(() => {
+                            emptyContextmenuPanels()
+                          }, 50)
+                        }
                       },
                     }
                   } else { // separator

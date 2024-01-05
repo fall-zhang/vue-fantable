@@ -100,7 +100,6 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      console.log('---------')
       this.dispatch(
         COMPS_NAME.VE_TABLE,
         EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
@@ -183,31 +182,31 @@ export default {
     } = customEvents
 
     const events = {
-      click: (e) => {
+      onClick: (e) => {
         this.rowClick(e, click)
       },
-      dblclick: (e) => {
+      onDblclick: (e) => {
         this.rowDblclick(e, dblclick)
       },
-      contextmenu: (e) => {
+      onContextmenu: (e) => {
         this.rowContextmenu(e, contextmenu)
       },
-      mouseenter: (e) => {
+      onMouseenter: (e) => {
         this.rowMouseenter(e, mouseenter)
       },
-      mouseleave: (e) => {
+      onMouseleave: (e) => {
         this.rowMouseleave(e, mouseleave)
       },
-      mousemove: (e) => {
+      onMousemove: (e) => {
         this.rowMousemove(e, mousemove)
       },
-      mouseover: (e) => {
+      onMouseover: (e) => {
         this.rowMouseover(e, mouseover)
       },
-      mousedown: (e) => {
+      onMousedown: (e) => {
         this.rowMousedown(e, mousedown)
       },
-      mouseup: (e) => {
+      onMouseup: (e) => {
         this.rowMouseup(e, mouseup)
       },
     }
@@ -219,10 +218,9 @@ export default {
       ),
       class: clsName('header-tr'),
       tagName: 'tr',
-      'on-dom-resize-change': trHeightChange,
-      nativeOn: events,
+      onDomResizeChange: trHeightChange,
+      ...events,
     }
-
     return (
       <VueDomResizeObserver {...trProps} >
         {groupColumn.map((groupColumnItem) => {

@@ -577,7 +577,6 @@ export default {
          * @param {number|string} width - column real width
          */
     tdSizeChange({ key, width }) {
-      console.log('---------')
       const { colsWidths } = this
       colsWidths.set(key, width)
       eventCenter.emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
@@ -861,7 +860,7 @@ export default {
               ),
               tagName: 'td',
               id: column.key,
-              'on-dom-resize-change': tdSizeChange,
+              onDomResizeChange: tdSizeChange,
               style: {
                 padding: 0,
                 border: 0,

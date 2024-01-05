@@ -57,10 +57,8 @@ export default {
       isControlled: true,
       isSelected,
       indeterminate: isIndeterminate,
-      on: {
-        'on-checked-change': (isSelectedParam) =>
-          selectedChange(isSelectedParam),
-      },
+      onCheckedChange: (isSelectedParam) =>
+        selectedChange(isSelectedParam),
     }
 
     return <VeCheckbox {...checkboxProps} />

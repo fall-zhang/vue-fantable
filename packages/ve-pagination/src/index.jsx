@@ -26,7 +26,7 @@ export default {
       render() {
         return (
           <li
-            on-click={this.$parent.prevPage}
+            onClick={this.$parent.prevPage}
             class={[
               this.$parent.newPageIndex === 1
                 ? clsName('disabled')
@@ -49,7 +49,7 @@ export default {
       render() {
         return (
           <li
-            on-click={this.$parent.nextPage}
+            onClick={this.$parent.nextPage}
             class={[
               this.$parent.newPageIndex === this.$parent.pageCount
                 ? clsName('disabled')
@@ -73,7 +73,7 @@ export default {
             class={clsName('select')}
             value={this.$parent.newPageSizeOption}
             popperAppendTo={this.$parent.popperAppendTo}
-            on-input={this.handleChange}
+            onInput={this.handleChange}
           // v-model={this.$parent.newPageSizeOption}
           />
         )
@@ -109,7 +109,7 @@ export default {
             <input
               class={clsName('goto-input')}
               domProps-value={this.$parent.newPageIndex}
-              on-keyup={this.jumperEnter}
+              onKeyup={this.jumperEnter}
               type="input"
             />
             &nbsp;{t('page')}&nbsp;

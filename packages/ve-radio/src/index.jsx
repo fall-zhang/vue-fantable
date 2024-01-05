@@ -111,7 +111,7 @@ export default {
             class={clsName('input')}
             type="radio"
             value={label}
-            on-change={checkedChange}
+            onChange={checkedChange}
           />
 
           <span class={clsName('inner')}></span>

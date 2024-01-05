@@ -6,6 +6,7 @@ import { ICON_NAMES } from '../../src/utils/constant'
 const t = createLocale(LOCALE_COMP_NAME)
 
 export default {
+  name: 'FanPaginationPager',
   props: {
     pageCount: {
       type: Number,
@@ -100,7 +101,7 @@ export default {
             pageIndex === 1 ? clsName('li-active') : '',
             clsName('li'),
           ]}
-          on-click={() => jumpPage(1)}
+          onClick={() => jumpPage(1)}
         >
           <a>1</a>
         </li>
@@ -113,7 +114,7 @@ export default {
               clsName('jump-prev'),
             ]}
             title={t('prev5', pagingCount)}
-            on-click={() => jumpPage(pageIndex - pagingCount)}
+            onClick={() => jumpPage(pageIndex - pagingCount)}
           >
             <a>
               <VeIcon name={ICON_NAMES.DOUBLE_LEFT_ARROW} />
@@ -130,7 +131,7 @@ export default {
                   : '',
                 clsName('li'),
               ]}
-              on-click={() => jumpPage(number)}
+              onClick={() => jumpPage(number)}
             >
               <a>{number}</a>
             </li>
@@ -141,7 +142,7 @@ export default {
           <li
             class={[clsName('li'), clsName('jump-next')]}
             title={t('next5', pagingCount)}
-            on-click={() => jumpPage(pageIndex + pagingCount)}
+            onClick={() => jumpPage(pageIndex + pagingCount)}
           >
             <a>
               <VeIcon name={ICON_NAMES.DOUBLE_RIGHT_ARROW} />
@@ -155,7 +156,7 @@ export default {
               pageIndex === pageCount ? clsName('li-active') : '',
               clsName('li'),
             ]}
-            on-click={() => jumpPage(pageCount)}
+            onClick={() => jumpPage(pageCount)}
           >
             <a>{pageCount}</a>
           </li>

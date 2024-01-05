@@ -64,7 +64,10 @@ export default {
   render(h) {
     const { filterList, isMultiple, maxHeight, beforeVisibleChange } =
             this.column.filter
-
+    // const onHeaderFilterConfirm = EMIT_EVENTS.HEADER_FILTER_CONFIRM
+    // const onHeaderFilterReset = EMIT_EVENTS.HEADER_FILTER_RESET
+    const onHeaderFilterConfirm = 'onFilterConfirm'
+    const onHeaderFilterReset = 'onFilterReset'
     const compProps = {
       value: filterList,
       showOperation: true,
@@ -73,13 +76,11 @@ export default {
       confirmFilterText: t('confirmFilter'),
       resetFilterText: t('resetFilter'),
       beforeVisibleChange,
-      on: {
-        [EMIT_EVENTS.HEADER_FILTER_CONFIRM]: this.filterConfirm,
-        [EMIT_EVENTS.HEADER_FILTER_RESET]: this.filterReset,
-        // v-model
-        input: (val) => {
-          this.filterList = val
-        },
+      [onHeaderFilterConfirm]: this.filterConfirm,
+      [onHeaderFilterReset]: this.filterReset,
+      // v-model
+      onInput: (val) => {
+        this.filterList = val
       },
     }
 

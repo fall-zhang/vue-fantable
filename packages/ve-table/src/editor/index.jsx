@@ -502,25 +502,23 @@ export default {
       attrs: {
         tabindex: -1,
       },
-      on: {
-        input: (e) => {
-          if (isCellEditing) {
-            this.textareaValueChange(e.target.value)
-            this.rawCellValue = e.target.value
-          }
-        },
-        click: () => {
-          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
-        },
-        copy: (e) => {
-          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
-        },
-        paste: (e) => {
-          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
-        },
-        cut: (e) => {
-          eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
-        },
+      onInput: (e) => {
+        if (isCellEditing) {
+          this.textareaValueChange(e.target.value)
+          this.rawCellValue = e.target.value
+        }
+      },
+      onClick: () => {
+        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+      },
+      onCopy: (e) => {
+        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
+      },
+      onPaste: (e) => {
+        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
+      },
+      onCut: (e) => {
+        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
       },
     }
 

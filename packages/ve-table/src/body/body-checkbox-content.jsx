@@ -114,9 +114,7 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
       isControlled: true,
       isSelected,
       disabled,
-      on: {
-        'on-checked-change': (isSelected) => selectedChange(isSelected),
-      },
+      onCheckedChange: (isSelected) => selectedChange(isSelected),
     }
 
     return <VeCheckbox {...checkboxProps} />

@@ -281,22 +281,20 @@ export default {
         top: top + 'px',
         height: height + 'px',
       },
-      on: {
-        click: () => {
-          //
-        },
-        mousedown: (event) => {
-          this.columnResizerHandlerMousedown({ event })
-        },
-        mouseenter: () => {
-          this.setIsColumnResizerHover(true)
-        },
-        mouseleave: () => {
-          this.setIsColumnResizerHover(false)
-        },
-        mouseup: (event) => {
-          this.columnResizerMouseup(event)
-        },
+      onClick: () => {
+        //
+      },
+      onMousedown: (event) => {
+        this.columnResizerHandlerMousedown({ event })
+      },
+      onMouseenter: () => {
+        this.setIsColumnResizerHover(true)
+      },
+      onMouseleave: () => {
+        this.setIsColumnResizerHover(false)
+      },
+      onMouseup: (event) => {
+        this.columnResizerMouseup(event)
       },
     }
 
