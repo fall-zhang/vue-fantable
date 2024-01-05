@@ -2196,7 +2196,6 @@ export default {
     // set scrolling
     setScrolling(tableContainerRef) {
       if (this.hasFixedColumn) {
-        console.log(tableContainerRef)
         const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
 
         const { previewTableContainerScrollLeft: previewScrollLeft } =

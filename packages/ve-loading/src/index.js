@@ -1,6 +1,7 @@
 // Vue2 的 vue.extend 是做什么的？
 import { nextTick, createApp, h } from 'vue'
 import VeLoading from './loading.jsx'
+import VeLoadingVue from './loading.vue'
 import { addClass, removeClass } from '../../src/utils/dom'
 import { clsName } from './util/index'
 import { SPIN_NAMES, COMPS_NAME } from '../src/util/constant'
@@ -59,11 +60,16 @@ const LoadingConstructor = {
 
 // create instance
 function createInstance(options = {}) {
-  console.log(options)
-  return createApp(LoadingConstructor, options).mount({
-    el: document.createElement('div'),
-    // data: options,
-  })
+  let app = null
+  try {
+    app = createApp(LoadingConstructor, options).mount(
+      document.createElement('div'),
+    )
+  } catch (err) {
+    console.error(err)
+  }
+  // console.log('22222222222', app)
+  return app
 }
 
 // check spin name
@@ -74,7 +80,7 @@ function checkSpinName(name) {
 }
 
 // Loading instance
-function Loading(options = {}) {
+export default function (options = {}) {
   options = Object.assign({}, defaultOptions, options)
 
   if (typeof options.target === 'string' && options.target.length > 0) {
@@ -94,12 +100,9 @@ function Loading(options = {}) {
 
   // set parent
   options.parent__ = options.fullscreen ? document.body : options.target
-
   addClass(options.parent__, PARENT_RELATIVE_CLASS)
 
   options.parent__.appendChild(loadingInstance.$el)
 
   return loadingInstance
 }
-
-export default Loading

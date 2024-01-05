@@ -51,7 +51,7 @@ import Mock from 'mockjs'
 import locale from '../comp/locale'
 import I18nMixins from '../comp/mixins/i18n-mixins'
 export default {
-  name: 'normal-data-grid',
+  name: 'NormalDataGrid',
   components: {
     /* Footer */
   },
@@ -422,9 +422,22 @@ export default {
           },
         },
       ])
-
       return columns
     },
+  },
+  created() {
+    this.initSourceData()
+  },
+  mounted() {
+    this.loadingInstance = this.$veLoading({
+      target: document.querySelector('#demo-loading-container'),
+      // 等同于
+      // target:"#loading-container"
+      name: 'grid',
+    })
+  },
+  unmounted() {
+    // this.switchThemeMix("theme-default");
   },
   methods: {
     // virtual scrolling
@@ -544,20 +557,7 @@ export default {
       this.resetTableData()
     },
   },
-  created() {
-    this.initSourceData()
-  },
-  mounted() {
-    this.loadingInstance = this.$veLoading({
-      target: document.querySelector('#demo-loading-container'),
-      // 等同于
-      // target:"#loading-container"
-      name: 'grid',
-    })
-  },
-  destroyed() {
-    // this.switchThemeMix("theme-default");
-  },
+
 }
 </script>
 <style lang="less">
