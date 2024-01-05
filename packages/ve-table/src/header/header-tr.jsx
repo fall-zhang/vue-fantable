@@ -1,11 +1,15 @@
 import HeaderTh from './header-th.jsx'
 import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import VueDomResizeObserver from '../../../src/comps/resize-observer/index.js'
+import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
 import emitter from '../../../src/mixins/emitter'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_TR,
   mixins: [emitter],
+  components: {
+    VueDomResizeObserver,
+    HeaderTh
+  },
   props: {
     columnsOptionResetTime: {
       type: Number,
@@ -226,23 +230,21 @@ export default {
           // th props
           const thProps = {
             key: groupColumnItem.key,
-            props: {
-              groupColumn,
-              groupColumnItem,
-              colgroups,
-              headerRows,
-              fixedHeader,
-              isGroupHeader: this.isGroupHeader,
-              rowIndex,
-              checkboxOption,
-              sortOption,
-              sortColumns,
-              cellStyleOption,
-              eventCustomOption: this.eventCustomOption,
-              cellSelectionData,
-              cellSelectionRangeData: this.cellSelectionRangeData,
-              headerIndicatorColKeys: this.headerIndicatorColKeys,
-            },
+            groupColumn,
+            groupColumnItem,
+            colgroups,
+            headerRows,
+            fixedHeader,
+            isGroupHeader: this.isGroupHeader,
+            rowIndex,
+            checkboxOption,
+            sortOption,
+            sortColumns,
+            cellStyleOption,
+            eventCustomOption: this.eventCustomOption,
+            cellSelectionData,
+            cellSelectionRangeData: this.cellSelectionRangeData,
+            headerIndicatorColKeys: this.headerIndicatorColKeys,
           }
 
           return <HeaderTh {...thProps} />

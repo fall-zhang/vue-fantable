@@ -9,6 +9,9 @@ const t = createLocale(LOCALE_COMP_NAME)
 
 export default {
   name: COMPS_NAME.VE_TABLE_HEADER_FILTER_CONTENT,
+  components: {
+    VeDropdown
+  },
   props: {
     column: {
       type: Object,

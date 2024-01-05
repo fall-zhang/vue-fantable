@@ -68,7 +68,7 @@ import {
   COLUMN_FIXED_TYPE
 } from './util/constant'
 import Colgroup from './colgroup/index.jsx'
-import Header from './header/index.jsx'
+import TableHeader from './header/index.jsx'
 import Body from './body/index.jsx'
 import Footer from './footer/index.jsx'
 import EditInput from './editor/index.jsx'
@@ -86,7 +86,7 @@ export default {
     'click-outside': clickoutside,
   },
   components: {
-    VueDomResizeObserver, ColumnResizer, Colgroup
+    VueDomResizeObserver, ColumnResizer, Colgroup, TableHeader, Body, Footer, EditInput, Selection, VeContextmenu
   },
   mixins: [emitter],
   props: {
@@ -3831,22 +3831,20 @@ export default {
             ? 'col-resize'
             : '',
       },
-      props: {
-        columnsOptionResetTime: this.columnsOptionResetTime,
-        tableViewportWidth,
-        groupColumns,
-        colgroups,
-        isGroupHeader: this.isGroupHeader,
-        fixedHeader,
-        checkboxOption,
-        sortOption,
-        cellStyleOption,
-        eventCustomOption: this.eventCustomOption,
-        headerRows: this.headerRows,
-        cellSelectionData,
-        cellSelectionRangeData,
-        headerIndicatorColKeys,
-      },
+      columnsOptionResetTime: this.columnsOptionResetTime,
+      tableViewportWidth,
+      groupColumns,
+      colgroups,
+      isGroupHeader: this.isGroupHeader,
+      fixedHeader,
+      checkboxOption,
+      sortOption,
+      cellStyleOption,
+      eventCustomOption: this.eventCustomOption,
+      headerRows: this.headerRows,
+      cellSelectionData,
+      cellSelectionRangeData,
+      headerIndicatorColKeys,
       nativeOn: {
         click: () => {
           this[INSTANCE_METHODS.STOP_EDITING_CELL]()
@@ -4141,7 +4139,7 @@ export default {
                   enableColumnResize={enableColumnResize}
                 />
                 {/* table header */}
-                {showHeader && <Header {...headerProps} />}
+                {showHeader && <TableHeader {...headerProps} />}
                 {/* table body */}
                 <Body {...bodyProps} />
                 {/* table footer */}

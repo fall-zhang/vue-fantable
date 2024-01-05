@@ -13,12 +13,6 @@ import '@/css/index.less'
 import '@/css/custom.less'
 import '@/comp/app.less'
 
-// Progress 进度条 样式
-import 'nprogress/nprogress.css'
-// highlight theme
-// import hljs from 'highlight.js'
-import 'highlight.js/styles/color-brewer.css'
-
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'
 

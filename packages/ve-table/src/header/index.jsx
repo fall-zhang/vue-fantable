@@ -6,6 +6,9 @@ import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER,
   mixins: [emitter],
+  components: {
+    HeaderTr
+  },
   props: {
     columnsOptionResetTime: {
       type: Number,
@@ -170,23 +173,21 @@ export default {
         {groupColumns.map((groupColumn, rowIndex) => {
           const trProps = {
             key: rowIndex,
-            props: {
-              columnsOptionResetTime: this.columnsOptionResetTime,
-              groupColumn,
-              headerRows,
-              colgroups,
-              fixedHeader,
-              isGroupHeader: this.isGroupHeader,
-              rowIndex,
-              checkboxOption,
-              sortOption,
-              sortColumns,
-              cellStyleOption,
-              eventCustomOption: this.eventCustomOption,
-              cellSelectionData,
-              cellSelectionRangeData: this.cellSelectionRangeData,
-              headerIndicatorColKeys: this.headerIndicatorColKeys,
-            },
+            columnsOptionResetTime: this.columnsOptionResetTime,
+            groupColumn,
+            headerRows,
+            colgroups,
+            fixedHeader,
+            isGroupHeader: this.isGroupHeader,
+            rowIndex,
+            checkboxOption,
+            sortOption,
+            sortColumns,
+            cellStyleOption,
+            eventCustomOption: this.eventCustomOption,
+            cellSelectionData,
+            cellSelectionRangeData: this.cellSelectionRangeData,
+            headerIndicatorColKeys: this.headerIndicatorColKeys,
           }
           return <HeaderTr {...trProps} />
         })}
