@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  mitt:
-    specifier: ^3.0.1
-    version: 3.0.1
   vue:
     specifier: ^3.4.4
     version: 3.4.4(typescript@5.3.3)
@@ -70,6 +67,9 @@ devDependencies:
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
+  mitt:
+    specifier: ^3.0.1
+    version: 3.0.1
   postcss:
     specifier: ^8.4.32
     version: 8.4.32
@@ -2965,7 +2965,7 @@ packages:
 
   /mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
-    dev: false
+    dev: true
 
   /mlly@1.4.2:
     resolution: {integrity: sha512-i/Ykufi2t1EZ6NaPLdfnZk2AX8cs0d+mTzVKuPfqPKPatxLApaBoxJQ9x1/uckXtrS/U5oisPMDkNs0yQTaBRg==}
