@@ -1,6 +1,5 @@
 import { getChildCompsByName } from '../../src/utils/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
-import eventCenter from '@P/events/event-center'
 import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP,
@@ -17,7 +16,7 @@ export default {
       default: false,
     },
   },
-
+  emits: ['input', 'checkedChange'],
   watch: {
     // 更新子组件选中状态
     value(newVal) {
@@ -47,7 +46,8 @@ export default {
       }
 
       this.$emit('input', this.value)
-      eventCenter.emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value)
+      // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value)
+      this.$emit('checkedChange', this.value)
     },
   },
   render() {

@@ -1,6 +1,5 @@
 import { clsName } from './util/index'
 import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
-import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_RADIO,
   props: {
@@ -26,7 +25,7 @@ export default {
       default: false,
     },
   },
-  emits: ['input'],
+  emits: ['input', 'radioChange'],
   data() {
     return {
       // 当前checkbox 选中状态
@@ -75,7 +74,7 @@ export default {
       if (!this.isControlled) {
         this.$emit('input', isChecked)
       }
-      // eventCenter.emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
+      // this.$emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
       this.$emit('radioChange', isChecked)
     },
 

@@ -933,8 +933,7 @@ export default {
     })
 
     // receive multiple header row height change
-    eventCenter.on(
-      EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
+    eventCenter.on(EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.headerRowHeightChange({ rowIndex, height })
       },
@@ -946,8 +945,7 @@ export default {
     })
 
     // receive footer row height change
-    eventCenter.on(
-      EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
+    eventCenter.on(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.footRowHeightChange({ rowIndex, height })
       },

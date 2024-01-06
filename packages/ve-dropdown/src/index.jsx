@@ -6,7 +6,6 @@ import { clsName } from './util/index'
 import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
 import { getViewportOffset, getViewportOffsetWithinContainer } from '../../src/utils/dom'
-import eventCenter from '@P/events/event-center.js'
 import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_DROPDOWN,
@@ -119,7 +118,7 @@ export default {
       default: null,
     },
   },
-  emits: ['input'],
+  emits: ['input', 'dropdownVisibleChange', 'filterConfirm', 'filterReset', 'itemSelectChange'],
   data() {
     return {
       internalVisible: false,
@@ -255,7 +254,8 @@ export default {
     confirm() {
       // 使用户传入的v-model 生效
       this.$emit('input', this.internalOptions)
-      eventCenter.emit(EMIT_EVENTS.FILTER_CONFIRM, this.internalOptions)
+      // this.$emit(EMIT_EVENTS.FILTER_CONFIRM, this.internalOptions)
+      this.$emit('filterConfirm', this.internalOptions)
       this.hideDropDown()
     },
 
@@ -272,7 +272,8 @@ export default {
         // 使用户传入的v-model 生效
         this.$emit('input', this.internalOptions)
 
-        eventCenter.emit(EMIT_EVENTS.FILTER_RESET, this.internalOptions)
+        // this.$emit(EMIT_EVENTS.FILTER_RESET, this.internalOptions)
+        this.$emit('filterReset', this.internalOptions)
       }
 
       this.hideDropDown()
@@ -304,7 +305,8 @@ export default {
 
       this.internalVisible = true
 
-      eventCenter.emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      // this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      this.$emit('dropdownVisibleChange', nextVisible)
     },
 
     // hide dropdown
@@ -316,7 +318,8 @@ export default {
         return false
       }
 
-      eventCenter.emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      // this.$emit(EMIT_EVENTS.VISIBLE_CHANGE, nextVisible)
+      this.$emit('dropdownVisibleChange', nextVisible)
 
       setTimeout(() => {
         this.internalVisible = false
@@ -472,9 +475,8 @@ export default {
       }
 
       // 使用户传入的v-model 生效
-      eventCenter.emit('input', this.internalOptions)
-
-      eventCenter.emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
+      this.$emit('input', this.internalOptions)
+      this.$emit('itemSelectChange', this.internalOptions)
     },
 
     // 获取样式名称
@@ -505,7 +507,8 @@ export default {
         return i
       })
 
-      eventCenter.emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
+      // this.$emit(EMIT_EVENTS.ITEM_SELECT_CHANGE, this.internalOptions)
+      this.$emit('itemSelectChange', this.internalOptions)
     },
 
     // get random id

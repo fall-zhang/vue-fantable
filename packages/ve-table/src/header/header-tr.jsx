@@ -168,7 +168,6 @@ export default {
       const { headerRowEvents } = eventCustomOption
       customEvents = headerRowEvents ? headerRowEvents({ rowIndex }) : {}
     }
-    console.log(customEvents)
     const {
       click,
       dblclick,
