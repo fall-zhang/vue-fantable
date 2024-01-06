@@ -148,6 +148,7 @@ export default {
       },
     },
   },
+  emits: ['highlightRowChange', 'bodyCellWidthChange'],
   data() {
     return {
       // columns widths map
@@ -525,7 +526,8 @@ export default {
       // 行高亮功能
       if (rowKeyFieldName) {
         const rowKey = rowData[rowKeyFieldName]
-        eventCenter.emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey })
+        // this.$emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey })
+        this.$emit('highlightRowChange', { rowKey })
       }
 
       // 行展开功能
@@ -580,7 +582,8 @@ export default {
     tdSizeChange({ key, width }) {
       const { colsWidths } = this
       colsWidths.set(key, width)
-      eventCenter.emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
+      // this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
+      this.$emit('bodyCellWidthChange', colsWidths)
     },
 
     // init internal expand row keys

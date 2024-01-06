@@ -2,6 +2,7 @@
 fork from:
 https://github.com/ElemeFE/element
 */
+import eventCenter from '@P/events/event-center'
 function broadcast(componentName, eventName, params) {
   this.$children.forEach((child) => {
     const name = child.$options.name
@@ -16,21 +17,23 @@ function broadcast(componentName, eventName, params) {
 export default {
   methods: {
     dispatch(componentName, eventName, params) {
-      let parent = this.$parent || this.$root
-      let name = parent.$options.name
+      eventCenter.emit(eventName, params)
 
-      while (parent && (!name || name !== componentName)) {
-        parent = parent.$parent
+      // let parent = this.$parent || this.$root
+      // let name = parent.$options.name
 
-        if (parent) {
-          name = parent.$options.name
-        }
-      }
-      if (parent) {
-        parent.$emit.apply(parent, [eventName].concat(params))
-      } else {
-        console.error(`${componentName} was not found.`)
-      }
+      // while (parent && (!name || name !== componentName)) {
+      //   parent = parent.$parent
+
+      //   if (parent) {
+      //     name = parent.$options.name
+      //   }
+      // }
+      // if (parent) {
+      //   parent.$emit.apply(parent, [eventName].concat(params))
+      // } else {
+      //   console.error(`${componentName} was not found.`)
+      // }
     },
     broadcast(componentName, eventName, params) {
       broadcast.call(this, componentName, eventName, params)

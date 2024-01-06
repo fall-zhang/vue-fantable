@@ -9,7 +9,6 @@ import {
   COMPS_CUSTOM_ATTRS,
 } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
-import eventCenter from '@P/events/event-center.js'
 import ExpandTrIcon from './expand-tr-icon.jsx'
 import BodyCheckboxContent from './body-checkbox-content.jsx'
 import BodyRadioContent from './body-radio-content.jsx'
@@ -151,6 +150,7 @@ export default {
       },
     },
   },
+  emits: ['expand-row-change'],
   data() {
     return {
       // 原始单元格数据
@@ -450,12 +450,14 @@ export default {
         if (!trigger || trigger === EXPAND_TRIGGER_TYPES.ICON) {
           if (eventTargetName !== 'TD') {
             e.stopPropagation()
-            eventCenter.emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+            // this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+            this.$emit('expand-row-change')
           }
         } else if (trigger === EXPAND_TRIGGER_TYPES.CELL) {
           // expand row by click cell(td)
           e.stopPropagation()
-          eventCenter.emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+          // this.$emit(EMIT_EVENTS.EXPAND_ROW_CHANGE)
+          this.$emit('expand-row-change')
         }
       }
     },

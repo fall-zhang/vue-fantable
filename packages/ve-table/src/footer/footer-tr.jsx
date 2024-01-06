@@ -85,7 +85,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      /*  eventCenter.emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
+      /*  this.$emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
                 rowIndex: this.rowIndex,
                 height: height
             }); */

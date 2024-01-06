@@ -7,7 +7,6 @@ import { autoResize } from '../../../src/utils/auto-resize'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '../../../src/utils/dom'
 import { debounce } from '@P/utils/index.js'
-import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
   directives: {
@@ -76,6 +75,7 @@ export default {
       required: true,
     },
   },
+  emits: ['editInputValueChange', 'editInputClick', 'editInputCopy', 'editInputPaste', 'editInputCut'],
   data() {
     return {
       textareaInputRef: 'textareaInputRef',
@@ -433,7 +433,8 @@ export default {
 
     // textarea value change
     textareaValueChange(val) {
-      eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
+      // this.$emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
+      this.$emit('editInputValueChange', val)
     },
 
     // textarea select
@@ -509,16 +510,21 @@ export default {
         }
       },
       onClick: () => {
-        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+        this.$emit('editInputClick')
+        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
       },
       onCopy: (e) => {
-        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
+        this.$emit('editInputCopy', e)
+        // this.$emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
       },
       onPaste: (e) => {
-        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
+        this.$emit('editInputPaste', e)
+        // this.$emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
       },
       onCut: (e) => {
-        eventCenter.emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
+        this.$emit('editInputCut', e)
+        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
       },
     }
 
