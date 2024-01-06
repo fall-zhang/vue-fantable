@@ -610,36 +610,6 @@ export default {
       mouseup,
     } = customEvents
 
-    const events = {
-      click: (e) => {
-        this.cellClick(e, click)
-      },
-      dblclick: (e) => {
-        this.cellDblclick(e, dblclick)
-      },
-      contextmenu: (e) => {
-        this.cellContextmenu(e, contextmenu)
-      },
-      mouseenter: (e) => {
-        this.cellMouseenter(e, mouseenter)
-      },
-      mouseleave: (e) => {
-        this.cellMouseleave(e, mouseleave)
-      },
-      mousemove: (e) => {
-        this.cellMousemove(e, mousemove)
-      },
-      mouseover: (e) => {
-        this.cellMouseover(e, mouseover)
-      },
-      mousedown: (e) => {
-        this.cellMousedown(e, mousedown)
-      },
-      mouseup: (e) => {
-        this.cellMouseup(e, mouseup)
-      },
-    }
-
     // td props
     const tdProps = {
       class: this.bodyTdClass(),
@@ -647,7 +617,33 @@ export default {
       rowspan,
       colspan,
       [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
-      on: events,
+      onClick: (e) => {
+        this.cellClick(e, click)
+      },
+      onDblclick: (e) => {
+        this.cellDblclick(e, dblclick)
+      },
+      onContextmenu: (e) => {
+        this.cellContextmenu(e, contextmenu)
+      },
+      onMouseenter: (e) => {
+        this.cellMouseenter(e, mouseenter)
+      },
+      onMouseleave: (e) => {
+        this.cellMouseleave(e, mouseleave)
+      },
+      onMousemove: (e) => {
+        this.cellMousemove(e, mousemove)
+      },
+      onMouseover: (e) => {
+        this.cellMouseover(e, mouseover)
+      },
+      onMousedown: (e) => {
+        this.cellMousedown(e, mousedown)
+      },
+      onMouseup: (e) => {
+        this.cellMouseup(e, mouseup)
+      },
     }
 
     return (

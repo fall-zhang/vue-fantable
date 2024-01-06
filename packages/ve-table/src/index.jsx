@@ -3943,7 +3943,6 @@ export default {
       class: this.tableContainerClass,
       style: tableContainerStyle,
       onScroll: () => {
-        console.log(this.$refs)
         const tableContainerRef = this.$refs[this.tableContainerRef]
 
         this.hooks.triggerHook(
