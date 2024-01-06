@@ -168,7 +168,7 @@ export default {
       const { headerRowEvents } = eventCustomOption
       customEvents = headerRowEvents ? headerRowEvents({ rowIndex }) : {}
     }
-
+    console.log(customEvents)
     const {
       click,
       dblclick,
@@ -181,7 +181,14 @@ export default {
       mouseup,
     } = customEvents
 
-    const events = {
+    const trProps = {
+      key: getDomResizeObserverCompKey(
+        rowIndex,
+        this.columnsOptionResetTime,
+      ),
+      class: clsName('header-tr'),
+      tagName: 'tr',
+      onDomResizeChange: trHeightChange,
       onClick: (e) => {
         this.rowClick(e, click)
       },
@@ -209,17 +216,6 @@ export default {
       onMouseup: (e) => {
         this.rowMouseup(e, mouseup)
       },
-    }
-
-    const trProps = {
-      key: getDomResizeObserverCompKey(
-        rowIndex,
-        this.columnsOptionResetTime,
-      ),
-      class: clsName('header-tr'),
-      tagName: 'tr',
-      onDomResizeChange: trHeightChange,
-      ...events,
     }
     return (
       <VueDomResizeObserver {...trProps} >

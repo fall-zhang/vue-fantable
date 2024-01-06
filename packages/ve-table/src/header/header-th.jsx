@@ -594,7 +594,13 @@ export default {
       mouseup,
     } = customEvents
 
-    const events = {
+    const thProps = {
+      style: getTheadThStyle(groupColumnItem, rowIndex),
+      class: getTheadThClass(groupColumnItem),
+      attrs: {
+        rowspan: groupColumnItem._rowspan,
+        colspan: groupColumnItem._colspan,
+      },
       onClick: (e) => {
         this.cellClick(e, click)
         if (
@@ -628,16 +634,6 @@ export default {
       onMouseup: (e) => {
         this.cellMouseup(e, mouseup)
       },
-    }
-
-    const thProps = {
-      style: getTheadThStyle(groupColumnItem, rowIndex),
-      class: getTheadThClass(groupColumnItem),
-      attrs: {
-        rowspan: groupColumnItem._rowspan,
-        colspan: groupColumnItem._colspan,
-      },
-      ...events,
     }
 
     return (

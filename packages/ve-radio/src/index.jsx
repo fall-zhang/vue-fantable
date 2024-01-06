@@ -26,13 +26,13 @@ export default {
       default: false,
     },
   },
+  emits: ['input'],
   data() {
     return {
       // 当前checkbox 选中状态
       model: this.value,
     }
   },
-
   computed: {
     radioClass() {
       const disableState = this.disabled
@@ -70,10 +70,13 @@ export default {
       }
       const isChecked = event.target.checked
 
+      console.log(this.label)
+      console.log(this.model)
       if (!this.isControlled) {
         this.$emit('input', isChecked)
       }
-      eventCenter.emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
+      // eventCenter.emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
+      this.$emit('radioChange', isChecked)
     },
 
     // get label content
@@ -102,7 +105,6 @@ export default {
       getLabelContent,
       internalIsSelected,
     } = this
-
     return (
       <label class={'ve-radio'}>
         <span class={radioClass}>

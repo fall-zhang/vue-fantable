@@ -3841,13 +3841,11 @@ export default {
       cellSelectionData,
       cellSelectionRangeData,
       headerIndicatorColKeys,
-      nativeOn: {
-        click: () => {
-          this[INSTANCE_METHODS.STOP_EDITING_CELL]()
-        },
-        mouseleave: (event) => {
-          this.headerMouseleave(event)
-        },
+      onClick: () => {
+        this[INSTANCE_METHODS.STOP_EDITING_CELL]()
+      },
+      onMouseleave: (event) => {
+        this.headerMouseleave(event)
       },
     }
     // const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE

@@ -194,43 +194,39 @@ export default {
       mouseup,
     } = customEvents
 
-    const events = {
-      click: (e) => {
-        this.rowClick(e, click)
-      },
-      dblclick: (e) => {
-        this.rowDblclick(e, dblclick)
-      },
-      contextmenu: (e) => {
-        this.rowContextmenu(e, contextmenu)
-      },
-      mouseenter: (e) => {
-        this.rowMouseenter(e, mouseenter)
-      },
-      mouseleave: (e) => {
-        this.rowMouseleave(e, mouseleave)
-      },
-      mousemove: (e) => {
-        this.rowMousemove(e, mousemove)
-      },
-      mouseover: (e) => {
-        this.rowMouseover(e, mouseover)
-      },
-      mousedown: (e) => {
-        this.rowMousedown(e, mousedown)
-      },
-      mouseup: (e) => {
-        this.rowMouseup(e, mouseup)
-      },
-    }
-
     const props = {
       class: this.trClass,
       tagName: 'tr',
       attrs: {
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
       },
-      nativeOn: events,
+      onClick: (e) => {
+        this.rowClick(e, click)
+      },
+      onDblclick: (e) => {
+        this.rowDblclick(e, dblclick)
+      },
+      onContextmenu: (e) => {
+        this.rowContextmenu(e, contextmenu)
+      },
+      onMouseenter: (e) => {
+        this.rowMouseenter(e, mouseenter)
+      },
+      onMouseleave: (e) => {
+        this.rowMouseleave(e, mouseleave)
+      },
+      onMousemove: (e) => {
+        this.rowMousemove(e, mousemove)
+      },
+      onMouseover: (e) => {
+        this.rowMouseover(e, mouseover)
+      },
+      onMousedown: (e) => {
+        this.rowMousedown(e, mousedown)
+      },
+      onMouseup: (e) => {
+        this.rowMouseup(e, mouseup)
+      },
       onDomResizeChange: this.trHeightChange,
     }
 
