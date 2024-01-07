@@ -5,7 +5,7 @@
 
 # vue-fantable
 
-[![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+[![license](https://img.shields.io/npm/l/vue-fantable.svg)](http://www.opensource.org/licenses/mit-license.php)
 
 [English](./README-EN.md) | **中文**
 
@@ -143,6 +143,7 @@ app.mounted('#app')
   - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
 - [ ] 重写 Loading 组件
+- [ ] 性能优化，加上防抖和节流
 - [ ] 之后加上 TS
   - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）

@@ -185,14 +185,15 @@ radio
       fn && fn(e)
 
       const { rowData, rowIndex } = this
-
+      const rowInfo = {
+        rowData,
+        rowIndex,
+      }
+      console.log('-----', rowInfo)
       this.dispatch(
         COMPS_NAME.VE_TABLE_BODY,
         EMIT_EVENTS.BODY_ROW_CLICK,
-        {
-          rowData,
-          rowIndex,
-        },
+        rowInfo
       )
     },
     // dblclick
@@ -340,9 +341,7 @@ radio
         class: this.trClass,
         tagName: 'tr',
         id: this.currentRowKey,
-        attrs: {
-          [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
-        },
+        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         onDomResizeChange: ({ key, height }) => {
           this.dispatch(
             COMPS_NAME.VE_TABLE,
@@ -364,9 +363,7 @@ radio
     } else {
       const props = {
         class: this.trClass,
-        attrs: {
-          [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
-        },
+        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         ...events,
       }
 

@@ -26,7 +26,8 @@ import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
 import { debounce } from '@P/utils/index.js'
 
 export default {
-  name: COMPS_NAME.VE_TABLE_SELECTION,
+  // name: COMPS_NAME.VE_TABLE_SELECTION,
+  name: 'VeTableSelection',
   mixins: [emitter],
   props: {
     tableEl: {

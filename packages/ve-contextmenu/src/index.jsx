@@ -19,30 +19,6 @@ export default {
     'events-outside': eventsOutside,
   },
   props: {
-    /*
-    options(contextmenu)
-    [
-    {
-    id: 1,
-    label: "菜单1",
-    disabled:true
-    },
-    {
-    id: 2,
-    label: "菜单2",
-    children: [
-    {
-    id: "2-1",
-    label: "菜单2-1",
-    },
-    {
-    id: "2-2",
-    label: "菜单2-2",
-    },
-    ],
-    },
-    ]
-    */
     options: {
       type: Array,
       required: true,
@@ -58,74 +34,7 @@ export default {
   },
   data() {
     return {
-      /*
-      internal options:
-      [
-      {
-      id: 1,
-      deep: 0,
-      hasChildren: false,
-      label: "菜单1",
-      },
-      {
-      id: 2,
-      label: "菜单2",
-      deep: 0,
-      hasChildren: true,
-      children: [
-      {
-      id: "2-1",
-      deep: 1,
-      hasChildren: false,
-      label: "菜单2-1",
-      },
-      {
-      id: "2-2",
-      deep: 1,
-      hasChildren: false,
-      label: "菜单2-2",
-      },
-      ],
-      },
-      ]
-      */
       internalOptions: [],
-
-      /*
-      panels option
-      {
-      id: 1,
-      menus: [
-      {
-      id: "",
-      deep: 0,
-      label: "菜单1",
-      hasChildren: true,
-      },
-      {
-      id: "",
-      deep: 0,
-      label: "菜单2",
-      },
-      ],
-      },
-      {
-      id: 2,
-      menus: [
-      {
-      id: "",
-      deep: 1,
-      label: "菜单1",
-      hasChildren: true,
-      },
-      {
-      id: "",
-      deep: 1,
-      label: "菜单2",
-      },
-      ],
-      },
-      */
       panelOptions: [],
       // event target element
       eventTargetEl: '',
@@ -591,20 +500,29 @@ export default {
             class: {
               [clsName('panel')]: true,
             },
-            directives: [
-              {
-                name: 'events-outside',
-                value: {
-                  events: ['click'],
-                  callback: (e) => {
-                    // only for root panel
-                    if (panelIndex === 0) {
-                      emptyContextmenuPanels()
-                    }
-                  },
-                },
+            'v-events-outside': {
+              events: ['click'],
+              callback: (e) => {
+                // only for root panel
+                if (panelIndex === 0) {
+                  emptyContextmenuPanels()
+                }
               },
-            ],
+            },
+            // directives: [
+            //   {
+            //     name: 'events-outside',
+            //     value: {
+            //       events: ['click'],
+            //       callback: (e) => {
+            //         // only for root panel
+            //         if (panelIndex === 0) {
+            //           emptyContextmenuPanels()
+            //         }
+            //       },
+            //     },
+            //   },
+            // ],
             onClick: () => {
               if (panelIndex !== 0) {
                 this.isChildrenPanelsClicked = true

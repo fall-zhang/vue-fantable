@@ -963,6 +963,7 @@ export default {
 
     // recieve body cell mousedown
     eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
+      // console.log(params)
       this.bodyCellMousedown(params)
     })
 
@@ -1761,10 +1762,11 @@ export default {
          */
     columnToVisible(nextColumn) {
       const { hasXScrollBar, colgroups } = this
-
+      if (!nextColumn || nextColumn) return
       if (!hasXScrollBar) {
         return false
       }
+      // console.log('&&&&&&&&&&&&&&', nextColumn)
 
       const tableContainerRef = this.$refs[this.tableContainerRef]
 
@@ -1777,6 +1779,7 @@ export default {
           fixed: COLUMN_FIXED_TYPE.LEFT,
         })
 
+        // console.log('&&&&&&&&&&&&&&', this)
         const rightTotalWidth = getNotFixedTotalWidthByColumnKey({
           colgroups,
           colKey: nextColumn.key,
@@ -2343,12 +2346,14 @@ export default {
       const rowKey = getRowKey(rowData, rowKeyFieldName)
 
       // set cell selection and column to visible
-      this[INSTANCE_METHODS.SET_CELL_SELECTION]({
+      const setCellSelection = INSTANCE_METHODS.SET_CELL_SELECTION
+      this[setCellSelection]({
         rowKey,
         colKey: column.key,
         isScrollToRow: false,
       })
       // row to visible
+      // console.log('++++++++')
       this.rowToVisible(KEY_CODES.ARROW_UP, rowKey)
       this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey)
     },
@@ -3447,7 +3452,8 @@ export default {
     /*
         set cell selection and column to visible
         */
-    [INSTANCE_METHODS.SET_CELL_SELECTION](receive) {
+    // [INSTANCE_METHODS.SET_CELL_SELECTION](receive) {
+    setCellSelection(receive) {
       let {
         rowKey,
         colKey,
@@ -3461,15 +3467,16 @@ export default {
       if (!enableCellSelection) {
         return false
       }
-
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         this.cellSelectionCurrentCellChange({
           rowKey,
           colKey,
         })
 
+        // console.log('0000000', colKey, this.colgroups)
         const column = getColumnByColkey(colKey, this.colgroups)
         // column to visible
+        // console.log('1111111', column)
         this.columnToVisible(column)
         // row to visible
         if (isScrollToRow) {
@@ -3923,14 +3930,17 @@ export default {
         this.setScrollBarStatus()
         this.hooks.triggerHook(HOOKS_NAME.TABLE_SIZE_CHANGE)
       },
-      directives: [
-        {
-          name: 'click-outside',
-          value: (e) => {
-            this.tableClickOutside(e)
-          },
-        },
-      ],
+      // 'v-click-outside': (e) => {
+      //   this.tableClickOutside(e)
+      // },
+      // directives: [
+      //   {
+      //     name: 'click-outside',
+      //     value: (e) => {
+      //       this.tableClickOutside(e)
+      //     },
+      //   },
+      // ],
     }
 
     // table container props
@@ -4097,7 +4107,7 @@ export default {
 
     return (
       <div {...tableRootProps}>
-        <VueDomResizeObserver {...tableContainerWrapperProps}>
+        <VueDomResizeObserver {...tableContainerWrapperProps} v-click-outside={this.tableClickOutside}>
           <div {...tableContainerProps}>
             {/* virtual view phantom */}
             {this.getVirtualViewPhantom()}

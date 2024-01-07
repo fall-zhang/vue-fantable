@@ -5,7 +5,8 @@ desc:绑定元素触发的事件不在指定事件中，将会触发。此指令
 */
 
 export default {
-  bind: function (el, binding, vNode) {
+  mounted (el, binding, vNode) {
+    // console.log('222222')
     const { events, callback } = binding.value
 
     if (
@@ -34,7 +35,7 @@ export default {
     }
   },
 
-  unbind: function (el, binding, vNode) {
+  unmounted (el, binding, vNode) {
     const { events } = binding.value
     events.forEach((eventName) => {
       document.removeEventListener(eventName, el.__eventsOutside__, true)

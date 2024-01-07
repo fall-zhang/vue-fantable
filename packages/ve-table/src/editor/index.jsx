@@ -491,18 +491,19 @@ export default {
     const textareaProps = {
       ref: this.textareaInputRef,
       class: textareaClass,
-      directives: [
-        {
-          name: 'focus',
-          value: {
-            focus: isEditCellFocus,
-          },
-        },
-      ],
-      domProps: { value: rawCellValue },
-      attrs: {
-        tabindex: -1,
+      'v-focus': {
+        focus: isEditCellFocus,
       },
+      // directives: [
+      //   {
+      //     name: 'focus',
+      //     value: {
+      //       focus: isEditCellFocus,
+      //     },
+      //   },
+      // ],
+      domProps: { value: rawCellValue },
+      tabindex: -1,
       onInput: (e) => {
         if (isCellEditing) {
           this.textareaValueChange(e.target.value)

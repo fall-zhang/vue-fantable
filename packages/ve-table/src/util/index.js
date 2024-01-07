@@ -1034,6 +1034,7 @@ function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
       colKey: null,
       colIndex: null,
     }
+    // console.log(colKeys, colgroups)
     colKeys.forEach((colKey) => {
       const colIndex = colgroups.findIndex((x) => x.key === colKey)
 
@@ -1041,6 +1042,7 @@ function getLeftmostOrRightmostColKey({ type, colgroups, colKeys }) {
         console.warn(
           `getLeftmostOrRightmostColKey error:: can't find colKey:${colKey}`,
         )
+        // throw new Error(`can't find colKey:${colKey}`)
         return false
       }
 

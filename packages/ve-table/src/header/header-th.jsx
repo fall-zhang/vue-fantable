@@ -597,10 +597,8 @@ export default {
     const thProps = {
       style: getTheadThStyle(groupColumnItem, rowIndex),
       class: getTheadThClass(groupColumnItem),
-      attrs: {
-        rowspan: groupColumnItem._rowspan,
-        colspan: groupColumnItem._colspan,
-      },
+      rowspan: groupColumnItem._rowspan,
+      colspan: groupColumnItem._colspan,
       onClick: (e) => {
         this.cellClick(e, click)
         if (

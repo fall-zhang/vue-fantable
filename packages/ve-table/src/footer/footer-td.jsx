@@ -349,10 +349,8 @@ export default {
     const tdProps = {
       class: this.getBodyTdClass(column),
       style: this.getBodyTdStyle(column),
-      attrs: {
-        rowspan,
-        colspan,
-      },
+      rowspan,
+      colspan,
       onClick: (e) => {
         this.cellClick(e, click)
       },

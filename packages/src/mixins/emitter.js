@@ -4,6 +4,7 @@ https://github.com/ElemeFE/element
 */
 import eventCenter from '@P/events/event-center'
 function broadcast(componentName, eventName, params) {
+  if (!this.$children) return
   this.$children.forEach((child) => {
     const name = child.$options.name
 
@@ -17,7 +18,9 @@ function broadcast(componentName, eventName, params) {
 export default {
   methods: {
     dispatch(componentName, eventName, params) {
+      // console.log(eventName.slice(3))
       eventCenter.emit(eventName, params)
+      // const handledName = eventName.slice(3)
 
       // let parent = this.$parent || this.$root
       // let name = parent.$options.name
@@ -30,13 +33,15 @@ export default {
       //   }
       // }
       // if (parent) {
-      //   parent.$emit.apply(parent, [eventName].concat(params))
+      //   parent.$emit.apply(parent, [handledName].concat(params))
       // } else {
       //   console.error(`${componentName} was not found.`)
       // }
     },
     broadcast(componentName, eventName, params) {
-      broadcast.call(this, componentName, eventName, params)
+      const handledName = eventName.slice(3)
+      // eventCenter.emit(eventName, params)
+      broadcast.call(this, componentName, handledName, params)
     },
   },
 }

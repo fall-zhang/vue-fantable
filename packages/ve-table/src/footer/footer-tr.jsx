@@ -197,9 +197,7 @@ export default {
     const props = {
       class: this.trClass,
       tagName: 'tr',
-      attrs: {
-        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
-      },
+      [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
       onClick: (e) => {
         this.rowClick(e, click)
       },

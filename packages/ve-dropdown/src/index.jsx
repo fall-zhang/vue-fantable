@@ -641,12 +641,13 @@ export default {
     const dropdownItemsProps = {
       ref: dropdownItemsPanelId,
       class: dropdownItemsClass,
-      directives: [
-        {
-          name: 'click-outside',
-          value: this.dropdownClickOutside,
-        },
-      ],
+      'v-click-outside': this.dropdownClickOutside,
+      // directives: [
+      //   {
+      //     name: 'click-outside',
+      //     value: this.dropdownClickOutside,
+      //   },
+      // ],
     }
 
     return (
