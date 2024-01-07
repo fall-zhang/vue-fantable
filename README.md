@@ -136,13 +136,15 @@ app.mounted('#app')
   - [x] 可以打包 CSS、less 内容
   - [x] 移除其它包依赖，只依赖 vue
   - [x] 保证项目示例（文档）可以运行
-  - [ ] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
-  - [ ] 添加页面或者能运行该组件的内容
+  - [x] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
+  - [x] 添加页面或者能运行该组件的内容
   - [ ] 使用 google font 替代 iconfont，避免版权风险
+  - [ ] 多个实例之间数据可能没有进行隔离
   - [ ] 模块拆分，打包优化
   - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
 - [ ] 重写 Loading 组件
+- [ ] 异步加载模式，拆分为三步进行加载
 - [ ] 性能优化，加上防抖和节流
 - [ ] 之后加上 TS
   - [ ] 添加测试用例
