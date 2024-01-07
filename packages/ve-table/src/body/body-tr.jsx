@@ -189,7 +189,6 @@ radio
         rowData,
         rowIndex,
       }
-      console.log('-----', rowInfo)
       this.dispatch(
         COMPS_NAME.VE_TABLE_BODY,
         EMIT_EVENTS.BODY_ROW_CLICK,

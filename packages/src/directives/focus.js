@@ -2,7 +2,9 @@
 element focus
 */
 export default {
-  bind: function (el, { value }, vnode) {
+  mounted: function (el, eee, vnode) {
+    // console.log(el, eee)
+    const value = eee.value
     if (value) {
       const { focus, select } = value
 
@@ -17,7 +19,7 @@ export default {
       })
     }
   },
-  update: function (el, { value }) {
+  unmounted: function (el, { value }) {
     if (value) {
       const { focus } = value
       if (focus) {

@@ -106,16 +106,14 @@ export default {
     // get expande row content
     getExpandRowContent(h) {
       const { expandOption } = this
-      const result =
-                expandOption.render &&
-                expandOption.render(
-                  {
-                    row: this.rowData,
-                    column: this.expandColumn,
-                    rowIndex: this.rowIndex,
-                  },
-                  h,
-                )
+      const result = expandOption.render && expandOption.render(
+        {
+          row: this.rowData,
+          column: this.expandColumn,
+          rowIndex: this.rowIndex,
+        },
+        h,
+      )
 
       return result
     },

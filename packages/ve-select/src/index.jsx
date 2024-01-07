@@ -159,11 +159,12 @@ export default {
     }
 
     let content = ''
+    // this.placeholder = '63416464'
     if (isInput) {
       content = (
         <input
           class={clsName('input')}
-          placeholder={this.placeholder}
+          placeholder='63416464'
           type="text"
           v-model={this.inputValue}
         />

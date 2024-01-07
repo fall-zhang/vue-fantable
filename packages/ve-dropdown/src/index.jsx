@@ -641,7 +641,7 @@ export default {
     const dropdownItemsProps = {
       ref: dropdownItemsPanelId,
       class: dropdownItemsClass,
-      'v-click-outside': this.dropdownClickOutside,
+      // 'v-click-outside': this.dropdownClickOutside,
       // directives: [
       //   {
       //     name: 'click-outside',
@@ -661,7 +661,7 @@ export default {
           </a>
         </dt>
         <div style={{ display: 'none' }}>
-          <dd {...dropdownItemsProps}>
+          <dd {...dropdownItemsProps} v-click-outside={this.dropdownClickOutside}>
             <ul
               class={clsName('items')}
               style={{

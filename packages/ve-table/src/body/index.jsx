@@ -695,7 +695,16 @@ export default {
         internalCheckboxSelectedRowKeys,
         rowKeyFieldName,
       } = this
-      const { selectedRowChange, selectedRowKeys } = checkboxOption
+
+      let selectedRowChange = null
+      let selectedRowKeys = null
+      if (!checkboxOption) return
+      if (checkboxOption.selectedRowChange) {
+        selectedRowChange = checkboxOption.selectedRowChange
+      }
+      if (checkboxOption.selectedRowKeys) {
+        selectedRowKeys = checkboxOption.selectedRowKeys
+      }
 
       const internalCheckboxSelectedRowKeysTemp =
                 internalCheckboxSelectedRowKeys.slice(0)
@@ -742,6 +751,7 @@ export default {
         disableCheckboxSelectedRowKeys,
         disableCheckboxUnselectedRowKeys,
       } = this
+      if (!checkboxOption) return
       const { selectedAllChange, selectedRowKeys } = checkboxOption
 
       let internalCheckboxSelectedRowKeysTemp =
@@ -787,8 +797,13 @@ export default {
          */
     radioSelectedRowChange({ rowKey }) {
       const { radioOption, rowKeyFieldName, isControlledRadio } = this
-
-      const { selectedRowChange } = radioOption
+      let selectedRowChange = null
+      if (!radioOption) {
+        return
+      }
+      if (radioOption.selectedRowChange) {
+        selectedRowChange = radioOption.selectedRowChange
+      }
 
       // 非受控
       if (!isControlledRadio) {

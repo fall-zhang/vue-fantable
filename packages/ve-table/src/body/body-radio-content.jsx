@@ -37,8 +37,13 @@ export default {
       if (!radioOption) {
         return
       }
-
-      const { disableSelectedRowKeys } = radioOption
+      let disableSelectedRowKeys = null
+      if (!radioOption) {
+        return
+      }
+      if (radioOption.disableSelectedRowKeys) {
+        disableSelectedRowKeys = radioOption.disableSelectedRowKeys
+      }
 
       if (
         Array.isArray(disableSelectedRowKeys) && disableSelectedRowKeys.includes(rowKey)

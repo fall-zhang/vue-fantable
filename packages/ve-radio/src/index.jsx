@@ -69,8 +69,8 @@ export default {
       }
       const isChecked = event.target.checked
 
-      console.log(this.label)
-      console.log(this.model)
+      // console.log(this.label)
+      // console.log(this.model)
       if (!this.isControlled) {
         this.$emit('input', isChecked)
       }
