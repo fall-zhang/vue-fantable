@@ -11,7 +11,8 @@
 
 ## 介绍
 
-本项目由 vue-easytable 更新而来，使用 rollup 替代 webpack 和 gulp，支持 Vue3，ESM 并且体积更小
+如果你的项目使用 vue2，建议使用 [vue-easytable](https://www.npmjs.com/package/vue-easytable)
+本项目由 vue-easytable 更新而来，支持 Vue3，ESM 并且体积更小。
 
 ## 特点
 
@@ -124,7 +125,7 @@ app.mounted('#app')
 - [主题定制 & 内置主题]()
 - [虚拟滚动]()
 - [自定义事件]()
-- [更多](#更多功能支持)
+- [更多](##更多功能支持)
 
 ## 开发计划
 
@@ -177,7 +178,7 @@ app.mounted('#app')
 
 http://www.opensource.org/licenses/mit-license.php
 
-### 更多功能支持
+## 更多功能支持
 
 - [国际化]()
 - [主题定制 & 内置主题]()
