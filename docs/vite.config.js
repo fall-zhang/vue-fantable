@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve as pathResolve } from 'node:path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import Markdown from 'unplugin-vue-markdown/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath } from 'node:url'
 
@@ -33,7 +34,10 @@ export default defineConfig({
     }
   },
   plugins: [
-    vue(),
+    vue({
+      include: [/\.vue$/, /\.md$/], // <-- allows Vue to compile Markdown files
+    }),
+    Markdown({ /* options */ }),
     vueJsx({
       // include: [/\.[jt]sx$/, /\.vue$/]
       // options are passed on to @vue/babel-plugin-jsx

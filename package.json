@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Happy-Coding-Clans/vue-easytable.git"
+    "url": "https://gitee.com/mywings/vue-fantable"
   },
   "exports": {
     ".": {
@@ -86,12 +86,12 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/Happy-Coding-Clans/vue-easytable/issues"
+    "url": "https://gitee.com/mywings/vue-fantable/issues"
   },
   "engines": {
     "node": "^18.0.0 || >=20.0.0"
   },
-  "homepage": "https://github.com/Happy-Coding-Clans/vue-easytable/blob/master/README.md",
+  "homepage": "https://gitee.com/mywings/vue-fantable/blob/master/README.md",
   "docVersions": [
     {
       "value": "/vue-easytable",
