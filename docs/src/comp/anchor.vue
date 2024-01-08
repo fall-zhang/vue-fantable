@@ -22,8 +22,8 @@ import locale from './locale'
 import I18nMixins from './mixins/i18n-mixins'
 
 export default {
-  mixins: [I18nMixins],
   name: 'VueAnchor',
+  mixins: [I18nMixins],
   props: {
     label: {
       type: String,
@@ -49,6 +49,11 @@ export default {
     eidtDemoTitle() {
       return locale[this.currentDocLang].eidtDemoTitle
     },
+  },
+  created() {
+    if (this.label) {
+      this.id = slugify(this.label)
+    }
   },
   methods: {
     goAnchor() {
@@ -88,11 +93,6 @@ export default {
         }
       }
     },
-  },
-  created() {
-    if (this.label) {
-      this.id = slugify(this.label)
-    }
   },
 }
 </script>

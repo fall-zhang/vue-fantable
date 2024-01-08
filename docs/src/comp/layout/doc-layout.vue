@@ -10,27 +10,29 @@
                 {{ config.name }}
               </a>
               <ul class="menu-sub">
-                <router-link v-for="(
-                                        subConfig, subIndex
-                                    ) in config.children" :key="subIndex" tag="li"
+                <router-link v-for="( subConfig, subIndex ) in config.children" :key="subIndex"
                   :to="`/${currentDocLang}/doc/${config.path}/${subConfig.path}`">
-                  <a>
-                    {{ subConfig.name }}
-                    <span v-show="subConfig.meta &&
-                      subConfig.meta.version
-                      " class="version">
-                      {{
-                        subConfig.meta &&
+                  <li>
+                    <a>
+                      {{ subConfig.name }}
+                      <span v-show="subConfig.meta &&
                         subConfig.meta.version
-                      }}
-                    </span>
-                  </a>
+                        " class="version">
+                        {{
+                          subConfig.meta &&
+                          subConfig.meta.version
+                        }}
+                      </span>
+                    </a>
+                  </li>
                 </router-link>
               </ul>
             </li>
-            <router-link v-else-if="!config.meta || !config.meta.hide" :key="index+''" class="no-child" tag="li"
+            <router-link v-else-if="!config.meta || !config.meta.hide" :key="index + ''" class="no-child"
               :to="`/${currentDocLang}/doc/${config.path}`">
-              <a>{{ config.name }}</a>
+              <li>
+                <a>{{ config.name }}</a>
+              </li>
             </router-link>
           </template>
         </ul>
@@ -38,10 +40,12 @@
 
       <!--主体内容 Start-->
       <div class="main-wrapper-container">
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" />
-        </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive" />
+        <router-view v-slot="{ Component }">
+          <KeepAlive v-if="$route.meta.keepAlive">
+            <component :is="Component"></component>
+          </KeepAlive>
+          <component :is="Component" v-else />
+        </router-view>
         <!--主体内容 End-->
       </div>
 
@@ -52,12 +56,7 @@
     <!--回到顶部-->
     <div>
       <div v-show="showBackTop" class="main-back-top">
-        <i class="
-                        icon
-                        iconfont
-                        icon-huidaodingbu-copy
-                        main-back-top-icon
-                    " @click="goBackTop()" />
+        <i class="icon iconfont icon-huidaodingbu-copy main-back-top-icon " @click="goBackTop()" />
       </div>
     </div>
 
@@ -100,6 +99,12 @@ export default {
       },
       immediate: true,
     },
+  },
+  mounted() {
+    document.addEventListener('scroll', this.handleScroll)
+  },
+  beforeUnmount() {
+    document.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     goBackTop() {
@@ -159,12 +164,6 @@ export default {
     //     link.href = require("./../../images/favicon.png");
     //     document.getElementsByTagName("head")[0].appendChild(link);
     // },
-  },
-  mounted() {
-    document.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy() {
-    document.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>

@@ -30,8 +30,8 @@
                   <i class="icon iconfont icon-dropdown" />
                 </span>
                 <div class="switch-lang-dropdown-pannel" :class="showLangDropdown
-                    ? 'dropdown-pannel-show'
-                    : ''
+                  ? 'dropdown-pannel-show'
+                  : ''
                   ">
                   <span v-for="item in switchLangOptions" :key="item.value" :class="[
                     'dropdown-item',
@@ -58,8 +58,8 @@
                   <i class="icon iconfont icon-dropdown" />
                 </span>
                 <div class="switch-theme-dropdown-pannel" :class="showThemeDropdown
-                    ? 'dropdown-pannel-show'
-                    : ''
+                  ? 'dropdown-pannel-show'
+                  : ''
                   ">
                   <span v-for="item in currentLocal.switchDocThemeOptions" :key="item.value" :class="[
                     'dropdown-item',
@@ -87,8 +87,8 @@
                   <i class="icon iconfont icon-dropdown" />
                 </span>
                 <div class="switch-version-dropdown-pannel" :class="showVersionDropdown
-                    ? 'dropdown-pannel-show'
-                    : ''
+                  ? 'dropdown-pannel-show'
+                  : ''
                   ">
                   <span v-for="item in switchVersionOptions" :key="item.value" :class="[
                     'dropdown-item',
@@ -113,10 +113,12 @@
         </div>
       </div>
     </div>
-    <keep-alive>
-      <router-view v-if="$route.meta.keepAlive" />
-    </keep-alive>
-    <router-view v-if="!$route.meta.keepAlive" />
+    <router-view #="{ Component }">
+      <keep-alive v-if="$route.meta.keepAlive">
+        <component :is="Component"></component>
+      </keep-alive>
+      <component :is="Component" v-else></component>
+    </router-view>
   </div>
 </template>
 
@@ -183,6 +185,14 @@ export default {
     currentDocLang() {
       this.$veLocale.use(locale[this.currentDocLang].compLang)
     },
+  },
+  created() {
+    getVersions().then(({ data }) => {
+      this.switchVersionOptions = data
+    })
+  },
+  mounted() {
+    this.initDocTheme()
   },
   methods: {
     // lang change
@@ -265,14 +275,6 @@ export default {
       }
       console.log('current doc theme ::', this.currentDocTheme)
     },
-  },
-  created() {
-    getVersions().then(({ data }) => {
-      this.switchVersionOptions = data
-    })
-  },
-  mounted() {
-    this.initDocTheme()
   },
 }
 </script>

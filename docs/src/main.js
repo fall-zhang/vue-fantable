@@ -1,7 +1,4 @@
 // polyfills
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
-
 import { createApp, nextTick } from 'vue'
 
 import APP from '@/comp/app.vue'
@@ -35,8 +32,8 @@ import {
 
 const app = createApp(APP)
 app.use(Router)
-app.component('demo-block', DemoBlock)
-app.component('fa-anchor', Anchor)
+app.component('DemoBlock', DemoBlock)
+app.component('FaAnchor', Anchor)
 app.use(VueLazyContainer)
 
 // product
