@@ -37,6 +37,7 @@ export default {
     // icon name
     iconClass() {
       const { name } = this
+      console.log(name)
 
       if (!Object.values(ICON_NAMES).includes(name)) {
         console.error(`${name} is not found in ${COMPS_NAME.VE_ICON}.`)
