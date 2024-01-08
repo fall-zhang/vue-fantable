@@ -44,7 +44,7 @@ yarn add vue-fantable
 
 ```javascript
 import {createApp} from "vue";
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-easytable/libs/index.css";
 import App from './app.vue'
 import VueEasytable from "vue-easytable";
 const app = createApp(App)
@@ -171,8 +171,7 @@ app.mounted('#app')
 
 ## 讨论组
 
-- [加入 gitter 讨论](https://gitter.im/vue-easytable/community)
-- [加入 discord 讨论](https://discord.gg/gBm3k6r)
+- [加入 gitter 讨论]()
 
 ## License
 
