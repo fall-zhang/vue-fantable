@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "main": "libs/main.js",
-  "description": "Vue table component",
+  "description": "Vue table component for huge data",
   "author": "Fall Zhang",
   "license": "MIT",
   "repository": {
@@ -39,6 +39,9 @@
     "commit": "czg"
   },
   "dependencies": {
+    "mitt": "^3.0.1",
+    "unplugin-vue": "^5.0.2",
+    "unplugin-vue-jsx": "^0.2.2",
     "vue": "^3.4.4"
   },
   "peerDependencies": {
@@ -50,7 +53,6 @@
     }
   },
   "devDependencies": {
-    "mitt": "^3.0.1",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-alias": "^5.1.0",

@@ -1,8 +1,9 @@
 // import css from 'rollup-plugin-css-only'
 import path from 'node:path'
-import vuePlugin from 'rollup-plugin-vue'
+import pluginVue from 'unplugin-vue/rollup'
+import pluginVueJSX from 'unplugin-vue-jsx/rollup'
 import alias from '@rollup/plugin-alias'
-import sucrase from '@rollup/plugin-sucrase'
+// import sucrase from '@rollup/plugin-sucrase'
 import resolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import { fileURLToPath } from 'node:url'
@@ -25,13 +26,12 @@ const distConfig = defineConfig({
     manualChunks: []
   }],
   plugins: [
-    vuePlugin({
-      target: 'broswer'
-    }),
-    sucrase({
-      exclude: ['node_modules/**'],
-      transforms: ['jsx']
-    }),
+    pluginVue(),
+    pluginVueJSX(),
+    // sucrase({
+    //   exclude: ['node_modules/**'],
+    //   transforms: ['jsx']
+    // }),
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
@@ -64,13 +64,8 @@ const libConfig = defineConfig({
     manualChunks: []
   }],
   plugins: [
-    vuePlugin({
-      target: 'broswer'
-    }),
-    sucrase({
-      exclude: ['node_modules/**'],
-      transforms: ['jsx']
-    }),
+    pluginVue(),
+    pluginVueJSX(),
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
