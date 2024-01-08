@@ -1,5 +1,3 @@
-
-
 # 还在加紧适配中
 # still work on adept vue3
 
@@ -13,7 +11,7 @@
 
 ## 介绍
 
-本项目由 vue-easytable 更新而来，使用 rollup 替代 webpack 和 gulp，支持 Vue3
+本项目由 vue-easytable 更新而来，使用 rollup 替代 webpack 和 gulp，支持 Vue3，ESM 并且体积更小
 
 ## 特点
 
@@ -61,7 +59,7 @@ app.mounted('#app')
   <ve-table :columns="columns" :table-data="tableData" />
 </template>
 
-<script>
+<script >
   export default {
     data() {
       return {
@@ -149,6 +147,7 @@ app.mounted('#app')
 - [ ] 之后加上 TS
   - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）
+  - [ ] 使用 shadow dom
 
 如果没有你想要的的功能，请告诉[我]()
 

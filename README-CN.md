@@ -1,14 +1,17 @@
-[![license](https://img.shields.io/npm/l/vue-easytable.svg?maxAge=2592000)](http://www.opensource.org/licenses/mit-license.php)
+# 还在加紧适配中
+# still work on adept vue3
 
 # vue-fantable
 
-[English](./README.md) | **中文**
+[![license](https://img.shields.io/npm/l/vue-fantable.svg)](http://www.opensource.org/licenses/mit-license.php)
+
+[English](./README-EN.md) | **中文**
 
 > 如果我看的更远，那是因为我站在巨人的肩膀上。
 
 ## 介绍
 
-本项目由 vue-easytable 更新而来，使用 rollup 替代 webpack 和 gulp，支持 Vue3
+本项目由 vue-easytable 更新而来，使用 rollup 替代 webpack 和 gulp，支持 Vue3，ESM 并且体积更小
 
 ## 特点
 
@@ -17,12 +20,12 @@
 
 ## API & 文档
 
-- [官方文档 (Github)](http://happy-coding-clans.github.io/vue-easytable/)
-- [官方文档 (国内)](http://huangshuwei.gitee.io/vue-easytable/)
+- [官方文档 (Github)]()
+- [官方文档 (国内)]()
 
 ## 安装
 
-确保 node 版本至少为 18.0.0
+确保 Vue 版本至少为 3.2
 
 ```
 npm install vue-fantable
@@ -56,7 +59,7 @@ app.mounted('#app')
   <ve-table :columns="columns" :table-data="tableData" />
 </template>
 
-<script>
+<script >
   export default {
     data() {
       return {
@@ -108,35 +111,45 @@ app.mounted('#app')
 
 **其它基础组件**
 
-- [Loading 组件加载状态](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/loading)
-- [Pagination 分页组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/pagination)
-- [Contextmenu 右键菜单组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/contextmenu)
-- [Icon 图标组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/icon)
-- [Locale 国际化组件](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/base/locale)
+- [Loading 组件加载状态]()
+- [Pagination 分页组件]()
+- [Contextmenu 右键菜单组件]()
+- [Icon 图标组件]()
+- [Locale 国际化组件]()
 
 **Table 组件**
 
-- [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
-- [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
-- [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
-- [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
+- [更轻量]()
+- [国际化]()
+- [主题定制 & 内置主题]()
+- [虚拟滚动]()
+- [自定义事件]()
 - [更多](#更多功能支持)
 
 ## 开发计划
 
 - [x] 保证项目可以打包构建
   - [x] 更新项目依赖
-  - [x] 打包 CSS、less 内容
+  - [x] 并且转移到 ESM，且 Vue2 调用时不会出错
+  - [x] 可以打包 CSS、less 内容
+  - [x] 移除其它包依赖，只依赖 vue
   - [x] 保证项目示例（文档）可以运行
-  - [ ] 添加页面或者能运行该组件的内容
+  - [x] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
+  - [x] 添加页面或者能运行该组件的内容
+  - [ ] 使用 google font 替代 iconfont，避免版权风险
+  - [ ] 多个实例之间数据可能没有进行隔离
   - [ ] 模块拆分，打包优化
-  - [ ] 其它移除包依赖，只依赖 vue
+  - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
+- [ ] 重写 Loading 组件
+- [ ] 异步加载模式，拆分为三步进行加载
+- [ ] 性能优化，加上防抖和节流
 - [ ] 之后加上 TS
   - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）
+  - [ ] 使用 shadow dom
 
-如果没有你想要的的功能，请告诉[我们]()
+如果没有你想要的的功能，请告诉[我]()
 
 ## 支持环境
 
@@ -166,30 +179,27 @@ http://www.opensource.org/licenses/mit-license.php
 
 ### 更多功能支持
 
-- [国际化](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/locale)
-- [主题定制 & 内置主题](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/theme)
-- [虚拟滚动](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/virtual-scroll)
-- [自定义事件](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/event-custom)
-- [更多](http://happy-coding-clans.github.io/vue-easytable)
-
-- [列固定](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-fixed)
-- [列隐藏](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-hidden)
-- [表头固定](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-fixed)
-- [表头分组](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-grouping)
-- [筛选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-filter)
-- [排序](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/header-sort)
-- [列宽拖动](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/column-resize)
-- [单元格样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-style)
-- [单元格自定义](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-custom)
-- [单元格合并](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-span)
-- [单元格选择（键盘操作）](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-selection)
-- [单元格自动填充](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-autofill)
-- [单元格编辑](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-edit)
-- [剪贴板](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/clipboard)
-- [右键菜单](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/contextmenu)
-- [单元格省略](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/cell-ellipsis)
-- [行单选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-radio)
-- [行多选](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-checkbox)
-- [行展开](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-expand)
-- [行样式](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/row-style)
-- [footer 汇总](http://happy-coding-clans.github.io/vue-easytable/#/zh/doc/table/footer-summary)
+- [国际化]()
+- [主题定制 & 内置主题]()
+- [虚拟滚动]()
+- [自定义事件]()
+- [列隐藏]()
+- [表头固定]()
+- [表头分组]()
+- [筛选]()
+- [排序]()
+- [列宽拖动]()
+- [单元格样式]()
+- [单元格自定义]()
+- [单元格合并]()
+- [单元格选择（键盘操作）]()
+- [单元格自动填充]()
+- [单元格编辑]()
+- [剪贴板]()
+- [右键菜单]()
+- [单元格省略]()
+- [行单选]()
+- [行多选]()
+- [行展开]()
+- [行样式]()
+- [footer 汇总]()
