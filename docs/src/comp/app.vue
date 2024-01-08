@@ -237,7 +237,7 @@ export default {
         const newUrl = protocol + '//' + host + item.value
         window.open(newUrl, '_blank')
       } else {
-        const newUrl = protocol + '//' + host + item.value + hash
+        // const newUrl = protocol + '//' + host + item.value + hash
         window.open(item.value, '_self')
       }
     },
@@ -275,6 +275,10 @@ export default {
       }
       console.log('current doc theme ::', this.currentDocTheme)
     },
+    switchThemeMix(theme) {
+      console.log(this.currentDocTheme)
+      window.location.reload()
+    }
   },
 }
 </script>

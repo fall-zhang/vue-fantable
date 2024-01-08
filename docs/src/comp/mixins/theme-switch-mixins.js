@@ -1,40 +1,40 @@
-import ThemeSwitcherTool from 'theme-switcher-tool'
+// import ThemeSwitcherTool from './theme-switch-tool.js'
 
 const styleLinkId = 'theme_creator_cli_style_id'
 
-const themeSwitcherTool = ThemeSwitcherTool({
-  // Your theme list
-  themeList: [
-    {
-      themeName: 'dark',
-      themePath:
-                'https://unpkg.com/vue-easytable/libs/theme-dark/index.css',
-    },
-    {
-      themeName: 'default',
-      themePath:
-                'https://unpkg.com/vue-easytable/libs/theme-default/index.css',
-    },
-  ],
-  // Your actual style id
-  styleLinkId,
-  useStorage: false,
-  storageKey: 'theme_switcher_tool_theme',
-})
+// const themeSwitcherTool = ThemeSwitcherTool({
+//   // Your theme list
+//   themeList: [
+//     {
+//       themeName: 'dark',
+//       themePath:
+//                 'https://unpkg.com/vue-easytable/libs/theme-dark/index.css',
+//     },
+//     {
+//       themeName: 'default',
+//       themePath:
+//                 'https://unpkg.com/vue-easytable/libs/theme-default/index.css',
+//     },
+//   ],
+//   // Your actual style id
+//   styleLinkId,
+//   useStorage: false,
+//   storageKey: 'theme_switcher_tool_theme',
+// })
 
 export default {
   methods: {
     // switch theme mix
     switchThemeMix(themeName) {
       return new Promise((resolve, reject) => {
-        themeSwitcherTool
-          .switcher({
-            themeName,
-          })
-          .then(() => {
-            resolve()
-          })
-          .catch(reject)
+        // themeSwitcherTool
+        //   .switcher({
+        //     themeName,
+        //   })
+        //   .then(() => {
+        //     resolve()
+        //   })
+        //   .catch(reject)
       })
     },
   },

@@ -1,11 +1,13 @@
 <template>
   <div class="demo-block" :class="[{ hover: hovering }]" @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <vue-lazy-container class="source-code-container" tag-name="div" @change="visibilityChange">
-      <div v-if="isDemoRendered" class="source">
+    <!-- <vue-lazy-container class="source-code-container" tag-name="div" @change="visibilityChange"> -->
+    <div class="source-code-container" @change="visibilityChange">
+      <div class="source">
         <slot name="source"></slot>
       </div>
-      <div v-else class="source-empty">Loading...</div>
-    </vue-lazy-container>
+    </div>
+    <!-- <div v-else class="source-empty">Loading...</div> -->
+    <!-- </vue-lazy-container> -->
     <div v-if="$slots.default" class="description">
       <div class="title-container">
         <span class="title">{{ demoLangInfo.description }}</span>
@@ -27,16 +29,7 @@
           {{ controlText }}
         </span>
       </transition>
-      <!--    <transition name="text-slide">
-                <div
-                    v-show="hovering || isExpanded"
-                    size="small"
-                    type="text"
-                    class="slide-content online-edit-btn"
-                >
-                    {{ demoLangInfo.runInline }}
-                </div>
-            </transition> -->
+
       <transition name="text-slide">
         <div v-show="hovering || isExpanded" size="small" type="text" class="slide-content online-edit-btn">
           <CodeSandBoxOnline :btn-name="demoLangInfo['openInCodeSandBox'] || ''" :version="onlineExample.version"
@@ -73,7 +66,7 @@ export default {
       fixedControl: false,
       scrollParent: null,
       // 是否示例渲染完成
-      isDemoRendered: false,
+      isDemoRendered: true,
     }
   },
 
@@ -137,38 +130,9 @@ export default {
     },
   },
 
-  methods: {
-    // visibility change
-    visibilityChange(entry, observer, id) {
-      const { isIntersecting } = entry
-
-      // visibility
-      if (isIntersecting) {
-        this.isDemoRendered = true
-      }
-    },
-    // scroll handler
-    scrollHandler() {
-      const { top, bottom, left } =
-        this.$refs.meta.getBoundingClientRect()
-      // 44px 为自身高度
-      this.fixedControl =
-        bottom > document.documentElement.clientHeight &&
-        top + 44 <= document.documentElement.clientHeight
-
-      this.$refs.control.style.left = this.fixedControl
-        ? `${left}px`
-        : '0'
-    },
-
-    removeScrollHandler() {
-      document.removeEventListener('scroll', this.scrollHandler)
-    },
-  },
-
   created() {
     this.onlineExample.version = version
-    const highlight = this.$slots.highlight
+    const highlight = this.$slots.highlight()
     if (highlight && highlight[0]) {
       let code = ''
       let cur = highlight[0]
@@ -196,8 +160,37 @@ export default {
     })
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.removeScrollHandler()
+  },
+
+  methods: {
+    // visibility change
+    visibilityChange(entry, observer, id) {
+      // const { isIntersecting } = entry
+
+      // visibility
+      // if (isIntersecting) {
+      this.isDemoRendered = true
+      // }
+    },
+    // scroll handler
+    scrollHandler() {
+      const { top, bottom, left } =
+        this.$refs.meta.getBoundingClientRect()
+      // 44px 为自身高度
+      this.fixedControl =
+        bottom > document.documentElement.clientHeight &&
+        top + 44 <= document.documentElement.clientHeight
+
+      this.$refs.control.style.left = this.fixedControl
+        ? `${left}px`
+        : '0'
+    },
+
+    removeScrollHandler() {
+      document.removeEventListener('scroll', this.scrollHandler)
+    },
   },
 }
 </script>

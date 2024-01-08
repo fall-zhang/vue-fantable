@@ -26,9 +26,6 @@ dependencies:
   lz-string:
     specifier: ^1.5.0
     version: 1.5.0
-  markdown-it-container:
-    specifier: ^2.0.0
-    version: 2.0.0
   mockjs:
     specifier: ^1.1.0
     version: 1.1.0
@@ -73,6 +70,9 @@ devDependencies:
   markdown-it-anchor:
     specifier: ^5.3.0
     version: 5.3.0(markdown-it@8.4.1)
+  markdown-it-container:
+    specifier: ^2.0.0
+    version: 2.0.0
   unplugin-auto-import:
     specifier: ^0.16.7
     version: 0.16.7
@@ -2528,7 +2528,7 @@ packages:
 
   /markdown-it-container@2.0.0:
     resolution: {integrity: sha512-IxPOaq2LzrGuFGyYq80zaorXReh2ZHGFOB1/Hen429EJL1XkPI3FJTpx9TsJeua+j2qTru4h3W1TiCRdeivMmA==}
-    dev: false
+    dev: true
 
   /markdown-it@13.0.2:
     resolution: {integrity: sha512-FtwnEuuK+2yVU7goGn/MJ0WBZMM9ZPgU9spqlFs7/A/pDIUNSOQZhUgOqYCficIuR2QaFnrt8LHqBWsbTAoI5w==}

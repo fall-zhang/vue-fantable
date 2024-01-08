@@ -14,7 +14,7 @@ import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'
 
 // vue-lazy-container
-import VueLazyContainer from 'vue-lazy-container'
+// import VueLazyContainer from 'vue-lazy-container'
 
 import {
   VeCheckbox,
@@ -34,25 +34,9 @@ const app = createApp(APP)
 app.use(Router)
 app.component('DemoBlock', DemoBlock)
 app.component('FaAnchor', Anchor)
-app.use(VueLazyContainer)
+// app.use(VueLazyContainer)
 
 // product
-/* import "../../libs/theme-default/index.css";
-import {
-VeCheckbox,
-VeCheckboxGroup,
-VeDropdown,
-VeIcon,
-VeLoading,
-VeLocale,
-VePagination,
-VeRadio,
-VeSelect,
-VeTable
-} from "../../libs/main.js";
-import zhCN from "../../libs/locale/lang/zh-CN";
-import enUS from "../../libs/locale/lang/en-US";
-VeLocale.use(zhCN); */
 
 // 设置当前环境
 window.env = process.env.NODE_ENV === 'development' ? 'dev' : 'pro'

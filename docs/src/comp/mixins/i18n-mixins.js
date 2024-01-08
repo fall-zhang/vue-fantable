@@ -1,5 +1,4 @@
 import { DOC_LANG } from '@/utils/constant.js'
-import { useRoute } from 'vue-router'
 export default {
   computed: {
     // current doc lang
