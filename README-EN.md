@@ -82,10 +82,10 @@ Write the following in main.js:
 
 ```javascript
 import Vue from "vue";
-import "vue-easytable/libs/theme-default/index.css";
-import VueEasytable from "vue-easytable";
+import "vue-fantable/libs/theme-default.css";
+import VueFantable from "vue-fantable";
 
-Vue.use(VueEasytable);
+Vue.use(VueFantable);
 
 new Vue({
     el: "#app",

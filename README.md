@@ -12,6 +12,7 @@
 ## 介绍
 
 如果你的项目使用 vue2，建议使用 [vue-easytable](https://www.npmjs.com/package/vue-easytable)
+
 本项目由 vue-easytable 更新而来，支持 Vue3，ESM 并且体积更小。
 
 ## 特点
@@ -46,9 +47,9 @@ yarn add vue-fantable
 import {createApp} from "vue";
 import "vue-easytable/libs/index.css";
 import App from './app.vue'
-import VueEasytable from "vue-easytable";
+import VueFantable from "vue-fantable";
 const app = createApp(App)
-app.use(VueEasytable);
+app.use(VueFantable);
 
 app.mounted('#app')
 ```
@@ -137,10 +138,12 @@ app.mounted('#app')
   - [x] 保证项目示例（文档）可以运行
   - [x] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
   - [x] 添加页面或者能运行该组件的内容
-  - [ ] 使用 google font 替代 iconfont，避免版权风险
+  - [x] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
+  - [x] 使用 google font 替代 iconfont，避免版权风险
   - [ ] 多个实例之间数据可能没有进行隔离
+  - [ ] 修复 I18N 的语言打包问题
   - [ ] 模块拆分，打包优化
-  - [ ] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
+  - [ ] 使用 CSS 变量
   - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
 - [ ] 重写 Loading 组件
 - [ ] 异步加载模式，拆分为三步进行加载
