@@ -1,3 +1,9 @@
+// dependence on those project
+// https://github.com/iconoir-icons/iconoir
+// https://iconpark.oceanengine.com/
+// https://github.com/tabler/tabler-icons
+// https://fonts.google.com/icons?hl=zh-cn
+
 import ArrowUp from './arrow-up.vue'
 import ArrowDown from './arrow-down.vue'
 import ArrowLeft from './arrow-left.vue'

@@ -15,7 +15,7 @@ export default defineConfig({
   // host:true, // 表示可以通过 ip 进行访问
   resolve: {
     alias: {
-      'vue-easytable': pathResolve(__dirname, '../'),
+      'vue-fantable': pathResolve(__dirname, '../'),
       vue: 'vue/dist/vue.esm-bundler.js',
       '@': pathResolve(__dirname, 'src'),
       '@C': pathResolve(__dirname, 'src/components'),

@@ -103,7 +103,7 @@ module.exports = {
       //  👾/📝
     ],
     useEmoji: true,
-    scopes: ['markdown', 'javascript','css','assets'],
+    scopes: ['markdown', 'javascript', 'css', 'assets'],
     customScopesAlign: 'bottom',
     emptyScopesAlias: 'empty',
     customScopesAlias: 'custom',
