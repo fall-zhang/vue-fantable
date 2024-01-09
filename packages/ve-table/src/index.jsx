@@ -918,7 +918,7 @@ export default {
     this.hooks = new Hooks()
 
     // receive sort change
-    eventCenter.on(EMIT_EVENTS.SORT_CHANGE, (params) => {
+    eventCenter.on('sort-change-after', (params) => {
       this.updateColgroupsBySortChange(params)
     })
 

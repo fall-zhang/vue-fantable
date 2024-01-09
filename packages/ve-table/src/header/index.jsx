@@ -140,11 +140,11 @@ export default {
         }
       }
       // 执行 ve-table 上的 sort-change
-      // this.dispatch(
-      //   COMPS_NAME.VE_TABLE,
-      //   EMIT_EVENTS.SORT_CHANGE,
-      //   sortColumns,
-      // )
+      this.dispatch(
+        COMPS_NAME.VE_TABLE,
+        'sort-change-after',
+        sortColumns,
+      )
       console.log(sortChange)
       // invoke
       if (sortChange) sortChange(sortColumns)
