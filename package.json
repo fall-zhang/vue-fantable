@@ -70,7 +70,6 @@
     "husky": "^8.0.3",
     "less": "^4.2.0",
     "lint-staged": "^15.2.0",
-    "lodash-es": "^4.17.21",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",
     "resize-observer-polyfill": "^1.5.1",
@@ -95,12 +94,8 @@
   "homepage": "https://gitee.com/mywings/vue-fantable/blob/master/README.md",
   "docVersions": [
     {
-      "value": "/vue-easytable",
-      "label": "2.27.1"
-    },
-    {
-      "value": "/vue-easytable/2.26.0",
-      "label": "2.26.0"
+      "value": "/vue-fantable",
+      "label": "0.10.0"
     }
   ],
   "browserslist": [

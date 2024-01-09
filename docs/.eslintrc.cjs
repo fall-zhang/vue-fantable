@@ -2,7 +2,7 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    es2021: true
+    es2022: true
   },
   root: true,
   // 后面的配置会覆盖前者
@@ -47,12 +47,6 @@ module.exports = {
     'vue/html-indent': 0,
     'vue/no-multiple-template-root': 0,
     'vue/html-self-closing': 0,
-    'vue/max-attributes-per-line': [
-      1,
-      {
-        singleline: 5,
-        multiline: 4
-      }
-    ]
+    'vue/max-attributes-per-line': 0
   }
 }

@@ -44,20 +44,19 @@ export default {
         color,
         'font-size': getValByUnit(size),
       }
-
       return result
     },
 
     // icon name
-    iconClass() {
-      const { name } = this
-      console.log(name)
+    // iconClass() {
+    //   const { name } = this
+    //   console.log(name)
 
-      if (!Object.values(ICON_NAMES).includes(name)) {
-        console.error(`${name} is not found in ${COMPS_NAME.VE_ICON}.`)
-      }
-      return `iconfont-vet icon-vet-${name}`
-    },
+    //   if (!Object.values(ICON_NAMES).includes(name)) {
+    //     console.error(`${name} is not found in ${COMPS_NAME.VE_ICON}.`)
+    //   }
+    //   return `iconfont-vet icon-vet-${name}`
+    // },
     iconNameVue() {
       const { name } = this
       const map = {
@@ -66,14 +65,13 @@ export default {
         'right-arrow': ArrowRight,
         filter: FilterVue,
       }
-      console.log('🚀 ~ iconNameVue ~  map[name]:', map[name])
       return map[name]
     },
   },
   methods: {
   },
   render() {
-    const { iconStyle, iconClass } = this
+    const { iconStyle } = this
     // return <i style={iconStyle} class={['ve-icon', iconClass]} />
     return (<this.iconNameVue style={iconStyle}/>)
   },

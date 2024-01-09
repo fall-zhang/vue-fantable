@@ -2,7 +2,7 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    es2021: true
+    es2022: true
   },
   root: true,
   // 启用 globals，去定义一些全局变量，eslint 会忽略
@@ -55,12 +55,6 @@ module.exports = {
     'vue/html-indent': 0,
     'vue/no-multiple-template-root': 0,
     'vue/html-self-closing': 0,
-    'vue/max-attributes-per-line': [
-      1,
-      {
-        singleline: 5,
-        multiline: 4
-      }
-    ]
+    'vue/max-attributes-per-line': 0
   }
 }
