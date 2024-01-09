@@ -20,10 +20,10 @@ Write the following in main.js：
 
 ```javascript
 import Vue from "vue";
-import "vue-easytable/libs/theme-default/index.css"; // import style
-import VueEasytable from "vue-easytable"; // import library
+import "vue-fantable/libs/theme-default.css"; // import style
+import VueFantable from "vue-fantable"; // import library
 
-Vue.use(VueEasytable);
+Vue.use(VueFantable);
 
 new Vue({
     el: "#app",
@@ -39,7 +39,7 @@ Write the following in main.js：
 
 ```javascript
 import Vue from "vue";
-import "vue-easytable/libs/theme-default/index.css"; // import style
+import "vue-easytable/libs/theme-default.css"; // import style
 
 import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-easytable"; // import library
 
@@ -127,7 +127,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
 
 ```css
 <!-- import style -->
-<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default.css">
 <!-- import Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- import library -->
@@ -144,7 +144,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
         <!-- import style -->
         <link
             rel="stylesheet"
-            href="https://unpkg.com/vue-easytable/libs/theme-default/index.css"
+            href="https://unpkg.com/vue-easytable/libs/theme-default.css"
         />
     </head>
     <body>

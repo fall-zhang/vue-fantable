@@ -4,7 +4,7 @@
 
 ```javascript
 import Vue from "vue";
-import { VeIcon } from "vue-easytable";
+import { VeIcon } from "vue-fantable";
 
 Vue.use(VeIcon);
 ```

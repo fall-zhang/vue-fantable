@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="site-demo-container">
+      <h1 class="main-title">
+        <img :src="Icon">vue-fantable
+      </h1>
       <div class="demo-title">
         <div class="demo-title-text">
           {{ currentLocal.demo1.selection }}
@@ -22,15 +25,18 @@ import locale from '../comp/locale'
 import I18nMixins from '../comp/mixins/i18n-mixins'
 import NormalDataGrid from './normal-data-grid.vue'
 import SpreadSheet from './SpreadSheet.vue'
+import Icon from 'vue-fantable/packages/icon/fantable.svg'
 export default {
-  name: 'DemoVue',
+  name: 'DemoPage',
   components: {
     NormalDataGrid,
     SpreadSheet,
   },
   mixins: [I18nMixins],
   data() {
-    return {}
+    return {
+      Icon
+    }
   },
   computed: {
     // current local
@@ -41,6 +47,15 @@ export default {
 }
 </script>
 <style lang="less">
+.main-title {
+  // display: ;
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .site-demo-container {
   display: flex;
   flex-direction: column;

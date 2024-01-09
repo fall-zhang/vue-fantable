@@ -1,7 +1,7 @@
 export default {
   name: 'CodePen',
   props: {
-    // vue-easytable version
+    // vue-fantable version
     version: {
       type: String,
       required: true,
@@ -30,13 +30,13 @@ export default {
                 'ipt src="//unpkg.com/vue/dist/vue.js"></scr' +
                 'ipt>' +
                 '\n<scr' +
-                `ipt src="//unpkg.com/vue-easytable@${version}/libs/umd/index.js"></scr` +
+                `ipt src="//unpkg.com/vue-fantable@${version}/libs/umd/index.js"></scr` +
                 'ipt>'
       let jsTpl = (exampleScript || '')
         .replace(/export default/, 'var Main =')
         .trim()
       const htmlTpl = `${resourcesTpl}\n<div id="app">\n${exampleTpl.trim()}\n</div>`
-      const cssTpl = `@import url("//unpkg.com/vue-easytable@${version}/libs/theme-default/index.css");\n${(
+      const cssTpl = `@import url("//unpkg.com/vue-fantable@${version}/libs/theme-default/index.css");\n${(
         exampleStyle || ''
       ).trim()}\n`
       jsTpl = jsTpl

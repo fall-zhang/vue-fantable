@@ -4,7 +4,7 @@ import `VeTable`
 
 ```javascript
 import Vue from "vue";
-import { VeTable } from "vue-easytable";
+import { VeTable } from "vue-fantable";
 
 Vue.use(VeTable);
 ```

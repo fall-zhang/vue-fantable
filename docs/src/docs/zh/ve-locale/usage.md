@@ -2,9 +2,9 @@
 
 ```javascript
 import Vue from "vue";
-import { VeLocale } from "vue-easytable";
+import { VeLocale } from "vue-fantable";
 // 引入英文语言包
-import enUS from "vue-easytable/libs/locale/lang/en-US.js";
+import enUS from "vue-fantable/libs/locale/lang/en-US.js";
 
 VeLocale.use(enUS);
 ```
@@ -14,7 +14,7 @@ VeLocale.use(enUS);
 
 ```javascript
 import Vue from "vue";
-import { VeLocale } from "vue-easytable";
+import { VeLocale } from "vue-fantable";
 
 Vue.prototype.$veLocale = VeLocale;
 ```
@@ -22,6 +22,6 @@ Vue.prototype.$veLocale = VeLocale;
 调用
 
 ```javascript
-import enUS from "vue-easytable/libs/locale/lang/en-US.js";
+import enUS from "vue-fantable/libs/locale/lang/en-US.js";
 this.$veLocale.use(enUS);
 ```

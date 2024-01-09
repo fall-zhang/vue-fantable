@@ -8,7 +8,7 @@ By default, two sets of themes are provided, blue theme and dark theme
 import blue theme style
 
 ```
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-easytable/libs/theme-default.css";
 ```
 
 #### Use Dark Theme
@@ -38,10 +38,10 @@ Then, in the entry file of the project, you can directly import the above style 
 
 ```
 import Vue from 'vue'
-import VueEasytable from 'vue-easytable'
+import VueFantable from 'vue-fantable'
 import './vue-easytable-variables.less'
 
-Vue.use(VueEasytable)
+Vue.use(VueFantable)
 ```
 
 #### Choose Dark Theme To Customize
@@ -59,8 +59,8 @@ Then, in the entry file of the project, you can directly import the above style 
 
 ```
 import Vue from 'vue'
-import VueEasytable from 'vue-easytable'
+import VueFantable from 'vue-easytable'
 import './vue-easytable-variables.less'
 
-Vue.use(VueEasytable)
+Vue.use(VueFantable)
 ```

@@ -47,8 +47,8 @@ const COLUMN_KEYS = [
   'Z',
 ]
 export default {
-  mixins: [I18nMixins],
   name: 'SpreadSheet',
+  mixins: [I18nMixins],
   data() {
     return {
       // start row index
@@ -243,6 +243,9 @@ export default {
       return columns
     },
   },
+  created() {
+    this.initTableData()
+  },
   methods: {
     // render row index
     renderRowIndex({ row, column, rowIndex }) {
@@ -283,9 +286,6 @@ export default {
 
       this.tableData = tableData
     },
-  },
-  created() {
-    this.initTableData()
   },
 }
 </script>

@@ -1,4 +1,3 @@
-// polyfills
 import { createApp, nextTick } from 'vue'
 
 import APP from '@/comp/app.vue'
@@ -67,14 +66,5 @@ app.use(VeTable)
 
 app.config.globalProperties.$veLoading = VeLoading
 app.config.globalProperties.$veLocale = VeLocale
-
-// 全部引入
-/* import "../../packages/theme-default/index.less";
-import vueEasytable from "../../packages/index.js";
-app.use(vueEasytable); */
-
-/* import "../../libs/theme-default/index.css";
-import vueEasytable from "../../libs/main.js";
-app.use(vueEasytable); */
 
 app.mount('#app')

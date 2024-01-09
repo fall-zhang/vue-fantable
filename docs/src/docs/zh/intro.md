@@ -1,4 +1,4 @@
-## vue-easytable
+## vue-fantable
 
 一个基于 Vue2.x 的表格组件。
 
@@ -56,4 +56,4 @@
 
 ### 如何贡献
 
-如果你希望参与贡献，欢迎 [Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
+如果你希望参与贡献，欢迎 [Pull Request](https://github.com/huangshuwei/vue-fantable/pulls)

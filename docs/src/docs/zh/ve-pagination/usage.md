@@ -4,7 +4,7 @@
 
 ```javascript
 import Vue from "vue";
-import { VePagination } from "vue-easytable";
+import { VePagination } from "vue-fantable";
 
 Vue.use(VePagination);
 ```

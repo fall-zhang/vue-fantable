@@ -5,7 +5,7 @@
         <!-- logo -->
         <div v-show="showLogo" class="main-banner-logo">
           <i style="font-size: 20px" class="icon iconfont icon-table"></i>
-          &nbsp;vue-easytable
+          &nbsp;vue-fantable
         </div>
         <!-- menus -->
         <div class="main-banner-menus-container">
@@ -105,7 +105,7 @@
             </span>
 
             <span class="main-banner-menu-item">
-              <a class="main-banner-menu-link" href="https://github.com/huangshuwei/vue-easytable">
+              <a class="main-banner-menu-link" href="https://github.com/fall-zhang/vue-fantable">
                 <i class="icon iconfont icon-github"></i>
               </a>
             </span>

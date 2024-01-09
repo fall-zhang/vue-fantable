@@ -3,13 +3,13 @@
 :::anchor npm & yarn 安装
 
 ```javascript
-npm install vue-easytable
+npm install vue-fantable
 ```
 
 或者
 
 ```javascript
-yarn add vue-easytable
+yarn add vue-fantable
 ```
 
 :::anchor 使用
@@ -21,11 +21,11 @@ yarn add vue-easytable
 ```javascript
 import Vue from "vue";
 // 引入样式
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-fantable/libs/theme-default.css";
 // 引入组件库
-import VueEasytable from "vue-easytable";
+import VueFantable from "vue-fantable";
 
-Vue.use(VueEasytable);
+Vue.use(VueFantable);
 
 new Vue({
     el: "#app",
@@ -33,7 +33,7 @@ new Vue({
 });
 ```
 
-以上代码便完成了 vue-easytable 的引入。别忘了引入样式文件。
+以上代码便完成了 vue-fantable 的引入。别忘了引入样式文件。
 
 #### 按需引入
 
@@ -42,9 +42,9 @@ new Vue({
 ```javascript
 import Vue from "vue";
 // 引入样式
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-fantable/libs/theme-default.css";
 // 引入组件库
-import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-easytable";
+import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable";
 
 Vue.use(VeTable);
 Vue.use(VePagination);
@@ -134,7 +134,7 @@ new Vue({
 
 ```css
 <!-- 引入样式 -->
-<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default/index.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default.css">
 <!-- 引入Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- 引入组件库 -->
@@ -151,7 +151,7 @@ new Vue({
         <!-- 引入样式 -->
         <link
             rel="stylesheet"
-            href="https://unpkg.com/vue-easytable/libs/theme-default/index.css"
+            href="https://unpkg.com/vue-easytable/libs/theme-default.css"
         />
     </head>
     <body>
@@ -227,6 +227,3 @@ new Vue({
     </script>
 </html>
 ```
-
-:::anchor 浏览器兼容
-默认支持现代浏览器和 IE10 及以上

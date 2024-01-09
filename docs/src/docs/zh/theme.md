@@ -8,18 +8,18 @@
 引入蓝色主题样式
 
 ```
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-fantable/libs/theme-default/index.css";
 ```
 
 #### 使用暗黑主题
 
 ```
-import "vue-easytable/libs/theme-dark/index.css";
+import "vue-fantable/libs/theme-dark/index.css";
 ```
 
 :::anchor 主题定制
 
-vue-easytable 的样式使用了 Less 作为开发语言，并定义了一系列全局/组件的样式变量，你可以根据需求进行相应调整。
+vue-fantable 的样式使用了 Less 作为开发语言，并定义了一系列全局/组件的样式变量，你可以根据需求进行相应调整。
 
 #### 选择蓝色主题定制
 
@@ -36,10 +36,10 @@ vue-easytable 的样式使用了 Less 作为开发语言，并定义了一系列
 
 ```
 import Vue from 'vue'
-import VueEasytable from 'vue-easytable'
-import './vue-easytable-variables.less'
+import VueFantable from 'vue-fantable'
+import './vue-fantable-variables.less'
 
-Vue.use(VueEasytable)
+Vue.use(VueFantable)
 ```
 
 #### 选择暗黑主题定制
@@ -57,8 +57,8 @@ Vue.use(VueEasytable)
 
 ```
 import Vue from 'vue'
-import VueEasytable from 'vue-easytable'
-import './vue-easytable-variables.less'
+import VueFantable from 'vue-fantable'
+import './vue-fantable-variables.less'
 
-Vue.use(VueEasytable)
+Vue.use(VueFantable)
 ```

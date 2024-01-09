@@ -7,7 +7,7 @@ export default {
       type: String,
       required: true,
     },
-    // vue-easytable version
+    // vue-fantable version
     version: {
       type: String,
       required: true,
@@ -36,19 +36,19 @@ import Vue from "vue";
 import Example from "./Example.vue";
 
 // import default theme
-import "vue-easytable/libs/theme-default/index.css";
+import "vue-fantable/libs/theme-default/index.css";
 
-// import vue-easytable library
-import VueEasytable from "vue-easytable";
+// import vue-fantable library
+import VueFantable from "vue-fantable";
 
 // for online edit
-import "vue-easytable/libs/font/iconfont.css";
+import "vue-fantable/libs/font/iconfont.css";
 
 // only used by examples
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(VueEasytable);
+Vue.use(VueFantable);
 
 Vue.use(ElementUI);
 
@@ -95,12 +95,12 @@ new Vue({
       } = this
 
       const codesandboxPackage = {
-        title: `vue-easytable@${version} example`,
+        title: `vue-fantable@${version} example`,
         main: 'main.js',
         dependencies: {
           vue: '^2.6.11',
           'vue-template-compiler': '^2.6.11',
-          'vue-easytable': version,
+          'vue-fantable': version,
           'element-ui': '^2.15.0',
           mockjs: '^1.1.0',
           '@vue/cli-service': '4.1.1',

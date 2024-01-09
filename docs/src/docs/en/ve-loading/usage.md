@@ -4,7 +4,7 @@ Import `veLoading` where you need
 
 ```javascript
 import Vue from "vue";
-import { veLoading } from "vue-easytable";
+import { veLoading } from "vue-fantable";
 ```
 
 ```javascript
@@ -21,7 +21,7 @@ Mount the `veLoading` component to the prototype of Vue for easy global call
 
 ```javascript
 import Vue from "vue";
-import { veLoading } from "vue-easytable";
+import { veLoading } from "vue-fantable";
 
 Vue.prototype.$veLoading = veLoading;
 ```

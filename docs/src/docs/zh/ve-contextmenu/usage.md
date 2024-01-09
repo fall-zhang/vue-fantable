@@ -4,7 +4,7 @@
 
 ```javascript
 import Vue from "vue";
-import { VeContextmenu } from "vue-easytable";
+import { VeContextmenu } from "vue-fantable";
 
 Vue.use(VeContextmenu);
 ```

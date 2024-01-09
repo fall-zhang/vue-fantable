@@ -3,7 +3,7 @@
 
 ```javascript
 import Vue from "vue";
-import { veLoading } from "vue-easytable";
+import { veLoading } from "vue-fantable";
 ```
 
 调用
@@ -21,7 +21,7 @@ veLoading({
 
 ```javascript
 import Vue from "vue";
-import { veLoading } from "vue-easytable";
+import { veLoading } from "vue-fantable";
 
 Vue.prototype.$veLoading = veLoading;
 ```

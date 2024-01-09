@@ -9,9 +9,9 @@ export function getVersions() {
 
     let url = `${net.protocol}//${net.hostname}:${net.port}`
 
-    // 包含 /vue-easytable/ 目录
+    // 包含 /vue-fantable/ 目录
     if (!isDev) {
-      url += '/vue-easytable'
+      url += '/vue-fantable'
     }
     url += `/versions.json?t=${new Date().getTime()}`
 
