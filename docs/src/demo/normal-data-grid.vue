@@ -35,8 +35,7 @@
       </div>
     </div>
     <div class="table-list">
-      <ve-table id="demo-loading-container" ref="tableRef" fixed-header border-y
-:max-height="500" :scroll-width="0"
+      <ve-table id="demo-loading-container" ref="tableRef" fixed-header border-y :max-height="500" :scroll-width="0"
         :sort-option="sortOption" :virtual-scroll-option="virtualScrollOption" :columns="columns" :table-data="tableData"
         row-key-field-name="rowKey" :cell-style-option="cellStyleOption" :expand-option="expandOption"
         :radio-option="radioOption" :checkbox-option="checkboxOption" :row-style-option="rowStyleOption"
@@ -108,7 +107,8 @@ export default {
       },
       sortOption: {
         sortChange: (params) => {
-          this.sortChange(params)
+          const _this = this
+          _this.sortChange(params)
         },
       },
       radioOption: {
@@ -475,6 +475,7 @@ export default {
 
     // sort change
     sortChange(params) {
+      console.log('更新排序');
       const sortFileld1 = 'sex'
       const sortFileld2 = 'proficiency'
 

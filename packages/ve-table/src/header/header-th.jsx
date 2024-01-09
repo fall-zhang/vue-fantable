@@ -365,11 +365,11 @@ export default {
       const currentField = groupColumnItem.field
       const sortBy = sortColumns[currentField]
 
+      console.log(33333333)
       if (sortAlways) {
         sortResult = sortBy === 'asc' ? 'desc' : 'asc'
       } else {
-        sortResult =
-                    sortBy === 'asc' ? 'desc' : sortBy === 'desc' ? '' : 'asc'
+        sortResult = sortBy === 'asc' ? 'desc' : sortBy === 'desc' ? '' : 'asc'
       }
 
       this.dispatch(COMPS_NAME.VE_TABLE_THADER, EMIT_EVENTS.SORT_CHANGE, {
@@ -602,8 +602,7 @@ export default {
       onClick: (e) => {
         this.cellClick(e, click)
         if (
-          this.isSortableCloumn &&
-                    e.target instanceof HTMLTableCellElement
+          this.isSortableCloumn && e.target instanceof HTMLTableCellElement
         ) {
           this.sortChange()
         }

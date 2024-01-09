@@ -119,8 +119,16 @@ export default {
   methods: {
     // sort change
     sortChange({ currentField, sortResult }) {
-      const { sortColumns, sortOption } = this
-      const { multipleSort, sortChange } = sortOption
+      const { sortColumns, sortOption = {} } = this
+      let sortChange = null
+      let multipleSort = null
+      if (sortOption && sortOption.sortChange) {
+        sortChange = sortOption.sortChange
+      }
+      if (sortOption && sortOption.multipleSort) {
+        multipleSort = sortOption.multipleSort
+      }
+      // const { multipleSort, sortChange } = sortOption
 
       this.sortColumns[currentField] = sortResult
 
@@ -131,15 +139,15 @@ export default {
           }
         }
       }
-
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.SORT_CHANGE,
-        sortColumns,
-      )
-
+      // 执行 ve-table 上的 sort-change
+      // this.dispatch(
+      //   COMPS_NAME.VE_TABLE,
+      //   EMIT_EVENTS.SORT_CHANGE,
+      //   sortColumns,
+      // )
+      console.log(sortChange)
       // invoke
-      sortChange(sortColumns)
+      if (sortChange) sortChange(sortColumns)
     },
 
     // init sort columns
