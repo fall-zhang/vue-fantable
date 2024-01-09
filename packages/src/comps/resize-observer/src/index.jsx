@@ -2,7 +2,6 @@ import {
   addResizeListener,
   removeResizeListener,
 } from '../../../utils/resize-event'
-import { useSlots, defineProps, h } from 'vue'
 export default {
   name: 'VueDomResizeObserver',
   props: {
