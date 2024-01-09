@@ -3,35 +3,37 @@ import path from 'node:path'
 import pluginVue from 'unplugin-vue/rollup'
 import pluginVueJSX from 'unplugin-vue-jsx/rollup'
 import alias from '@rollup/plugin-alias'
+import json from '@rollup/plugin-json'
 // import sucrase from '@rollup/plugin-sucrase'
 import resolve from '@rollup/plugin-node-resolve'
-import terser from '@rollup/plugin-terser'
+// import terser from '@rollup/plugin-terser'
+import languages from './build/support-languages.js'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'rollup'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const langLocation = (fileName) => {
+  return path.resolve(__dirname, 'packages/src/locale/lang/' + fileName)
+}
 const distConfig = defineConfig({
   // clean: true,
   // sourcemap: 'inline',
-  input: ['packages/index.js'],
+  input: languages.map((lang) => langLocation(lang)),
   external: ['vue'],
   output: [{
     format: 'es',
     // entryFileNames: 'entry-[name].js',
-    dir: './dist',
+    dir: './libs/lang',
     entryFileNames: `[name].js`,
-    chunkFileNames: 'chunks/dep-[hash].js',
+    chunkFileNames: '[name]-[hash].js',
     exports: 'named',
-    plugins: [terser()],
+    plugins: [],
     manualChunks: []
   }],
   plugins: [
     pluginVue(),
     pluginVueJSX(),
-    // sucrase({
-    //   exclude: ['node_modules/**'],
-    //   transforms: ['jsx']
-    // }),
+    json(),
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },
@@ -66,6 +68,7 @@ const libConfig = defineConfig({
   plugins: [
     pluginVue(),
     pluginVueJSX(),
+    json(),
     alias({
       entries: [
         // { find: 'packages/', replacement: '@/' },

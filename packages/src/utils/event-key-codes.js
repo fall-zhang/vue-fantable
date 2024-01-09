@@ -12,9 +12,8 @@ export function isInputKeyCode(event) {
   // Digit0 to Digit9
   if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105)) {
     result = true
-  }
-  // A to Z
-  else if (keyCode >= 65 && keyCode <= 90) {
+  } else if (keyCode >= 65 && keyCode <= 90) {
+    // A to Z
     result = true
   } else if (
     [186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222].indexOf(
@@ -35,9 +34,8 @@ export function isInputKeyCode(event) {
     Quote("'"):222
     */
     result = true
-  }
-  // Support non-English languages. Chinese, Japanese, French, etc.
-  else if (keyCode == 229) {
+  } else if (keyCode === 229) {
+    // Support non-English languages. Chinese, Japanese, French, etc.
     result = true
   }
 

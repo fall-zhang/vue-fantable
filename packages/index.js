@@ -13,8 +13,8 @@ import VePagination from './ve-pagination/ve-pagination.js'
 import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
 import VeTable from './ve-table/ve-table.js'
+import { version } from '../package.json'
 // const app = createApp({})
-const version = '3.4.4'
 const components = [
   VeCheckbox,
   VeCheckboxGroup,
