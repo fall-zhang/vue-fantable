@@ -38,9 +38,6 @@
     "commit": "czg"
   },
   "dependencies": {
-    "mitt": "^3.0.1",
-    "unplugin-vue": "^5.0.2",
-    "unplugin-vue-jsx": "^0.2.2",
     "vue": "^3.4.4"
   },
   "peerDependencies": {
@@ -75,9 +72,10 @@
     "postcss-load-config": "^5.0.2",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.2",
-    "rollup-plugin-css-only": "^4.5.2",
-    "rollup-plugin-vue": "^6.0.0",
     "vite": "^5.0.10",
+    "mitt": "^3.0.1",
+    "unplugin-vue": "^5.0.2",
+    "unplugin-vue-jsx": "^0.2.2",
     "vitest": "^1.1.1"
   },
   "lint-staged": {
@@ -89,9 +87,9 @@
     "url": "https://gitee.com/mywings/vue-fantable/issues"
   },
   "engines": {
-    "node": "^18.0.0 || >=20.0.0"
+    "node": "^16.18.0 || >=18.0.0"
   },
-  "homepage": "https://gitee.com/mywings/vue-fantable/blob/master/README.md",
+  "homepage": "https://gitee.com/mywings/vue-fantable",
   "docVersions": [
     {
       "value": "/vue-fantable",
@@ -104,6 +102,7 @@
     "not dead"
   ],
   "keywords": [
+    "vue3",
     "vue",
     "table",
     "grid",
