@@ -3,6 +3,7 @@ import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'
 import eventCenter from '@P/events/event-center'
+import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
   name: COMPS_NAME.VE_TABLE_HEADER_CHECKBOX_CONTENT,
   mixins: [emitter],
@@ -36,7 +37,7 @@ export default {
 
       this.dispatch(
         COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE,
+        GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
         {
           isSelected,
         },

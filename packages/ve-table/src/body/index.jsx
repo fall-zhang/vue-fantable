@@ -16,6 +16,7 @@ import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
 import BodyTr from './body-tr.jsx'
 import ExpandTr from './expand-tr.jsx'
 import BodyTrScrolling from './body-tr-scrolling.jsx'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY,
   components: {
@@ -395,7 +396,7 @@ export default {
     })
 
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, (params) => {
       this.checkboxSelectedAllChange(params)
     })
 

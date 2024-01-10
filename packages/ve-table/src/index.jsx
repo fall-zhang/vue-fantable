@@ -919,12 +919,12 @@ export default {
     this.hooks = new Hooks()
 
     // receive sort change
-    eventCenter.on(GLOBAL_EVENT.SORT_CHANGE_After, (params) => {
+    eventCenter.on(GLOBAL_EVENT.SORT_CHANGE_AFTER, (params) => {
       this.updateColgroupsBySortChange(params)
     })
 
     // receive row selected change
-    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
       this.selectedAllChange(params)
     })
 
@@ -1204,9 +1204,9 @@ export default {
          * @param {bool} isSelected - is selected
          */
     selectedAllChange({ isSelected }) {
-      this.broadcast(
+      this.dispatch(
         COMPS_NAME.VE_TABLE_BODY,
-        EMIT_EVENTS.CHECKBOX_SELECTED_ALL_CHANGE,
+        GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY,
         {
           isSelected,
         },

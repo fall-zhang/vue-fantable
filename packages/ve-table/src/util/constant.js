@@ -82,8 +82,6 @@ export const EMIT_EVENTS = {
   EXPAND_ROW_CHANGE: 'on-expand-row-change',
   // checkbox selected row change
   CHECKBOX_SELECTED_ROW_CHANGE: 'on-checkbox-selected-row-change',
-  // checkbox selected all change
-  CHECKBOX_SELECTED_ALL_CHANGE: 'on-checkbox-selected-all-change',
   // checkbox selected all ino
   CHECKBOX_SELECTED_ALL_INFO: 'on-checkbox-selected-all-info',
   // radio selected row change

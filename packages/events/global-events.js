@@ -1,8 +1,9 @@
 // global events
 export const GLOBAL_EVENT = {
   SORT_CHANGE: 'sort-change',
-  SORT_CHANGE_After: 'sort-change-after',
-  CHECKBOX_SELECTED_ALL_CHANGE: 'checkbox-selected-all-change',
+  SORT_CHANGE_AFTER: 'sort-change-after',
+  CHECKBOX_SELECTED_ALL_CHANGE_BODY: 'checkbox-selected-all-change-body',
+  CHECKBOX_SELECTED_ALL_CHANGE_TABLE: 'checkbox-selected-all-change',
   CHECKBOX_SELECTED_ALL_INFO: 'checkbox-selected-all-info',
   HEADER_ROW_HEIGHT_CHANGE: 'header-row-height-change',
   BODY_ROW_HEIGHT_CHANGE: 'body-row-height-change',

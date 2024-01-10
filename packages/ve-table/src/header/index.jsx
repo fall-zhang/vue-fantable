@@ -143,7 +143,7 @@ export default {
       // 执行 ve-table 上的 sort-change
       this.dispatch(
         COMPS_NAME.VE_TABLE,
-        GLOBAL_EVENT.SORT_CHANGE_After,
+        GLOBAL_EVENT.SORT_CHANGE_AFTER,
         sortColumns,
       )
       console.log(sortChange)
