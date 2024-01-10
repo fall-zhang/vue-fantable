@@ -12,6 +12,8 @@ import emitter from '../../../src/mixins/emitter'
 import ExpandTrIcon from './expand-tr-icon.jsx'
 import BodyCheckboxContent from './body-checkbox-content.jsx'
 import BodyRadioContent from './body-radio-content.jsx'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
@@ -431,7 +433,7 @@ export default {
 
       const { column, expandOption, rowData } = this
 
-      this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_CLICK, {
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CLICK, {
         event: e,
         rowData,
         column,
@@ -467,9 +469,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK,
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK,
         {
           event: e,
           rowData,
@@ -483,9 +483,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.BODY_CELL_CONTEXTMENU,
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU,
         {
           event: e,
           rowData,
@@ -507,9 +505,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.BODY_CELL_MOUSEMOVE,
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE,
         {
           event: e,
           rowData,
@@ -523,9 +519,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.BODY_CELL_MOUSEOVER,
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEOVER,
         {
           event: e,
           rowData,
@@ -539,9 +533,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.BODY_CELL_MOUSEDOWN,
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN,
         {
           event: e,
           rowData,
@@ -555,7 +547,7 @@ export default {
 
       const { column, rowData } = this
 
-      this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.BODY_CELL_MOUSEUP, {
+      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEUP, {
         event: e,
         rowData,
         column,

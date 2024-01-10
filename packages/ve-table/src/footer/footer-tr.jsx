@@ -1,8 +1,10 @@
 import FooterTd from './footer-td.jsx'
 import { clsName } from '../util/index.js'
-import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from '../util/constant'
+import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import VueDomResizeObserver from '../../../src/comps/resize-observer/index'
 import emitter from '../../../src/mixins/emitter'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import eventCenter from '@P/events/event-center.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,
   mixins: [emitter],
@@ -85,14 +87,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      /*  this.$emit(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE, {
-                rowIndex: this.rowIndex,
-                height: height
-            }); */
-
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
+      eventCenter.emit(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
         {
           rowIndex: this.rowIndex,
           height,
@@ -102,11 +97,6 @@ export default {
     // click
     rowClick(e, fn) {
       fn && fn(e)
-
-      /*   this.dispatch(COMPS_NAME.VE_TABLE_BODY, EMIT_EVENTS.BODY_TR_CLICK, {
-                rowData,
-                rowIndex
-            }); */
     },
     // dblclick
     rowDblclick(e, fn) {

@@ -56,36 +56,8 @@ export const CURRENT_CELL_SELECTION_TYPES = {
 export const EMIT_EVENTS = {
   // body-cell-width-change
   BODY_CELL_WIDTH_CHANGE: 'on-body-cell-width-change',
-  // header-row-height-change
-  HEADER_ROW_HEIGHT_CHANGE: 'on-header-row-height-change',
-  // footer-row-height-change
-  FOOTER_ROW_HEIGHT_CHANGE: 'on-footer-row-height-change',
-  // body-row-height-change
-  BODY_ROW_HEIGHT_CHANGE: 'on-body-row-height-change',
-  // body row click
-  BODY_ROW_CLICK: 'on-body-row-click',
-  // body cell click
-  BODY_CELL_CLICK: 'on-body-cell-click',
-  // body cell mouseover
-  BODY_CELL_MOUSEOVER: 'on-body-cell-mouseover',
-  // body cell mousedown
-  BODY_CELL_MOUSEDOWN: 'on-body-cell-mousedown',
-  // body cell mousemove
-  BODY_CELL_MOUSEMOVE: 'on-body-cell-mousemove',
-  // body cell mouseup
-  BODY_CELL_MOUSEUP: 'on-body-cell-mouseup',
-  // body cell double click
-  BODY_CELL_DOUBLE_CLICK: 'on-body-cell-double-click',
-  // body cell contextmenu
-  BODY_CELL_CONTEXTMENU: 'on-body-cell-contextmenu',
   // expand row change
   EXPAND_ROW_CHANGE: 'on-expand-row-change',
-  // checkbox selected row change
-  CHECKBOX_SELECTED_ROW_CHANGE: 'on-checkbox-selected-row-change',
-  // checkbox selected all ino
-  CHECKBOX_SELECTED_ALL_INFO: 'on-checkbox-selected-all-info',
-  // radio selected row change
-  RADIO_SELECTED_ROW_CHANGE: 'on-radio-selected-row-change',
   // sort change
   SORT_CHANGE: 'on-sort-change',
   // on-cell-selection-key-change
@@ -96,18 +68,6 @@ export const EMIT_EVENTS = {
   HEADER_FILTER_CONFIRM: 'on-filter-confirm',
   // header filter reset
   HEADER_FILTER_RESET: 'on-filter-reset',
-  // header cell click
-  HEADER_CELL_CLICK: 'on-header-cell-click',
-  // header cell contextmenu
-  HEADER_CELL_CONTEXTMENU: 'on-header-cell-contextmenu',
-  // header cell mousedown
-  HEADER_CELL_MOUSEDOWN: 'on-header-cell-mousedown',
-  // header cell mouseover
-  HEADER_CELL_MOUSEOVER: 'on-header-cell-mouseover',
-  // header cell mousemove
-  HEADER_CELL_MOUSEMOVE: 'on-header-cell-mousemove',
-  // header cell mouseleave
-  HEADER_CELL_MOUSELEAVE: 'on-header-cell-mouseleave',
   // highlight row change
   HIGHLIGHT_ROW_CHANGE: 'on-highlight-row-change',
 
@@ -123,13 +83,6 @@ export const EMIT_EVENTS = {
   EDIT_INPUT_PASTE: 'on-edit-input-paste',
   // edit input cut
   EDIT_INPUT_CUT: 'on-edit-input-cut',
-
-  // selection corner mousedown
-  SELECTION_CORNER_MOUSEDOWN: 'selection-corner-mousedown',
-  // selection corner mouseup
-  SELECTION_CORNER_MOUSEUP: 'selection-corner-mouseup',
-  // autofilling direction change
-  AUTOFILLING_DIRECTION_CHANGE: 'autofilling-direction-change',
 }
 
 // hooks name
@@ -149,8 +102,6 @@ export const HOOKS_NAME = {
     可能导致单元格高度变化，需要重新修改区域选择的定位信息
     */
   CLIPBOARD_CELL_VALUE_CHANGE: 'clipboard-cell-value-change',
-  // header cell mousedown
-  // HEADER_CELL_MOUSEDOWN: "header-cell-mousedown",
   // header cell mousemove
   HEADER_CELL_MOUSEMOVE: 'header-cell-mousemove',
   // body cell mousemove

@@ -2,6 +2,8 @@ import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '../../../src/mixins/emitter'
+import eventCenter from '@P/events/event-center'
+import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_CHECKBOX_CONTENT,
   mixins: [emitter],
@@ -96,9 +98,7 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
         this.isSelected = isSelected
       }
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE_BODY,
-        EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE,
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE,
         {
           rowKey: this.rowKey,
           isSelected,

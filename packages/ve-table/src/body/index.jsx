@@ -391,7 +391,7 @@ export default {
   },
   mounted() {
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
       this.checkboxSelectedRowChange(params)
     })
 
@@ -401,12 +401,12 @@ export default {
     })
 
     // receive radio row selected change from VE_TABLE_BODY_RADIO_CONTENT
-    eventCenter.on(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.RADIO_SELECTED_ROW_CHANGE, (params) => {
       this.radioSelectedRowChange(params)
     })
 
     // recieve tr click
-    eventCenter.on(EMIT_EVENTS.BODY_ROW_CLICK, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_ROW_CLICK, (params) => {
       this.rowClick(params)
     })
 
@@ -629,9 +629,7 @@ export default {
     sendToCheckboxAll() {
       const { isCheckboxSelectedAll, isCheckboxIndeterminate } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO,
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO,
         {
           isIndeterminate: isCheckboxIndeterminate,
           isSelected: isCheckboxSelectedAll,

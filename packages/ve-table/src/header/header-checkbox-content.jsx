@@ -25,19 +25,21 @@ export default {
   },
   mounted() {
     // receive selected all info
-    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
   },
-
+  unmounted() {
+    eventCenter.off(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+      this.setSelectedAllInfo(params)
+    })
+  },
   methods: {
     // selected change
     selectedChange(isSelected) {
       this.isSelected = isSelected
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
         {
           isSelected,
         },

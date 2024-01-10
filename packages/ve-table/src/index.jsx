@@ -929,107 +929,107 @@ export default {
     })
 
     // receive selected all info
-    eventCenter.on(EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
 
     // receive multiple header row height change
-    eventCenter.on(EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
+    eventCenter.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.headerRowHeightChange({ rowIndex, height })
       },
     )
 
     // receive virtual scroll row height change
-    eventCenter.on(EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
       this.bodyRowHeightChange({ rowKey, height })
     })
 
     // receive footer row height change
-    eventCenter.on(EMIT_EVENTS.FOOTER_ROW_HEIGHT_CHANGE,
+    eventCenter.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.footRowHeightChange({ rowIndex, height })
       },
     )
 
     // recieve body cell click
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_CLICK, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_CLICK, (params) => {
       this.bodyCellClick(params)
     })
 
     // recieve body cell mouseover
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEOVER, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEOVER, (params) => {
       this.bodyCellMouseover(params)
     })
 
     // recieve body cell mousedown
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEDOWN, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, (params) => {
       // console.log(params)
       this.bodyCellMousedown(params)
     })
 
     // recieve body cell mousemove
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEMOVE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE, (params) => {
       this.bodyCellMousemove(params)
     })
 
     // recieve body cell mouseup
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_MOUSEUP, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEUP, (params) => {
       this.bodyCellMouseup(params)
     })
 
     // recieve selection corner mousedown
-    eventCenter.on(EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN, (params) => {
+    eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN, (params) => {
       this.cellSelectionCornerMousedown(params)
     })
 
     // recieve selection corner mouseup
-    eventCenter.on(EMIT_EVENTS.SELECTION_CORNER_MOUSEUP, (params) => {
+    eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
       this.cellSelectionCornerMouseup(params)
     })
 
     // autofilling direction change
-    eventCenter.on(EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE, (params) => {
       this.autofillingDirectionChange(params)
     })
 
     // recieve body cell contextmenu(right click)
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_CONTEXTMENU, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU, (params) => {
       this.bodyCellContextmenu(params)
     })
 
     // recieve body cell double click
-    eventCenter.on(EMIT_EVENTS.BODY_CELL_DOUBLE_CLICK, (params) => {
+    eventCenter.on(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK, (params) => {
       this.bodyCellDoubleClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_CLICK, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CLICK, (params) => {
       this.headerCellClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_CONTEXTMENU, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, (params) => {
       this.headerCellContextmenu(params)
     })
 
     // recieve header cell mousedown
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEDOWN, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, (params) => {
       this.headerCellMousedown(params)
     })
 
     // recieve header cell mouseover
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEOVER, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, (params) => {
       this.headerCellMouseover(params)
     })
 
     // recieve header cell mousemove
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSEMOVE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, (params) => {
       this.headerCellMousemove(params)
     })
 
     // recieve header cell mouseleave
-    eventCenter.on(EMIT_EVENTS.HEADER_CELL_MOUSELEAVE, (params) => {
+    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, (params) => {
       this.headerCellMouseleave(params)
     })
 
@@ -1204,9 +1204,7 @@ export default {
          * @param {bool} isSelected - is selected
          */
     selectedAllChange({ isSelected }) {
-      this.dispatch(
-        COMPS_NAME.VE_TABLE_BODY,
-        GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY,
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY,
         {
           isSelected,
         },
@@ -1220,9 +1218,7 @@ export default {
          * @param {bool} isIndeterminate - is indeterminate
          */
     setSelectedAllInfo({ isSelected, isIndeterminate }) {
-      this.broadcast(
-        COMPS_NAME.VE_TABLE_HEADER_CHECKBOX_CONTENT,
-        EMIT_EVENTS.CHECKBOX_SELECTED_ALL_INFO,
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO_CHECKBOX,
         {
           isSelected,
           isIndeterminate,

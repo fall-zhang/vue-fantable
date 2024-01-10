@@ -4,6 +4,8 @@ import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import BodyTd from './body-td.jsx'
 import VueDomResizeObserver from '@P/src/comps/resize-observer/index'
+import eventCenter from '@P/events/event-center.js'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,
   components: { BodyTd },
@@ -33,9 +35,6 @@ export default {
       type: Array,
       required: true,
     },
-    /*
-expand
-*/
     // expand row option
     expandOption: {
       type: Object,
@@ -189,9 +188,7 @@ radio
         rowData,
         rowIndex,
       }
-      this.dispatch(
-        COMPS_NAME.VE_TABLE_BODY,
-        EMIT_EVENTS.BODY_ROW_CLICK,
+      eventCenter.emit(GLOBAL_EVENT.BODY_ROW_CLICK,
         rowInfo
       )
     },
@@ -342,9 +339,7 @@ radio
         id: this.currentRowKey,
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         onDomResizeChange: ({ key, height }) => {
-          this.dispatch(
-            COMPS_NAME.VE_TABLE,
-            EMIT_EVENTS.BODY_ROW_HEIGHT_CHANGE,
+          eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
             {
               rowKey: key,
               height,

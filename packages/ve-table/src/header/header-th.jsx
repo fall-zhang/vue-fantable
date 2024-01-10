@@ -12,6 +12,8 @@ import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import emitter from '../../../src/mixins/emitter'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_Th,
@@ -372,7 +374,7 @@ export default {
         sortResult = sortBy === 'asc' ? 'desc' : sortBy === 'desc' ? '' : 'asc'
       }
 
-      this.dispatch(COMPS_NAME.VE_TABLE_THADER, EMIT_EVENTS.SORT_CHANGE, {
+      eventCenter.emit(EMIT_EVENTS.SORT_CHANGE, {
         currentField,
         sortResult,
       })
@@ -455,7 +457,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(COMPS_NAME.VE_TABLE, EMIT_EVENTS.HEADER_CELL_CLICK, {
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CLICK, {
         event: e,
         column: groupColumnItem,
       })
@@ -470,13 +472,10 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_CELL_CONTEXTMENU,
-        {
-          event: e,
-          column: groupColumnItem,
-        },
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, {
+        event: e,
+        column: groupColumnItem,
+      },
       )
     },
     // mouseenter
@@ -489,13 +488,10 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_CELL_MOUSELEAVE,
-        {
-          event: e,
-          column: groupColumnItem,
-        },
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, {
+        event: e,
+        column: groupColumnItem,
+      },
       )
     },
     // mousemove
@@ -504,14 +500,10 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_CELL_MOUSEMOVE,
-        {
-          event: e,
-          column: groupColumnItem,
-        },
-      )
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, {
+        event: e,
+        column: groupColumnItem,
+      })
     },
     // mouseover
     cellMouseover(e, fn) {
@@ -519,14 +511,10 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_CELL_MOUSEOVER,
-        {
-          event: e,
-          column: groupColumnItem,
-        },
-      )
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, {
+        event: e,
+        column: groupColumnItem,
+      })
     },
     // mousedown
     cellMousedown(e, fn) {
@@ -534,14 +522,10 @@ export default {
 
       const { groupColumnItem } = this
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_CELL_MOUSEDOWN,
-        {
-          event: e,
-          column: groupColumnItem,
-        },
-      )
+      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, {
+        event: e,
+        column: groupColumnItem,
+      })
     },
     // mouseup
     cellMouseup(e, fn) {

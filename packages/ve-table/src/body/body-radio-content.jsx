@@ -2,6 +2,7 @@ import VeRadio from '@P/ve-radio/ve-radio.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 import emitter from '@P/src/mixins/emitter'
+import eventCenter from '@P/events/event-center'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_RADIO_CONTENT,
   mixins: [emitter],
@@ -87,9 +88,7 @@ export default {
         this.isSelected = true
       }
 
-      this.dispatch(
-        COMPS_NAME.VE_TABLE_BODY,
-        EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE,
+      eventCenter.emit(EMIT_EVENTS.RADIO_SELECTED_ROW_CHANGE,
         {
           rowKey: this.rowKey,
         },

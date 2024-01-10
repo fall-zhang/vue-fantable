@@ -13,8 +13,6 @@ import {
   getNextColKey,
 } from '../util/index'
 import {
-  COMPS_NAME,
-  EMIT_EVENTS,
   HOOKS_NAME,
   AUTOFILLING_DIRECTION,
   CURRENT_CELL_SELECTION_TYPES,
@@ -24,6 +22,8 @@ import { INSTANCE_METHODS } from './constant'
 import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
 import { debounce } from '@P/utils/index.js'
+import eventCenter from '@P/events/event-center'
+import { GLOBAL_EVENT } from '@P/events/global-events'
 
 export default {
   // name: COMPS_NAME.VE_TABLE_SELECTION,
@@ -1162,9 +1162,8 @@ export default {
       })
 
       if (result) {
-        this.dispatch(
-          COMPS_NAME.VE_TABLE,
-          EMIT_EVENTS.AUTOFILLING_DIRECTION_CHANGE,
+        eventCenter.emit(
+          GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE,
           autofillingDirection,
         )
       }
@@ -1286,18 +1285,14 @@ export default {
           borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
         },
         onMousedown: (e) => {
-          this.dispatch(
-            COMPS_NAME.VE_TABLE,
-            EMIT_EVENTS.SELECTION_CORNER_MOUSEDOWN,
+          eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN,
             {
               event: e,
             },
           )
         },
         onMouseup: (e) => {
-          this.dispatch(
-            COMPS_NAME.VE_TABLE,
-            EMIT_EVENTS.SELECTION_CORNER_MOUSEUP,
+          eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP,
             {
               event: e,
             },

@@ -1,8 +1,10 @@
 import HeaderTh from './header-th.jsx'
 import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
-import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
+import { COMPS_NAME } from '../util/constant'
 import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
 import emitter from '../../../src/mixins/emitter'
+import eventCenter from '@P/events/event-center.js'
+import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_TR,
   components: {
@@ -100,14 +102,10 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      this.dispatch(
-        COMPS_NAME.VE_TABLE,
-        EMIT_EVENTS.HEADER_ROW_HEIGHT_CHANGE,
-        {
-          rowIndex: this.rowIndex,
-          height,
-        },
-      )
+      eventCenter.emit(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE, {
+        rowIndex: this.rowIndex,
+        height,
+      })
     },
     // click
     rowClick(e, fn) {
