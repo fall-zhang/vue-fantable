@@ -1,8 +1,7 @@
 import HeaderTh from './header-th.jsx'
 import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
 import { COMPS_NAME } from '../util/constant'
-import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
-import emitter from '../../../src/mixins/emitter'
+import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
@@ -11,7 +10,6 @@ export default {
     VueDomResizeObserver,
     HeaderTh
   },
-  mixins: [emitter],
   props: {
     columnsOptionResetTime: {
       type: Number,

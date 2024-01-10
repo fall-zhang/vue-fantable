@@ -1,10 +1,8 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 
 export default {
   name: COMPS_NAME.VE_TABLE_EXPAND_TR,
-  mixins: [emitter],
   props: {
     tableViewportWidth: {
       type: Number,

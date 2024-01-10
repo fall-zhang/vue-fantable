@@ -52,12 +52,10 @@ import {
 import { isInputKeyCode } from '../../src/utils/event-key-codes'
 import Hooks from '../../src/utils/hooks-manager'
 import { getMouseEventClickType } from '../../src/utils/mouse-event'
-import emitter from '../../src/mixins/emitter'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 import {
   COMPS_NAME,
   HOOKS_NAME,
-  EMIT_EVENTS,
   COMPS_CUSTOM_ATTRS,
   INSTANCE_METHODS,
   CELL_SELECTION_DIRECTION,
@@ -75,7 +73,7 @@ import TableFooter from './footer/index.jsx'
 import EditInput from './editor/index.jsx'
 import Selection from './selection/index.jsx'
 import clickoutside from '../../src/directives/clickoutside'
-import VueDomResizeObserver from '../../src/comps/resize-observer/index'
+import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index.jsx'
 import eventCenter from '@P/events/event-center'
@@ -89,7 +87,6 @@ export default {
   components: {
     VueDomResizeObserver, ColumnResizer, ColGroup, TableHeader, TableBody, TableFooter, EditInput, Selection, VeContextmenu
   },
-  mixins: [emitter],
   props: {
     tableData: {
       required: true,

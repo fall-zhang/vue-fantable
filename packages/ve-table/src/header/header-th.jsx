@@ -9,7 +9,6 @@ import {
 } from '../util/index.js'
 import { getValByUnit, isEmptyValue } from '../../../src/utils/index.js'
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
@@ -17,7 +16,6 @@ import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_Th,
-  mixins: [emitter],
   props: {
     // group columns item
     groupColumn: {

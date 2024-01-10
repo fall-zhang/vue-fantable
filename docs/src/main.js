@@ -1,4 +1,4 @@
-import { createApp, nextTick } from 'vue'
+import { createApp } from 'vue'
 
 import APP from '@/comp/app.vue'
 import Router from '@/router/index'

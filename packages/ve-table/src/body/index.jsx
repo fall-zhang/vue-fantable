@@ -4,15 +4,13 @@ import {
   clsName,
 } from '../util/index.js'
 import { getValByUnit } from '../../../src/utils/index.js'
-import emitter from '../../../src/mixins/emitter'
 import {
   COMPS_NAME,
-  EMIT_EVENTS,
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
 import eventCenter from '@P/events/event-center'
-import VueDomResizeObserver from '@P/src/comps/resize-observer/index.js'
+import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 import BodyTr from './body-tr.jsx'
 import ExpandTr from './expand-tr.jsx'
 import BodyTrScrolling from './body-tr-scrolling.jsx'
@@ -22,7 +20,6 @@ export default {
   components: {
     BodyTr
   },
-  mixins: [emitter],
   props: {
     tableViewportWidth: {
       type: Number,

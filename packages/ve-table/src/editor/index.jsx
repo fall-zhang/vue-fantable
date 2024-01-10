@@ -1,7 +1,6 @@
 import { clsName, getFixedTotalWidthByColumnKey } from '../util/index'
 import { INSTANCE_METHODS } from './constant'
 import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 import focus from '../../../src/directives/focus.js'
 import { autoResize } from '../../../src/utils/auto-resize'
 import { isEmptyValue } from '../../../src/utils/index.js'
@@ -12,7 +11,6 @@ export default {
   directives: {
     focus,
   },
-  mixins: [emitter],
   props: {
     parentRendered: {
       type: Boolean,

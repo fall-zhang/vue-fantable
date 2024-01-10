@@ -1,7 +1,6 @@
 import { clsName } from '../util/index'
 import HeaderTr from './header-tr.jsx'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import emitter from '@P/src/mixins/emitter'
 import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
@@ -9,7 +8,6 @@ export default {
   components: {
     HeaderTr
   },
-  mixins: [emitter],
   props: {
     columnsOptionResetTime: {
       type: Number,

@@ -1,15 +1,13 @@
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import BodyTd from './body-td.jsx'
-import VueDomResizeObserver from '@P/src/comps/resize-observer/index'
+import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,
   components: { BodyTd },
-  mixins: [emitter],
   props: {
     rowData: {
       type: Object,

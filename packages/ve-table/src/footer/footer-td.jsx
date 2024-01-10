@@ -2,11 +2,9 @@ import { getFixedTotalWidthByColumnKey, clsName } from '../util/index'
 import { getValByUnit } from '../../../src/utils/index.js'
 
 import { COMPS_NAME } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
-  mixins: [emitter],
   props: {
     rowData: {
       type: Object,

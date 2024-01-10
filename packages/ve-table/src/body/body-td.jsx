@@ -8,7 +8,6 @@ import {
   EMIT_EVENTS,
   COMPS_CUSTOM_ATTRS,
 } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
 import ExpandTrIcon from './expand-tr-icon.jsx'
 import BodyCheckboxContent from './body-checkbox-content.jsx'
 import BodyRadioContent from './body-radio-content.jsx'
@@ -20,7 +19,6 @@ export default {
   components: {
     BodyCheckboxContent, ExpandTrIcon
   },
-  mixins: [emitter],
   props: {
     rowData: {
       type: Object,

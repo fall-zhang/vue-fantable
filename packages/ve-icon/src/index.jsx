@@ -14,7 +14,7 @@ import {
   DoubleArrowUp,
   SearchVue,
   FilterVue
-} from '@P/components/icon/index.js'
+} from '@P/src/components/icon/index.js'
 export default {
   name: COMPS_NAME.VE_ICON,
 
