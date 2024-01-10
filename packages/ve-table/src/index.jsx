@@ -53,6 +53,7 @@ import { isInputKeyCode } from '../../src/utils/event-key-codes'
 import Hooks from '../../src/utils/hooks-manager'
 import { getMouseEventClickType } from '../../src/utils/mouse-event'
 import emitter from '../../src/mixins/emitter'
+import { GLOBAL_EVENT } from '@P/events/global-events'
 import {
   COMPS_NAME,
   HOOKS_NAME,
@@ -918,7 +919,7 @@ export default {
     this.hooks = new Hooks()
 
     // receive sort change
-    eventCenter.on('sort-change-after', (params) => {
+    eventCenter.on(GLOBAL_EVENT.SORT_CHANGE_After, (params) => {
       this.updateColgroupsBySortChange(params)
     })
 

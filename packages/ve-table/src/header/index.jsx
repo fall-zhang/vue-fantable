@@ -1,8 +1,9 @@
 import { clsName } from '../util/index'
 import HeaderTr from './header-tr.jsx'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import emitter from '../../../src/mixins/emitter'
+import emitter from '@P/src/mixins/emitter'
 import eventCenter from '@P/events/event-center'
+import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER,
   components: {
@@ -142,7 +143,7 @@ export default {
       // 执行 ve-table 上的 sort-change
       this.dispatch(
         COMPS_NAME.VE_TABLE,
-        'sort-change-after',
+        GLOBAL_EVENT.SORT_CHANGE_After,
         sortColumns,
       )
       console.log(sortChange)
