@@ -121,7 +121,7 @@ app.mounted('#app')
 
 **Table 组件**
 
-- [更轻量]()
+- [轻量]()
 - [国际化]()
 - [主题定制 & 内置主题]()
 - [虚拟滚动]()
@@ -140,14 +140,17 @@ app.mounted('#app')
   - [x] 添加页面或者能运行该组件的内容
   - [x] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
   - [x] 使用 google font 替代 iconfont，避免版权风险
+  - [x] 修复 I18N 的语言打包问题
+  - [x] 尝试 unplugin-vue 替代 rollup-plugin-vue
+  - [ ] 移除 emitter，dispatch 和 broadcast
+  - [ ] 修复升级到 Vue3 后的问题
+- [ ] 关注性能和优化加上防抖和节流
+  - [ ] 加上防抖和节流
   - [ ] 多个实例之间数据可能没有进行隔离
-  - [ ] 修复 I18N 的语言打包问题
-  - [ ] 模块拆分，打包优化
   - [ ] 使用 CSS 变量
-  - [ ] 尝试 unplugin-vue 替代 rollup-plugin-vue
-- [ ] 重写 Loading 组件
-- [ ] 异步加载模式，拆分为三步进行加载
-- [ ] 性能优化，加上防抖和节流
+  - [ ] 重写 Loading 组件
+  - [ ] 异步加载模式，拆分为三步进行加载
+  - [ ] 添加 TS 的 type
 - [ ] 之后加上 TS
   - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）
