@@ -8,6 +8,16 @@ function isFunction(val) {
  * @param {string} compName
  * @return {array<function>}
  */
+/*
+ * @createLocale
+ * @desc create namespace by comp name
+ * @param {string} compName
+ * @return {function}
+ */
+export function createLocale(compName) {
+  return createI18N(compName)
+}
+
 export function createI18N(compName) {
   return function (path, ...args) {
     let result = ''

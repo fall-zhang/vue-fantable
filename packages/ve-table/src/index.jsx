@@ -1,4 +1,4 @@
-import { cloneDeep, debounce } from '@P/utils/index.js'
+import { cloneDeep, debounce } from '@P/src/utils/index.js'
 import {
   initGroupColumns,
   clsName,
@@ -41,8 +41,9 @@ import {
   isEmptyArray,
   isBoolean,
   isDefined,
-  createLocale
 } from '../../src/utils/index.js'
+import { createLocale } from '@P/src/locale/index'
+
 import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from '../../src/utils/constant'
 import { getScrollbarWidth } from '../../src/utils/scroll-bar'
 import {

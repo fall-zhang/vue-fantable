@@ -1,7 +1,8 @@
 import VeDropdown from '@P/ve-dropdown/ve-dropdown.js'
 import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from '../util/constant'
 import { clsName } from '../util/index'
-import { createLocale, isFunction } from '../../../src/utils/index'
+import { isFunction } from '@P/src/utils/index'
+import { createLocale } from '@P/src/locale/index'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 

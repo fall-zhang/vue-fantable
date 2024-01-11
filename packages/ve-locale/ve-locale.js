@@ -1,5 +1,5 @@
 import { shallowRef } from 'vue'
-import { cloneDeep } from '@P/utils/index.js'
+import { cloneDeep } from '@P/src/utils/index'
 import LangEN from '../src/locale/lang/en-US'
 
 const defaultLang = shallowRef(cloneDeep(LangEN))

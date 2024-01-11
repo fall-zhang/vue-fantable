@@ -1,14 +1,5 @@
-import { createI18N } from '../locale/index'
-
-/*
- * @createLocale
- * @desc create namespace by comp name
- * @param {string} compName
- * @return {function}
- */
-export function createLocale(compName) {
-  return createI18N(compName)
-}
+import debounce from './debounce.js'
+import cloneDeep from './cloneDeep.js'
 
 /*
  * @isEmptyArray
@@ -158,4 +149,8 @@ export function scrollTo(el, option) {
     el.scrollTop = top
     el.scrollLeft = left
   }
+}
+export {
+  debounce,
+  cloneDeep
 }

@@ -5,7 +5,7 @@ import focus from '../../../src/directives/focus.js'
 import { autoResize } from '../../../src/utils/auto-resize'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '../../../src/utils/dom'
-import { debounce } from '@P/utils/index.js'
+import { debounce } from '@P/src/utils/index.js'
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
   directives: {
