@@ -26,22 +26,22 @@
   ],
   "scripts": {
     "lint": "eslint packages/ --ext .js,.jsx",
-    "test": "echo 'no test'",
+    "test": "vitest",
     "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
     "build": "npm run build:remove && npm run build:js && npm run build:css",
     "build:remove": "rimraf libs",
     "build:js": "rollup --config rollup.config.js",
     "build:css": "lessc packages/theme-default/index.less libs/theme-default.css && lessc packages/theme-dark/index.less libs/theme-dark.css",
-    "build:vite": "vite build -c build/vite.config.js",
+    "build:vite": "vite build",
     "lint-staged": "lint-staged",
-    "prepare": "npx husky install && npm run test",
+    "prepare": "npx husky install",
     "commit": "czg"
   },
   "dependencies": {
     "vue": "^3.4.4"
   },
   "peerDependencies": {
-    "vue": ">= 3.4.0"
+    "vue": ">= 3.2.0"
   },
   "config": {
     "commitizen": {
@@ -53,11 +53,14 @@
     "@commitlint/config-conventional": "^18.4.3",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-sucrase": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/pluginutils": "^5.1.0",
-    "@rollup/plugin-json": "^6.1.0",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/test-utils": "^2.4.3",
     "cross-env": "^7.0.3",
     "cz-git": "^1.8.0",
     "czg": "^1.8.0",
@@ -66,16 +69,17 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-vue": "^9.19.2",
     "husky": "^8.0.3",
+    "jsdom": "^23.2.0",
     "less": "^4.2.0",
     "lint-staged": "^15.2.0",
+    "mitt": "^3.0.1",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.2",
-    "vite": "^5.0.10",
-    "mitt": "^3.0.1",
     "unplugin-vue": "^5.0.2",
     "unplugin-vue-jsx": "^0.2.2",
+    "vite": "^5.0.10",
     "vitest": "^1.1.1"
   },
   "lint-staged": {
