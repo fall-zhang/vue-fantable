@@ -1,17 +1,17 @@
-import Vue from "vue";
+import { nextTick } from 'vue'
 
 export function later(delay = 0) {
-    return new Promise((resolve) => {
-        if (typeof delay === "number") {
-            setTimeout(() => {
-                resolve();
-            }, delay);
-        } else {
-            Vue.nextTick(() => {
-                resolve();
-            });
-        }
-    });
+  return new Promise((resolve) => {
+    if (typeof delay === 'number') {
+      setTimeout(() => {
+        resolve()
+      }, delay)
+    } else {
+      nextTick(() => {
+        resolve()
+      })
+    }
+  })
 }
 
 /*
@@ -19,9 +19,9 @@ export function later(delay = 0) {
  * @desc mock scrollTo function
  */
 export function mockScrollTo() {
-    const fn = jest.fn();
-    Element.prototype.scrollTo = fn;
-    return fn;
+  const fn = jest.fn()
+  Element.prototype.scrollTo = fn
+  return fn
 }
 
 /*
@@ -29,10 +29,10 @@ export function mockScrollTo() {
  * @desc mock element measurement
  */
 export function mockElementMeasurement(key, value) {
-    Object.defineProperty(HTMLElement.prototype, key, {
-        configurable: true,
-        value: value,
-    });
+  Object.defineProperty(HTMLElement.prototype, key, {
+    configurable: true,
+    value,
+  })
 }
 
 /*
@@ -40,17 +40,17 @@ export function mockElementMeasurement(key, value) {
  * @desc clear mock element measurement
  */
 export function clearMockElementMeasurement(key) {
-    // const originalValue = Object.getOwnPropertyDescriptor(
-    //     HTMLElement.prototype,
-    //     key,
-    // );
+  // const originalValue = Object.getOwnPropertyDescriptor(
+  //     HTMLElement.prototype,
+  //     key,
+  // );
 
-    const originalValue = {
-        value: 1200,
-        writable: false,
-        enumerable: false,
-        configurable: true,
-    };
+  const originalValue = {
+    value: 1200,
+    writable: false,
+    enumerable: false,
+    configurable: true,
+  }
 
-    Object.defineProperty(HTMLElement.prototype, key, originalValue);
+  Object.defineProperty(HTMLElement.prototype, key, originalValue)
 }

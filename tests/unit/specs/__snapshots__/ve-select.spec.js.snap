@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`veSelect render by isInput prop 1`] = `
 <dl class="ve-dropdown ve-select">

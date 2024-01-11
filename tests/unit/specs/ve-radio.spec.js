@@ -1,99 +1,99 @@
-import { mount } from "@vue/test-utils";
-import veRadio from "@/ve-radio/ve-radio";
-import { later } from "../util";
+import { mount } from '@vue/test-utils'
+import veRadio from '@/ve-radio/ve-radio'
+import { later } from '../util'
 
-describe("veRadio", () => {
-    it("render", () => {
-        const wrapper = mount({
-            render() {
-                const { checked, unChecked } = this;
-                return (
-                    <div>
-                        <div>
-                            <veRadio value={checked}>normal</veRadio>
-                        </div>
-                        <div>
-                            <veRadio disabled value={checked}>
+describe('veRadio', () => {
+  it('render', () => {
+    const wrapper = mount({
+      render() {
+        const { checked, unChecked } = this
+        return (
+          <div>
+            <div>
+              <veRadio value={checked}>normal</veRadio>
+            </div>
+            <div>
+              <veRadio disabled value={checked}>
                                 disabled checked
-                            </veRadio>
-                        </div>
-                        <div>
-                            <veRadio disabled value={unChecked}>
+              </veRadio>
+            </div>
+            <div>
+              <veRadio disabled value={unChecked}>
                                 disabled unChecked
-                            </veRadio>
-                        </div>
-                        <div>
-                            <veRadio isControlled isSelected={checked}>
+              </veRadio>
+            </div>
+            <div>
+              <veRadio isControlled isSelected={checked}>
                                 controlled
-                            </veRadio>
-                        </div>
-                    </div>
-                );
-            },
-            data() {
-                return {
-                    checked: true,
-                    unChecked: false,
-                };
-            },
-        });
+              </veRadio>
+            </div>
+          </div>
+        )
+      },
+      data() {
+        return {
+          checked: true,
+          unChecked: false,
+        }
+      },
+    })
 
-        expect(wrapper.html()).toMatchSnapshot();
-    });
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 
-    it("value prop", async () => {
-        const wrapper = mount(veRadio, {
-            propsData: {
-                value: false,
-            },
-        });
+  it('value prop', async () => {
+    const wrapper = mount(veRadio, {
+      propsData: {
+        value: false,
+      },
+    })
 
-        expect(wrapper.find(".ve-radio-checked").exists()).toBe(false);
+    expect(wrapper.find('.ve-radio-checked').exists()).toBe(false)
 
-        wrapper.setProps({ isSelected: true });
+    wrapper.setProps({ isSelected: true })
 
-        await later();
-        expect(wrapper.find(".ve-radio-checked").exists()).toBe(false);
-    });
+    await later()
+    expect(wrapper.find('.ve-radio-checked').exists()).toBe(false)
+  })
 
-    it("disable prop", () => {
-        const wrapper = mount(veRadio, {
-            propsData: {
-                value: true,
-            },
-        });
+  it('disable prop', () => {
+    const wrapper = mount(veRadio, {
+      propsData: {
+        value: true,
+      },
+    })
 
-        expect(wrapper.find(".ve-radio-checked").exists()).toBe(true);
-    });
+    expect(wrapper.find('.ve-radio-checked').exists()).toBe(true)
+  })
 
-    it("label prop", () => {
-        const wrapper = mount(veRadio, {
-            propsData: {
-                value: false,
-                label: "test",
-            },
-        });
+  it('label prop', () => {
+    const wrapper = mount(veRadio, {
+      propsData: {
+        value: false,
+        label: 'test',
+      },
+    })
 
-        expect(wrapper.find(".ve-radio-label").text()).toContain("test");
-    });
+    expect(wrapper.find('.ve-radio-label').text()).toContain('test')
+  })
 
-    it("isControlled prop", async () => {
-        const wrapper = mount(veRadio, {
-            propsData: {
-                isControlled: true,
-                isSelected: false,
-            },
-        });
+  it('isControlled prop', async () => {
+    const wrapper = mount(veRadio, {
+      propsData: {
+        isControlled: true,
+        isSelected: false,
+      },
+    })
 
-        expect(wrapper.find(".ve-radio-checked").exists()).toBe(false);
+    expect(wrapper.find('.ve-radio-checked').exists()).toBe(false)
 
-        wrapper.setProps({ isSelected: true });
+    wrapper.setProps({ isSelected: true })
 
-        await later();
-        expect(wrapper.find(".ve-radio-checked").exists()).toBe(true);
-    });
+    await later()
+    expect(wrapper.find('.ve-radio-checked').exists()).toBe(true)
+  })
 
-    /*   it("click event", async () => {
+  /*   it("click event", async () => {
         const wrapper = mount(veRadio, {
             propsData: {
                 value: false,
@@ -107,18 +107,18 @@ describe("veRadio", () => {
         expect(wrapper.find(".ve-radio-checked").exists()).toBe(true);
     }); */
 
-    it("on-radio-change event", async () => {
-        const wrapper = mount(veRadio, {
-            propsData: {
-                value: false,
-                label: "test",
-            },
-        });
+  it('on-radio-change event', async () => {
+    const wrapper = mount(veRadio, {
+      propsData: {
+        value: false,
+        label: 'test',
+      },
+    })
 
-        wrapper.trigger("click");
+    wrapper.trigger('click')
 
-        await later();
-        expect(wrapper.emitted("on-radio-change").length).toEqual(1);
-        expect(wrapper.emitted("on-radio-change")[0]).toEqual([true]);
-    });
-});
+    await later()
+    expect(wrapper.emitted('on-radio-change').length).toEqual(1)
+    expect(wrapper.emitted('on-radio-change')[0]).toEqual([true])
+  })
+})
