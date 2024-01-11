@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { later } from '../util'
 import veTable from '@P/ve-table/ve-table'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable column hidden', () => {
   const TABLE_DATA = [

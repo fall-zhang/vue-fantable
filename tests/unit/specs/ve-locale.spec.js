@@ -3,6 +3,7 @@ import veLocale from '@P/ve-locale/ve-locale'
 import { later } from '../util'
 import zhCN from '@/src/locale/lang/zh-CN'
 import enUS from '@/src/locale/lang/en-US'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veLocale', () => {
   const wrapper = mount({

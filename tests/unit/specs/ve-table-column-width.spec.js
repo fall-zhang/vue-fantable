@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable clolum width', () => {
   const TABLE_DATA = [

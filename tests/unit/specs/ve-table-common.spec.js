@@ -9,6 +9,7 @@ import {
   mockElementMeasurement,
   clearMockElementMeasurement,
 } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable common', () => {
   afterEach(() => {

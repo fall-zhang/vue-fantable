@@ -2,8 +2,22 @@ import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later, mockScrollTo } from '../util'
 import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { vi, describe, it, expect, beforeEach, afterEach, beforeAll } from 'vitest'
+beforeAll(() => {
+  globalThis.ResizeObserver = class ResizeObserver {
+    observe() {
+      // do nothing
+    }
 
+    unobserve() {
+      // do nothing
+    }
+
+    disconnect() {
+      // do nothing
+    }
+  }
+})
 describe('veTable virtual scroll', () => {
   // same row height
   const TABLE_DATA_SAME_ROW_HEIGHT = []

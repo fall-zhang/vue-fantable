@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veSelect from '@P/ve-select/ve-select'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veSelect', () => {
   // select items

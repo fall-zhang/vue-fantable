@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable cell span', () => {
   const TABLE_DATA = [
@@ -134,9 +135,8 @@ describe('veTable cell span', () => {
               rowspan: 1,
               colspan: 2,
             }
-          }
-          // does not need to be rendered
-          else if (column.field === 'hobby') {
+          } else if (column.field === 'hobby') {
+            // does not need to be rendered
             return {
               rowspan: 0,
               colspan: 0,
@@ -151,9 +151,8 @@ describe('veTable cell span', () => {
               rowspan: 2,
               colspan: 1,
             }
-          }
-          // does not need to be rendered
-          else if (rowIndex === 2) {
+          } else if (rowIndex === 2) {
+            // does not need to be rendered
             return {
               rowspan: 0,
               colspan: 0,
@@ -169,9 +168,8 @@ describe('veTable cell span', () => {
               rowspan: 1,
               colspan: 2,
             }
-          }
-          // does not need to be rendered
-          else if (column.field === 'hobby') {
+          } else if (column.field === 'hobby') {
+            // does not need to be rendered
             return {
               rowspan: 0,
               colspan: 0,

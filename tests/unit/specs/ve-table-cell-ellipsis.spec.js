@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable cell ellipsis', () => {
   const TABLE_DATA = [

@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veCheckbox', () => {
   it('render normal', () => {

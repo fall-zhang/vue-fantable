@@ -2,6 +2,23 @@ import { createApp } from 'vue'
 
 import { Wrapper } from '@vue/test-utils'
 import vueFantable from '../../packages/index'
+import { beforeAll } from 'vitest'
+beforeAll(() => {
+  console.log(globalThis)
+  globalThis.ResizeObserver = class ResizeObserver {
+    observe() {
+      // do nothing
+    }
+
+    unobserve() {
+      // do nothing
+    }
+
+    disconnect() {
+      // do nothing
+    }
+  }
+})
 const app = createApp()
 app.use(vueFantable)
 
