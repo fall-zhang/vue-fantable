@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veIcon from '@P/ve-icon/ve-icon'
 import { later } from '../util'
-
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 describe('veIcon', () => {
   it('render by different props', () => {
     const wrapper = mount({
@@ -39,8 +39,9 @@ describe('veIcon', () => {
   describe('warns', () => {
     let errorSpy
     beforeEach(() => {
-      errorSpy = jest
+      errorSpy = vi
         .spyOn(console, 'error')
+        // eslint-disable-next-line max-nested-callbacks
         .mockImplementation(() => {})
     })
 

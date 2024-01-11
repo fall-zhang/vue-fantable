@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable footer', () => {
   const TABLE_DATA = [
@@ -177,9 +178,8 @@ describe('veTable footer', () => {
                   rowspan: 1,
                   colspan: 2,
                 }
-              }
-              // does not need to be rendered
-              else if (column.field === 'hobby') {
+              } else if (column.field === 'hobby') {
+                // does not need to be rendered
                 return {
                   rowspan: 0,
                   colspan: 0,
@@ -203,11 +203,11 @@ describe('veTable footer', () => {
   })
 
   it('custom row events', () => {
-    const mockClickFn = jest.fn()
-    const mockDblclickFn = jest.fn()
-    const mockContextmenuFn = jest.fn()
-    const mockMouseenterFn = jest.fn()
-    const mockMouseleaveFn = jest.fn()
+    const mockClickFn = vi.fn()
+    const mockDblclickFn = vi.fn()
+    const mockContextmenuFn = vi.fn()
+    const mockMouseenterFn = vi.fn()
+    const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -278,11 +278,11 @@ describe('veTable footer', () => {
   })
 
   it('custom cell events', () => {
-    const mockClickFn = jest.fn()
-    const mockDblclickFn = jest.fn()
-    const mockContextmenuFn = jest.fn()
-    const mockMouseenterFn = jest.fn()
-    const mockMouseleaveFn = jest.fn()
+    const mockClickFn = vi.fn()
+    const mockDblclickFn = vi.fn()
+    const mockContextmenuFn = vi.fn()
+    const mockMouseenterFn = vi.fn()
+    const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {

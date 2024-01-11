@@ -5,6 +5,7 @@ import {
   mockElementMeasurement,
   clearMockElementMeasurement,
 } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veContextmenu', () => {
   const OPTIONS = [
@@ -357,7 +358,7 @@ describe('veContextmenu', () => {
   })
 
   it('contextmenu on-node-click event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(
       {
@@ -419,7 +420,7 @@ describe('veContextmenu', () => {
   })
 
   it('contextmenu panel child node click', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(
       {
@@ -502,7 +503,7 @@ describe('veContextmenu', () => {
   })
 
   it('contextmenu node disabled', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(
       {

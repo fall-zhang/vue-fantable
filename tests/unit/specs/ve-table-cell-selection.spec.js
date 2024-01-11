@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable cell selection', () => {
   const TABLE_DATA = [
@@ -94,7 +95,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -140,7 +141,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -189,7 +190,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -235,7 +236,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -281,7 +282,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -327,7 +328,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -376,7 +377,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -422,7 +423,7 @@ describe('veTable cell selection', () => {
         rowKeyFieldName: 'rowKey',
       },
     })
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -517,7 +518,7 @@ describe('veTable cell selection', () => {
 
   // table clickoutside
   it('table clickoutside width cell editing', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const ParentComp = {
       template: `
@@ -701,7 +702,7 @@ describe('veTable cell selection', () => {
   })
 
   /* it("virtual scroll keyboard events", async () => {
-        const mockFn = jest.fn();
+        const mockFn = vi.fn();
 
         let tableData = [];
 

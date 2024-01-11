@@ -5,7 +5,8 @@ import CellEditor from '@P/ve-table/src/editor/index.jsx'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
 import { HOOKS_NAME } from '@P/ve-table/src/util/constant'
-
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
+const mockFn = vi.fn().mockImplementation(apples => apples + 1)
 describe('veTable cell edit', () => {
   const TABLE_DATA = [
     {
@@ -233,8 +234,8 @@ describe('veTable cell edit', () => {
   })
 
   it('beforeStartCellEditing callback', async () => {
-    const beforeStartCellEditingMockFn = jest.fn()
-    const beforeCellValueChangeMockFn = jest.fn()
+    const beforeStartCellEditingMockFn = vi.fn()
+    const beforeCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -306,8 +307,8 @@ describe('veTable cell edit', () => {
   })
 
   it('beforeCellValueChange and afterCellValueChange callback', async () => {
-    const beforeCellValueChangeMockFn = jest.fn()
-    const afterCellValueChangeMockFn = jest.fn()
+    const beforeCellValueChangeMockFn = vi.fn()
+    const afterCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -428,7 +429,7 @@ describe('veTable cell edit', () => {
   })
 
   it('afterCellValueChange callback function by dblclick', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -499,7 +500,7 @@ describe('veTable cell edit', () => {
   })
 
   it('afterCellValueChange callback function by input letter directly', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -575,7 +576,7 @@ describe('veTable cell edit', () => {
   })
 
   it('startEditingCell instance method', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -639,7 +640,7 @@ describe('veTable cell edit', () => {
   })
 
   it('stopEditingCell instance method', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -698,7 +699,7 @@ describe('veTable cell edit', () => {
 
   // 键盘上键结合文本直接输入
   it('key code arrowUp event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -782,7 +783,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowUp event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -870,7 +871,7 @@ describe('veTable cell edit', () => {
 
   // 键盘右键结合文本直接输入
   it('key code arrowRight event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -954,7 +955,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowRight event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1042,7 +1043,7 @@ describe('veTable cell edit', () => {
 
   // 键盘下键结合文本直接输入
   it('key code arrowDown event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1126,7 +1127,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowDown event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1214,7 +1215,7 @@ describe('veTable cell edit', () => {
 
   // 键盘左键结合文本直接输入
   it('key code arrowLeft event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1298,7 +1299,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowLeft event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1386,7 +1387,7 @@ describe('veTable cell edit', () => {
 
   // `Enter`键停止编辑状态并键向下移动活动单元格
   it('key code enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1463,7 +1464,7 @@ describe('veTable cell edit', () => {
 
   //  `Ctrl + Enter`键停止编辑状态，并停留在当前单元格
   it('key code ctrl+enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1543,7 +1544,7 @@ describe('veTable cell edit', () => {
 
   // `Tab`键停止编辑状态并向右移动活动单元格
   it('key code tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1620,7 +1621,7 @@ describe('veTable cell edit', () => {
 
   // `Shift+Tab`键停止编辑状态并向左移动活动单元格
   it('key code shift+tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1700,7 +1701,7 @@ describe('veTable cell edit', () => {
 
   // `F2`键活动单元格进入编辑状态
   it('key code shift+tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1782,7 +1783,7 @@ describe('veTable cell edit', () => {
 
   // `Alt + Enter`键单元格内文本换行
   it('key code alt+enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {
@@ -1860,7 +1861,7 @@ describe('veTable cell edit', () => {
 
   // table clickoutside
   it('table clickoutside width cell editing', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const ParentComp = {
       template: `
@@ -1956,7 +1957,7 @@ describe('veTable cell edit', () => {
 
   // table clickoutside
   it('table cell focus', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const ParentComp = {
       template: `
@@ -2053,7 +2054,7 @@ describe('veTable cell edit', () => {
     编辑状态的输入框被点击后不允许移动活动单元格
     */
   it('cell editing click', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       propsData: {

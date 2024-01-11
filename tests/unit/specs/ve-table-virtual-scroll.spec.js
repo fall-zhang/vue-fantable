@@ -2,11 +2,12 @@ import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later, mockScrollTo } from '../util'
 import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable virtual scroll', () => {
   // same row height
   const TABLE_DATA_SAME_ROW_HEIGHT = []
-  for (var i = 0; i < 1000; i++) {
+  for (let i = 0; i < 1000; i++) {
     TABLE_DATA_SAME_ROW_HEIGHT.push({
       rowKey: i,
       name: i,
@@ -23,7 +24,7 @@ describe('veTable virtual scroll', () => {
 
   const TABLE_DATA_DIFFERENT_ROW_HEIGHT = []
 
-  for (var i = 0; i < 1000; i++) {
+  for (let i = 0; i < 1000; i++) {
     let value = i
     if (i % 2 === 0) {
       const rowCount = getRandom(3, 5)
@@ -603,7 +604,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('scrolling callback', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
     const wrapper = mount(veTable, {
       propsData: {
         columns: [
@@ -656,7 +657,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('minRowHeight prop', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
     const minRowHeight = 50
     const wrapper = mount(veTable, {
       propsData: {

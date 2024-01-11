@@ -1,7 +1,8 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
-import veIcon from '@P/ve-table/ve-table'
+import veIcon from '@P/ve-icon'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable header filter', () => {
   const TABLE_DATA = [
@@ -42,8 +43,8 @@ describe('veTable header filter', () => {
     },
   ]
 
-  const mockFilterFn = jest.fn()
-  const mockBeforeVisibleChangeFn = jest.fn()
+  const mockFilterFn = vi.fn()
+  const mockBeforeVisibleChangeFn = vi.fn()
 
   // filter single
   const TABLE_COLUMNS_FILTER_SINGLE = [

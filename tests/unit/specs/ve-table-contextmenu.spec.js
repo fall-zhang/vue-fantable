@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
 import { cloneDeep } from 'lodash-es'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable contextmenu', () => {
   const TABLE_DATA = [
@@ -197,7 +198,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('header contextmenu beforeShow callback', async () => {
-    const mockBeforeShowFn = jest.fn()
+    const mockBeforeShowFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -283,7 +284,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('header contextmenu afterMenuClick callback', async () => {
-    const mockAfterMenuClickFn = jest.fn()
+    const mockAfterMenuClickFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -379,7 +380,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('body contextmenu beforeShow callback', async () => {
-    const mockBeforeShowFn = jest.fn()
+    const mockBeforeShowFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -467,7 +468,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('body contextmenu afterMenuClick callback', async () => {
-    const mockAfterMenuClickFn = jest.fn()
+    const mockAfterMenuClickFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -565,7 +566,7 @@ describe('veTable contextmenu', () => {
   })
 
   // it("contextmenu INSERT_ROW_ABOVE", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -659,7 +660,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu INSERT_ROW_BELOW", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -748,7 +749,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu REMOVE_ROW", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -837,7 +838,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu HIDE_COLUMN", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
