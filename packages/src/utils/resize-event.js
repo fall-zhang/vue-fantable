@@ -10,7 +10,6 @@ class ResizeObserverPro extends ResizeObserver {
 }
 /* istanbul ignore next */
 const resizeHandler = function (entries) {
-  // console.log("🚀 ~ file: resize-event.js:10 ~ resizeHandler ~ entries:", entries)
   for (const entry of entries) {
     const listeners = entry.target.__resizeListeners__ || []
     if (listeners.length) {

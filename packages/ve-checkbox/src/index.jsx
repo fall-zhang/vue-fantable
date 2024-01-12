@@ -1,6 +1,6 @@
-import { getParentCompByName } from '../../src/utils/index'
+import { getParentCompByName } from '@P/src/utils/index'
 import { clsName } from './util/index'
-import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
+import { COMPS_NAME } from './util/constant'
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {

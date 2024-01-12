@@ -1,7 +1,7 @@
 import {
   addResizeListener,
   removeResizeListener,
-} from '../../../utils/resize-event'
+} from '@P/src/utils/resize-event'
 export default {
   name: 'VueDomResizeObserver',
   props: {

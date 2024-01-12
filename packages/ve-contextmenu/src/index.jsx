@@ -1,7 +1,7 @@
 import { clsName } from './util/index'
-import VeIcon from '../../ve-icon/ve-icon'
-import { ICON_NAMES } from '../../src/utils/constant'
-import { getMousePosition, getViewportOffset } from '../../src/utils/dom'
+import VeIcon from '@P/ve-icon/ve-icon'
+import { ICON_NAMES } from '@P/src/utils/constant'
+import { getMousePosition, getViewportOffset } from '@P/src/utils/dom'
 import {
   INIT_DATA,
   EMIT_EVENTS,
@@ -9,9 +9,9 @@ import {
   INSTANCE_METHODS,
   COMPS_NAME
 } from './util/constant'
-import { getRandomId } from '../../src/utils/random'
+import { getRandomId } from '@P/src/utils/random'
 import { debounce, cloneDeep } from '@P/src/utils/index.js'
-import eventsOutside from '../../src/directives/events-outside'
+import eventsOutside from '@P/src/directives/events-outside'
 
 export default {
   name: COMPS_NAME.VE_CONTEXTMENU,

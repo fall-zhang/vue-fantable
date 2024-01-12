@@ -841,7 +841,7 @@ export function isCellInSelectionRange({
     allRowKeys,
   })
 
-  if (
+  if (colKeys &&
     colKeys.indexOf(cellData.colKey) > -1 &&
         rowKeys.indexOf(cellData.rowKey) > -1
   ) {

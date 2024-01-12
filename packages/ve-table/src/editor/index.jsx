@@ -1,11 +1,10 @@
 import { clsName, getFixedTotalWidthByColumnKey } from '../util/index'
 import { INSTANCE_METHODS } from './constant'
-import { COMPS_NAME, EMIT_EVENTS, HOOKS_NAME } from '../util/constant'
-import focus from '../../../src/directives/focus.js'
-import { autoResize } from '../../../src/utils/auto-resize'
-import { isEmptyValue } from '../../../src/utils/index.js'
-import { getCaretPosition, setCaretPosition } from '../../../src/utils/dom'
-import { debounce } from '@P/src/utils/index.js'
+import { COMPS_NAME, HOOKS_NAME } from '../util/constant'
+import focus from '@P/src/directives/focus.js'
+import { autoResize } from '@P/src/utils/auto-resize'
+import { isEmptyValue, debounce } from '@P/src/utils/index.js'
+import { getCaretPosition, setCaretPosition } from '@P/src/utils/dom'
 export default {
   name: COMPS_NAME.VE_TABLE_EDIT_INPUT,
   directives: {
@@ -389,10 +388,10 @@ export default {
           }
         } else {
           /*
-                    存在以下可能：
-                    1、虚拟滚动超出viewport
-                    2、单元格被删除（通过右键菜单等方式）
-                    */
+            存在以下可能：
+            1、虚拟滚动超出viewport
+            2、单元格被删除（通过右键菜单等方式）
+            */
 
           // fixed #477
           this.textareaRect = {

@@ -1,5 +1,5 @@
-import { getChildCompsByName } from '../../src/utils/index'
-import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
+import { getChildCompsByName } from '@P/src/utils/index'
+import { COMPS_NAME } from './util/constant'
 import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP,
