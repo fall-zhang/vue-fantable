@@ -70,7 +70,7 @@ describe('veTable border', () => {
 
   it('border default prop', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
       },
@@ -82,7 +82,7 @@ describe('veTable border', () => {
 
   it('border-x prop', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         borderX: true,
@@ -94,7 +94,7 @@ describe('veTable border', () => {
 
   it('border-y prop', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         borderY: true,
@@ -106,7 +106,7 @@ describe('veTable border', () => {
 
   it('border-around prop', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         borderAround: true,

@@ -43,7 +43,7 @@ describe('vePagination', () => {
 
   it('layout prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 300,
         layout: ['total', 'prev', 'next', 'sizer', 'jumper'],
       },
@@ -55,7 +55,7 @@ describe('vePagination', () => {
 
   it('total prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 300,
       },
     })
@@ -64,7 +64,7 @@ describe('vePagination', () => {
 
   it('pageIndex prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageIndex: 5,
       },
@@ -75,7 +75,7 @@ describe('vePagination', () => {
 
   it('pageSizeOption prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageSizeOption: [5, 10, 15],
         pageSize: 15,
@@ -84,14 +84,14 @@ describe('vePagination', () => {
 
     const pageSizeOptionEl = wrapper.findAll('.ve-dropdown-items-li')
 
-    expect(pageSizeOptionEl.at(0).text()).toContain('5')
-    expect(pageSizeOptionEl.at(1).text()).toContain('10')
-    expect(pageSizeOptionEl.at(2).text()).toContain('15')
+    expect(pageSizeOptionEl[0].text()).toContain('5')
+    expect(pageSizeOptionEl[1].text()).toContain('10')
+    expect(pageSizeOptionEl[2].text()).toContain('15')
   })
 
   it('pagingCount prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pagingCount: 7,
         pageIndex: 10,
@@ -105,7 +105,7 @@ describe('vePagination', () => {
 
   it('pageSize prop', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageSizeOption: [5, 10, 15],
         pageSize: 15,
@@ -119,7 +119,7 @@ describe('vePagination', () => {
 
   it('pageIndex change', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
       },
     })
@@ -133,14 +133,13 @@ describe('vePagination', () => {
 
   it('page number btn click operation', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
       },
     })
 
     wrapper
-      .findAll('.ve-pagination-pager .ve-pagination-li')
-      .at(5)
+      .findAll('.ve-pagination-pager .ve-pagination-li')[5]
       .trigger('click')
 
     await later()
@@ -159,7 +158,7 @@ describe('vePagination', () => {
 
   it('next page number btn click operation', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
       },
     })
@@ -178,7 +177,7 @@ describe('vePagination', () => {
 
   it('pre page number btn click operation', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageIndex: 10,
       },
@@ -198,7 +197,7 @@ describe('vePagination', () => {
 
   it('next5 click operation', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
       },
     })
@@ -217,7 +216,7 @@ describe('vePagination', () => {
 
   it('prev5 click operation', async () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageIndex: 10,
       },
@@ -237,14 +236,14 @@ describe('vePagination', () => {
 
   it('on-page-size-change emit', () => {
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageSizeOption: [5, 10, 15],
         pageSize: 5,
       },
     })
 
-    wrapper.findAll('.ve-dropdown-items-li').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[1].trigger('click')
 
     expect(wrapper.emitted('on-page-size-change').length).toEqual(1)
     expect(wrapper.emitted('on-page-size-change')[0]).toEqual([10])
@@ -258,7 +257,7 @@ describe('vePagination', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(vePagination, {
-      propsData: {
+      props: {
         total: 600,
         pageSize: 5,
       },

@@ -1,24 +1,37 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
-import { later, mockScrollTo } from '../util'
+import { later } from '../util'
 import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
 import { vi, describe, it, expect, beforeEach, afterEach, beforeAll } from 'vitest'
-beforeAll(() => {
-  globalThis.ResizeObserver = class ResizeObserver {
-    observe() {
-      // do nothing
-    }
-
-    unobserve() {
-      // do nothing
-    }
-
-    disconnect() {
-      // do nothing
-    }
+globalThis.ResizeObserver = class ResizeObserver {
+  observe() {
+    // do nothing
   }
-})
+
+  unobserve() {
+    // do nothing
+  }
+
+  disconnect() {
+    // do nothing
+  }
+}
 describe('veTable virtual scroll', () => {
+  beforeEach(() => {
+    globalThis.ResizeObserver = class ResizeObserver {
+      observe() {
+        // do nothing
+      }
+
+      unobserve() {
+        // do nothing
+      }
+
+      disconnect() {
+        // do nothing
+      }
+    }
+  })
   // same row height
   const TABLE_DATA_SAME_ROW_HEIGHT = []
   for (let i = 0; i < 1000; i++) {
@@ -72,7 +85,7 @@ describe('veTable virtual scroll', () => {
 
   it('render same row height', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -115,7 +128,7 @@ describe('veTable virtual scroll', () => {
 
   it('dynamically turns virtual scrolling on', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -179,7 +192,7 @@ describe('veTable virtual scroll', () => {
 
   it('same row height', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -224,7 +237,7 @@ describe('veTable virtual scroll', () => {
 
   it('different row height', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -271,7 +284,7 @@ describe('veTable virtual scroll', () => {
     const bufferCount = 10
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -317,7 +330,7 @@ describe('veTable virtual scroll', () => {
 
   it('with row checkbox', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -367,7 +380,7 @@ describe('veTable virtual scroll', () => {
 
   it('with row radio', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -417,7 +430,7 @@ describe('veTable virtual scroll', () => {
 
   it('with row expand', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -477,7 +490,7 @@ describe('veTable virtual scroll', () => {
 
   it('with column fixed', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -521,13 +534,13 @@ describe('veTable virtual scroll', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(thEls.at(0).classes()).toContain('ve-table-fixed-left')
-    expect(thEls.at(0).classes()).toContain(
+    expect(thEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(thEls[0].classes()).toContain(
       've-table-last-left-fixed-column',
     )
 
-    expect(thEls.at(2).classes()).toContain('ve-table-fixed-right')
-    expect(thEls.at(2).classes()).toContain(
+    expect(thEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(thEls[2].classes()).toContain(
       've-table-first-right-fixed-column',
     )
 
@@ -535,13 +548,13 @@ describe('veTable virtual scroll', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(tdEls.at(0).classes()).toContain('ve-table-fixed-left')
-    expect(tdEls.at(0).classes()).toContain(
+    expect(tdEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(tdEls[0].classes()).toContain(
       've-table-last-left-fixed-column',
     )
 
-    expect(tdEls.at(2).classes()).toContain('ve-table-fixed-right')
-    expect(tdEls.at(2).classes()).toContain(
+    expect(tdEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(tdEls[2].classes()).toContain(
       've-table-first-right-fixed-column',
     )
 
@@ -552,7 +565,7 @@ describe('veTable virtual scroll', () => {
 
   it('with column footer', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -620,7 +633,7 @@ describe('veTable virtual scroll', () => {
   it('scrolling callback', async () => {
     const mockFn = vi.fn()
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -674,7 +687,7 @@ describe('veTable virtual scroll', () => {
     const mockFn = vi.fn()
     const minRowHeight = 50
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -722,7 +735,7 @@ describe('veTable virtual scroll', () => {
     */
   it('virtual scroll palceholder', async () => {
     const wrapper = mount(bodyTrScrolling, {
-      propsData: {
+      props: {
         colgroups: [{}],
       },
     })
@@ -732,7 +745,7 @@ describe('veTable virtual scroll', () => {
 
   // it("virtual scroll placeholder", async () => {
   //     const wrapper = mount(veTable, {
-  //         propsData: {
+  //         props: {
   //             columns: [
   //                 {
   //                     field: "name",

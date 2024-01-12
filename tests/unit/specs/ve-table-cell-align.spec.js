@@ -109,21 +109,20 @@ describe('veTable cell align', () => {
     const thEls = wrapper.findAll(
       '.ve-table-header-tr .ve-table-header-th',
     )
-    expect(thEls.at(0).attributes('style')).toContain(
+    expect(thEls[0].attributes('style')).toContain(
       'text-align: center;',
     )
-    expect(thEls.at(1).attributes('style')).toContain('text-align: left;')
-    expect(thEls.at(2).attributes('style')).toContain('text-align: right;')
+    expect(thEls[1].attributes('style')).toContain('text-align: left;')
+    expect(thEls[2].attributes('style')).toContain('text-align: right;')
 
     // td
     const tdEls = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
       .findAll('.ve-table-body-td')
-    expect(tdEls.at(0).attributes('style')).toContain(
+    expect(tdEls[0].attributes('style')).toContain(
       'text-align: center;',
     )
-    expect(tdEls.at(1).attributes('style')).toContain('text-align: left;')
-    expect(tdEls.at(2).attributes('style')).toContain('text-align: right;')
+    expect(tdEls[1].attributes('style')).toContain('text-align: left;')
+    expect(tdEls[2].attributes('style')).toContain('text-align: right;')
   })
 })

@@ -70,7 +70,7 @@ describe('veTable cell selection', () => {
 
   it('render', () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -85,7 +85,7 @@ describe('veTable cell selection', () => {
 
   it('key code up event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -99,10 +99,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -121,17 +119,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+      WRAPPER.findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code right event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -145,10 +141,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -170,17 +164,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(3)
+      WRAPPER.findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[3]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code down event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -194,10 +186,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -216,17 +206,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(3)
-        .findAll('.ve-table-body-td')
-        .at(2)
+      WRAPPER.findAll('.ve-table-body-tr')[3]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code left event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -240,10 +228,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -262,17 +248,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(1)
+      WRAPPER.findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code enter event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -286,10 +270,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -308,17 +290,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(3)
-        .findAll('.ve-table-body-td')
-        .at(2)
+      WRAPPER.findAll('.ve-table-body-tr')[3]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code shift+enter event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -332,10 +312,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -357,17 +335,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+      WRAPPER.findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code tab event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -381,10 +357,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -403,17 +377,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(3)
+      WRAPPER.findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[3]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('key code shift+tab event', async () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -427,10 +399,8 @@ describe('veTable cell selection', () => {
 
     expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
@@ -452,17 +422,15 @@ describe('veTable cell selection', () => {
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(1)
+      WRAPPER.findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
   })
 
   it('cell selection effect', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -474,10 +442,8 @@ describe('veTable cell selection', () => {
     })
 
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -490,7 +456,7 @@ describe('veTable cell selection', () => {
 
   it('disable cell selection', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -502,10 +468,8 @@ describe('veTable cell selection', () => {
     })
 
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
 
@@ -554,10 +518,8 @@ describe('veTable cell selection', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     // set cell selection
     firstCell.trigger('mousedown')
@@ -576,7 +538,7 @@ describe('veTable cell selection', () => {
 
   it('table instance: setCellSelection method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -588,17 +550,15 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[0]
 
     expect(selectionTd.classes()).toContain('ve-table-cell-selection')
   })
 
   it('table instance: setRangeCellSelection method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -616,10 +576,8 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[0]
 
     expect(selectionTd.classes()).toContain('ve-table-cell-selection')
     expect(wrapper.vm.cellSelectionRangeData).toEqual({
@@ -632,7 +590,7 @@ describe('veTable cell selection', () => {
 
   it('table instance: setAllCellSelection method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -653,7 +611,7 @@ describe('veTable cell selection', () => {
 
   it('table instance: getRangeCellSelection method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -671,10 +629,8 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[0]
 
     expect(selectionTd.classes()).toContain('ve-table-cell-selection')
     expect(wrapper.vm.cellSelectionRangeData).toEqual({
@@ -700,138 +656,4 @@ describe('veTable cell selection', () => {
       },
     })
   })
-
-  /* it("virtual scroll keyboard events", async () => {
-        const mockFn = vi.fn();
-
-        let tableData = [];
-
-        for (let i = 0; i < 500; i++) {
-            tableData.push({
-                rowKey: i,
-                col1: i,
-                col2: i,
-                col3: i,
-                col4: i,
-                col5: i,
-                col6: i,
-                col7: i,
-                col8: i,
-                col9: i,
-                col10: i
-            });
-        }
-
-        const wrapper = mount(veTable, {
-            propsData: {
-                columns: [
-                    {
-                        field: "col1",
-                        key: "a",
-                        title: "col1",
-                        width: 50,
-                        fixed: "left"
-                    },
-                    {
-                        title: "col2-col3",
-                        fixed: "left",
-                        children: [
-                            {
-                                field: "col2",
-                                key: "b",
-                                title: "col2",
-                                width: 50
-                            },
-                            {
-                                field: "col3",
-                                key: "c",
-                                title: "col3",
-                                width: 50
-                            }
-                        ]
-                    },
-                    {
-                        title: "col4-col5-col6",
-                        children: [
-                            {
-                                title: "col4-col5",
-                                children: [
-                                    {
-                                        field: "col4",
-                                        key: "d",
-                                        title: "col4",
-                                        width: 130
-                                    },
-                                    {
-                                        field: "col5",
-                                        key: "e",
-                                        title: "col5",
-                                        width: 140
-                                    }
-                                ]
-                            },
-                            {
-                                title: "col6",
-                                field: "col6",
-                                key: "f",
-                                width: 140
-                            }
-                        ]
-                    },
-                    {
-                        field: "col7",
-                        key: "g",
-                        title: "col7",
-                        width: 50,
-                        fixed: "right"
-                    },
-                    {
-                        field: "col8",
-                        key: "h",
-                        title: "col8",
-                        width: 50,
-                        fixed: "right"
-                    }
-                ],
-                tableData: tableData,
-                virtualScrollOption: {
-                    enable: true
-                },
-                cellSelectionOption: {
-                    // default true
-                    enable: true
-                },
-                maxHeight: 500,
-                rowKeyFieldName: "rowKey"
-            }
-        });
-
-        expect(wrapper.html()).toMatchSnapshot();
-
-        await later();
-
-        expect(wrapper.find(".ve-table-cell-selection").exists()).toBe(false);
-
-        const firstTrTdEl = wrapper
-            .findAll(".ve-table-body-tr")
-            .at(0)
-            .findAll(".ve-table-body-td")
-            .at(2);
-
-        firstTrTdEl.trigger("click");
-
-        await later(3000);
-        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-        document.addEventListener("keydown", mockFn);
-        document.dispatchEvent(
-            new KeyboardEvent("keydown", { keyCode: KEY_CODES.DOWN })
-        );
-
-        await later();
-        expect(mockFn).toBeCalled();
-        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
-            false
-        );
-    }); */
 })

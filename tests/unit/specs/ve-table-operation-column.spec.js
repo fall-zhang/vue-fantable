@@ -82,7 +82,7 @@ describe('veTable operation column', () => {
 
   it('render', () => {
     const WRAPPER = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         cellSelectionOption: {
@@ -97,7 +97,7 @@ describe('veTable operation column', () => {
 
   it('operation column', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -107,10 +107,8 @@ describe('veTable operation column', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     expect(selectionTd.classes()).toContain('ve-table-operation-col')
   })

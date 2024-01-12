@@ -77,7 +77,7 @@ describe('veTable row radio', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -93,7 +93,7 @@ describe('veTable row radio', () => {
 
   it('has radio', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -109,7 +109,7 @@ describe('veTable row radio', () => {
 
   it('check default selected key', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -123,8 +123,7 @@ describe('veTable row radio', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(2)
+        .findAll('.ve-table-body-tr')[2]
         .find('.ve-radio-checked')
         .exists(),
     ).toBe(true)
@@ -132,7 +131,7 @@ describe('veTable row radio', () => {
 
   it('check disable selected keys', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -147,16 +146,14 @@ describe('veTable row radio', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(2)
+        .findAll('.ve-table-body-tr')[2]
         .find('.ve-radio-checked.ve-radio-disabled')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(4)
+        .findAll('.ve-table-body-tr')[4]
         .find('.ve-radio-disabled')
         .exists(),
     ).toBe(true)
@@ -164,7 +161,7 @@ describe('veTable row radio', () => {
 
   it('controllable attr selectedRowKey', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -191,7 +188,7 @@ describe('veTable row radio', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         radioOption: {
@@ -204,10 +201,8 @@ describe('veTable row radio', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
       .find('.ve-radio')
       .trigger('click')
 

@@ -77,7 +77,7 @@ describe('veTable row checkbox', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {},
@@ -90,7 +90,7 @@ describe('veTable row checkbox', () => {
 
   it('has checkbox', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {},
@@ -108,7 +108,7 @@ describe('veTable row checkbox', () => {
 
   it('check default selected key', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -138,7 +138,7 @@ describe('veTable row checkbox', () => {
 
   it('check disable selected keys with defaultSelectedRowKeys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -178,8 +178,7 @@ describe('veTable row checkbox', () => {
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -188,7 +187,7 @@ describe('veTable row checkbox', () => {
 
   it('check disable selected keys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -228,8 +227,7 @@ describe('veTable row checkbox', () => {
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -238,7 +236,7 @@ describe('veTable row checkbox', () => {
 
   it('select all event with check disable selected keys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -255,10 +253,8 @@ describe('veTable row checkbox', () => {
 
     // select all
     wrapper
-      .findAll('.ve-table-header-tr')
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(0)
+      .findAll('.ve-table-header-tr')[0]
+      .findAll('.ve-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -282,8 +278,7 @@ describe('veTable row checkbox', () => {
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -291,8 +286,7 @@ describe('veTable row checkbox', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(4)
+        .findAll('.ve-table-body-tr')[4]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -301,7 +295,7 @@ describe('veTable row checkbox', () => {
 
   it('controllable attr selectedRowKey', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -345,7 +339,7 @@ describe('veTable row checkbox', () => {
 
   it('header hideSelectAll', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -367,7 +361,7 @@ describe('veTable row checkbox', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -384,10 +378,8 @@ describe('veTable row checkbox', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -401,7 +393,7 @@ describe('veTable row checkbox', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         checkboxOption: {
@@ -415,8 +407,7 @@ describe('veTable row checkbox', () => {
 
     wrapper
       .find('.ve-table-header-tr')
-      .findAll('.ve-table-header-th')
-      .at(0)
+      .findAll('.ve-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 

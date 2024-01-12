@@ -185,34 +185,34 @@ describe('veTable cell span', () => {
   })
 
   it('body cell span', () => {
-    const spanTrEl = wrapper.findAll('.ve-table-body-tr').at(1)
+    const spanTrEl = wrapper.findAll('.ve-table-body-tr')[1]
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td').at(0).attributes('rowspan'),
+      spanTrEl.findAll('.ve-table-body-td')[0].attributes('rowspan'),
     ).toBe('2')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td').at(0).attributes('colspan'),
+      spanTrEl.findAll('.ve-table-body-td')[0].attributes('colspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td').at(1).attributes('rowspan'),
+      spanTrEl.findAll('.ve-table-body-td')[1].attributes('rowspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td').at(1).attributes('colspan'),
+      spanTrEl.findAll('.ve-table-body-td')[1].attributes('colspan'),
     ).toBe('2')
   })
 
   it('footer cell span', () => {
-    const spanTrEl = wrapper.findAll('.ve-table-footer-tr').at(0)
+    const spanTrEl = wrapper.findAll('.ve-table-footer-tr')[0]
 
     expect(
-      spanTrEl.findAll('.ve-table-footer-td').at(1).attributes('rowspan'),
+      spanTrEl.findAll('.ve-table-footer-td')[1].attributes('rowspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-footer-td').at(1).attributes('colspan'),
+      spanTrEl.findAll('.ve-table-footer-td')[1].attributes('colspan'),
     ).toBe('2')
   })
 })

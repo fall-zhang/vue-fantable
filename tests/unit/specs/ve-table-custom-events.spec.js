@@ -82,7 +82,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -122,7 +122,7 @@ describe('veTable custom events', () => {
       },
     })
 
-    const firstTrEl = wrapper.findAll('.ve-table-header-tr').at(0)
+    const firstTrEl = wrapper.findAll('.ve-table-header-tr')[0]
 
     firstTrEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(0, expect.any(Object))
@@ -165,7 +165,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -206,10 +206,8 @@ describe('veTable custom events', () => {
     })
 
     const firstTrThEl = wrapper
-      .findAll('.ve-table-header-tr')
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(0)
+      .findAll('.ve-table-header-tr')[0]
+      .findAll('.ve-table-header-th')[0]
 
     await later()
 
@@ -290,7 +288,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -330,7 +328,7 @@ describe('veTable custom events', () => {
       },
     })
 
-    const firstTrEl = wrapper.findAll('.ve-table-body-tr').at(0)
+    const firstTrEl = wrapper.findAll('.ve-table-body-tr')[0]
 
     firstTrEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -409,7 +407,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -450,10 +448,8 @@ describe('veTable custom events', () => {
     })
 
     const firstTrTdEl = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     await later()
 
@@ -543,7 +539,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -584,7 +580,7 @@ describe('veTable custom events', () => {
       },
     })
 
-    const firstTrEl = wrapper.findAll('.ve-table-footer-tr').at(0)
+    const firstTrEl = wrapper.findAll('.ve-table-footer-tr')[0]
 
     firstTrEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -663,7 +659,7 @@ describe('veTable custom events', () => {
     const mockMouseupFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -705,10 +701,8 @@ describe('veTable custom events', () => {
     })
 
     const firstTrTdEl = wrapper
-      .findAll('.ve-table-footer-tr')
-      .at(0)
-      .findAll('.ve-table-footer-td')
-      .at(0)
+      .findAll('.ve-table-footer-tr')[0]
+      .findAll('.ve-table-footer-td')[0]
 
     await later()
 

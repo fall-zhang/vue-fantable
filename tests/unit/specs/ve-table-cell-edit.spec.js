@@ -83,7 +83,7 @@ describe('veTable cell edit', () => {
 
   it('cell editor render', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         editOption: {
@@ -99,7 +99,7 @@ describe('veTable cell edit', () => {
 
   it('cell editing style', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -116,10 +116,8 @@ describe('veTable cell edit', () => {
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     // set cell selection
     tdEl.trigger('click')
@@ -132,7 +130,7 @@ describe('veTable cell edit', () => {
 
   it('double click edit', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -149,10 +147,8 @@ describe('veTable cell edit', () => {
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     // set cell selection
     tdEl.trigger('dblclick')
@@ -169,10 +165,8 @@ describe('veTable cell edit', () => {
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -184,7 +178,7 @@ describe('veTable cell edit', () => {
 
   it('letter input directly edit', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -201,10 +195,8 @@ describe('veTable cell edit', () => {
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
 
     tdEl.trigger('mousedown')
 
@@ -220,10 +212,8 @@ describe('veTable cell edit', () => {
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -238,7 +228,7 @@ describe('veTable cell edit', () => {
     const beforeCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -311,7 +301,7 @@ describe('veTable cell edit', () => {
     const afterCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -432,7 +422,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -447,10 +437,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     firstCell.trigger('dblclick')
 
@@ -465,10 +453,8 @@ describe('veTable cell edit', () => {
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -503,7 +489,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -518,10 +504,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
 
     firstCell.trigger('mousedown')
 
@@ -541,10 +525,8 @@ describe('veTable cell edit', () => {
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -579,7 +561,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -605,10 +587,8 @@ describe('veTable cell edit', () => {
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -643,7 +623,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -702,7 +682,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -717,10 +697,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -746,10 +724,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(0)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[0]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -786,7 +762,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -801,10 +777,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -825,20 +799,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -874,7 +844,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -889,10 +859,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -918,10 +886,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -958,7 +924,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -973,10 +939,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -997,20 +961,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1046,7 +1006,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1061,10 +1021,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -1090,10 +1048,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1130,7 +1086,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1145,10 +1101,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1169,20 +1123,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1218,7 +1168,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1233,10 +1183,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -1262,10 +1210,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(0)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[0]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1302,7 +1248,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1317,10 +1263,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1341,20 +1285,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1390,7 +1330,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1405,10 +1345,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1429,10 +1367,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(2)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[2]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1467,7 +1403,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1482,10 +1418,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1509,10 +1443,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1547,7 +1479,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1562,10 +1494,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1586,10 +1516,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1624,7 +1552,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1639,10 +1567,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1666,10 +1592,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(0)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[0]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1704,7 +1628,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1719,10 +1643,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
       .trigger('mousedown')
 
     document.dispatchEvent(
@@ -1738,20 +1660,16 @@ describe('veTable cell edit', () => {
     await later()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -1786,7 +1704,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -1801,10 +1719,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -1827,10 +1743,8 @@ describe('veTable cell edit', () => {
     await later()
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     expect(mockFn).toHaveBeenCalled()
@@ -1903,10 +1817,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     // set cell selection
     firstCell.trigger('dblclick')
@@ -2001,10 +1913,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     expect(cellEditor.vm.isEditCellFocus).toBe(false)
 
@@ -2024,7 +1934,7 @@ describe('veTable cell edit', () => {
 
   it('disable editing columns', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -2037,10 +1947,8 @@ describe('veTable cell edit', () => {
 
     // address column
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(3)
+      .findAll('.ve-table-body-tr')[3]
+      .findAll('.ve-table-body-td')[3]
 
     // set cell selection
     tdEl.trigger('dblclick')
@@ -2057,7 +1965,7 @@ describe('veTable cell edit', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -2072,10 +1980,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -2097,10 +2003,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[1]
         .classes(),
     ).toContain('ve-table-cell-selection')
 
@@ -2112,7 +2016,7 @@ describe('veTable cell edit', () => {
     */
   it('normal cell dblclick move active cell', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -2127,10 +2031,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(3)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[3]
 
     firstCell.trigger('mousedown')
     firstCell.trigger('dblclick')
@@ -2149,10 +2051,8 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
-        .findAll('.ve-table-body-td')
-        .at(2)
+        .findAll('.ve-table-body-tr')[1]
+        .findAll('.ve-table-body-td')[2]
         .find('.ve-table-cell-selection')
         .exists(),
     ).toBe(true)
@@ -2160,7 +2060,7 @@ describe('veTable cell edit', () => {
 
   it('cell editing with table size change and scrolling', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
         editOption: {
@@ -2173,10 +2073,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -2194,10 +2092,8 @@ describe('veTable cell edit', () => {
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
-      .findAll('.ve-table-body-td')
-      .at(2)
+      .findAll('.ve-table-body-tr')[1]
+      .findAll('.ve-table-body-td')[2]
       .trigger('mousedown')
 
     expect(

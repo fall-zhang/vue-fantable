@@ -194,7 +194,7 @@ describe('veTable header sort', () => {
     }
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns,
         tableData: TABLE_DATA,
         sortOption: {
@@ -207,18 +207,16 @@ describe('veTable header sort', () => {
     })
 
     const thEls = wrapper.findAll('.ve-table-header-tr th')
-    expect(thEls.at(1).find('.ve-table-sort').exists()).toBe(true)
+    expect(thEls[1].find('.ve-table-sort').exists()).toBe(true)
 
     expect(
-      thEls
-        .at(2)
-        .findAll('.ve-table-sort .ve-table-sort-icon')
-        .at(0)
+      thEls[2]
+        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
 
-    thEls.at(1).find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.ve-table-sortable-column').trigger('click')
 
     await later()
 
@@ -290,10 +288,8 @@ describe('veTable header sort', () => {
     ])
 
     expect(
-      thEls
-        .at(1)
-        .findAll('.ve-table-sort .ve-table-sort-icon')
-        .at(0)
+      thEls[1]
+        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
@@ -337,7 +333,7 @@ describe('veTable header sort', () => {
     }
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns,
         tableData: TABLE_DATA,
         sortOption: {
@@ -351,18 +347,16 @@ describe('veTable header sort', () => {
     })
 
     const thEls = wrapper.findAll('.ve-table-header-tr th')
-    expect(thEls.at(1).find('.ve-table-sort').exists()).toBe(true)
+    expect(thEls[1].find('.ve-table-sort').exists()).toBe(true)
 
     expect(
-      thEls
-        .at(2)
-        .findAll('.ve-table-sort .ve-table-sort-icon')
-        .at(0)
+      thEls[2]
+        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
 
-    thEls.at(1).find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.ve-table-sortable-column').trigger('click')
 
     await later()
 
@@ -411,7 +405,7 @@ describe('veTable header sort', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns,
         tableData: TABLE_DATA,
         sortOption: {
@@ -426,7 +420,7 @@ describe('veTable header sort', () => {
 
     const thEls = wrapper.findAll('.ve-table-header-tr th')
 
-    thEls.at(1).find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.ve-table-sortable-column').trigger('click')
 
     await later()
 
@@ -435,7 +429,7 @@ describe('veTable header sort', () => {
       weight: '',
     })
 
-    thEls.at(1).find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.ve-table-sortable-column').trigger('click')
 
     await later()
 

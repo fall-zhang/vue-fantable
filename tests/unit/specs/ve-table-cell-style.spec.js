@@ -83,7 +83,7 @@ describe('veTable cell style', () => {
   ]
 
   const wrapper = mount(veTable, {
-    propsData: {
+    props: {
       columns: COLUMNS,
       tableData: TABLE_DATA,
       footerData: FOOTER_DATA,

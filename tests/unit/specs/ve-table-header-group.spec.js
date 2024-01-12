@@ -103,7 +103,7 @@ describe('veTable header group', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -115,7 +115,7 @@ describe('veTable header group', () => {
 
   it('row last column', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         borderY: true,
         columns: TABLE_COLUMNS,
         tableData: TABLE_DATA,
@@ -127,18 +127,18 @@ describe('veTable header group', () => {
 
     // first row last column
     expect(
-      trEls.at(0).findAll('.ve-table-header-th').at(2).classes(),
+      trEls[0].findAll('.ve-table-header-th')[2].classes(),
     ).toContain('ve-table-last-column')
 
     // second row last column
     expect(
-      trEls.at(1).findAll('.ve-table-header-th').at(3).classes(),
+      trEls[1].findAll('.ve-table-header-th')[3].classes(),
     ).toContain('ve-table-last-column')
   })
 
   it('colspan and rowspan', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -149,40 +149,40 @@ describe('veTable header group', () => {
     expect(trEls.length).toBe(3)
 
     /* first tr ths */
-    const firstTrThEls = trEls.at(0).findAll('.ve-table-header-th')
+    const firstTrThEls = trEls[0].findAll('.ve-table-header-th')
     expect(firstTrThEls.length).toBe(3)
-    expect(firstTrThEls.at(0).attributes('rowspan')).toBe('3')
-    expect(firstTrThEls.at(0).attributes('colspan')).toBe('1')
+    expect(firstTrThEls[0].attributes('rowspan')).toBe('3')
+    expect(firstTrThEls[0].attributes('colspan')).toBe('1')
 
-    expect(firstTrThEls.at(1).attributes('rowspan')).toBe('1')
-    expect(firstTrThEls.at(1).attributes('colspan')).toBe('2')
+    expect(firstTrThEls[1].attributes('rowspan')).toBe('1')
+    expect(firstTrThEls[1].attributes('colspan')).toBe('2')
 
-    expect(firstTrThEls.at(2).attributes('rowspan')).toBe('1')
-    expect(firstTrThEls.at(2).attributes('colspan')).toBe('3')
+    expect(firstTrThEls[2].attributes('rowspan')).toBe('1')
+    expect(firstTrThEls[2].attributes('colspan')).toBe('3')
 
     /* second tr ths */
-    const secondTrThEls = trEls.at(1).findAll('.ve-table-header-th')
+    const secondTrThEls = trEls[1].findAll('.ve-table-header-th')
     expect(secondTrThEls.length).toBe(4)
-    expect(secondTrThEls.at(0).attributes('rowspan')).toBe('2')
-    expect(secondTrThEls.at(0).attributes('colspan')).toBe('1')
+    expect(secondTrThEls[0].attributes('rowspan')).toBe('2')
+    expect(secondTrThEls[0].attributes('colspan')).toBe('1')
 
-    expect(secondTrThEls.at(1).attributes('rowspan')).toBe('2')
-    expect(secondTrThEls.at(1).attributes('colspan')).toBe('1')
+    expect(secondTrThEls[1].attributes('rowspan')).toBe('2')
+    expect(secondTrThEls[1].attributes('colspan')).toBe('1')
 
-    expect(secondTrThEls.at(2).attributes('rowspan')).toBe('1')
-    expect(secondTrThEls.at(2).attributes('colspan')).toBe('2')
+    expect(secondTrThEls[2].attributes('rowspan')).toBe('1')
+    expect(secondTrThEls[2].attributes('colspan')).toBe('2')
 
-    expect(secondTrThEls.at(3).attributes('rowspan')).toBe('2')
-    expect(secondTrThEls.at(3).attributes('colspan')).toBe('1')
+    expect(secondTrThEls[3].attributes('rowspan')).toBe('2')
+    expect(secondTrThEls[3].attributes('colspan')).toBe('1')
 
     /* third tr ths */
-    const thirdTrThEls = trEls.at(2).findAll('.ve-table-header-th')
+    const thirdTrThEls = trEls[2].findAll('.ve-table-header-th')
     expect(thirdTrThEls.length).toBe(2)
-    expect(thirdTrThEls.at(0).attributes('rowspan')).toBe('1')
-    expect(thirdTrThEls.at(0).attributes('colspan')).toBe('1')
+    expect(thirdTrThEls[0].attributes('rowspan')).toBe('1')
+    expect(thirdTrThEls[0].attributes('colspan')).toBe('1')
 
-    expect(thirdTrThEls.at(1).attributes('rowspan')).toBe('1')
-    expect(thirdTrThEls.at(1).attributes('colspan')).toBe('1')
+    expect(thirdTrThEls[1].attributes('rowspan')).toBe('1')
+    expect(thirdTrThEls[1].attributes('colspan')).toBe('1')
   })
 
   it('width right column fixed section1', () => {
@@ -195,7 +195,7 @@ describe('veTable header group', () => {
          */
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         borderY: true,
         columns: [
           { field: 'col1', key: 'a', title: 'Title1' },
@@ -234,10 +234,8 @@ describe('veTable header group', () => {
     const trEls = wrapper.findAll('.ve-table-header-tr')
 
     // first row first fixed column
-    const firtRowFirstFixedColumn = trEls
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const firtRowFirstFixedColumn = trEls[0]
+      .findAll('.ve-table-header-th')[1]
 
     expect(firtRowFirstFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -249,10 +247,8 @@ describe('veTable header group', () => {
     )
 
     // first row last fixed column
-    const firstRowLastFixedColumn = trEls
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(2)
+    const firstRowLastFixedColumn = trEls[0]
+      .findAll('.ve-table-header-th')[2]
 
     expect(firstRowLastFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -264,10 +260,8 @@ describe('veTable header group', () => {
     )
 
     // second row first fixed column
-    const secondRowFirstFixedColumn = trEls
-      .at(1)
-      .findAll('.ve-table-header-th')
-      .at(0)
+    const secondRowFirstFixedColumn = trEls[1]
+      .findAll('.ve-table-header-th')[0]
 
     expect(secondRowFirstFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -279,10 +273,8 @@ describe('veTable header group', () => {
     )
 
     // second row last fixed column
-    const secondRowLastFixedColumn = trEls
-      .at(1)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const secondRowLastFixedColumn = trEls[1]
+      .findAll('.ve-table-header-th')[1]
 
     expect(secondRowLastFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -296,15 +288,15 @@ describe('veTable header group', () => {
 
   it('width right column fixed section2', () => {
     /**
-         * +------------------------------+
-         * |        |       Title2        |
-         * | Title1 |----------|----------|
-         * |        | Title2-1 | Title2-2 |
-         * +------------------------------+
-         */
+     * +------------------------------+
+     * |        |       Title2        |
+     * | Title1 |----------|----------|
+     * |        | Title2-1 | Title2-2 |
+     * +------------------------------+
+     */
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         borderY: true,
         columns: [
           { field: 'col1', key: 'a', title: 'Title1' },
@@ -336,10 +328,8 @@ describe('veTable header group', () => {
     const trEls = wrapper.findAll('.ve-table-header-tr')
 
     // first row first fixed column
-    const firtRowFirstFixedColumn = trEls
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const firtRowFirstFixedColumn = trEls[0]
+      .findAll('.ve-table-header-th')[1]
 
     expect(firtRowFirstFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -352,10 +342,8 @@ describe('veTable header group', () => {
     )
 
     // second row first fixed column
-    const secondRowFirstFixedColumn = trEls
-      .at(1)
-      .findAll('.ve-table-header-th')
-      .at(0)
+    const secondRowFirstFixedColumn = trEls[1]
+      .findAll('.ve-table-header-th')[0]
 
     expect(secondRowFirstFixedColumn.classes()).toEqual([
       've-table-header-th',
@@ -367,10 +355,8 @@ describe('veTable header group', () => {
     )
 
     // second row last fixed column
-    const secondRowLastFixedColumn = trEls
-      .at(1)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const secondRowLastFixedColumn = trEls[1]
+      .findAll('.ve-table-header-th')[1]
 
     expect(secondRowLastFixedColumn.classes()).toEqual([
       've-table-header-th',

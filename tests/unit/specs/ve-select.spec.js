@@ -51,7 +51,7 @@ describe('veSelect', () => {
 
   it('width prop', () => {
     const wrapper = mount(veSelect, {
-      propsData: {
+      props: {
         value: SELECT_ITEMS,
         width: 120,
       },
@@ -64,7 +64,7 @@ describe('veSelect', () => {
 
   it('isMultiple prop', () => {
     const wrapper = mount(veSelect, {
-      propsData: {
+      props: {
         value: SELECT_ITEMS,
         isMultiple: true,
       },
@@ -75,7 +75,7 @@ describe('veSelect', () => {
 
   it('isInput prop', () => {
     const wrapper = mount(veSelect, {
-      propsData: {
+      props: {
         value: SELECT_ITEMS,
         isInput: true,
       },
@@ -86,12 +86,12 @@ describe('veSelect', () => {
 
   it('on-select-change emit event', async () => {
     const wrapper = mount(veSelect, {
-      propsData: {
+      props: {
         value: SELECT_ITEMS,
       },
     })
 
-    wrapper.findAll('.ve-dropdown-items-li').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[1].trigger('click')
 
     expect(wrapper.emitted('on-select-change').length).toEqual(1)
     expect(

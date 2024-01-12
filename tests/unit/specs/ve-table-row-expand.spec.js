@@ -77,7 +77,7 @@ describe('veTable row expand', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -99,7 +99,7 @@ describe('veTable row expand', () => {
 
   it('trigger type default(icon)', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -121,8 +121,7 @@ describe('veTable row expand', () => {
     expect(wrapper.find('.ve-table-expand-tr').exists()).toBe(false)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
 
@@ -130,15 +129,13 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
-        .at(0)
+        .findAll('.ve-table-expand-tr')[0]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
 
@@ -150,7 +147,7 @@ describe('veTable row expand', () => {
 
   it('trigger type:cell', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -170,18 +167,15 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
+      .findAll('.ve-table-body-td')[0]
       .trigger('click')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
-        .at(0)
+        .findAll('.ve-table-expand-tr')[0]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
@@ -189,7 +183,7 @@ describe('veTable row expand', () => {
 
   it('trigger type:row', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -208,14 +202,13 @@ describe('veTable row expand', () => {
       },
     })
 
-    wrapper.findAll('.ve-table-body-tr').at(0).trigger('click')
+    wrapper.findAll('.ve-table-body-tr')[0].trigger('click')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
-        .at(0)
+        .findAll('.ve-table-expand-tr')[0]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
@@ -223,7 +216,7 @@ describe('veTable row expand', () => {
 
   it('expandOption expandable', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -248,8 +241,7 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(1)
+        .findAll('.ve-table-body-tr')[1]
         .find('.ve-table-row-expand-icon')
         .exists(),
     ).toBe(false)
@@ -257,7 +249,7 @@ describe('veTable row expand', () => {
 
   it('expandOption defaultExpandedRowKeys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -278,16 +270,14 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(0)
+        .findAll('.ve-table-body-tr')[0]
         .find('.ve-table-row-expand-icon')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')
-        .at(2)
+        .findAll('.ve-table-body-tr')[2]
         .find('.ve-table-row-expand-icon')
         .exists(),
     ).toBe(true)
@@ -295,7 +285,7 @@ describe('veTable row expand', () => {
 
   it('expandOption defaultExpandAllRows', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -321,7 +311,7 @@ describe('veTable row expand', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -353,8 +343,7 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
@@ -364,8 +353,7 @@ describe('veTable row expand', () => {
     expect(wrapper.findAll('.ve-table-expand-tr').exists()).toBe(false)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
@@ -375,8 +363,7 @@ describe('veTable row expand', () => {
     expect(
       wrapper
         .findAll('.ve-table-expand-tr')
-      // 只要一行
-        .at(0)
+      // 只要一行[0]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
@@ -386,7 +373,7 @@ describe('veTable row expand', () => {
     const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         expandOption: {
@@ -413,8 +400,7 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body-tr')[0]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
@@ -480,8 +466,7 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
-        .at(0)
+        .findAll('.ve-table-expand-tr')[0]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
@@ -492,15 +477,13 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
-        .at(1)
+        .findAll('.ve-table-expand-tr')[1]
         .find('.ve-table-expand-td .ve-table-expand-td-content')
         .exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')
-      .at(1)
+      .findAll('.ve-table-body-tr')[1]
       .find('.ve-table-row-expand-icon')
       .trigger('click')
 

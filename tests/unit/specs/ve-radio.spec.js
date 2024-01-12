@@ -44,7 +44,7 @@ describe('veRadio', () => {
 
   it('value prop', async () => {
     const wrapper = mount(veRadio, {
-      propsData: {
+      props: {
         value: false,
       },
     })
@@ -59,7 +59,7 @@ describe('veRadio', () => {
 
   it('disable prop', () => {
     const wrapper = mount(veRadio, {
-      propsData: {
+      props: {
         value: true,
       },
     })
@@ -69,7 +69,7 @@ describe('veRadio', () => {
 
   it('label prop', () => {
     const wrapper = mount(veRadio, {
-      propsData: {
+      props: {
         value: false,
         label: 'test',
       },
@@ -80,7 +80,7 @@ describe('veRadio', () => {
 
   it('isControlled prop', async () => {
     const wrapper = mount(veRadio, {
-      propsData: {
+      props: {
         isControlled: true,
         isSelected: false,
       },
@@ -96,7 +96,7 @@ describe('veRadio', () => {
 
   /*   it("click event", async () => {
         const wrapper = mount(veRadio, {
-            propsData: {
+            props: {
                 value: false,
                 label: "test"
             }
@@ -110,7 +110,7 @@ describe('veRadio', () => {
 
   it('on-radio-change event', async () => {
     const wrapper = mount(veRadio, {
-      propsData: {
+      props: {
         value: false,
         label: 'test',
       },

@@ -161,7 +161,7 @@ describe('veTable contextmenu', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -248,10 +248,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')[0]
+      .findAll('.ve-table-header-th')[1]
 
     firstTrThEl.trigger('mousedown', {
       button: 3,
@@ -334,10 +332,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(1)
+    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')[0]
+      .findAll('.ve-table-header-th')[1]
 
     firstTrThEl.trigger('mousedown', {
       button: 3,
@@ -430,10 +426,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown', {
       button: 3,
@@ -518,10 +512,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')
-      .at(2)
-      .findAll('.ve-table-body-td')
-      .at(2)
+    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
+      .findAll('.ve-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown', {
       button: 3,
@@ -564,372 +556,4 @@ describe('veTable contextmenu', () => {
       },
     })
   })
-
-  // it("contextmenu INSERT_ROW_ABOVE", async () => {
-  //     const mockFn = vi.fn();
-
-  //     let tableData = cloneDeep(TABLE_DATA);
-
-  //     const WRAPPER = mount(
-  //         {
-  //             render() {
-  //                 return (
-  //                     <div>
-  //                         <ve-table
-  //                             row-key-field-name="rowKey"
-  //                             columns={COLUMNS}
-  //                             table-data={tableData}
-  //                             contextmenu-body-option={
-  //                                 this.contextmenuBodyOption
-  //                             }
-  //                         />
-  //                     </div>
-  //                 );
-  //             },
-  //             data() {
-  //                 return {
-  //                     contextmenuBodyOption: {
-  //                         beforeShow: ({
-  //                             isWholeRowSelection,
-  //                             selectionRangeKeys,
-  //                             selectionRangeIndexes,
-  //                         }) => {
-  //                             console.log("before show");
-  //                         },
-  //                         afterMenuClick: ({
-  //                             type,
-  //                             selectionRangeKeys,
-  //                             selectionRangeIndexes,
-  //                         }) => {
-  //                             mockFn({
-  //                                 type,
-  //                                 selectionRangeKeys,
-  //                                 selectionRangeIndexes,
-  //                             });
-  //                         },
-  //                         contextmenus: BODY_CONTEXTMENUS,
-  //                     },
-  //                 };
-  //             },
-  //         },
-  //         // need attach to documnet
-  //         { attachTo: document.body },
-  //     );
-
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
-  //         .at(2)
-  //         .findAll(".ve-table-body-td")
-  //         .at(2);
-
-  //     firstTrTdEl.trigger("mousedown", {
-  //         button: 3,
-  //     });
-  //     await later();
-  //     firstTrTdEl.trigger("contextmenu");
-  //     await later();
-
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-  //     //const tableVm = WRAPPER.findComponent({ name: "ve-table" }).vm;
-
-  //     const contextmenuNodes = document.querySelectorAll(
-  //         ".ve-contextmenu-node",
-  //     );
-
-  //     expect(contextmenuNodes.length).toBe(6);
-
-  //     const contentmenuItemClickEvent = new MouseEvent("click", {
-  //         view: window, // window
-  //         bubbles: true,
-  //         cancelable: true,
-  //     });
-
-  //     contextmenuNodes[2].dispatchEvent(contentmenuItemClickEvent);
-
-  //     await later();
-
-  //     expect(tableData.length).toBe(6);
-
-  //     expect(mockFn).toHaveBeenCalled();
-  //     // expect(mockFn).toHaveBeenCalledWith({
-  //     //     selectionRangeKeys,
-  //     //     selectionRangeIndexes,
-  //     //     //selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
-  //     //     type: "INSERT_ROW_ABOVE",
-  //     // });
-  // });
-
-  // it("contextmenu INSERT_ROW_BELOW", async () => {
-  //     const mockFn = vi.fn();
-
-  //     let tableData = cloneDeep(TABLE_DATA);
-
-  //     const WRAPPER = mount(
-  //         {
-  //             render() {
-  //                 return (
-  //                     <div>
-  //                         <ve-table
-  //                             row-key-field-name="rowKey"
-  //                             columns={COLUMNS}
-  //                             table-data={tableData}
-  //                             contextmenu-body-option={
-  //                                 this.contextmenuBodyOption
-  //                             }
-  //                         />
-  //                     </div>
-  //                 );
-  //             },
-  //             data() {
-  //                 return {
-  //                     contextmenuBodyOption: {
-  //                         afterMenuClick: ({
-  //                             type,
-  //                             selectionRangeKeys,
-  //                             selectionRangeIndexes,
-  //                         }) => {
-  //                             mockFn({
-  //                                 type,
-  //                                 selectionRangeKeys,
-  //                                 selectionRangeIndexes,
-  //                             });
-  //                         },
-  //                         contextmenus: BODY_CONTEXTMENUS,
-  //                     },
-  //                 };
-  //             },
-  //         },
-  //         // need attach to documnet
-  //         { attachTo: document.body },
-  //     );
-
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
-  //         .at(2)
-  //         .findAll(".ve-table-body-td")
-  //         .at(2);
-
-  //     firstTrTdEl.trigger("contextmenu");
-  //     firstTrTdEl.trigger("mousedown", {
-  //         button: 3,
-  //     });
-  //     await later();
-
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
-  //     bodyEl.trigger("contextmenu");
-
-  //     await later();
-
-  //     const contextmenuPopper = document.querySelector(
-  //         ".ve-contextmenu-popper",
-  //     );
-
-  //     const contextmenuNodes = contextmenuPopper.querySelectorAll(
-  //         ".ve-contextmenu-node",
-  //     );
-
-  //     const contentmenuItemClickEvent = new MouseEvent("click", {
-  //         view: window, // window
-  //         bubbles: true,
-  //         cancelable: true,
-  //     });
-
-  //     contextmenuNodes[1].dispatchEvent(contentmenuItemClickEvent);
-
-  //     await later();
-
-  //     expect(tableData.length).toBe(6);
-
-  //     expect(mockFn).toHaveBeenCalled();
-  //     expect(mockFn).toHaveBeenCalledWith({
-  //         selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
-  //         type: "INSERT_ROW_BELOW",
-  //     });
-  // });
-
-  // it("contextmenu REMOVE_ROW", async () => {
-  //     const mockFn = vi.fn();
-
-  //     let tableData = cloneDeep(TABLE_DATA);
-
-  //     const WRAPPER = mount(
-  //         {
-  //             render() {
-  //                 return (
-  //                     <div>
-  //                         <ve-table
-  //                             row-key-field-name="rowKey"
-  //                             columns={COLUMNS}
-  //                             table-data={tableData}
-  //                             contextmenu-body-option={
-  //                                 this.contextmenuBodyOption
-  //                             }
-  //                         />
-  //                     </div>
-  //                 );
-  //             },
-  //             data() {
-  //                 return {
-  //                     contextmenuBodyOption: {
-  //                         afterMenuClick: ({
-  //                             type,
-  //                             selectionRangeKeys,
-  //                             selectionRangeIndexes,
-  //                         }) => {
-  //                             mockFn({
-  //                                 type,
-  //                                 selectionRangeKeys,
-  //                                 selectionRangeIndexes,
-  //                             });
-  //                         },
-  //                         contextmenus: BODY_CONTEXTMENUS,
-  //                     },
-  //                 };
-  //             },
-  //         },
-  //         // need attach to documnet
-  //         { attachTo: document.body },
-  //     );
-
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
-  //         .at(2)
-  //         .findAll(".ve-table-body-td")
-  //         .at(2);
-
-  //     firstTrTdEl.trigger("mousedown");
-
-  //     await later();
-
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
-  //     bodyEl.trigger("contextmenu");
-
-  //     await later();
-
-  //     const contextmenuPopper = document.querySelector(
-  //         ".ve-contextmenu-popper",
-  //     );
-
-  //     const contextmenuNodes = contextmenuPopper.querySelectorAll(
-  //         ".ve-contextmenu-node",
-  //     );
-
-  //     const contentmenuItemClickEvent = new MouseEvent("click", {
-  //         view: window, // window
-  //         bubbles: true,
-  //         cancelable: true,
-  //     });
-
-  //     contextmenuNodes[2].dispatchEvent(contentmenuItemClickEvent);
-
-  //     await later();
-
-  //     expect(tableData.length).toBe(4);
-
-  //     expect(mockFn).toHaveBeenCalled();
-  //     expect(mockFn).toHaveBeenCalledWith({
-  //         selectionRangeKeys,
-  //         selectionRangeIndexes,
-  //         //selection: { colKey: "date", rowKey: 2, rowIndex: 2 },
-  //         type: "REMOVE_ROW",
-  //     });
-  // });
-
-  // it("contextmenu HIDE_COLUMN", async () => {
-  //     const mockFn = vi.fn();
-
-  //     let tableData = cloneDeep(TABLE_DATA);
-
-  //     const WRAPPER = mount(
-  //         {
-  //             render() {
-  //                 return (
-  //                     <div>
-  //                         <ve-table
-  //                             row-key-field-name="rowKey"
-  //                             columns={COLUMNS}
-  //                             table-data={tableData}
-  //                             contextmenu-body-option={
-  //                                 this.contextmenuBodyOption
-  //                             }
-  //                         />
-  //                     </div>
-  //                 );
-  //             },
-  //             data() {
-  //                 return {
-  //                     contextmenuBodyOption: {
-  //                         afterMenuClick: ({
-  //                             type,
-  //                             selectionRangeKeys,
-  //                             selectionRangeIndexes,
-  //                         }) => {
-  //                             mockFn({
-  //                                 type,
-  //                                 selectionRangeKeys,
-  //                                 selectionRangeIndexes,
-  //                             });
-  //                         },
-  //                         contextmenus: BODY_CONTEXTMENUS,
-  //                     },
-  //                 };
-  //             },
-  //         },
-  //         // need attach to documnet
-  //         { attachTo: document.body },
-  //     );
-
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
-  //         .at(2)
-  //         .findAll(".ve-table-body-td")
-  //         .at(2);
-
-  //     firstTrTdEl.trigger("mousedown");
-
-  //     await later();
-
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
-
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
-  //     bodyEl.trigger("contextmenu");
-
-  //     await later();
-
-  //     const DateTh = WRAPPER.findAll(
-  //         ".ve-table-header-tr .ve-table-header-th",
-  //     ).at(2);
-  //     expect(DateTh.text()).toBe("Date");
-
-  //     const contextmenuPopper = document.querySelector(
-  //         ".ve-contextmenu-popper",
-  //     );
-
-  //     const contextmenuNodes = contextmenuPopper.querySelectorAll(
-  //         ".ve-contextmenu-node",
-  //     );
-
-  //     const contentmenuItemClickEvent = new MouseEvent("click", {
-  //         view: window, // window
-  //         bubbles: true,
-  //         cancelable: true,
-  //     });
-
-  //     contextmenuNodes[3].dispatchEvent(contentmenuItemClickEvent);
-
-  //     await later();
-
-  //     const DateTh2 = WRAPPER.findAll(
-  //         ".ve-table-header-tr .ve-table-header-th",
-  //     ).at(2);
-  //     expect(DateTh2.text()).toBe("Number");
-
-  //     expect(mockFn).toHaveBeenCalled();
-  //     expect(mockFn).toHaveBeenCalledWith({
-  //         selectionRangeKeys,
-  //         selectionRangeIndexes,
-  //         type: "HIDE_COLUMN",
-  //     });
-  // });
 })

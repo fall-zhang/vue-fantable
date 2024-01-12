@@ -113,7 +113,7 @@ describe('veContextmenu', () => {
       },
     })
     expect(wrapper.html()).toMatchSnapshot()
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu event', async () => {
@@ -161,7 +161,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers.length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu async contextmenu option', async () => {
@@ -222,7 +222,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers2.length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu eventTarget', async () => {
@@ -270,7 +270,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers.length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu node hover', async () => {
@@ -354,7 +354,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers2[1].innerHTML).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu on-node-click event', async () => {
@@ -416,7 +416,7 @@ describe('veContextmenu', () => {
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith('menu1-type')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu panel child node click', async () => {
@@ -499,7 +499,7 @@ describe('veContextmenu', () => {
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith('menu2-1-type')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu node disabled', async () => {
@@ -560,7 +560,7 @@ describe('veContextmenu', () => {
 
     expect(mockFn).toHaveBeenCalledTimes(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu destoryed', async () => {
@@ -609,7 +609,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers.length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
 
     const contextmenuPoppers2 = document.querySelectorAll(
       '.ve-contextmenu-popper',
@@ -691,7 +691,7 @@ describe('veContextmenu', () => {
     )
     expect(contextmenuPoppers.length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contextmenu clickoutside', async () => {
@@ -748,7 +748,7 @@ describe('veContextmenu', () => {
 
     expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hideContextmenu instance method', async () => {
@@ -807,6 +807,6 @@ describe('veContextmenu', () => {
 
     expect(veContextmenuComp.vm.isPanelsEmptyed).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

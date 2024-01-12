@@ -66,7 +66,7 @@ describe('veTable instance methods', () => {
 
   it('scrollTo method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         maxHeight: 50,
@@ -89,7 +89,7 @@ describe('veTable instance methods', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         maxHeight: 50,

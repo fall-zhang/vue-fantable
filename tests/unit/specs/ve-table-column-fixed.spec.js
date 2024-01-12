@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable column fixed', () => {
   const TABLE_DATA = [
@@ -166,7 +167,7 @@ describe('veTable column fixed', () => {
 
   it('header fixed left', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
       },
@@ -176,8 +177,8 @@ describe('veTable column fixed', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(thEls.at(0).classes()).toContain('ve-table-fixed-left')
-    expect(thEls.at(1).classes()).toEqual(
+    expect(thEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(thEls[1].classes()).toEqual(
       expect.arrayContaining([
         've-table-fixed-left',
         've-table-last-left-fixed-column',
@@ -190,7 +191,7 @@ describe('veTable column fixed', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(thEls2.at(0).classes()).toEqual(
+    expect(thEls2[0].classes()).toEqual(
       expect.arrayContaining([
         've-table-fixed-left',
         've-table-last-left-fixed-column',
@@ -200,7 +201,7 @@ describe('veTable column fixed', () => {
 
   it('header fixed right', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
       },
@@ -210,13 +211,13 @@ describe('veTable column fixed', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(thEls.at(9 - 1).classes()).toEqual(
+    expect(thEls[8].classes()).toEqual(
       expect.arrayContaining([
         've-table-first-right-fixed-column',
         've-table-fixed-right',
       ]),
     )
-    expect(thEls.at(9 - 0).classes()).toContain('ve-table-fixed-right')
+    expect(thEls[9].classes()).toContain('ve-table-fixed-right')
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
@@ -224,7 +225,7 @@ describe('veTable column fixed', () => {
       '.ve-table-header .ve-table-header-tr .ve-table-header-th',
     )
 
-    expect(thEls2.at(9 - 0).classes()).toEqual(
+    expect(thEls2[9].classes()).toEqual(
       expect.arrayContaining([
         've-table-first-right-fixed-column',
         've-table-fixed-right',
@@ -234,19 +235,18 @@ describe('veTable column fixed', () => {
 
   it('column fixed left', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
       },
     })
 
     const tdEls = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body .ve-table-body-tr')[0]
       .findAll('.ve-table-body-td')
 
-    expect(tdEls.at(0).classes()).toContain('ve-table-fixed-left')
-    expect(tdEls.at(1).classes()).toEqual(
+    expect(tdEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(tdEls[1].classes()).toEqual(
       expect.arrayContaining([
         've-table-last-left-fixed-column',
         've-table-fixed-left',
@@ -256,11 +256,10 @@ describe('veTable column fixed', () => {
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const tdEls2 = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body .ve-table-body-tr')[0]
       .findAll('.ve-table-body-td')
 
-    expect(tdEls2.at(0).classes()).toEqual(
+    expect(tdEls2[0].classes()).toEqual(
       expect.arrayContaining([
         've-table-last-left-fixed-column',
         've-table-fixed-left',
@@ -270,33 +269,31 @@ describe('veTable column fixed', () => {
 
   it('column fixed right', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
       },
     })
 
     const tdEls = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body .ve-table-body-tr')[0]
       .findAll('.ve-table-body-td')
 
-    expect(tdEls.at(9 - 1).classes()).toEqual(
+    expect(tdEls[9].classes()).toEqual(
       expect.arrayContaining([
         've-table-first-right-fixed-column',
         've-table-fixed-right',
       ]),
     )
-    expect(tdEls.at(9 - 0).classes()).toContain('ve-table-fixed-right')
+    expect(tdEls[9].classes()).toContain('ve-table-fixed-right')
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const tdEls2 = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')
-      .at(0)
+      .findAll('.ve-table-body .ve-table-body-tr')[0]
       .findAll('.ve-table-body-td')
 
-    expect(tdEls.at(9 - 0).classes()).toEqual(
+    expect(tdEls2[9].classes()).toEqual(
       expect.arrayContaining([
         've-table-first-right-fixed-column',
         've-table-fixed-right',

@@ -12,7 +12,7 @@ describe('veDropdown', () => {
 
   it('render normal', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         showOperation: true,
         confirmFilterText: 'filter',
@@ -28,7 +28,7 @@ describe('veDropdown', () => {
 
   it('render with radio', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         showRadio: true,
         showOperation: true,
@@ -45,7 +45,7 @@ describe('veDropdown', () => {
 
   it('render with checkbox', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         isMultiple: true,
         showOperation: true,
@@ -62,7 +62,7 @@ describe('veDropdown', () => {
 
   it('value props', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
       },
       slots: {
@@ -75,7 +75,7 @@ describe('veDropdown', () => {
 
   it('showOperation prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         showOperation: true,
       },
@@ -89,7 +89,7 @@ describe('veDropdown', () => {
 
   it('isMultiple prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         isMultiple: true,
       },
@@ -103,7 +103,7 @@ describe('veDropdown', () => {
 
   it('placeholder prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         isMultiple: true,
       },
@@ -117,7 +117,7 @@ describe('veDropdown', () => {
 
   it('textAlign prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         textAlign: 'center',
       },
@@ -133,7 +133,7 @@ describe('veDropdown', () => {
 
   it('operation text prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         showOperation: true,
         confirmFilterText: 'ok',
@@ -152,7 +152,7 @@ describe('veDropdown', () => {
 
   it('showRadio prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         showRadio: true,
       },
@@ -166,7 +166,7 @@ describe('veDropdown', () => {
 
   it('isControlled prop', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         isControlled: true,
         visible: true,
@@ -181,7 +181,7 @@ describe('veDropdown', () => {
 
   it('hideByItemClick prop', async () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         hideByItemClick: false,
       },
@@ -207,7 +207,7 @@ describe('veDropdown', () => {
 
   it('custom-content slot', () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
         isCustomContent: true,
       },
@@ -221,7 +221,7 @@ describe('veDropdown', () => {
 
   it('on-item-select-change emit', async () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
       },
       slots: {
@@ -233,7 +233,7 @@ describe('veDropdown', () => {
     await later(100)
 
     // 改变选项
-    wrapper.findAll('.ve-dropdown-items-li').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[1].trigger('click')
 
     await later()
 
@@ -248,7 +248,7 @@ describe('veDropdown', () => {
 
   it('visible change emit', async () => {
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: DROPDOWN_ITEMS,
       },
       slots: {
@@ -279,7 +279,7 @@ describe('veDropdown', () => {
     ]
 
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: items,
         showOperation: true,
         confirmFilterText: 'ok',
@@ -296,12 +296,12 @@ describe('veDropdown', () => {
     await later()
 
     // 改变选项
-    wrapper.findAll('.ve-dropdown-items-li').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[0].trigger('click')
 
     await later()
 
     // confirm btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[1].trigger('click')
 
     await later()
 
@@ -320,7 +320,7 @@ describe('veDropdown', () => {
     ]
 
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: items,
         showOperation: true,
         confirmFilterText: 'ok',
@@ -337,7 +337,7 @@ describe('veDropdown', () => {
     await later()
 
     // reset btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[0].trigger('click')
 
     await later()
 
@@ -356,7 +356,7 @@ describe('veDropdown', () => {
     ]
 
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: items,
         isMultiple: true,
         showOperation: true,
@@ -374,12 +374,12 @@ describe('veDropdown', () => {
     await later()
 
     // 改变选项
-    wrapper.findAll('.ve-checkbox').at(2).trigger('click')
+    wrapper.findAll('.ve-checkbox')[2].trigger('click')
 
     await later()
 
     // confirm btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[1].trigger('click')
 
     await later()
 
@@ -398,7 +398,7 @@ describe('veDropdown', () => {
     ]
 
     const wrapper = mount(veDropdown, {
-      propsData: {
+      props: {
         value: items,
         isMultiple: true,
         showOperation: true,
@@ -416,7 +416,7 @@ describe('veDropdown', () => {
     await later()
 
     // reset btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[0].trigger('click')
 
     await later()
 

@@ -91,7 +91,7 @@ describe('veTable footer', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -104,7 +104,7 @@ describe('veTable footer', () => {
 
   it('custom cell content', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -114,8 +114,7 @@ describe('veTable footer', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')
-        .at(0)
+        .findAll('.ve-table-footer-tr')[0]
         .findAll('.ve-table-footer-td .text-bold')
         .exists(),
     ).toBe(true)
@@ -123,7 +122,7 @@ describe('veTable footer', () => {
 
   it('custom cell style', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -144,20 +143,16 @@ describe('veTable footer', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')
-        .at(0)
-        .findAll('.ve-table-footer-td')
-        .at(3)
+        .findAll('.ve-table-footer-tr')[0]
+        .findAll('.ve-table-footer-td')[3]
         .find('.table-footer-cell-class1')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')
-        .at(1)
-        .findAll('.ve-table-footer-td')
-        .at(1)
+        .findAll('.ve-table-footer-tr')[1]
+        .findAll('.ve-table-footer-td')[1]
         .find('.table-footer-cell-class2')
         .exists(),
     ).toBe(true)
@@ -165,7 +160,7 @@ describe('veTable footer', () => {
 
   it('cell span', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -192,10 +187,8 @@ describe('veTable footer', () => {
     })
 
     const tdEl = wrapper
-      .findAll('.ve-table-footer-tr')
-      .at(0)
-      .findAll('.ve-table-footer-td')
-      .at(1)
+      .findAll('.ve-table-footer-tr')[0]
+      .findAll('.ve-table-footer-td')[1]
 
     expect(tdEl.attributes('rowspan')).toBe('1')
 
@@ -210,7 +203,7 @@ describe('veTable footer', () => {
     const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -239,7 +232,7 @@ describe('veTable footer', () => {
       },
     })
 
-    const firstTrEl = wrapper.findAll('.ve-table-footer-tr').at(0)
+    const firstTrEl = wrapper.findAll('.ve-table-footer-tr')[0]
 
     firstTrEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -285,7 +278,7 @@ describe('veTable footer', () => {
     const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -315,10 +308,8 @@ describe('veTable footer', () => {
     })
 
     const firstTrTdEl = wrapper
-      .findAll('.ve-table-footer-tr')
-      .at(0)
-      .findAll('.ve-table-footer-td')
-      .at(0)
+      .findAll('.ve-table-footer-tr')[0]
+      .findAll('.ve-table-footer-td')[0]
 
     firstTrTdEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -363,7 +354,7 @@ describe('veTable footer', () => {
 
   it('footer not fixed', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         footerData: FOOTER_DATA,
@@ -379,7 +370,7 @@ describe('veTable footer', () => {
 
   it('column fixed', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',

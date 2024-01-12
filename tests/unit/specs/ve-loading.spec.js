@@ -166,7 +166,7 @@ describe('veLoading', () => {
 
     expect(wrapper.find('.ve-loading-spin').exists()).toBe(true)
 
-    instance.destroy()
+    instance.unmount()
     await later()
     expect(wrapper.find('.ve-loading-spin').exists()).toBe(false)
   })

@@ -72,7 +72,7 @@ describe('veTable header fixed', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         maxHeight: 200,
         fixedHeader: true,
         columns: TABLE_COLUMNS,
@@ -86,7 +86,7 @@ describe('veTable header fixed', () => {
 
   it('maxHeight props', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         maxHeight: 200,
         fixedHeader: true,
         columns: TABLE_COLUMNS,
@@ -102,7 +102,7 @@ describe('veTable header fixed', () => {
 
   it('fixedHeader props', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         maxHeight: 200,
         fixedHeader: true,
         columns: TABLE_COLUMNS,

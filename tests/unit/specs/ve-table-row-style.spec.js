@@ -68,7 +68,7 @@ describe('veTable row style', () => {
 
   it('render', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowStyleOption: {
@@ -85,7 +85,7 @@ describe('veTable row style', () => {
 
   it('rowStyleOption', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowStyleOption: {
@@ -104,7 +104,7 @@ describe('veTable row style', () => {
 
   it('row click highlight ', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowStyleOption: {
@@ -116,7 +116,7 @@ describe('veTable row style', () => {
       },
     })
 
-    const firstTr = wrapper.findAll('.ve-table-body-tr').at(0)
+    const firstTr = wrapper.findAll('.ve-table-body-tr')[0]
 
     firstTr.trigger('click')
 
@@ -127,7 +127,7 @@ describe('veTable row style', () => {
 
   it('row highlight by setHighlightRow method', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowStyleOption: {
@@ -143,7 +143,7 @@ describe('veTable row style', () => {
 
     await later()
 
-    const highlightRow = wrapper.findAll('.ve-table-body-tr').at(2)
+    const highlightRow = wrapper.findAll('.ve-table-body-tr')[2]
 
     expect(highlightRow.classes()).toContain('ve-table-tr-highlight')
   })

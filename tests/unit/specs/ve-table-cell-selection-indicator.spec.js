@@ -82,7 +82,7 @@ describe('veTable cell selection', () => {
 
   it('single cell selection indicator', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -94,23 +94,20 @@ describe('veTable cell selection', () => {
     await later()
 
     const th = wrapper
-      .findAll('.ve-table-header-tr')
-      .at(0)
-      .findAll('.ve-table-header-th')
-      .at(1)
+      .findAll('.ve-table-header-tr')[0]
+      .findAll('.ve-table-header-th')[1]
 
     expect(th.classes()).toContain('ve-table-cell-indicator')
 
     const td = wrapper
       .find("tr[row-key='2']")
-      .findAll('.ve-table-body-td')
-      .at(0)
+      .findAll('.ve-table-body-td')[0]
     expect(td.classes()).toContain('ve-table-cell-indicator')
   })
 
   it('range cell selection header indicator', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',

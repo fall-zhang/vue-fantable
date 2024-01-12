@@ -90,7 +90,7 @@ describe('veTable common', () => {
     await later()
 
     const parentWrapper = mount(ParentComp, {
-      propsData: {
+      props: {
         columns: COLUMNS,
       },
     })

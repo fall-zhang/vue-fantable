@@ -70,7 +70,7 @@ describe('veTable column hidden', () => {
 
   it('columnHiddenOption defaultHiddenColumnKeys prop snapshot', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         columnHiddenOption: {
@@ -84,16 +84,16 @@ describe('veTable column hidden', () => {
 
     const firstHeaderTr = wrapper.findAll(
       '.ve-table-header .ve-table-header-tr',
-    )
+    )[0]
 
-    const Ths = firstHeaderTr.at(0).findAll('.ve-table-header-th')
+    const Ths = firstHeaderTr.findAll('.ve-table-header-th')
 
-    expect(Ths.at(Ths.length - 1).text()).toEqual('col7')
+    expect(Ths[Ths.length - 1].text()).toEqual('col7')
   })
 
   it('columnHiddenOption defaultHiddenColumnKeys prop', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         columnHiddenOption: {
@@ -108,7 +108,7 @@ describe('veTable column hidden', () => {
 
   it('instance method hideColumnsByKeys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         columnHiddenOption: {
@@ -294,7 +294,7 @@ describe('veTable column hidden', () => {
 
   it('instance method showColumnsByKeys', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         columnHiddenOption: {

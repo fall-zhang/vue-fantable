@@ -80,7 +80,7 @@ describe('veTable cell ellipsis', () => {
 
   it('render single line ellipsis', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowKey',
@@ -91,7 +91,7 @@ describe('veTable cell ellipsis', () => {
 
   it('render multiline ellipsis', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: [
           {
             field: 'name',
@@ -134,22 +134,12 @@ describe('veTable cell ellipsis', () => {
 
     await later()
 
-    const trEl = wrapper.findAll('.ve-table-body-tr').at(0)
+    const trEl = wrapper.findAll('.ve-table-body-tr')[0]
     expect(
       trEl
-        .findAll('.ve-table-body-td')
-        .at(3)
+        .findAll('.ve-table-body-td')[3]
         .find('.ve-table-body-td-span-ellipsis')
         .exists(),
     ).toBe(true)
-
-    // doesn't support -webkit-line-clamp style attr
-    /*    expect(
-            trEl
-                .findAll(".ve-table-body-td")
-                .at(3)
-                .find(".ve-table-body-td-span-ellipsis")
-                .attributes("style")
-        ).toBe("-webkit-line-clamp: 3;"); */
   })
 })

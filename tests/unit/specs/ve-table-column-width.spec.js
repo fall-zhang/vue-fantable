@@ -112,7 +112,7 @@ describe('veTable clolum width', () => {
     const colgroupEl = wrapper.find('.ve-table-content colgroup')
 
     expect(colgroupEl.findAll('col').length).toBe(4)
-    expect(colgroupEl.findAll('col').at(0).attributes('style')).toBe(
+    expect(colgroupEl.findAll('col')[0].attributes('style')).toBe(
       'width: 40%;',
     )
   })
@@ -127,7 +127,7 @@ describe('veTable clolum width', () => {
     const colgroupEl = wrapper.find('.ve-table-content colgroup')
 
     expect(colgroupEl.findAll('col').length).toBe(4)
-    expect(colgroupEl.findAll('col').at(0).attributes('style')).toBe(
+    expect(colgroupEl.findAll('col')[0].attributes('style')).toBe(
       'width: 400px;',
     )
   })

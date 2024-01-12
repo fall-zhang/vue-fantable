@@ -211,7 +211,7 @@ describe('veTable header filter', () => {
 
   it('render single filter', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -223,7 +223,7 @@ describe('veTable header filter', () => {
 
   it('render multiple filter', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -235,7 +235,7 @@ describe('veTable header filter', () => {
 
   it('render filter custom icon', () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS_CUSTOM_ICON,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -247,7 +247,7 @@ describe('veTable header filter', () => {
 
   it('single filter', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -271,12 +271,12 @@ describe('veTable header filter', () => {
     ]
 
     // 改变选项
-    wrapper.findAll('.ve-dropdown-items-li').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[0].trigger('click')
 
     await later()
 
     // confirm btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[1].trigger('click')
 
     await later()
 
@@ -284,7 +284,7 @@ describe('veTable header filter', () => {
     expect(mockFilterFn).toHaveBeenCalledWith(callBackConfirmData)
 
     // reset btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[0].trigger('click')
 
     await later()
 
@@ -294,7 +294,7 @@ describe('veTable header filter', () => {
 
   it('multiple filter', async () => {
     const wrapper = mount(veTable, {
-      propsData: {
+      props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,
         rowKeyFieldName: 'rowkey',
@@ -318,12 +318,12 @@ describe('veTable header filter', () => {
     ]
 
     // 改变选项
-    wrapper.findAll('.ve-checkbox').at(1).trigger('click')
+    wrapper.findAll('.ve-checkbox')[1].trigger('click')
 
     await later()
 
     // confirm btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[1].trigger('click')
 
     await later()
 
@@ -331,7 +331,7 @@ describe('veTable header filter', () => {
     expect(mockFilterFn).toHaveBeenCalledWith(callBackConfirmData)
 
     // reset btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[0].trigger('click')
 
     await later()
 
@@ -367,12 +367,12 @@ describe('veTable header filter', () => {
     })
 
     // 改变选项
-    wrapper.findAll('.ve-dropdown-items-li').at(0).trigger('click')
+    wrapper.findAll('.ve-dropdown-items-li')[0].trigger('click')
 
     await later()
 
     // confirm btn click
-    wrapper.findAll('.ve-dropdown-operation-item').at(1).trigger('click')
+    wrapper.findAll('.ve-dropdown-operation-item')[1].trigger('click')
 
     await later()
 

@@ -6,7 +6,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 describe('veCheckbox', () => {
   it('render normal', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         label: 'orange',
       },
@@ -37,7 +37,7 @@ describe('veCheckbox', () => {
 
   it('render with indeterminate', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         label: 'orange',
         disabled: true,
@@ -49,7 +49,7 @@ describe('veCheckbox', () => {
 
   it('render with disabled', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         label: 'orange',
         indeterminate: true,
@@ -61,7 +61,7 @@ describe('veCheckbox', () => {
 
   it('value prop', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         label: 'orange',
       },
@@ -72,7 +72,7 @@ describe('veCheckbox', () => {
 
   it('label prop', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         label: 'orange',
       },
@@ -93,7 +93,7 @@ describe('veCheckbox', () => {
 
   it('disbled prop', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         disabled: true,
         label: 'orange',
       },
@@ -104,7 +104,7 @@ describe('veCheckbox', () => {
 
   it('disbled selected with checked statue', async () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: true,
         disabled: true,
         label: 'orange',
@@ -119,7 +119,7 @@ describe('veCheckbox', () => {
 
   it('disbled selected with unchecked statue', async () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: false,
         disabled: true,
         label: 'orange',
@@ -134,7 +134,7 @@ describe('veCheckbox', () => {
 
   it('indeterminate prop', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         indeterminate: true,
         label: 'orange',
       },
@@ -144,7 +144,7 @@ describe('veCheckbox', () => {
 
   it('isControlled prop', async () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         isControlled: true,
         label: 'orange',
       },
@@ -159,7 +159,7 @@ describe('veCheckbox', () => {
 
   it('isSelected prop', () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         isControlled: true,
         isSelected: true,
         label: 'orange',
@@ -187,7 +187,7 @@ describe('veCheckbox', () => {
 
   it('checked change emit', async () => {
     const wrapper = mount(veCheckbox, {
-      propsData: {
+      props: {
         value: false,
         label: 'orange',
       },
