@@ -16,7 +16,12 @@ export default defineConfig({
     vueJSX()
   ],
   test: {
+    setupFiles: './tests/unit/setup.js',
     globals: true,
     environment: 'jsdom',
+    // browser: {
+    //   enabled: true,
+    //   headless: true,
+    // },
   },
 })
