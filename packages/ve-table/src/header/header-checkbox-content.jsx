@@ -1,10 +1,11 @@
 import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
-import eventCenter from '@P/events/event-center'
+// import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
   name: COMPS_NAME.VE_TABLE_HEADER_CHECKBOX_CONTENT,
+  inject: ['eventCenter'],
   props: {
     // checkbox option
     checkboxOption: {
@@ -23,12 +24,12 @@ export default {
   },
   mounted() {
     // receive selected all info
-    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
   },
   unmounted() {
-    eventCenter.off(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    this.eventCenter.off(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
   },
@@ -37,7 +38,7 @@ export default {
     selectedChange(isSelected) {
       this.isSelected = isSelected
 
-      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
+      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
         {
           isSelected,
         },

@@ -77,9 +77,9 @@ import clickoutside from '../../src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index.jsx'
-import eventCenter from '@P/events/event-center'
+// import eventCenter from '@P/events/event-center'
+import mitt from 'mitt'
 const t = createLocale(LOCALE_COMP_NAME)
-
 export default {
   name: COMPS_NAME.VE_TABLE,
   directives: {
@@ -87,6 +87,11 @@ export default {
   },
   components: {
     VueDomResizeObserver, ColumnResizer, ColGroup, TableHeader, TableBody, TableFooter, EditInput, Selection, VeContextmenu
+  },
+  provide() {
+    return {
+      eventCenter: this.eventCenter
+    }
   },
   props: {
     tableData: {
@@ -276,6 +281,7 @@ export default {
   data() {
     return {
       // Hooks instance
+      eventCenter: mitt(),
       hooks: {},
       // is parent rendered
       parentRendered: false,
@@ -325,16 +331,17 @@ export default {
         */
       hiddenColumns: [],
       /*
-            // virtual scroll positions（非响应式）
-            virtualScrollPositions = [
-                {
-                    rowKey: "", // 当前行数据 rowKey
-                    top: 0, // 距离上一个项的高度
-                    bottom: 100, // 距离下一个项的高度
-                    height: 100 // 自身高度
-                }
-            ],
+      // virtual scroll positions（非响应式）
+      virtualScrollPositions = [
+          {
+              rowKey: "", // 当前行数据 rowKey
+              top: 0, // 距离上一个项的高度
+              bottom: 100, // 距离下一个项的高度
+              height: 100 // 自身高度
+          }
+      ],
             */
+
       // virtual scroll visible data
       virtualScrollVisibleData: [],
       // virtual scroll visible indexs
@@ -917,117 +924,117 @@ export default {
     this.hooks = new Hooks()
 
     // receive sort change
-    eventCenter.on(GLOBAL_EVENT.SORT_CHANGE_AFTER, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.SORT_CHANGE_AFTER, (params) => {
       this.updateColgroupsBySortChange(params)
     })
 
     // receive row selected change
-    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
       this.selectedAllChange(params)
     })
 
     // receive selected all info
-    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
       this.setSelectedAllInfo(params)
     })
 
     // receive multiple header row height change
-    eventCenter.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.headerRowHeightChange({ rowIndex, height })
       },
     )
 
     // receive virtual scroll row height change
-    eventCenter.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
       this.bodyRowHeightChange({ rowKey, height })
     })
 
     // receive footer row height change
-    eventCenter.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
+    this.eventCenter.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
       ({ rowIndex, height }) => {
         this.footRowHeightChange({ rowIndex, height })
       },
     )
 
     // recieve body cell click
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_CLICK, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_CLICK, (params) => {
       this.bodyCellClick(params)
     })
 
     // recieve body cell mouseover
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEOVER, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEOVER, (params) => {
       this.bodyCellMouseover(params)
     })
 
     // recieve body cell mousedown
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, (params) => {
       // console.log(params)
       this.bodyCellMousedown(params)
     })
 
     // recieve body cell mousemove
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE, (params) => {
       this.bodyCellMousemove(params)
     })
 
     // recieve body cell mouseup
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEUP, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEUP, (params) => {
       this.bodyCellMouseup(params)
     })
 
     // recieve selection corner mousedown
-    eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN, (params) => {
       this.cellSelectionCornerMousedown(params)
     })
 
     // recieve selection corner mouseup
-    eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
       this.cellSelectionCornerMouseup(params)
     })
 
     // autofilling direction change
-    eventCenter.on(GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE, (params) => {
       this.autofillingDirectionChange(params)
     })
 
     // recieve body cell contextmenu(right click)
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU, (params) => {
       this.bodyCellContextmenu(params)
     })
 
     // recieve body cell double click
-    eventCenter.on(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK, (params) => {
       this.bodyCellDoubleClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CLICK, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CLICK, (params) => {
       this.headerCellClick(params)
     })
 
     // recieve header cell contextmenu(right click)
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, (params) => {
       this.headerCellContextmenu(params)
     })
 
     // recieve header cell mousedown
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, (params) => {
       this.headerCellMousedown(params)
     })
 
     // recieve header cell mouseover
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, (params) => {
       this.headerCellMouseover(params)
     })
 
     // recieve header cell mousemove
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, (params) => {
       this.headerCellMousemove(params)
     })
 
     // recieve header cell mouseleave
-    eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, (params) => {
       this.headerCellMouseleave(params)
     })
 
@@ -1202,7 +1209,7 @@ export default {
          * @param {bool} isSelected - is selected
          */
     selectedAllChange({ isSelected }) {
-      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY,
+      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY,
         {
           isSelected,
         },
@@ -1216,7 +1223,7 @@ export default {
          * @param {bool} isIndeterminate - is indeterminate
          */
     setSelectedAllInfo({ isSelected, isIndeterminate }) {
-      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO_CHECKBOX,
+      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO_CHECKBOX,
         {
           isSelected,
           isIndeterminate,

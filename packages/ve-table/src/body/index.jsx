@@ -9,7 +9,7 @@ import {
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
-import eventCenter from '@P/events/event-center'
+// import eventCenter from '@P/events/event-center'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 import BodyTr from './body-tr.jsx'
 import ExpandTr from './expand-tr.jsx'
@@ -20,6 +20,7 @@ export default {
   components: {
     BodyTr
   },
+  inject: ['eventCenter'],
   props: {
     tableViewportWidth: {
       type: Number,
@@ -388,22 +389,22 @@ export default {
   },
   mounted() {
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
       this.checkboxSelectedRowChange(params)
     })
 
     // receive checkbox row selected change from VE_TABLE_BODY_CHECKBOX_CONTENT
-    eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, (params) => {
       this.checkboxSelectedAllChange(params)
     })
 
     // receive radio row selected change from VE_TABLE_BODY_RADIO_CONTENT
-    eventCenter.on(GLOBAL_EVENT.RADIO_SELECTED_ROW_CHANGE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.RADIO_SELECTED_ROW_CHANGE, (params) => {
       this.radioSelectedRowChange(params)
     })
 
     // recieve tr click
-    eventCenter.on(GLOBAL_EVENT.BODY_ROW_CLICK, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.BODY_ROW_CLICK, (params) => {
       this.rowClick(params)
     })
 
@@ -626,7 +627,7 @@ export default {
     sendToCheckboxAll() {
       const { isCheckboxSelectedAll, isCheckboxIndeterminate } = this
 
-      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO,
+      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO,
         {
           isIndeterminate: isCheckboxIndeterminate,
           isSelected: isCheckboxSelectedAll,

@@ -3,9 +3,10 @@ import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import eventCenter from '@P/events/event-center.js'
+// import eventCenter from '@P/events/event-center.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,
+  inject: ['eventCenter'],
   props: {
     rowData: {
       type: Object,
@@ -85,7 +86,7 @@ export default {
   methods: {
     // tr height change
     trHeightChange({ height }) {
-      eventCenter.emit(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
+      this.eventCenter.emit(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
         {
           rowIndex: this.rowIndex,
           height,

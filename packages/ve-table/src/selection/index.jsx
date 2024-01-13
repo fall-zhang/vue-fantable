@@ -21,12 +21,13 @@ import {
 import { INSTANCE_METHODS } from './constant'
 import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
 import { debounce } from '@P/src/utils/index.js'
-import eventCenter from '@P/events/event-center'
+// import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 
 export default {
   // name: COMPS_NAME.VE_TABLE_SELECTION,
   name: 'VeTableSelection',
+  inject: ['eventCenter'],
   props: {
     tableEl: {
       type: HTMLTableElement,
@@ -751,8 +752,7 @@ export default {
 
       const { currentCell, normalEndCell } = this.cellSelectionData
 
-      const { cellSelectionRect, cellSelectionRangeData, colgroups } =
-                this
+      const { cellSelectionRect, cellSelectionRangeData, colgroups } = this
 
       const { currentCellRect, normalEndCellRect } = cellSelectionRect
 
@@ -1160,7 +1160,7 @@ export default {
       })
 
       if (result) {
-        eventCenter.emit(
+        this.eventCenter.emit(
           GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE,
           autofillingDirection,
         )
@@ -1283,14 +1283,14 @@ export default {
           borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
         },
         onMousedown: (e) => {
-          eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN,
+          this.eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN,
             {
               event: e,
             },
           )
         },
         onMouseup: (e) => {
-          eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP,
+          this.eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP,
             {
               event: e,
             },

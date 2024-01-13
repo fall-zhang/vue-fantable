@@ -1,13 +1,14 @@
 import { clsName } from '../util/index'
 import HeaderTr from './header-tr.jsx'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
-import eventCenter from '@P/events/event-center'
+// import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 export default {
   name: COMPS_NAME.VE_TABLE_THADER,
   components: {
     HeaderTr
   },
+  inject: ['eventCenter'],
   props: {
     columnsOptionResetTime: {
       type: Number,
@@ -111,7 +112,7 @@ export default {
   },
   mounted() {
     // receive sort change
-    eventCenter.on(EMIT_EVENTS.SORT_CHANGE, (params) => {
+    this.eventCenter.on(GLOBAL_EVENT.SORT_CHANGE, (params) => {
       this.sortChange(params)
     })
   },
@@ -138,11 +139,11 @@ export default {
           }
         }
       }
+
       // 执行 ve-table 上的 sort-change
-      eventCenter.emit(GLOBAL_EVENT.SORT_CHANGE_AFTER,
+      this.eventCenter.emit(GLOBAL_EVENT.SORT_CHANGE_AFTER,
         sortColumns,
       )
-      console.log(sortChange)
       // invoke
       if (sortChange) sortChange(sortColumns)
     },

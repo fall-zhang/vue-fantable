@@ -1,13 +1,14 @@
 import { clsName } from '../util/index.js'
-import { COMPS_NAME, EMIT_EVENTS, COMPS_CUSTOM_ATTRS } from '../util/constant'
+import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import { isEmptyValue } from '../../../src/utils/index.js'
 import BodyTd from './body-td.jsx'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
-import eventCenter from '@P/events/event-center.js'
+// import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TR,
   components: { BodyTd },
+  inject: ['eventCenter'],
   props: {
     rowData: {
       type: Object,
@@ -186,7 +187,7 @@ radio
         rowData,
         rowIndex,
       }
-      eventCenter.emit(GLOBAL_EVENT.BODY_ROW_CLICK,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_ROW_CLICK,
         rowInfo
       )
     },
@@ -337,7 +338,7 @@ radio
         id: this.currentRowKey,
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         onDomResizeChange: ({ key, height }) => {
-          eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
+          this.eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
             {
               rowKey: key,
               height,

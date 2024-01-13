@@ -12,13 +12,14 @@ import ExpandTrIcon from './expand-tr-icon.jsx'
 import BodyCheckboxContent from './body-checkbox-content.jsx'
 import BodyRadioContent from './body-radio-content.jsx'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import eventCenter from '@P/events/event-center.js'
+// import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_BODY_TD,
   components: {
     BodyCheckboxContent, ExpandTrIcon
   },
+  inject: ['eventCenter'],
   props: {
     rowData: {
       type: Object,
@@ -431,7 +432,7 @@ export default {
 
       const { column, expandOption, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CLICK, {
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CLICK, {
         event: e,
         rowData,
         column,
@@ -467,7 +468,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK,
         {
           event: e,
           rowData,
@@ -481,7 +482,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU,
         {
           event: e,
           rowData,
@@ -503,7 +504,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE,
         {
           event: e,
           rowData,
@@ -517,7 +518,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEOVER,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEOVER,
         {
           event: e,
           rowData,
@@ -531,7 +532,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN,
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN,
         {
           event: e,
           rowData,
@@ -545,7 +546,7 @@ export default {
 
       const { column, rowData } = this
 
-      eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEUP, {
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEUP, {
         event: e,
         rowData,
         column,

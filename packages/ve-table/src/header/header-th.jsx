@@ -12,10 +12,11 @@ import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '../../../src/utils/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import eventCenter from '@P/events/event-center.js'
+// import eventCenter from '@P/events/event-center.js'
 
 export default {
   name: COMPS_NAME.VE_TABLE_THADER_Th,
+  inject: ['eventCenter'],
   props: {
     // group columns item
     groupColumn: {
@@ -365,14 +366,13 @@ export default {
       const currentField = groupColumnItem.field
       const sortBy = sortColumns[currentField]
 
-      console.log(33333333)
       if (sortAlways) {
         sortResult = sortBy === 'asc' ? 'desc' : 'asc'
       } else {
         sortResult = sortBy === 'asc' ? 'desc' : sortBy === 'desc' ? '' : 'asc'
       }
 
-      eventCenter.emit(EMIT_EVENTS.SORT_CHANGE, {
+      this.eventCenter.emit(GLOBAL_EVENT.SORT_CHANGE, {
         currentField,
         sortResult,
       })
@@ -455,7 +455,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CLICK, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CLICK, {
         event: e,
         column: groupColumnItem,
       })
@@ -470,7 +470,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, {
         event: e,
         column: groupColumnItem,
       },
@@ -486,7 +486,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, {
         event: e,
         column: groupColumnItem,
       },
@@ -498,7 +498,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, {
         event: e,
         column: groupColumnItem,
       })
@@ -509,7 +509,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, {
         event: e,
         column: groupColumnItem,
       })
@@ -520,7 +520,7 @@ export default {
 
       const { groupColumnItem } = this
 
-      eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, {
+      this.eventCenter.emit(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, {
         event: e,
         column: groupColumnItem,
       })
