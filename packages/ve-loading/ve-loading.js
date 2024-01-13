@@ -23,51 +23,17 @@ const defaultOptions = {
 // parent relative class
 const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 // parent lock class
-const PARENT_LOCK_CLASS = clsName('parent-lock')
-
-const LoadingConstructor = {
-  methods: {
-    show() {
-      nextTick(() => {
-        if (this.lock) {
-          addClass(this.parent__, PARENT_LOCK_CLASS)
-        }
-        this.visible = true
-      })
-    },
-    close() {
-      nextTick(() => {
-        if (this.lock) {
-          removeClass(this.parent__, PARENT_LOCK_CLASS)
-        }
-        this.visible = false
-      })
-    },
-    destroy () {
-      removeClass(this.parent__, PARENT_RELATIVE_CLASS)
-      removeClass(this.parent__, PARENT_LOCK_CLASS)
-
-      if (this.$el && this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
-      }
-      this.$destroy()
-      this.visible = false
-    }
-  },
-  ...VeLoadingJsx,
-}
 
 // create instance
 function createInstance(options = {}) {
   let app = null
   try {
-    app = createApp(LoadingConstructor, options).mount(
+    app = createApp(VeLoadingJsx, options).mount(
       document.createElement('div'),
     )
   } catch (err) {
     console.error(err)
   }
-  // console.log('22222222222', app)
   return app
 }
 
@@ -80,28 +46,27 @@ function checkSpinName(name) {
 
 // Loading instance
 function VeLoading(options = {}) {
-  options = Object.assign({}, defaultOptions, options)
+  const loadingOptions = Object.assign({}, defaultOptions, options)
 
-  if (typeof options.target === 'string' && options.target.length > 0) {
-    options.target = document.querySelector(options.target)
+  if (typeof loadingOptions.target === 'string' && loadingOptions.target.length > 0) {
+    loadingOptions.target = document.querySelector(loadingOptions.target)
   }
-  options.target = options.target || document.body
+  loadingOptions.target = loadingOptions.target || document.body
 
-  checkSpinName(options.name)
+  checkSpinName(loadingOptions.name)
 
-  if (options.target !== document.body) {
-    options.fullscreen = false
+  if (loadingOptions.target !== document.body) {
+    loadingOptions.fullscreen = false
   } else {
-    options.fullscreen = true
+    loadingOptions.fullscreen = true
   }
+  loadingOptions.parent__ = loadingOptions.fullscreen ? document.body : loadingOptions.target
+  addClass(loadingOptions.parent__, PARENT_RELATIVE_CLASS)
 
-  const loadingInstance = createInstance(options)
+  const loadingInstance = createInstance(loadingOptions)
+  loadingOptions.parent__.appendChild(loadingInstance.$el)
 
   // set parent
-  options.parent__ = options.fullscreen ? document.body : options.target
-  addClass(options.parent__, PARENT_RELATIVE_CLASS)
-
-  options.parent__.appendChild(loadingInstance.$el)
 
   return loadingInstance
 }
