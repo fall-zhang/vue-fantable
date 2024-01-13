@@ -1,6 +1,6 @@
-import { clsName } from './util/index'
-import { COMPS_NAME } from './util/constant'
-import { getValByUnit } from '../../src/utils/index.js'
+import { clsName } from '../util/index'
+import { COMPS_NAME } from '../util/constant.js'
+import { getValByUnit } from '../../../src/utils/index.js'
 
 export default {
   name: COMPS_NAME.VE_LOADING_PULSE,
