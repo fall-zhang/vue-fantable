@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/mywings/vue-fantable"
+    "url": "https://github.com/fall-zhang/vue-fantable"
   },
   "exports": {
     ".": {
@@ -88,12 +88,12 @@
     ]
   },
   "bugs": {
-    "url": "https://gitee.com/mywings/vue-fantable/issues"
+    "url": "https://github.com/fall-zhang/vue-fantable/issues"
   },
   "engines": {
     "node": "^16.18.0 || >=18.0.0"
   },
-  "homepage": "https://gitee.com/mywings/vue-fantable",
+  "homepage": "https://github.com/fall-zhang/vue-fantable",
   "docVersions": [
     {
       "value": "/vue-fantable",
