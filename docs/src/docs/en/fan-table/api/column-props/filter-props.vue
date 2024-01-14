@@ -9,24 +9,24 @@
     </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl";
-import { db } from "../db";
+import tpl from '@/comp/api-tpl'
+import { db } from '../db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "Filter",
-        },
-        desc: {
-            type: String,
-            default: "filter",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: 'Filter',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'filter',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

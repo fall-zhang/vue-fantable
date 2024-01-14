@@ -8,16 +8,17 @@
 </template>
 
 <script>
-import Usage from "./usage.md";
-import Base from "./base.md";
+import Usage from './usage.md'
+import Base from './base.md'
 
-import Api from "./api.md";
+import Api from './api.md'
 
 export default {
-    components: {
-        Usage,
-        Base,
-        Api,
-    },
-};
+  name: 'VeContextmenu',
+  components: {
+    Usage,
+    Base,
+    Api,
+  },
+}
 </script>
