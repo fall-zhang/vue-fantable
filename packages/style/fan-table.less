@@ -1,0 +1,571 @@
+@ve-virtual-phantom-index: -1;
+
+@ve-normal-cell-selection-border-index: 0;
+@ve-normal-cell-selection-corner-index: 1;
+@ve-column-resizer-handler-index: 50;
+@ve-column-resizer-line-index: 50;
+
+.fan-table *,
+.fan-table *:before,
+.fan-table *:after {
+  box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+}
+
+.fan-table {
+  position: relative;
+  overflow: hidden;
+
+  // table container
+  .fan-table-container {
+    position: relative;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    // 修复嵌套表格外层开启单元格选择，子表格未开启单元格选择，导致默认文字无法选中的问题
+    user-select: text;
+
+    // table content wrapper
+    .fan-table-content-wrapper {
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+
+      // table content
+      table.fan-table-content {
+        min-width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        // 表头（需要处理多表头情况）
+        thead.fan-table-header {
+          tr.fan-table-header-tr {
+            height: @fan-table-head-row-height;
+
+            th.fan-table-header-th {
+              background-color: @fan-table-header-background-color;
+              padding: @fan-table-head-row-td-padding;
+              font-weight: 500;
+              color: @fan-table-head-text-color;
+              font-size: @fan-table-head-text-font-size;
+
+              // cell indicator
+              &.fan-table-cell-indicator {
+                background-color: @fan-table-header-cell-indicator-background-color;
+              }
+
+              // cell indicator active
+              &.fan-table-cell-indicator-active {
+                background-color: @fan-table-header-cell-indicator-active-background-color;
+                color: @fan-table-head-indicator-active-text-color;
+              }
+            }
+          }
+
+          // 固定头
+          &.fan-table-fixed-header {
+            tr th {
+              position: sticky;
+              z-index: @ve-fixed-header-index;
+            }
+          }
+
+          .fan-table-header-tr {
+            .fan-table-header-th {
+
+              // 固定左列、右列
+              &.fan-table-fixed-left,
+              &.fan-table-fixed-right {
+                position: sticky;
+                z-index: @ve-fixed-header-cell-index;
+              }
+
+              // checkbox
+              .fan-table-checkbox-wrapper {
+                width: 25px;
+              }
+
+              // sort
+              .fan-table-sort {
+                display: inline-block;
+                position: relative;
+                width: 16px;
+                height: 16px;
+                margin-left: 5px;
+                color: @fan-table-sort-icon-default-color;
+                pointer-events: none;
+
+                .fan-table-sort-icon {
+                  position: absolute;
+                  display: block;
+                  font-size: 14px;
+
+                  &.fan-table-sort-icon-top {
+                    top: 1px;
+                  }
+
+                  &.fan-table-sort-icon-bottom {
+                    top: 9px;
+                  }
+
+                  &.active {
+                    color: @fan-table-sort-icon-active-color;
+                  }
+                }
+              }
+
+              &.fan-table-sortable-column {
+                cursor: pointer;
+              }
+
+              /* filter */
+              .fan-table-filter {
+                display: inline-block;
+                position: relative;
+                width: 0;
+                height: 16px;
+                cursor: pointer;
+
+                .fan-table-filter-icon {
+                  color: @fan-table-header-filter-icon-color;
+                  position: absolute;
+                  top: 0;
+                  left: 5px;
+                }
+              }
+            }
+          }
+        }
+
+        // tbody
+        tbody.fan-table-body {
+
+          tr.fan-table-body-tr,
+          tr.fan-table-expand-tr {
+            height: @fan-table-body-row-height;
+
+            td.fan-table-body-td,
+            td.fan-table-expand-td {
+              background-color: @fan-table-body-background-color;
+              color: @fan-table-body-text-color;
+              // hack content fill td height
+              //height: 1px;
+              height: inherit;
+              font-size: @fan-table-body-text-font-size;
+              // 解决展开表格偶发抖动的问题
+              overflow: hidden;
+            }
+
+            td.fan-table-body-td {
+              padding: @fan-table-body-row-td-padding;
+              white-space: pre-wrap;
+              overflow: hidden;
+            }
+
+            td.fan-table-operation-col {
+              background-color: @fan-table-td-operation-column-background-color;
+
+              // cell indicator
+              &.fan-table-cell-indicator {
+                background-color: @fan-table-body-cell-indicator-background-color;
+              }
+
+              // cell indicator active
+              &.fan-table-cell-indicator-active {
+                background-color: @fan-table-body-cell-indicator-active-background-color;
+                color: @fan-table-body-indicator-active-text-color;
+              }
+            }
+          }
+
+          // 展开行
+          tr.fan-table-expand-tr {
+            display: table-row;
+          }
+
+          // 滚动中效果
+          tr.fan-table-body-row-scrolling {
+            &>td {
+              background-color: @fan-table-body-row-row-scrolling-background-color;
+            }
+          }
+
+          // 斑马纹
+          &.fan-table-stripe {
+            tr.fan-table-body-tr:nth-child(2n + 1) td {
+              background-color: @fan-table-body-row-stripe-background-color;
+            }
+          }
+
+          // 行悬浮效果
+          &.fan-table-row-hover {
+            tr.fan-table-body-tr:hover td {
+              background-color: @fan-table-body-row-hover-background-color;
+            }
+          }
+
+          // 行点击高亮
+          &.fan-table-row-highlight {
+            tr.fan-table-body-tr {
+              &.fan-table-tr-highlight {
+                td {
+                  background-color: @fan-table-body-row-highlight-background-color;
+                }
+              }
+            }
+          }
+
+          .fan-table-body-tr {
+            .fan-table-body-td {
+
+              // 固定左列、右列
+              &.fan-table-fixed-left,
+              &.fan-table-fixed-right {
+                position: sticky;
+                z-index: @ve-fixed-body-cell-index;
+              }
+
+              // expand row icon
+              .fan-table-row-expand-icon {
+                cursor: pointer;
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+
+                i {
+                  display: inline-flex;
+
+                  &::before {
+                    transform: rotate(0deg);
+                    transition: transform 0.3s;
+                  }
+                }
+
+                &.fan-table-expand-icon-collapsed {
+                  i::before {
+                    transform: rotate(90deg);
+                    transition: transform 0.3s;
+                  }
+                }
+              }
+
+              // checkbox
+              .fan-table-checkbox-wrapper {
+                width: 25px;
+              }
+
+              // ellipsis
+              .fan-table-body-td-span-ellipsis {
+                overflow: hidden;
+                display: -webkit-box;
+                text-overflow: ellipsis;
+                /* -webkit-line-clamp: 1; */
+                -webkit-box-orient: vertical;
+              }
+            }
+          }
+
+          // expand row
+          .fan-table-expand-tr {
+            .fan-table-expand-td-content {
+              position: sticky;
+              z-index: @ve-fixed-body-cell-index;
+              left: 0px;
+              padding: @fan-table-body-row-expand-content-padding;
+            }
+          }
+        }
+
+        //  tfooter
+        tfoot.fan-table-footer {
+          tr.fan-table-footer-tr {
+            height: @fan-table-foot-row-height;
+
+            td.fan-table-footer-td {
+              background-color: @fan-table-foot-background-color;
+              color: @fan-table-foot-text-color;
+              padding: @fan-table-foot-row-td-padding;
+              font-size: @fan-table-foot-text-font-size;
+            }
+          }
+
+          // 固定footer
+          &.fan-table-fixed-footer {
+            tr td {
+              position: sticky;
+              z-index: @ve-fixed-foot-index;
+            }
+          }
+
+          .fan-table-footer-tr {
+            .fan-table-footer-td {
+
+              // 固定左列、右列
+              &.fan-table-fixed-left,
+              &.fan-table-fixed-right {
+                position: sticky;
+                z-index: @ve-fixed-foot-cell-index;
+              }
+            }
+          }
+        }
+      }
+
+      // cell selection
+      .fan-table-selection-wrapper {
+        .fan-table-selection-fixed-left {
+
+          .fan-table-selection-current,
+          .fan-table-selection-normal-area,
+          .fan-table-selection-autofill-area {
+            .fan-table-selection-corner {
+              position: absolute;
+              z-index: @ve-fixed-cell-selection-corner-index;
+            }
+
+            .fan-table-selection-border {
+              position: absolute;
+              z-index: @ve-fixed-cell-selection-border-index;
+            }
+          }
+
+          .fan-table-selection-normal-area-layer {
+            position: absolute;
+            z-index: @ve-fixed-cell-selection-border-index;
+          }
+        }
+
+        .fan-table-selection-middle {
+
+          .fan-table-selection-current,
+          .fan-table-selection-normal-area,
+          .fan-table-selection-autofill-area {
+            .fan-table-selection-corner {
+              position: absolute;
+              z-index: @ve-normal-cell-selection-corner-index;
+            }
+
+            .fan-table-selection-border {
+              position: absolute;
+              z-index: @ve-normal-cell-selection-border-index;
+            }
+          }
+
+          .fan-table-selection-normal-area-layer {
+            position: absolute;
+            z-index: @ve-normal-cell-selection-border-index;
+          }
+        }
+
+        .fan-table-selection-fixed-right {
+
+          .fan-table-selection-current,
+          .fan-table-selection-normal-area,
+          .fan-table-selection-autofill-area {
+            .fan-table-selection-corner {
+              position: absolute;
+              z-index: @ve-fixed-cell-selection-corner-index;
+            }
+
+            .fan-table-selection-border {
+              position: absolute;
+              z-index: @ve-fixed-cell-selection-border-index;
+            }
+          }
+
+          .fan-table-selection-normal-area-layer {
+            position: absolute;
+            z-index: @ve-fixed-cell-selection-border-index;
+          }
+        }
+
+        // 浮层
+        .fan-table-selection-normal-area-layer {
+          background-color: @fan-table-selection-area-layer-background-color;
+          opacity: 0.1;
+          pointer-events: none;
+        }
+
+        .fan-table-selection-current,
+        .fan-table-selection-normal-area {
+          .fan-table-selection-corner {
+            display: block;
+            height: 8px;
+            width: 8px;
+            border-style: solid;
+            border-color: @fan-table-selection-corner-border-color;
+            background-color: @fan-table-selection-corner-background-color;
+            cursor: crosshair;
+          }
+
+          .fan-table-selection-border {
+            display: block;
+            background-color: @fan-table-selection-border-color;
+          }
+        }
+
+        .fan-table-selection-autofill-area {
+          .fan-table-selection-border {
+            display: block;
+            background-color: @fan-table-selection-autofill-border-color;
+          }
+        }
+
+        .fan-table-selection-border {
+          pointer-events: none;
+        }
+      }
+    }
+
+    // virtual scroll phantom
+    .fan-table-virtual-phantom {
+      &.fan-table-virtual-scroll {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        z-index: @ve-virtual-phantom-index;
+      }
+    }
+
+    // column fix effect
+    &.fan-table-container-left-scrolling {
+      .fan-table-last-left-fixed-column {
+        border-right-color: @fan-table-column-fixed-border-color;
+      }
+    }
+
+    &.fan-table-container-right-scrolling {
+      .fan-table-first-right-fixed-column {
+        border-left: 1px solid @fan-table-column-fixed-border-color;
+      }
+    }
+
+    // autofilling
+    &.fan-table-autofilling {
+      cursor: crosshair;
+    }
+
+    // enable cell selection
+    &.fan-table-enable-cell-selection {
+      user-select: none;
+    }
+
+    // border x
+    .fan-table-border-x {
+
+      th,
+      td {
+        border-bottom: 1px solid @fan-table-border-color;
+      }
+
+      tr:first-child>th,
+      // footer
+      tr.fan-table-footer-tr:first-child>td {
+        border-top: 1px solid @fan-table-border-color;
+      }
+    }
+
+    // border y
+    .fan-table-border-y {
+
+      th,
+      td {
+        border-right: 1px solid @fan-table-border-color;
+      }
+
+      th:first-child,
+      td:first-child {
+        border-left: 1px solid @fan-table-border-color;
+      }
+    }
+  }
+
+  // border around
+  &.fan-table-border-around {
+    border: 1px solid @fan-table-border-color;
+
+    .fan-table-container {
+      table.fan-table-content {
+        &.fan-table-border-x {
+          tr:last-child>td {
+            border-bottom: 0px;
+          }
+
+          tr:first-child>th {
+            border-top: 0px;
+          }
+        }
+
+        &.fan-table-border-y {
+
+          th.fan-table-last-column,
+          td:last-child {
+            border-right: 0px;
+          }
+
+          th:first-child,
+          td:first-child {
+            border-left: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  // edit input
+  .fan-table-edit-input-container {
+    position: absolute;
+    right: auto;
+
+    .fan-table-edit-input {
+      resize: none;
+      overflow-y: visible;
+      border: none;
+      outline-width: 0;
+      margin: 0;
+      padding: 1px 5px 0;
+      font-family: inherit;
+      line-height: @fan-table-td-editing-line-height;
+      font-size: inherit;
+      border: 2px solid @fan-table-td-editing-border-color;
+      box-shadow: 1px 2px 5px 0 @fan-table-td-editing-box-shadow-color;
+      display: block;
+      color: @fan-table-td-editing-font-color;
+      border-radius: 0;
+      background-color: @fan-table-td-editing-background-color;
+    }
+  }
+
+  // column resizer
+  .fan-table-column-resizer {
+    &-handler {
+      position: absolute;
+      cursor: col-resize;
+      // left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      height: 40px;
+      z-index: @ve-column-resizer-handler-index;
+
+      &.active {
+        background-color: @fan-table-column-resizer-handler-background-color;
+      }
+    }
+
+    &-line {
+      position: absolute;
+      pointer-events: none;
+      // left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      border-left: 1px solid @fan-table-column-resizer-line-background-color;
+      z-index: @ve-column-resizer-line-index;
+    }
+  }
+}

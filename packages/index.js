@@ -12,7 +12,7 @@ import VeLocale from './ve-locale/ve-locale.js'
 import VePagination from './ve-pagination/ve-pagination.js'
 import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
-import VeTable from './ve-table/ve-table.js'
+import FanTable from './fan-table/fan-table.js'
 import { version } from '../package.json'
 // const app = createApp({})
 const components = [
@@ -26,7 +26,7 @@ const components = [
   VePagination,
   VeRadio,
   VeSelect,
-  VeTable
+  FanTable
 ]
 
 function install (app) {
@@ -56,7 +56,7 @@ export {
   VePagination,
   VeRadio,
   VeSelect,
-  VeTable
+  FanTable
 }
 
 export default {
@@ -72,5 +72,5 @@ export default {
   VePagination,
   VeRadio,
   VeSelect,
-  VeTable
+  FanTable
 }

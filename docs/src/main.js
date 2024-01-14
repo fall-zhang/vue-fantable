@@ -26,7 +26,7 @@ import {
   VePagination,
   VeRadio,
   VeSelect,
-  VeTable,
+  FanTable,
 } from '../../packages/index.js'
 
 const app = createApp(APP)
@@ -62,7 +62,7 @@ app.use(VeIcon)
 app.use(VePagination)
 app.use(VeRadio)
 app.use(VeSelect)
-app.use(VeTable)
+app.use(FanTable)
 
 app.config.globalProperties.$veLoading = VeLoading
 app.config.globalProperties.$veLocale = VeLocale
