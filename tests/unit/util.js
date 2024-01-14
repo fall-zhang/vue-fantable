@@ -1,5 +1,4 @@
 import { nextTick } from 'vue'
-import vi from 'vite'
 
 export function later(delay = 0) {
   return new Promise((resolve) => {
@@ -20,7 +19,7 @@ export function later(delay = 0) {
  * @desc mock scrollTo function
  */
 export function mockScrollTo() {
-  const fn = vi.fn()
+  const fn = jest.fn()
   Element.prototype.scrollTo = fn
   return fn
 }

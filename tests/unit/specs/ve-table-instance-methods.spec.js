@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later, mockScrollTo } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable instance methods', () => {
   const TABLE_DATA = [
@@ -86,7 +85,7 @@ describe('veTable instance methods', () => {
   })
 
   it('scrollToRowKey method', async () => {
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {})
 
     const wrapper = mount(veTable, {
       props: {

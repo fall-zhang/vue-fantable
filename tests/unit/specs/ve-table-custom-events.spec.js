@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable custom events', () => {
   const TABLE_DATA = [
@@ -70,16 +69,16 @@ describe('veTable custom events', () => {
   ]
 
   it('header custom row events', () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -153,16 +152,16 @@ describe('veTable custom events', () => {
   })
 
   it('header custom cell events', async () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -276,16 +275,16 @@ describe('veTable custom events', () => {
   })
 
   it('body custom row events', () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -395,16 +394,16 @@ describe('veTable custom events', () => {
   })
 
   it('body custom cell events', async () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -527,16 +526,16 @@ describe('veTable custom events', () => {
   })
 
   it('footer custom row events', () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -647,16 +646,16 @@ describe('veTable custom events', () => {
   })
 
   it('footer custom cell events', async () => {
-    const mockClickFn = vi.fn()
-    const mockDblclickFn = vi.fn()
-    const mockContextmenuFn = vi.fn()
-    const mockMouseenterFn = vi.fn()
-    const mockMouseleaveFn = vi.fn()
+    const mockClickFn = jest.fn()
+    const mockDblclickFn = jest.fn()
+    const mockContextmenuFn = jest.fn()
+    const mockMouseenterFn = jest.fn()
+    const mockMouseleaveFn = jest.fn()
 
-    const mockMousemoveFn = vi.fn()
-    const mockMouseoverFn = vi.fn()
-    const mockMousedownFn = vi.fn()
-    const mockMouseupFn = vi.fn()
+    const mockMousemoveFn = jest.fn()
+    const mockMouseoverFn = jest.fn()
+    const mockMousedownFn = jest.fn()
+    const mockMouseupFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {

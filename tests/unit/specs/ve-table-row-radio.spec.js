@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable row radio', () => {
   const TABLE_DATA = [
@@ -185,7 +184,7 @@ describe('veTable row radio', () => {
   })
 
   it('radioOption selectedRowChange event', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {

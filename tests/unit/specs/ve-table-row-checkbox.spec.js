@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable row checkbox', () => {
   const TABLE_DATA = [
@@ -358,7 +357,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('checkboxOption selectedRowChange event', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -390,7 +389,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('checkboxOption selectedAllChange event', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {

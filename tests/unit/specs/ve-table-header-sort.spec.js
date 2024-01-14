@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable header sort', () => {
   const TABLE_DATA = [
@@ -187,7 +186,7 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
     const callBackData = {
       age: 'asc',
       weight: '',
@@ -326,7 +325,7 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
     const callBackData = {
       age: 'asc',
       weight: 'asc',
@@ -402,7 +401,7 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {

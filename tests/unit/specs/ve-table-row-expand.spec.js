@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veTable from '@P/ve-table/ve-table'
 import { later } from '../util'
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable row expand', () => {
   const TABLE_DATA = [
@@ -308,7 +307,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption beforeExpandRowChange event', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -370,7 +369,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption afterExpandRowChange event', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -407,7 +406,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption expandedRowKeys(controllable attr)', async () => {
-    const mockFn = vi.fn()
+    const mockFn = jest.fn()
 
     const wrapper = mount({
       template: `
