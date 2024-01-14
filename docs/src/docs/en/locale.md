@@ -5,9 +5,9 @@
 You can implement multilingual support using the `VeLocal` component, using `VeLocal.use` method toggles the currently used language.
 
 ```javascript
-import { VeLocale } from "vue-easytable";
+import { VeLocale } from "vue-fantable";
 // import language
-import enUS from "vue-easytable/libs/locale/lang/en-US.js";
+import enUS from "vue-fantable/libs/locale/lang/en-US.js";
 
 VeLocale.use(enUS);
 ```
@@ -17,7 +17,7 @@ VeLocale.use(enUS);
 Use `Locale.update` method to modify the default configs.
 
 ```javascript
-import { VeLocale } from "vue-easytable";
+import { VeLocale } from "vue-fantable";
 
 const lang = {
     pagination: {
@@ -31,16 +31,16 @@ VeLocale.update(lang);
 :::anchor Using By CDN
 
 :::tip
-1、import languages from "//unpkg.com/vue-easytable/libs/locale/lang/"<br>
+1、import languages from "//unpkg.com/vue-fantable/libs/locale/lang/"<br>
 2、Use `VETable.VeLocale.use` method to switch languages.<br>
 3、Language configs are fixed format `VETable.lang.[Language config name]`,[Language config name] does not contain the '-' symbol, as shown in the following example
 :::
 
 ```
 <script src="//unpkg.com/vue"></script>
-<script src="//unpkg.com/vue-easytable"></script>
-<script src="//unpkg.com/vue-easytable/src/libs/locale/lang/en-US.js"></script>
-<script src="//unpkg.com/vue-easytable/src/libs/locale/lang/zh-CN.js"></script>
+<script src="//unpkg.com/vue-fantable"></script>
+<script src="//unpkg.com/vue-fantable/src/libs/locale/lang/en-US.js"></script>
+<script src="//unpkg.com/vue-fantable/src/libs/locale/lang/zh-CN.js"></script>
 
 <script>
   // Switch to English
@@ -67,4 +67,4 @@ The following languages are currently supported：
 | Korean(KR) | ko-KR |
 | Russian (RU) | ru-RU |
 
-If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-easytable/tree/master/packages/src/locale/lang).
+If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-fantable/tree/master/packages/src/locale/lang).

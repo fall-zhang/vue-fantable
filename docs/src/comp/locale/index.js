@@ -16,7 +16,7 @@ export default {
       },
       {
         name: '更新日志',
-        path: 'https://github.com/Happy-Coding-Clans/vue-easytable/releases',
+        path: 'https://github.com/Happy-Coding-Clans/vue-fantable/releases',
         isRouter: false,
       },
     ],
@@ -31,7 +31,7 @@ export default {
     compLang: zhCN,
     eidtDemoTitle: '在 Github 上编辑',
     eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/zh/',
+            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/zh/',
     demo: {
       description: '功能描述',
       expandCode: '展开代码',
@@ -88,7 +88,7 @@ export default {
       },
       {
         name: 'Changelog',
-        path: 'https://github.com/Happy-Coding-Clans/vue-easytable/releases',
+        path: 'https://github.com/Happy-Coding-Clans/vue-fantable/releases',
         isRouter: false,
       },
     ],
@@ -102,7 +102,7 @@ export default {
     compLang: enUS,
     eidtDemoTitle: 'Edit this on Github',
     eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-easytable/edit/master/examples/src/docs/en/',
+            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/en/',
     demo: {
       description: 'Code Description',
       expandCode: 'Expand Code',

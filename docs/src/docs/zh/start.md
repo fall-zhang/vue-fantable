@@ -130,15 +130,15 @@ new Vue({
 
 :::anchor CDN 方式使用
 
-通过 [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/) 可以看到 vue-easytable 最新版本的资源，也可以切换版本选择需要的资源，在页面上引入 js 和 css 文件即可开始使用：
+通过 [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/) 可以看到 vue-fantable 最新版本的资源，也可以切换版本选择需要的资源，在页面上引入 js 和 css 文件即可开始使用：
 
 ```css
 <!-- 引入样式 -->
-<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-fantable/libs/theme-default.css">
 <!-- 引入Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- 引入组件库 -->
-<script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
+<script src="https://unpkg.com/vue-fantable/libs/umd/index.js"></script>
 ```
 
 #### 示例
@@ -151,7 +151,7 @@ new Vue({
         <!-- 引入样式 -->
         <link
             rel="stylesheet"
-            href="https://unpkg.com/vue-easytable/libs/theme-default.css"
+            href="https://unpkg.com/vue-fantable/libs/theme-default.css"
         />
     </head>
     <body>
@@ -162,7 +162,7 @@ new Vue({
     <!-- 引入 Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
+    <script src="https://unpkg.com/vue-fantable/libs/umd/index.js"></script>
     <script>
         new Vue({
             el: "#app",

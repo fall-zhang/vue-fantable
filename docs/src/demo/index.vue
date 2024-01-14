@@ -25,7 +25,7 @@ import locale from '../comp/locale'
 import I18nMixins from '../comp/mixins/i18n-mixins'
 import NormalDataGrid from './normal-data-grid.vue'
 import SpreadSheet from './SpreadSheet.vue'
-import Icon from 'vue-fantable/packages/icon/fantable.svg'
+import Icon from 'vue-fantable/packages/src/icon/fantable.svg'
 export default {
   name: 'DemoPage',
   components: {

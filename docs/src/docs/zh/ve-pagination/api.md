@@ -10,7 +10,7 @@
 | pagingCount    | 前 5 页和后 5 页中间的按钮数                                                                                                                                                                                   | `Number` | -                                                     | 5                                                     |
 | pageSize       | 每页大小                                                                                                                                                                                                       | `Number` | -                                                     | 10                                                    |
 | pageSizeOption | 每页大小下拉配置                                                                                                                                                                                               | `Array`  | -                                                     | [10, 20, 30]                                          |
-| popperAppendTo | 下拉弹层需要渲染的父节点 。默认渲染到 `body` 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/vue-easytable-2-15-0-example-forked-q9k3m0?file=/Example.vue) | `String  | HTMLElement`                                          | -                                                     | document.body |
+| popperAppendTo | 下拉弹层需要渲染的父节点 。默认渲染到 `body` 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/vue-fantable-2-15-0-example-forked-q9k3m0?file=/Example.vue) | `String  | HTMLElement`                                          | -                                                     | document.body |
 
 ### Event
 

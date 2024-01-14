@@ -3,13 +3,13 @@
 :::anchor npm & yarn
 
 ```javascript
-npm install vue-easytable
+npm install vue-fantable
 ```
 
 or
 
 ```javascript
-yarn add vue-easytable
+yarn add vue-fantable
 ```
 
 :::anchor Usage
@@ -31,7 +31,7 @@ new Vue({
 });
 ```
 
-The above code completes the introduction of vue-easytable.Don't forget to import style files.
+The above code completes the introduction of vue-fantable.Don't forget to import style files.
 
 #### On demand
 
@@ -39,9 +39,9 @@ Write the following in main.js：
 
 ```javascript
 import Vue from "vue";
-import "vue-easytable/libs/theme-default.css"; // import style
+import "vue-fantable/libs/theme-default.css"; // import style
 
-import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-easytable"; // import library
+import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable"; // import library
 
 Vue.use(VeTable);
 Vue.use(VePagination);
@@ -123,15 +123,15 @@ new Vue({
 
 :::anchor Usage By CDN
 
-Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), you can see the resources of the latest version of Vue easytable,You can also switch versions to select the required resources,You can start using JS and CSS files on the page
+Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you can see the resources of the latest version of Vue easytable,You can also switch versions to select the required resources,You can start using JS and CSS files on the page
 
 ```css
 <!-- import style -->
-<link rel="stylesheet" href="https://unpkg.com/vue-easytable/libs/theme-default.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-fantable/libs/theme-default.css">
 <!-- import Vue -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <!-- import library -->
-<script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
+<script src="https://unpkg.com/vue-fantable/libs/umd/index.js"></script>
 ```
 
 #### Example
@@ -144,7 +144,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
         <!-- import style -->
         <link
             rel="stylesheet"
-            href="https://unpkg.com/vue-easytable/libs/theme-default.css"
+            href="https://unpkg.com/vue-fantable/libs/theme-default.css"
         />
     </head>
     <body>
@@ -155,7 +155,7 @@ Through [https://unpkg.com/vue-easytable/](https://unpkg.com/vue-easytable/), yo
     <!-- import Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- import library -->
-    <script src="https://unpkg.com/vue-easytable/libs/umd/index.js"></script>
+    <script src="https://unpkg.com/vue-fantable/libs/umd/index.js"></script>
     <script>
         new Vue({
             el: "#app",
