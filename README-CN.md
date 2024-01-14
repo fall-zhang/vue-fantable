@@ -142,11 +142,13 @@ app.mounted('#app')
   - [x] 使用 google font 替代 iconfont，避免版权风险
   - [x] 修复 I18N 的语言打包问题
   - [x] 尝试 unplugin-vue 替代 rollup-plugin-vue
-  - [ ] 移除 emitter，dispatch 和 broadcast
-  - [ ] 修复升级到 Vue3 后的问题
-- [ ] 关注性能和优化加上防抖和节流
+  - [x] 移除 emitter，dispatch 和 broadcast
+- [ ] 修复升级到 Vue3 后的问题
+  - [x] （修复）多个实例之间事件没有进行隔离
+  - [x] 排序完成后没有立即刷新表格
+  - [ ] 筛选功能无法使用
+- [ ] 关注性能和优化
   - [ ] 加上防抖和节流
-  - [ ] 多个实例之间数据可能没有进行隔离
   - [ ] 使用 CSS 变量
   - [ ] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
