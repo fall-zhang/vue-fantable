@@ -27,7 +27,7 @@ import {
   VeRadio,
   VeSelect,
   FanTable,
-} from '../../packages/index.js'
+} from 'vue-fantable/libs/main.js'
 
 const app = createApp(APP)
 app.use(Router)

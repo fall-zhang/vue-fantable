@@ -1,5 +1,4 @@
-# 已经基本完成适配
-# still work on adept vue3
+> 已经基本完成适配，如果遇到了任何问题，可以提交 [issue](https://github.com/fall-zhang/vue-fantable/issues)
 
 # vue-fantable
 
@@ -13,7 +12,7 @@
 
 如果你的项目使用 vue2，建议使用 [vue-easytable](https://www.npmjs.com/package/vue-easytable)
 
-本项目由 vue-easytable 更新而来，支持 Vue3，ESM 并且体积更小，像使用 vue-easytable 一样，使用 vue-fantable 吧。
+本项目由 vue-easytable 更新而来，支持 Vue3，使用 ESM（建议 node V18+）体积更小，像使用 vue-easytable 一样，使用 vue-fantable 吧。
 
 ## 特点
 
@@ -152,6 +151,8 @@ app.mounted('#app')
 - [ ] 关注文档的问题
   - [ ] 文档的 anchor
   - [ ] 示例是如何加载的
+- [ ] 测试
+  - [ ] 更新测试
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
   - [ ] 使用 CSS 变量
@@ -159,9 +160,8 @@ app.mounted('#app')
   - [ ] 异步加载模式，拆分为三步进行加载
   - [ ] 添加 TS 的 type
 - [ ] 之后加上 TS
-  - [ ] 添加测试用例
 - [ ] 最后支持原生（无框架依赖）
-  - [ ] 使用 shadow dom
+  - [ ] 使用 shadow dom 替代
 
 如果没有你想要的的功能，请告诉[我]()
 
