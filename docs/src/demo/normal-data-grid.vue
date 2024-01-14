@@ -430,8 +430,9 @@ export default {
   },
   mounted() {
     this.loadingInstance = this.$veLoading({
-      target: document.querySelector('#demo-loading-container'),
+      target: this.$refs.tableRef.$el,
       // 等同于
+      // target: document.querySelector('#demo-loading-container'),
       // target:"#loading-container"
       name: 'grid',
     })
@@ -475,7 +476,6 @@ export default {
 
     // sort change
     sortChange(params) {
-      console.log('更新排序');
       const sortFileld1 = 'sex'
       const sortFileld2 = 'proficiency'
 

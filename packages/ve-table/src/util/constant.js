@@ -58,8 +58,6 @@ export const EMIT_EVENTS = {
   BODY_CELL_WIDTH_CHANGE: 'on-body-cell-width-change',
   // expand row change
   EXPAND_ROW_CHANGE: 'on-expand-row-change',
-  // sort change
-  SORT_CHANGE: 'on-sort-change',
   // on-cell-selection-key-change
   CELL_SELECTION_KEY_CHANGE: 'on-cell-selection-key-change',
   // on-cell-selection-range-data-change

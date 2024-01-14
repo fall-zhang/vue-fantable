@@ -787,6 +787,7 @@ export default {
           this.initVirtualScroll()
         }
       },
+      deep: true,
       immediate: true,
     },
     allRowKeys: {
@@ -969,7 +970,6 @@ export default {
 
     // recieve body cell mousedown
     this.eventCenter.on(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, (params) => {
-      // console.log(params)
       this.bodyCellMousedown(params)
     })
 
@@ -1768,7 +1768,6 @@ export default {
       if (!hasXScrollBar) {
         return false
       }
-      // console.log('&&&&&&&&&&&&&&', nextColumn)
 
       const tableContainerRef = this.$refs[this.tableContainerRef]
 
@@ -1781,7 +1780,6 @@ export default {
           fixed: COLUMN_FIXED_TYPE.LEFT,
         })
 
-        // console.log('&&&&&&&&&&&&&&', this)
         const rightTotalWidth = getNotFixedTotalWidthByColumnKey({
           colgroups,
           colKey: nextColumn.key,
@@ -1897,7 +1895,7 @@ export default {
       this.virtualScrollVisibleIndexs.start = start
       this.virtualScrollVisibleIndexs.end = end - 1
 
-      this.virtualScrollVisibleData = tableData.slice(start, end)
+      this.virtualScrollVisibleData = this.tableData.slice(start, end)
     },
 
     // get virtual scroll above count
@@ -2038,9 +2036,10 @@ export default {
             this.virtualScrollPositions.length - 1
           ].bottom
       }
-
-      this.$refs[this.virtualPhantomRef].style.height =
+      if (this.$refs[this.virtualPhantomRef]) {
+        this.$refs[this.virtualPhantomRef].style.height =
         totalHeight + 'px'
+      }
     },
     // set virtual scroll start offset
     setVirtualScrollStartOffset() {
@@ -2355,7 +2354,6 @@ export default {
         isScrollToRow: false,
       })
       // row to visible
-      // console.log('++++++++')
       this.rowToVisible(KEY_CODES.ARROW_UP, rowKey)
       this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey)
     },
@@ -3475,10 +3473,8 @@ export default {
           colKey,
         })
 
-        // console.log('0000000', colKey, this.colgroups)
         const column = getColumnByColkey(colKey, this.colgroups)
         // column to visible
-        // console.log('1111111', column)
         this.columnToVisible(column)
         // row to visible
         if (isScrollToRow) {
