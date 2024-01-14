@@ -5,7 +5,7 @@
       <br />
       <br />
     </div>
-    <ve-table style="word-break: break-word" fixed-header :scroll-width="0" :max-height="500"
+    <fan-table style="word-break: break-word" fixed-header :scroll-width="0" :max-height="500"
 border-y :columns="columns"
       :table-data="tableData" row-key-field-name="rowKey" :virtual-scroll-option="virtualScrollOption"
       :cell-autofill-option="cellAutofillOption" :edit-option="editOption"

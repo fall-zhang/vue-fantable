@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="table-list">
-      <ve-table id="demo-loading-container" ref="tableRef" fixed-header border-y :max-height="500" :scroll-width="0"
+      <fan-table id="demo-loading-container" ref="tableRef" fixed-header border-y :max-height="500" :scroll-width="0"
         :sort-option="sortOption" :virtual-scroll-option="virtualScrollOption" :columns="columns" :table-data="tableData"
         row-key-field-name="rowKey" :cell-style-option="cellStyleOption" :expand-option="expandOption"
         :radio-option="radioOption" :checkbox-option="checkboxOption" :row-style-option="rowStyleOption"
@@ -45,7 +45,6 @@
 </template>
 
 <script lang="jsx">
-/* import Footer from "@/comp/layout/footer.vue"; */
 import Mock from 'mockjs'
 import locale from '../comp/locale'
 import I18nMixins from '../comp/mixins/i18n-mixins'

@@ -33,7 +33,7 @@ A:当单元格文本内容过多时会破坏布局，此时可以通过样式 [w
 
 ```html
 <template>
-    <ve-table style="word-break: break-all" :columns="columns" :table-data="tableData" />
+    <fan-table style="word-break: break-all" :columns="columns" :table-data="tableData" />
 </template>
 ```
 

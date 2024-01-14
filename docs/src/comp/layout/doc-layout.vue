@@ -56,7 +56,7 @@
     <!--回到顶部-->
     <div>
       <div v-show="showBackTop" class="main-back-top">
-        <i class="icon iconfont icon-huidaodingbu-copy main-back-top-icon " @click="goBackTop()" />
+        <i class="icon iconfont icon-huidaodingbu-copy main-back-top-icon" @click="goBackTop()" />
       </div>
     </div>
 
@@ -69,7 +69,7 @@
 
 <script>
 import catolog from '@/comp/catalog.vue'
-import Footer from './footer.vue'
+import Footer from './doc-footer.vue'
 import routers from '@/router/locale/index'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './../mixins/i18n-mixins'
@@ -114,7 +114,6 @@ export default {
     handleScroll() {
       const scrollTop =
         document.documentElement.scrollTop ||
-        window.pageYOffset ||
         document.body.scrollTop ||
         window.scrollHeight
 

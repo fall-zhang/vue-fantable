@@ -66,7 +66,7 @@ new Vue({
 
 ```html
 <template>
-    <ve-table :columns="columns" :table-data="tableData" />
+    <fan-table :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -156,7 +156,7 @@ new Vue({
     </head>
     <body>
         <div id="app">
-            <ve-table :columns="columns" :table-data="tableData"></ve-table>
+            <fan-table :columns="columns" :table-data="tableData"></fan-table>
         </div>
     </body>
     <!-- 引入 Vue -->
