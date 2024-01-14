@@ -1,16 +1,12 @@
 <template>
-    <fa-anchor label="Loading Collection">
-        <div class="loading-container">
-            <div
-                v-for="name in Object.values(SPIN_NAMES)"
-                :key="name"
-                class="loading-item"
-            >
-                <div :id="'loading-' + name" class="loading-item-spin" />
-                <span class="loading-name">{{ name }}</span>
-            </div>
-        </div>
-    </fa-anchor>
+  <fa-anchor label="Loading Collection">
+    <div class="loading-container">
+      <div v-for="name in Object.values(SPIN_NAMES)" :key="name" class="loading-item">
+        <div :id="'loading-' + name" class="loading-item-spin" />
+        <span class="loading-name">{{ name }}</span>
+      </div>
+    </div>
+  </fa-anchor>
 </template>
 <script>
 export default {
@@ -39,23 +35,23 @@ export default {
 </script>
 <style lang="less" scoped>
 .loading-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .loading-item {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
 
-    .loading-item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 150px;
-        height: 150px;
-
-        .loading-name {
-            display: inline-block;
-            margin-top: 30px;
-            height: 30px;
-            color: #99a9bf;
-        }
+    .loading-name {
+      display: inline-block;
+      margin-top: 30px;
+      height: 30px;
+      color: #99a9bf;
     }
+  }
 }
 </style>

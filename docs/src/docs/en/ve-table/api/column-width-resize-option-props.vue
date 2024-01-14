@@ -9,24 +9,24 @@
     </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl";
-import { db } from "./db";
+import tpl from '@/comp/api-tpl'
+import { db } from './db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "Column Resize Option",
-        },
-        desc: {
-            type: String,
-            default: "columnWidthResizeOption",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: 'Column Resize Option',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'columnWidthResizeOption',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

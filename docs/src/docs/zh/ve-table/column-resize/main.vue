@@ -8,18 +8,18 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import Basic from "./basic.md";
-import DisableResizing from "./disable-resizing.md";
-import API from "../api/column-width-resize-option-props";
+import Explain from './explain.md'
+import Basic from './basic.md'
+import DisableResizing from './disable-resizing.md'
+import API from '../api/column-width-resize-option-props'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        Basic,
-        DisableResizing,
-        API,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    Basic,
+    DisableResizing,
+    API,
+  },
+}
 </script>
