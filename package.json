@@ -1,6 +1,6 @@
 {
   "name": "vue-fantable",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "main": "libs/main.js",
   "description": "Vue table component for huge data",
@@ -35,6 +35,7 @@
     "build:vite": "vite build",
     "lint-staged": "lint-staged",
     "prepare": "npx husky install",
+    "prepublishOnly": "npm run build",
     "commit": "czg"
   },
   "dependencies": {
