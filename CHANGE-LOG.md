@@ -8,6 +8,12 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.1.3
+
+#### Bug Fixes
+
+- 修复筛选功能
+
 ### V0.1.2
 
 #### Documents
