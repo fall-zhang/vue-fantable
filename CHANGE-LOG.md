@@ -8,6 +8,29 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.1.2
+
+#### Documents
+
+- 更新 README 版本描述
+
+### V0.1.1
+
+#### Feature
+
+- 修复文档中的 vue-router 的使用问题
+- 全局事件绑定在 vue-fantable 实例上
+
+#### Dependencies Changes
+
+- 移除对于 lodash 的依赖
+
+#### Bug Fixes
+
+- 更新文档中处理 markdown 的工具
+- 修复文档中的 vue-router 的使用问题
+- 修复 js 代码循环引用
+
 ### V0.1.0
 
 #### Feature
