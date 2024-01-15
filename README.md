@@ -21,7 +21,7 @@
 
 ## API & 文档
 
-> 文档更新较慢，大家可以看 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。我只将 ve-table 更新为 fan-table，其它组件不变
+> 文档更新较慢，大家可以看 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。组件使用方式和原组件一致。
 
 - [官方文档 (Github)]()
 - [官方文档 (国内)]()

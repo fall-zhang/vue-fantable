@@ -12,6 +12,8 @@
 
 A powerful data table based on vue You can use it as data grid、Microsoft Excel or Google sheets. It supports virtual scroll、cell edit etc.
 
+Just use vue-fantable like vue-easytable
+
 ## Characteristics
 
 -   Support 300000 rows of data display through virtual scroll
@@ -22,58 +24,16 @@ A powerful data table based on vue You can use it as data grid、Microsoft Excel
 -   [Official documents (Github)]()
 -   [Official documents (China)]()
 
-## Features
-
-**Base components**
-
-- [x] [Loading component]()
-- [x] [Pagination component]()
-- [x] [Contextmenu component]()
-- [x] [Icon component]()
-- [x] [Locale component]()
-
-**Table component**
-
-- [x] [Internationalization]()
-- [x] [Theme Custom & Built in theme]()
-- [x] [Virtual Scroll]()
-- [x] [Column Fixed]()
-- [x] [Column Hidden]()
-- [x] [Header Fixed]()
-- [x] [Header Grouping]()
-- [x] [Filter]()
-- [x] [Sort]()
-- [x] [Column Resize]()
-- [x] [Cell Style]()
-- [x] [Cell Custom]()
-- [x] [Cell Span]()
-- [x] [Cell Selection(keyboard operation)]()
-- [x] [Cell Autofill]()
-- [x] [Cell Edit]()
-- [x] [Clipboard]()
-- [x] [Contextmenu]()
-- [x] [Cell Ellipsis]()
-- [x] [Row Radio]()
-- [x] [Row Checkbox]()
-- [x] [Row Expand]()
-- [x] [Row Style]()
-- [x] [Footer Summary]()
-- [x] [Event Custom]()
-- [More]()
-
-If there is no feature you want,
-[Please Tell Us]()
-
 ## Install
 
 ```
-npm install vue-easytable
+npm install vue-fantable
 ```
 
 or
 
 ```
-yarn add vue-easytable
+yarn add vue-fantable
 ```
 
 ## Usage
@@ -146,20 +106,61 @@ Example:
 </script>
 ```
 
+## Features
+
+**Base components**
+
+- [x] [Loading component]()
+- [x] [Pagination component]()
+- [x] [Contextmenu component]()
+- [x] [Icon component]()
+- [x] [Locale component]()
+
+**Table component**
+
+- [x] [Internationalization]()
+- [x] [Theme Custom & Built in theme]()
+- [x] [Virtual Scroll]()
+- [x] [Column Fixed]()
+- [x] [Column Hidden]()
+- [x] [Header Fixed]()
+- [x] [Header Grouping]()
+- [x] [Filter]()
+- [x] [Sort]()
+- [x] [Column Resize]()
+- [x] [Cell Style]()
+- [x] [Cell Custom]()
+- [x] [Cell Span]()
+- [x] [Cell Selection(keyboard operation)]()
+- [x] [Cell Autofill]()
+- [x] [Cell Edit]()
+- [x] [Clipboard]()
+- [x] [Contextmenu]()
+- [x] [Cell Ellipsis]()
+- [x] [Row Radio]()
+- [x] [Row Checkbox]()
+- [x] [Row Expand]()
+- [x] [Row Style]()
+- [x] [Footer Summary]()
+- [x] [Event Custom]()
+- [More]()
+
+If there is no feature you want,
+[Please Tell Us]()
+
 ## Todo List
 
 ## Environment Support
 
 - Modern browser
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
+| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
 ## How to contribute
 
 If you want to contribute,just create a
-[Pull Request](https://github.com/huangshuwei/vue-easytable/pulls)
 
 ## Contributors
 
@@ -169,7 +170,7 @@ Thanks to the following friends for their contributions 🙏
 
 ## Discussion group
 
-- [Join In Gitter Chat Room](https://gitter.im/vue-easytable)
+- [Join In Gitter Chat Room](https://gitter.im/vue-fantable)
 - [Join In Discord Chat Room]()
 
 ## License
