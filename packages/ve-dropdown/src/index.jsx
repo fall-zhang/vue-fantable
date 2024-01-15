@@ -1,7 +1,7 @@
 import clickoutside from '../../src/directives/clickoutside.js'
 import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
 import VeRadio from '@P/ve-radio/ve-radio.js'
-import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
+import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
@@ -652,7 +652,7 @@ export default {
 
     return (
       <dl {...dropdownProps}>
-        <dt class="ve-dropdown-dt" on-click={dropdownPanelClick}>
+        <dt class="ve-dropdown-dt" onClick={dropdownPanelClick}>
           <a
             class={[isSelect ? clsName('dt-selected') : '']}
             style={{ width: width + 'px' }}
