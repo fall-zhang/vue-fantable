@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/fall-zhang/vue-fantable"
   },
-  "types": "./types/index.d.mts",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",

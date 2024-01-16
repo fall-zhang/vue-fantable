@@ -1,19 +1,27 @@
 {
   // Change this to match your project
   "include": [
-    "libs/main.js",
+    "packages/**/*",
   ],
   "exclude": [
     "dist/**"
   ],
+  "vueCompilerOptions": {
+    "target": 3.3
+  },
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ES6",
+    "baseUrl": ".",
+    "paths": {
+      "@P/*": [
+        "packages/*"
+      ]
+    },
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": [
-      "ES2020",
-      "ES2015",
-      "ES6"
+      "ESNext",
     ],
+    "moduleResolution": "Bundler",
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
     "allowJs": true,
@@ -26,9 +34,12 @@
     // Types should go into this directory.
     // Removing this would place the .d.ts files
     // next to the .js files
-    "outDir": "dist",
+    "outDir": "types",
     // go to js file when using IDE functions like
     // "Go to Definition" in VSCode
-    "declarationMap": true
+    "declarationMap": false,
+    "sourceMap": false,
+    "isolatedModules": false,
+    "esModuleInterop": false,
   }
 }
