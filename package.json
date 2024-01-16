@@ -10,6 +10,7 @@
     "type": "git",
     "url": "https://github.com/fall-zhang/vue-fantable"
   },
+  "types": "./types/index.d.mts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
@@ -42,8 +43,6 @@
     "commit": "czg"
   },
   "dependencies": {
-    "@types/node": "18",
-    "typescript": "^5.3.3",
     "vue": "^3.4.4"
   },
   "peerDependencies": {
@@ -64,6 +63,7 @@
     "@rollup/plugin-sucrase": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/pluginutils": "^5.1.0",
+    "@types/node": "20.11.4",
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/test-utils": "^2.4.3",
@@ -83,6 +83,7 @@
     "postcss-load-config": "^5.0.2",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.2",
+    "typescript": "^5.3.3",
     "unplugin-vue": "^5.0.2",
     "unplugin-vue-jsx": "^0.2.2",
     "vite": "^5.0.10",

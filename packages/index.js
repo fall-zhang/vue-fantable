@@ -30,9 +30,21 @@ const components = [
 ]
 
 function install (app) {
-  components.forEach(Component => {
-    app.use(Component)
+  components.forEach(component => {
+    app.component(component.name, component)
   })
+
+  app.component('FanCheckbox', VeCheckbox)
+  app.component('FanCheckboxGroup', VeCheckboxGroup)
+  app.component('FanContextmenu', VeContextmenu)
+  app.component('FanDropdown', VeDropdown)
+  app.component('FanIcon', VeIcon)
+  app.component('FanLoading', VeLoading)
+  app.component('FanLocale', VeLocale)
+  app.component('FanPagination', VePagination)
+  app.component('FanRadio', VeRadio)
+  app.component('FanSelect', VeSelect)
+  app.component('VeTable', FanTable)
 
   app.config.globalProperties.$veLoading = VeLoading
   app.config.globalProperties.$veLocale = VeLocale
