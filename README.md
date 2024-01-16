@@ -59,7 +59,7 @@ app.mounted('#app')
 
 ```vue
 <template>
-  <fan-table :columns="columns" :table-data="tableData" />
+  <fan-table :columns="columns" :table-data="tableData" :max-height="400"/>
 </template>
 
 <script >
