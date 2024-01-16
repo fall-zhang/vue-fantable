@@ -12,8 +12,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/my-lib.js",
-      "require": "./dist/my-lib.umd.cjs"
+      "import": "./libs/main.js",
+      "require": "./libs/main.umd.js"
     }
   },
   "publishConfig": {

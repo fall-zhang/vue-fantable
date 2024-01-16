@@ -64,6 +64,12 @@ const libConfig = defineConfig({
     exports: 'named',
     plugins: [],
     manualChunks: []
+  }, {
+    format: 'umd',
+    dir: './libs',
+    name: 'main',
+    entryFileNames: `main.umd.js`,
+    exports: 'named',
   }],
   plugins: [
     pluginVue(),
