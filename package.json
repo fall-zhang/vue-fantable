@@ -10,15 +10,18 @@
     "type": "git",
     "url": "https://github.com/fall-zhang/vue-fantable"
   },
-  "types": "./types/index.d.ts",
+  "types": "./types/main.d.ts",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
+      "types": "./types/main.d.ts",
       "import": "./libs/main.js",
-      "require": "./libs/main.umd.js"
+      "require": "./libs/main.cjs"
     },
-    "./libs/": "./libs/*",
-    "./types/": "./types/*"
+    "./lib/*": {
+      "types": "./types/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./*": "./*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,6 +34,7 @@
   "scripts": {
     "lint": "eslint packages/ --ext .js,.jsx",
     "test": "vitest",
+    "type": "tsc",
     "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
     "build": "npm run build:remove && npm run build:js && npm run build:css ",
     "build:remove": "rimraf libs",
@@ -39,7 +43,7 @@
     "build:vite": "vite build",
     "lint-staged": "lint-staged",
     "prepare": "npx husky install",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && tsc",
     "commit": "czg"
   },
   "dependencies": {

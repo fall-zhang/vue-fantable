@@ -65,10 +65,10 @@ const libConfig = defineConfig({
     plugins: [],
     manualChunks: []
   }, {
-    format: 'umd',
+    format: 'cjs',
     dir: './libs',
     name: 'main',
-    entryFileNames: `main.umd.js`,
+    entryFileNames: `main.cjs`,
     exports: 'named',
   }],
   plugins: [

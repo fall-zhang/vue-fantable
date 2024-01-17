@@ -1,7 +1,10 @@
 {
   // Change this to match your project
   "include": [
-    "packages/**/*",
+    // "packages/index.js",
+    "libs/main.js",
+    "libs/lang/*",
+    "libs/*.css",
   ],
   "exclude": [
     "dist/**"
@@ -20,12 +23,14 @@
     "module": "ESNext",
     "lib": [
       "ESNext",
+      "DOM"
     ],
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
     "allowJs": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     // Generate d.ts files
     "declaration": true,
     // This compiler run should
@@ -34,12 +39,18 @@
     // Types should go into this directory.
     // Removing this would place the .d.ts files
     // next to the .js files
-    "outDir": "types",
+    // "outDir": "types",
     // go to js file when using IDE functions like
     // "Go to Definition" in VSCode
     "declarationMap": false,
-    "sourceMap": false,
-    "isolatedModules": false,
-    "esModuleInterop": false,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "types": [
+      "vite/client"
+    ],
   }
 }
