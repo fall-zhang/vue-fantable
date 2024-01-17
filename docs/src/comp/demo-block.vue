@@ -132,7 +132,7 @@ export default {
 
   created() {
     this.onlineExample.version = version
-    const highlight = this.$slots.highlight()
+    const highlight = this.$slots.highlight ? this.$slots.highlight() : ''
     if (highlight && highlight[0]) {
       let code = ''
       let cur = highlight[0]

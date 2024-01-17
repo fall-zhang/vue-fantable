@@ -45,7 +45,7 @@ yarn add vue-fantable
 讲一下内容添加到 main.js:
 
 ```javascript
-import {createApp} from "vue";
+import { createApp } from "vue";
 import "vue-fantable/libs/theme-default.css";
 import App from './app.vue'
 import VueFantable from "vue-fantable";
@@ -59,7 +59,7 @@ app.mounted('#app')
 
 ```vue
 <template>
-  <fan-table :columns="columns" :table-data="tableData" />
+  <fan-table :columns="columns" :table-data="tableData" :max-height="400"/>
 </template>
 
 <script >
@@ -144,10 +144,10 @@ app.mounted('#app')
   - [x] 修复 I18N 的语言打包问题
   - [x] 尝试 unplugin-vue 替代 rollup-plugin-vue
   - [x] 移除 emitter，dispatch 和 broadcast
-- [ ] 修复升级到 Vue3 后的问题
+- [x] 修复升级到 Vue3 后的问题
   - [x] （修复）多个实例之间事件没有进行隔离
   - [x] 排序完成后没有立即刷新表格
-  - [ ] 筛选功能无法使用
+  - [x] 筛选功能无法使用
 - [ ] 关注文档的问题
   - [ ] 文档的 anchor
   - [ ] 示例是如何加载的
