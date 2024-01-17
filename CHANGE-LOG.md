@@ -8,6 +8,28 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.1.8
+
+#### Feature
+
+- 修复类型引入的问题，为语言补充类型
+
+### V0.1.7
+
+#### Feature
+
+- 为组件添加 ts 类型
+
+#### Bug Fixes
+
+- 修复 pageSizeChange 事件
+
+### V0.1.4
+
+#### Feature
+
+- 添加新的生成文件
+
 ### V0.1.3
 
 #### Bug Fixes
