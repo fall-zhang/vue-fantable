@@ -10,15 +10,15 @@
     "type": "git",
     "url": "https://github.com/fall-zhang/vue-fantable"
   },
-  "types": "./types/main.d.ts",
+  "types": "./libs/main.d.ts",
   "exports": {
     ".": {
-      "types": "./types/main.d.ts",
+      "types": "./libs/main.d.ts",
       "import": "./libs/main.js",
       "require": "./libs/main.cjs"
     },
     "./lib/*": {
-      "types": "./types/*.d.ts",
+      "types": "./libs/*.d.ts",
       "require": "./lib/*.js"
     },
     "./*": "./*"
@@ -91,7 +91,8 @@
     "unplugin-vue": "^5.0.2",
     "unplugin-vue-jsx": "^0.2.2",
     "vite": "^5.0.10",
-    "vitest": "^1.1.1"
+    "vitest": "^1.1.1",
+    "vue-tsc": "^1.8.27"
   },
   "lint-staged": {
     "*.{vue,js,jsx}": [

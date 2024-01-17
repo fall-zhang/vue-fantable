@@ -48,9 +48,6 @@
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "types": [
-      "vite/client"
-    ],
+    "esModuleInterop": true
   }
 }
