@@ -187,6 +187,9 @@ importers:
       markdown-it-container:
         specifier: ^2.0.0
         version: 2.0.0
+      markdown-it-prism:
+        specifier: ^2.3.0
+        version: 2.3.0
       unplugin-auto-import:
         specifier: ^0.16.7
         version: 0.16.7(rollup@4.9.2)
@@ -4720,6 +4723,13 @@ packages:
     resolution: {integrity: sha512-IxPOaq2LzrGuFGyYq80zaorXReh2ZHGFOB1/Hen429EJL1XkPI3FJTpx9TsJeua+j2qTru4h3W1TiCRdeivMmA==}
     dev: true
 
+  /markdown-it-prism@2.3.0:
+    resolution: {integrity: sha512-ePtHY80gZyeje4bn3R3SL0jpd1C9HFaYffJW2Ma0YD+tspqa2v9TuVwUyFwboFu4jnFNcO8oPQROgbcYJbmBvw==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      prismjs: 1.29.0
+    dev: true
+
   /markdown-it@13.0.2:
     resolution: {integrity: sha512-FtwnEuuK+2yVU7goGn/MJ0WBZMM9ZPgU9spqlFs7/A/pDIUNSOQZhUgOqYCficIuR2QaFnrt8LHqBWsbTAoI5w==}
     hasBin: true
@@ -5329,6 +5339,11 @@ packages:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
       react-is: 18.2.0
+    dev: true
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
     dev: true
 
   /proto-list@1.2.4:
