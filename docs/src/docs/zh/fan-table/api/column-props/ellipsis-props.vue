@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl";
+import tpl from "@/comp/api-tpl.vue";
 import { db } from "../db";
 export default {
     components: { tpl },

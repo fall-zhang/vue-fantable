@@ -21,7 +21,7 @@ import SelectedDisable from "./selected-disable.md";
 import SelectedControl from "./selected-control.md";
 import SelectedRowClick from "./selected-row-click.md";
 import SelectedAllHide from "./selected-all-hide.md";
-import API from "../api/checkbox-option-props";
+import API from "../api/checkbox-option-props.vue";
 
 export default {
     name: "basic-main",
