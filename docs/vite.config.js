@@ -49,13 +49,14 @@ export default defineConfig({
         typographer: true,
       },
       // A function providing the Markdown It instance gets the ability to apply custom settings/plugins
-      markdownItSetup(md, options) {
-        console.log('🚀 ~ markdownItSetup ~ options:', options) // undefined
+      markdownItSetup(md) {
         // for example
         md.use(MarkdownItAnchor)
         md.use(MarkdownItPrism)
         md.use(MarkdownItContainer, 'anchor', {
           validate(params) {
+            console.log(md.options)
+            // console.log(md.configure())
             return params.trim().match(/^anchor\s*(.*)$/)
           },
           render(tokens, idx) {
@@ -63,7 +64,7 @@ export default defineConfig({
             if (tokens[idx].nesting === 1) {
               const label = m && m.length > 1 ? m[1] : ''
 
-              return `<anchor is-edit label="${label}" fileName="${options.resourceFileName}" />
+              return `<anchor is-edit label="${label}" fileName="" />
           `
             }
             return ''
@@ -82,9 +83,9 @@ export default defineConfig({
                         ? tokens[idx + 1].content
                         : ''
               return `<demo-block>
-          ${description ? `<div>${md.render(description)}</div>` : ''}
-          <!--element-demo: ${content}:element-demo-->
-          `
+                      ${description ? `<div>${md.render(description)}</div>` : ''}
+                      <!--element-demo: ${content}:element-demo-->
+                      `
             }
             return '</demo-block>'
           },
