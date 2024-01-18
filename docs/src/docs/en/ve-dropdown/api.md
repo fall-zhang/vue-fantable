@@ -1,4 +1,4 @@
-<fa-anchor label="API" />
+<vue-anchor label="API" />
 
 ### props
 

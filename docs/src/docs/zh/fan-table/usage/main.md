@@ -1,4 +1,4 @@
-<fa-anchor label="用法"/>
+<vue-anchor label="用法"/>
 
 引入 `VeTable`
 

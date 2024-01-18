@@ -1,4 +1,4 @@
-<fa-anchor label="Usage"/>
+<vue-anchor label="Usage"/>
 
 import `VeTable`
 

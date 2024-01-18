@@ -1,12 +1,12 @@
 <template>
-  <fa-anchor label="Loading Collection">
+  <vue-anchor label="Loading Collection">
     <div class="loading-container">
       <div v-for="name in Object.values(SPIN_NAMES)" :key="name" class="loading-item">
         <div :id="'loading-' + name" class="loading-item-spin" />
         <span class="loading-name">{{ name }}</span>
       </div>
     </div>
-  </fa-anchor>
+  </vue-anchor>
 </template>
 <script>
 export default {

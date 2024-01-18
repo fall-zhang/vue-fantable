@@ -33,7 +33,7 @@ import {
 const app = createApp(APP)
 app.use(Router)
 app.component('DemoBlock', DemoBlock)
-app.component('FaAnchor', Anchor)
+app.component('VueAnchor', Anchor)
 // app.use(VueLazyContainer)
 
 // product
