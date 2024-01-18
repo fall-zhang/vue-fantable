@@ -3,19 +3,18 @@ fork by https://github.com/ElemeFE/element/blob/dev/build/md-loader/index.js
 */
 // const { getOptions } = require("loader-utils");
 import path from 'node:path'
-import md from './config'
 import {
   stripScript,
   stripStyle,
   stripTemplate,
   genInlineComponentText,
-} from './util.js'
+} from './utils'
 // https://regexr.com/47jlq
 const IMPORT_RE =
   /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g
 
-module.exports = function (source) {
-  const content = md.renderContent(source, path.basename(this.resourcePath))
+export default function (md, source) {
+  const content = md.genInlineComponentText(source, path.basename(this.resourcePath))
 
   const startTag = '<!--element-demo:'
   const startTagLen = startTag.length
