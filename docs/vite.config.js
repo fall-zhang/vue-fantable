@@ -9,6 +9,8 @@ import Markdown from 'unplugin-vue-markdown/vite'
 import MarkdownItAnchor from 'markdown-it-anchor'
 import MarkdownItPrism from 'markdown-it-prism'
 import MarkdownItContainer from 'markdown-it-container'
+// import MarkdownItIns from 'markdown-it-ins'
+import mdIt from './md-it'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath } from 'node:url'
 
@@ -53,9 +55,9 @@ export default defineConfig({
         // for example
         md.use(MarkdownItAnchor)
         md.use(MarkdownItPrism)
+        // md.use(MarkdownItIns)
         md.use(MarkdownItContainer, 'anchor', {
           validate(params) {
-            console.log(md.options)
             // console.log(md.configure())
             return params.trim().match(/^anchor\s*(.*)$/)
           },
@@ -64,14 +66,14 @@ export default defineConfig({
             if (tokens[idx].nesting === 1) {
               const label = m && m.length > 1 ? m[1] : ''
 
-              return `<anchor is-edit label="${label}" fileName="" />
-          `
+              return `<vue-anchor is-edit label="${label}" fileName="" /> `
             }
             return ''
           },
         })
         md.use(MarkdownItContainer, 'demo', {
           validate(params) {
+            // console.log('🚀 ~ render ~ m:', params)
             return params.trim().match(/^demo\s*(.*)$/)
           },
           render(tokens, idx) {
@@ -82,14 +84,16 @@ export default defineConfig({
                       tokens[idx + 1].type === 'fence'
                         ? tokens[idx + 1].content
                         : ''
+              const result = mdIt(md, content)
               return `<demo-block>
                       ${description ? `<div>${md.render(description)}</div>` : ''}
-                      <!--element-demo: ${content}:element-demo-->
+                      <!-- ${result} -->
                       `
             }
             return '</demo-block>'
           },
         })
+
         md.use(MarkdownItContainer, 'tip')
         md.use(MarkdownItContainer, 'warning')
       },
