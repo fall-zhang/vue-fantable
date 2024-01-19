@@ -244,12 +244,12 @@ describe('veCheckbox', () => {
   it('checkbox data change width checkboxGroup', async () => {
     const wrapper = mount({
       template: `
-                <ve-checkbox-group v-model="checkboxValue">
-                    <ve-checkbox label="南瓜" />
-                    <ve-checkbox disabled label="西红柿" />
-                    <ve-checkbox label="哈密瓜" />
-                    <ve-checkbox label="水蜜桃" />
-                </ve-checkbox-group>
+        <ve-checkbox-group v-model="checkboxValue">
+          <ve-checkbox label="南瓜" />
+          <ve-checkbox disabled label="西红柿" />
+          <ve-checkbox label="哈密瓜" />
+          <ve-checkbox label="水蜜桃" />
+        </ve-checkbox-group>
             `,
       data() {
         return {
@@ -258,6 +258,7 @@ describe('veCheckbox', () => {
       },
     })
 
+    console.log("🚀 ~ it ~ wrapper.find('.ve-checkbox'):", wrapper.find('.ve-checkbox'))
     wrapper.find('.ve-checkbox').trigger('click')
 
     await later()

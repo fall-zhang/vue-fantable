@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import veIcon from '@P/ve-icon/ve-icon'
-import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach, beforeAll } from 'vitest'
 
 describe('veIcon', () => {
   it('render by different props', () => {
@@ -14,6 +14,7 @@ describe('veIcon', () => {
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
+})
 
 beforeAll(() => {
   globalThis.ResizeObserver = class ResizeObserver {
@@ -31,10 +32,9 @@ beforeAll(() => {
   }
 })
 describe('veIcon', () => {
-
   it('font-size prop', () => {
     const wrapper = mount(veIcon, {
-      propsData: {
+      props: {
         name: 'double-right-arrow',
         size: 50,
       },
@@ -45,9 +45,9 @@ describe('veIcon', () => {
   describe('warns', () => {
     let errorSpy
     beforeEach(() => {
-      errorSpy = jest
+      errorSpy = vi
         .spyOn(console, 'error')
-        .mockImplementation(() => {})
+        .mockImplementation()
     })
 
     afterEach(() => {
@@ -58,7 +58,7 @@ describe('veIcon', () => {
 
     it('warning on error icon name', () => {
       const wrapper = mount(veIcon, {
-        propsData: {
+        props: {
           name: errorIconName,
         },
       })
