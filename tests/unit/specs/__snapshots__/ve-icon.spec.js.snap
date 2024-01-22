@@ -1,5 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`veIcon > font-size prop 1`] = `"sort-bottom-arrow"`;
+
 exports[`veIcon > render by different props 1`] = `
 "<div>
   <ve-icon name="double-right-arrow"></ve-icon>

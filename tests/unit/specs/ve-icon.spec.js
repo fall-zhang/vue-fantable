@@ -16,21 +16,6 @@ describe('veIcon', () => {
   })
 })
 
-beforeAll(() => {
-  globalThis.ResizeObserver = class ResizeObserver {
-    observe() {
-      // do nothing
-    }
-
-    unobserve() {
-      // do nothing
-    }
-
-    disconnect() {
-      // do nothing
-    }
-  }
-})
 describe('veIcon', () => {
   it('font-size prop', () => {
     const wrapper = mount(veIcon, {
