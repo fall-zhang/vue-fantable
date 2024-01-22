@@ -5,6 +5,10 @@ export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {
     // 当前 checkbox 选中状态,实现 v-model
+    modelValue: {
+      type: [String, Number, Boolean],
+      default: null,
+    },
     value: {
       type: [String, Number, Boolean],
       default: null,
@@ -28,7 +32,7 @@ export default {
       default: false,
     },
   },
-  emits: ['input', 'checkedChange'],
+  emits: ['input', 'checkedChange', 'update:modelValue'],
   data() {
     return {
       // 当前checkbox 选中状态
@@ -90,6 +94,7 @@ export default {
       }
       // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
       this.$emit('checkedChange', isChecked)
+      this.$emit('update:modelValue', isChecked)
 
       if (this.isCheckBoxGroup()) {
         // update parent comp:checkbox-group
