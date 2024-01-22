@@ -1,5 +1,5 @@
 import VeRadio from '@P/ve-radio/ve-radio.js'
-import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
+import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
@@ -105,7 +105,6 @@ export default {
       disabled,
       onRadioChange: () => selectedChange(),
     }
-    console.log('🚀 ~ render ~ radioProps:', radioProps)
     return <VeRadio {...radioProps} />
   },
 }

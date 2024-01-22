@@ -109,8 +109,11 @@ export default {
     // get label content
     getLabelContent() {
       const { label, $slots } = this
-
-      return label || $slots.default
+      let result = label
+      if (!result) {
+        result = $slots.default ? $slots.default() : null
+      }
+      return result
     },
 
     initModel() {

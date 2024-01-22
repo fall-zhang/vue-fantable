@@ -96,7 +96,6 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
       if (!isControlledProp) {
         this.isSelected = isSelected
       }
-      console.log(this)
 
       this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE,
         {
