@@ -171,8 +171,7 @@ describe('veCheckbox', () => {
 
   it('click event', async () => {
     const wrapper = mount({
-      template: `
-            <ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
+      template: `<ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
       data() {
         return {
           checkboxValue: false,
@@ -180,6 +179,10 @@ describe('veCheckbox', () => {
       },
     })
 
+    // const wayofTag = wrapper.find('ve-checkbox')
+    // const wayofClass = wrapper.find('.ve-checkbox')
+    // // console.log("🚀 ~ it ~ wayofTag:", wayofTag)
+    // // console.log("🚀 ~ it ~ wayofClass:", wayofClass)
     wrapper.find('.ve-checkbox').trigger('click')
     await later()
     expect(wrapper.find('.ve-checkbox-checked').exists()).toBe(true)
@@ -221,7 +224,7 @@ describe('veCheckbox', () => {
     })
 
     const checkeds1 = wrapper.findAll('.ve-checkbox-checked')
-
+    console.log(checkeds1)
     expect(checkeds1.length).toBe(2)
 
     wrapper.setData({ checkboxValue: ['西红柿'] })
@@ -258,7 +261,7 @@ describe('veCheckbox', () => {
       },
     })
 
-    console.log("🚀 ~ it ~ wrapper.find('.ve-checkbox'):", wrapper.find('.ve-checkbox'))
+    console.log("🚀 ~ it ~ wrapper.find('.ve-checkbox'):", wrapper.find())
     wrapper.find('.ve-checkbox').trigger('click')
 
     await later()

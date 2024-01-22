@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 
 import { VueWrapper } from '@vue/test-utils'
-import vueFantable from '../../packages/index'
+import vueFantable from '@P/index'
 
 const app = createApp()
 app.use(vueFantable)
