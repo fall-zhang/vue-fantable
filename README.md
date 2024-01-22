@@ -149,17 +149,22 @@ app.mounted('#app')
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
 - [ ] 关注文档的问题
-  - [ ] 文档的 anchor
-  - [ ] 示例是如何加载的
+  - [x] 文档的 anchor
+  - [ ] 示例的加载方式
+  - [ ] 优化返回顶部和跳转窗口的样式
+  - [ ] 发布 vue-fantable 文档
 - [ ] 测试
-  - [ ] 更新测试
+  - [ ] 适配原测试内容
+  - [ ] 添加新的测试
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
+  - [ ] setTimeout 优化
   - [ ] 使用 CSS 变量
   - [ ] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
-  - [ ] 添加 TS 的 type
-- [ ] 之后加上 TS
+- [ ] 使用 TS 重构应用
+  - [x] 添加 TS 类型支持
+  - [ ] TS 重写组件
 - [ ] 最后支持原生（无框架依赖）
   - [ ] 使用 shadow dom 替代
 
@@ -169,7 +174,7 @@ app.mounted('#app')
 
 - 所有现代浏览器
 
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
