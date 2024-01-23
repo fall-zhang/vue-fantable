@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veLoading from '@/ve-loading/ve-loading'
+import veLoading from '@P/ve-loading/ve-loading'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 

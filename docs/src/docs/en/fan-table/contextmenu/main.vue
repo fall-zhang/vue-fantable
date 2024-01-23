@@ -13,22 +13,22 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import ContextmenuTypes from "./contextmenu-types.md";
-import Base from "./base.md";
-import Custom from "./custom.md";
-import API1 from "../api/contextmenu-header-option-props";
-import API2 from "../api/contextmenu-body-option-props";
+import Explain from './explain.md'
+import ContextmenuTypes from './contextmenu-types.md'
+import Base from './base.md'
+import Custom from './custom.md'
+import API1 from '../api/contextmenu-header-option-props.vue'
+import API2 from '../api/contextmenu-body-option-props.vue'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        ContextmenuTypes,
-        Base,
-        Custom,
-        API1,
-        API2,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    ContextmenuTypes,
+    Base,
+    Custom,
+    API1,
+    API2,
+  },
+}
 </script>

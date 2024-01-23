@@ -25,7 +25,7 @@ import ExpandControl from "./expand-control.md";
 import ExpandEvent from "./expand-event.md";
 import ExpandChart from "./expand-chart.md";
 import ExpandTable from "./expand-table.md";
-import API from "../api/expand-option-props";
+import API from "../api/expand-option-props.vue";
 
 export default {
     name: "custom-cell",

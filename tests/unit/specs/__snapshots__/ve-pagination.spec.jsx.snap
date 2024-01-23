@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`vePagination > render by different props 1`] = `
+"<div>
+  <ul class="ve-pagination"></ul>
+  <ul class="ve-pagination"></ul>
+  <ul class="ve-pagination"></ul>
+  <ul class="ve-pagination"></ul>
+  <ul class="ve-pagination"></ul>
+</div>"
+`;

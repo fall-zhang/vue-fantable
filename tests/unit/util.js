@@ -19,9 +19,6 @@ export function later(delay = 0) {
  * @desc mock scrollTo function
  */
 export function mockScrollTo() {
-  const fn = jest.fn()
-  Element.prototype.scrollTo = fn
-  return fn
 }
 
 /*

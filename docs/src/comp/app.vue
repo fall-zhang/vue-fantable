@@ -3,7 +3,7 @@
     <div class="main-banner">
       <div class="main-banner-warpper">
         <!-- logo -->
-        <div v-show="showLogo" class="main-banner-logo">
+        <div class="main-banner-logo">
           <i style="font-size: 20px" class="icon iconfont icon-table"></i>
           &nbsp;vue-fantable
         </div>

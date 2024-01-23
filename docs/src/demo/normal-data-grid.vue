@@ -3,7 +3,7 @@
     <div class="operation">
       <div class="operation-item">
         {{ currentLocal["dataRows"] }}
-        <el-select v-model="dataRow" style="width: 60%" size="small" @change="dataRowChange">
+        <el-select v-model="dataRow" style="width: 160px" size="small" @change="dataRowChange">
           <el-option v-for="item in currentLocal['dataRowsOption']" :key="item.value" :label="item.label"
             :value="item.value"></el-option>
         </el-select>
@@ -572,6 +572,7 @@ export default {
     margin: 10px 0;
 
     .operation-item {
+      flex-grow: 1;
       display: flex;
       flex-direction: row;
       height: 50px;

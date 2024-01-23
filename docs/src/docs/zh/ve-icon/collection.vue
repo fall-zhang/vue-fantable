@@ -1,5 +1,5 @@
 <template>
-    <fa-anchor label="图标集合" :is-edit="false">
+    <vue-anchor label="图标集合" :is-edit="false">
         <div class="icon-container">
             <div
                 v-for="iconName in Object.values(this.icons)"
@@ -12,7 +12,7 @@
                 <span class="icon-name">{{ iconName }}</span>
             </div>
         </div>
-    </fa-anchor>
+    </vue-anchor>
 </template>
 
 <script>

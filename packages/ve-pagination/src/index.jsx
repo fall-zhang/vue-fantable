@@ -164,7 +164,7 @@ export default {
       },
     },
   },
-  emits: ['pageNumberChange'],
+  emits: ['pageNumberChange', 'pageSizeChange'],
   data() {
     return {
       newPageIndex:
@@ -256,7 +256,7 @@ export default {
         this.newPageSize = item.value
         this.newPageIndex = 1
         // this.$emit(EMIT_EVENTS.PAGE_SIZE_CHANGE, this.newPageSize)
-        this.$emit('pageNumberChange', this.newPageSize)
+        this.$emit('pageSizeChange', this.newPageSize)
       }
     },
 

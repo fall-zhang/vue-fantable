@@ -13,7 +13,7 @@ import Explain from "./explain.md";
 import RowStripe from "./row-stripe.md";
 import HoverHighlight from "./hover-highlight.md";
 import ClickHighlight from "./click-highlight.md";
-import API from "../api/row-style-option-props";
+import API from "../api/row-style-option-props.vue";
 
 export default {
     name: "basic-main",

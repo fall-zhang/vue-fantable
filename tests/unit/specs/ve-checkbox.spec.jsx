@@ -171,8 +171,7 @@ describe('veCheckbox', () => {
 
   it('click event', async () => {
     const wrapper = mount({
-      template: `
-            <ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
+      template: `<ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
       data() {
         return {
           checkboxValue: false,
@@ -180,6 +179,10 @@ describe('veCheckbox', () => {
       },
     })
 
+    // const wayofTag = wrapper.find('ve-checkbox')
+    // const wayofClass = wrapper.find('.ve-checkbox')
+    // // console.log("🚀 ~ it ~ wayofTag:", wayofTag)
+    // // console.log("🚀 ~ it ~ wayofClass:", wayofClass)
     wrapper.find('.ve-checkbox').trigger('click')
     await later()
     expect(wrapper.find('.ve-checkbox-checked').exists()).toBe(true)
@@ -221,7 +224,7 @@ describe('veCheckbox', () => {
     })
 
     const checkeds1 = wrapper.findAll('.ve-checkbox-checked')
-
+    console.log(checkeds1)
     expect(checkeds1.length).toBe(2)
 
     wrapper.setData({ checkboxValue: ['西红柿'] })
@@ -244,12 +247,12 @@ describe('veCheckbox', () => {
   it('checkbox data change width checkboxGroup', async () => {
     const wrapper = mount({
       template: `
-                <ve-checkbox-group v-model="checkboxValue">
-                    <ve-checkbox label="南瓜" />
-                    <ve-checkbox disabled label="西红柿" />
-                    <ve-checkbox label="哈密瓜" />
-                    <ve-checkbox label="水蜜桃" />
-                </ve-checkbox-group>
+        <ve-checkbox-group v-model="checkboxValue">
+          <ve-checkbox label="南瓜" />
+          <ve-checkbox disabled label="西红柿" />
+          <ve-checkbox label="哈密瓜" />
+          <ve-checkbox label="水蜜桃" />
+        </ve-checkbox-group>
             `,
       data() {
         return {
@@ -258,6 +261,7 @@ describe('veCheckbox', () => {
       },
     })
 
+    console.log("🚀 ~ it ~ wrapper.find('.ve-checkbox'):", wrapper.find())
     wrapper.find('.ve-checkbox').trigger('click')
 
     await later()

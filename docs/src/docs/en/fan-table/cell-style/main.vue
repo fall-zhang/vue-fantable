@@ -21,7 +21,7 @@ import BodyRowStyle from "./body-row-style.md";
 import HeaderCellStyle from "./header-cell-style.md";
 import HeaderRowStyle from "./header-row-style.md";
 import FooterRowStyle from "../footer-summary/cell-style.md";
-import API from "../api/cell-style-option-props";
+import API from "../api/cell-style-option-props.vue";
 
 export default {
     name: "custom-cell",

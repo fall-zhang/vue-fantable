@@ -8,18 +8,18 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import DefaultHiddenColumnKeys from "./default-hidden-column.md";
-import InstanceMethods from "./instance-methods.md";
-import API from "../api/column-hidden-option-props";
+import Explain from './explain.md'
+import DefaultHiddenColumnKeys from './default-hidden-column.md'
+import InstanceMethods from './instance-methods.md'
+import API from '../api/column-hidden-option-props.vue'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        DefaultHiddenColumnKeys,
-        InstanceMethods,
-        API,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    DefaultHiddenColumnKeys,
+    InstanceMethods,
+    API,
+  },
+}
 </script>

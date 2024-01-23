@@ -1,4 +1,4 @@
-<fa-anchor label="Usage"/>
+<vue-anchor label="Usage"/>
 
 Import `veLoading` where you need
 
@@ -15,7 +15,7 @@ veLoading({
 });
 ```
 
-<fa-anchor label="Global Usage"/>
+<vue-anchor label="Global Usage"/>
 
 Mount the `veLoading` component to the prototype of Vue for easy global call
 

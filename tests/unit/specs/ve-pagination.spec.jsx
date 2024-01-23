@@ -1,7 +1,8 @@
 import { mount } from '@vue/test-utils'
-import vePagination from '@/ve-pagination/ve-pagination'
+import vePagination from '@P/ve-pagination/ve-pagination'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('vePagination', () => {
   it('render by different props', () => {
@@ -253,7 +254,7 @@ describe('vePagination', () => {
   })
 
   it('enter keyboard event ', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(vePagination, {
       props: {

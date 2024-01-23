@@ -1,32 +1,28 @@
 <template>
     <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.cellAutofillOption.data"
-            :columns="db.cellAutofillOption.columns"
-        />
+        <tpl :desc="desc" :anchor="anchor" :table-data="db.cellAutofillOption.data"
+            :columns="db.cellAutofillOption.columns" />
     </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl";
-import { db } from "./db";
+import tpl from '@/comp/api-tpl.vue'
+import { db } from './db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "Cell Autofill Option",
-        },
-        desc: {
-            type: String,
-            default: "cellAutofillOption",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: 'Cell Autofill Option',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'cellAutofillOption',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

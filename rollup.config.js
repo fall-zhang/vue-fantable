@@ -64,6 +64,12 @@ const libConfig = defineConfig({
     exports: 'named',
     plugins: [],
     manualChunks: []
+  }, {
+    format: 'cjs',
+    dir: './libs',
+    name: 'main',
+    entryFileNames: `main.cjs`,
+    exports: 'named',
   }],
   plugins: [
     pluginVue(),

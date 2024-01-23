@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veRadio from '@/ve-radio/ve-radio'
+import veRadio from '@P/ve-radio/ve-radio'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 

@@ -1,6 +1,6 @@
 {
   "name": "vue-fantable",
-  "version": "0.1.2",
+  "version": "0.1.8",
   "type": "module",
   "main": "libs/main.js",
   "description": "Vue table component for huge data",
@@ -10,11 +10,18 @@
     "type": "git",
     "url": "https://github.com/fall-zhang/vue-fantable"
   },
+  "types": "./libs/main.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/my-lib.js",
-      "require": "./dist/my-lib.umd.cjs"
-    }
+      "types": "./libs/main.d.ts",
+      "import": "./libs/main.js",
+      "require": "./libs/main.cjs"
+    },
+    "./lib/*": {
+      "types": "./libs/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./*": "./*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,15 +34,16 @@
   "scripts": {
     "lint": "eslint packages/ --ext .js,.jsx",
     "test": "vitest",
+    "type": "tsc",
     "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
-    "build": "npm run build:remove && npm run build:js && npm run build:css",
+    "build": "npm run build:remove && npm run build:js && npm run build:css ",
     "build:remove": "rimraf libs",
     "build:js": "rollup --config rollup.config.js",
     "build:css": "lessc packages/theme-default/index.less libs/theme-default.css && lessc packages/theme-dark/index.less libs/theme-dark.css",
     "build:vite": "vite build",
     "lint-staged": "lint-staged",
     "prepare": "npx husky install",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && tsc",
     "commit": "czg"
   },
   "dependencies": {
@@ -59,6 +67,7 @@
     "@rollup/plugin-sucrase": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/pluginutils": "^5.1.0",
+    "@types/node": "20.11.4",
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/test-utils": "^2.4.3",
@@ -78,10 +87,12 @@
     "postcss-load-config": "^5.0.2",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.2",
+    "typescript": "^5.3.3",
     "unplugin-vue": "^5.0.2",
     "unplugin-vue-jsx": "^0.2.2",
     "vite": "^5.0.10",
-    "vitest": "^1.1.1"
+    "vitest": "^1.1.1",
+    "vue-tsc": "^1.8.27"
   },
   "lint-staged": {
     "*.{vue,js,jsx}": [

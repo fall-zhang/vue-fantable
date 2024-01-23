@@ -1,5 +1,5 @@
 <template>
-    <fa-anchor label="loading 集合" :is-edit="false">
+    <vue-anchor label="loading 集合" :is-edit="false">
         <div class="loading-container">
             <div
                 v-for="name in Object.values(SPIN_NAMES)"
@@ -10,7 +10,7 @@
                 <span class="loading-name">{{ name }}</span>
             </div>
         </div>
-    </fa-anchor>
+    </vue-anchor>
 </template>
 <script>
 export default {

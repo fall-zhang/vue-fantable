@@ -132,7 +132,7 @@ export default {
 
   created() {
     this.onlineExample.version = version
-    const highlight = this.$slots.highlight()
+    const highlight = this.$slots.highlight ? this.$slots.highlight() : ''
     if (highlight && highlight[0]) {
       let code = ''
       let cur = highlight[0]
@@ -152,6 +152,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
+      console.log(this.$slots)
       const highlight = this.$el.getElementsByClassName('highlight')[0]
       if (this.$el.getElementsByClassName('description').length === 0) {
         highlight.style.width = '100%'
