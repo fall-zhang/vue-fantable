@@ -38,10 +38,6 @@ function install (app) {
   app.config.globalProperties.$veLocale = VeLocale
 }
 
-/* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
-}
 export {
   install,
   version,
