@@ -10,12 +10,12 @@ import ArrowLeft from './arrow-left.jsx'
 import ArrowRight from './arrow-right.jsx'
 import CaretDownFill from './caret-down-fill.jsx'
 import CaretUpFill from './caret-up-fill.jsx'
-import DoubleArrowDown from './double-arrow-down.vue'
-import DoubleArrowLeft from './double-arrow-left.vue'
-import DoubleArrowRight from './double-arrow-right.vue'
-import DoubleArrowUp from './double-arrow-up.vue'
-import FilterVue from './filter.vue'
-import SearchVue from './search.vue'
+import DoubleArrowDown from './double-arrow-down.jsx'
+import DoubleArrowLeft from './double-arrow-left.jsx'
+import DoubleArrowRight from './double-arrow-right.jsx'
+import DoubleArrowUp from './double-arrow-up.jsx'
+import FilterVue from './filter.jsx'
+import SearchVue from './search.jsx'
 export {
   ArrowUp,
   ArrowDown,
