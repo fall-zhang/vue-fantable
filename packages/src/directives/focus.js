@@ -1,14 +1,18 @@
 /*
-element focus
+  element focus
 */
+import { nextTick } from 'vue'
 export default {
-  mounted: function (el, eee, vnode) {
-    // console.log(el, eee)
-    const value = eee.value
+  mounted(el, binding, vnode) {
+  },
+  updated(el, binding, vnode) {
+    const value = binding.value
+    console.log(value)
     if (value) {
       const { focus, select } = value
 
-      vnode.context.$nextTick(() => {
+      console.log('🚀 ~ vnode.context.$nextTick ~ vnode:', vnode, focus, select)
+      nextTick(() => {
         if (focus) {
           el.focus()
         }
@@ -19,7 +23,7 @@ export default {
       })
     }
   },
-  unmounted: function (el, { value }) {
+  unmounted(el, { value }) {
     if (value) {
       const { focus } = value
       if (focus) {
