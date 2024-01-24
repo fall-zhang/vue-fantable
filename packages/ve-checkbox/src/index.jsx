@@ -1,6 +1,7 @@
 import { getParentCompByName } from '@P/src/utils/index'
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
+import { hasValue } from '@P/src/utils/mini-util'
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {
@@ -36,7 +37,7 @@ export default {
   data() {
     return {
       // 当前checkbox 选中状态
-      model: this.modelValue ?? this.value,
+      model: null,
       checkboxGroup: {},
     }
   },
@@ -83,6 +84,11 @@ export default {
   },
 
   created() {
+    if (hasValue(this.modelValue)) {
+      this.model = this.modelValue
+    } else if (hasValue(this.value)) {
+      this.model = this.modelValue
+    }
     this.initModel()
   },
 
