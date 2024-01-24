@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils'
-import veCheckbox from '@P/ve-checkbox/ve-checkbox.js'
+import { VeCheckboxGroup, VeCheckbox } from '@P/index'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veCheckbox', () => {
+describe('VeCheckbox', () => {
   it('render normal', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         label: 'orange',
@@ -18,13 +18,13 @@ describe('veCheckbox', () => {
   it('render with checkbox group', async () => {
     const wrapper = mount({
       template: `
-                <ve-checkbox-group v-model="checkboxValue">
-                    <ve-checkbox label="南瓜" />
-                    <ve-checkbox disabled label="西红柿" />
-                    <ve-checkbox label="哈密瓜" />
-                    <ve-checkbox label="水蜜桃" />
-                </ve-checkbox-group>
-            `,
+        <ve-checkbox-group v-model="checkboxValue">
+            <ve-checkbox label="南瓜" />
+            <ve-checkbox disabled label="西红柿" />
+            <ve-checkbox label="哈密瓜" />
+            <ve-checkbox label="水蜜桃" />
+        </ve-checkbox-group>
+      `,
       data() {
         return {
           checkboxValue: ['西红柿', '哈密瓜'],
@@ -36,7 +36,7 @@ describe('veCheckbox', () => {
   })
 
   it('render with indeterminate', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         label: 'orange',
@@ -48,7 +48,7 @@ describe('veCheckbox', () => {
   })
 
   it('render with disabled', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         label: 'orange',
@@ -60,7 +60,7 @@ describe('veCheckbox', () => {
   })
 
   it('value prop', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         label: 'orange',
@@ -71,7 +71,7 @@ describe('veCheckbox', () => {
   })
 
   it('label prop', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         label: 'orange',
@@ -82,7 +82,7 @@ describe('veCheckbox', () => {
   })
 
   it('label content slot', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       slots: {
         default: 'orange',
       },
@@ -92,7 +92,7 @@ describe('veCheckbox', () => {
   })
 
   it('disbled prop', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         disabled: true,
         label: 'orange',
@@ -103,7 +103,7 @@ describe('veCheckbox', () => {
   })
 
   it('disbled selected with checked statue', async () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: true,
         disabled: true,
@@ -118,7 +118,7 @@ describe('veCheckbox', () => {
   })
 
   it('disbled selected with unchecked statue', async () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: false,
         disabled: true,
@@ -133,7 +133,7 @@ describe('veCheckbox', () => {
   })
 
   it('indeterminate prop', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         indeterminate: true,
         label: 'orange',
@@ -143,7 +143,7 @@ describe('veCheckbox', () => {
   })
 
   it('isControlled prop', async () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         isControlled: true,
         label: 'orange',
@@ -158,7 +158,7 @@ describe('veCheckbox', () => {
   })
 
   it('isSelected prop', () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         isControlled: true,
         isSelected: true,
@@ -171,6 +171,9 @@ describe('veCheckbox', () => {
 
   it('click event', async () => {
     const wrapper = mount({
+      components: {
+        VeCheckbox
+      },
       template: `<ve-checkbox v-model="checkboxValue">orange</ve-checkbox>`,
       data() {
         return {
@@ -182,14 +185,14 @@ describe('veCheckbox', () => {
     // const wayofTag = wrapper.find('ve-checkbox')
     // const wayofClass = wrapper.find('.ve-checkbox')
     // // console.log("🚀 ~ it ~ wayofTag:", wayofTag)
-    // // console.log("🚀 ~ it ~ wayofClass:", wayofClass)
+    console.log('🚀 ~ it ~ wayofClass:', wrapper.find('.ve-checkbox'))
     wrapper.find('.ve-checkbox').trigger('click')
     await later()
     expect(wrapper.find('.ve-checkbox-checked').exists()).toBe(true)
   })
 
   it('checked change emit', async () => {
-    const wrapper = mount(veCheckbox, {
+    const wrapper = mount(VeCheckbox, {
       props: {
         value: false,
         label: 'orange',
@@ -209,13 +212,13 @@ describe('veCheckbox', () => {
   it('checkboxGroup data change', async () => {
     const wrapper = mount({
       template: `
-                <ve-checkbox-group v-model="checkboxValue">
-                    <ve-checkbox label="南瓜" />
-                    <ve-checkbox disabled label="西红柿" />
-                    <ve-checkbox label="哈密瓜" />
-                    <ve-checkbox label="水蜜桃" />
-                </ve-checkbox-group>
-            `,
+        <ve-checkbox-group v-model="checkboxValue">
+          <ve-checkbox label="南瓜" />
+          <ve-checkbox disabled label="西红柿" />
+          <ve-checkbox label="哈密瓜" />
+          <ve-checkbox label="水蜜桃" />
+        </ve-checkbox-group>
+      `,
       data() {
         return {
           checkboxValue: ['西红柿', '哈密瓜'],
@@ -246,6 +249,10 @@ describe('veCheckbox', () => {
 
   it('checkbox data change width checkboxGroup', async () => {
     const wrapper = mount({
+      components: {
+        VeCheckbox,
+        VeCheckboxGroup
+      },
       template: `
         <ve-checkbox-group v-model="checkboxValue">
           <ve-checkbox label="南瓜" />
@@ -260,9 +267,9 @@ describe('veCheckbox', () => {
         }
       },
     })
-
-    console.log("🚀 ~ it ~ wrapper.find('.ve-checkbox'):", wrapper.find())
-    wrapper.find('.ve-checkbox').trigger('click')
+    const checkboxDOM = wrapper.find('.ve-checkbox')
+    console.log('🚀 ~ it ~ checkboxDOM:', checkboxDOM.html())
+    checkboxDOM.trigger('click')
 
     await later()
 

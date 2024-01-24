@@ -1,10 +1,15 @@
 import { createApp } from 'vue'
-
-import { VueWrapper } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import vueFantable from '@P/index'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-const app = createApp()
-app.use(vueFantable)
+beforeEach(() => {
+  mount({
+    global: {
+      plugins: [vueFantable]
+    }
+  })
+})
 
 // add VueWrapper prototype
 // console.log(VueWrapper)
