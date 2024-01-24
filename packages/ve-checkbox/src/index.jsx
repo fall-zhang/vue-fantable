@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       // 当前checkbox 选中状态
-      model: this.value,
+      model: this.modelValue ?? this.value,
       checkboxGroup: {},
     }
   },
@@ -74,6 +74,11 @@ export default {
   watch: {
     value() {
       this.updateModelBySingle()
+    },
+    modelValue() {
+      if (!this.disabled) {
+        this.model = this.modelValue
+      }
     },
   },
 
