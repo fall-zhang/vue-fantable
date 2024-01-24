@@ -17,6 +17,9 @@ describe('VeCheckbox', () => {
 
   it('render with checkbox group', async () => {
     const wrapper = mount({
+      components: {
+        VeCheckboxGroup, VeCheckbox
+      },
       template: `
         <ve-checkbox-group v-model="checkboxValue">
             <ve-checkbox label="南瓜" />
@@ -183,10 +186,8 @@ describe('VeCheckbox', () => {
     })
 
     // const wayofTag = wrapper.find('ve-checkbox')
-    // const wayofClass = wrapper.find('.ve-checkbox')
-    // // console.log("🚀 ~ it ~ wayofTag:", wayofTag)
-    console.log('🚀 ~ it ~ wayofClass:', wrapper.find('.ve-checkbox'))
-    wrapper.find('.ve-checkbox').trigger('click')
+    console.log('🚀 ~ it ~ wayofClass:', wrapper.find('.ve-checkbox').html())
+    wrapper.find('.ve-checkbox').trigger('change')
     await later()
     expect(wrapper.find('.ve-checkbox-checked').exists()).toBe(true)
   })
@@ -204,13 +205,16 @@ describe('VeCheckbox', () => {
 
     await later()
 
-    expect(wrapper.emitted('on-checked-change').length).toEqual(2)
-    expect(wrapper.emitted('on-checked-change')[0]).toEqual([true])
-    expect(wrapper.emitted('on-checked-change')[1]).toEqual([false])
+    expect(wrapper.emitted('checked-change').length).toEqual(2)
+    expect(wrapper.emitted('checked-change')[0]).toEqual([true])
+    expect(wrapper.emitted('checked-change')[1]).toEqual([false])
   })
 
   it('checkboxGroup data change', async () => {
     const wrapper = mount({
+      components: {
+        VeCheckboxGroup, VeCheckbox
+      },
       template: `
         <ve-checkbox-group v-model="checkboxValue">
           <ve-checkbox label="南瓜" />
