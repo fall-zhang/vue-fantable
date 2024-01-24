@@ -43,7 +43,7 @@
     "build:vite": "vite build",
     "lint-staged": "lint-staged",
     "prepare": "npx husky install",
-    "prepublishOnly": "npm run build && tsc",
+    "prepublishOnly": "npm run build && vue-tsc -p tsconfig.build.json",
     "commit": "czg"
   },
   "dependencies": {
