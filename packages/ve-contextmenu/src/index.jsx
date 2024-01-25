@@ -69,7 +69,7 @@ export default {
 
   watch: {
     options: {
-      handler: function (val) {
+      handler(val) {
         if (Array.isArray(val) && val.length > 0) {
           /*
           如果配置项修改,则重新销毁并创建
@@ -85,7 +85,7 @@ export default {
       immediate: true,
     },
     eventTarget: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
           this.registerContextmenuEvent()
         }

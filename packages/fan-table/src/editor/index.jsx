@@ -180,7 +180,7 @@ export default {
 
   watch: {
     parentRendered: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
           // fixed #471
           this.setTableEl()
@@ -209,7 +209,7 @@ export default {
     },
     // cell selection key data
     'cellSelectionData.currentCell': {
-      handler: function (val) {
+      handler(val) {
         this.isEditCellFocus = false
 
         const { rowKey, colKey } = val

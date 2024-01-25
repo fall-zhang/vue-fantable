@@ -195,11 +195,11 @@ export default {
     },
   },
   watch: {
-    pageIndex: function (newVal) {
+    pageIndex (newVal) {
       this.newPageIndex = newVal
     },
 
-    pageSize: function (newVal) {
+    pageSize(newVal) {
       this.newPageSize = newVal
     },
   },
