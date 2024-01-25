@@ -13,7 +13,7 @@ export default {
     'click-outside': clickoutside,
   },
   props: {
-    // 如果是select 组件将特殊处理
+    // 如果是 select 组件将特殊处理
     isSelect: {
       type: Boolean,
       default: false,
@@ -28,7 +28,7 @@ export default {
       default: 90,
     },
 
-    // select的最大宽度(超出隐藏)
+    // select 的最大宽度（超出隐藏）
     maxWidth: {
       type: Number,
       default: 0,
@@ -45,8 +45,8 @@ export default {
       default: false,
     },
 
-    // 用户传入v-model 的值 [{value/label/selected}]
-    value: {
+    // 用户传入 v-model 的值 [{value/label/selected}]
+    modelValue: {
       type: [Array],
       default: null,
     },
@@ -118,7 +118,7 @@ export default {
       default: null,
     },
   },
-  emits: ['input', 'dropdownVisibleChange', 'filterConfirm', 'filterReset', 'itemSelectChange'],
+  emits: ['update:modelValue', 'dropdownVisibleChange', 'filterConfirm', 'filterReset', 'itemSelectChange'],
   data() {
     return {
       internalVisible: false,
@@ -184,8 +184,8 @@ export default {
     },
   },
   watch: {
-    value: function () {
-      this.init()
+    modelValue() {
+      this.initModel()
     },
     visible: {
       handler(visible) {
@@ -206,7 +206,7 @@ export default {
   },
 
   created() {
-    this.init()
+    this.initModel()
   },
   mounted() {
     this.addRootElementToElement()
@@ -242,7 +242,7 @@ export default {
   },
   methods: {
     // 初始化
-    init() {
+    initModel() {
       this.internalOptions = Object.assign([], this.value)
 
       if (this.isInput) {
@@ -253,7 +253,7 @@ export default {
     // operation filter confirm
     confirm() {
       // 使用户传入的v-model 生效
-      this.$emit('input', this.internalOptions)
+      this.$emit('update:modelValue', this.internalOptions)
       // this.$emit(EMIT_EVENTS.FILTER_CONFIRM, this.internalOptions)
       this.$emit('filterConfirm', this.internalOptions)
       this.hideDropDown()
@@ -270,7 +270,7 @@ export default {
         })
 
         // 使用户传入的v-model 生效
-        this.$emit('input', this.internalOptions)
+        this.$emit('update:modelValue', this.internalOptions)
 
         // this.$emit(EMIT_EVENTS.FILTER_RESET, this.internalOptions)
         this.$emit('filterReset', this.internalOptions)
@@ -474,8 +474,8 @@ export default {
         this.setInputValue()
       }
 
-      // 使用户传入的v-model 生效
-      this.$emit('input', this.internalOptions)
+      // 使用户传入的 v-model 生效
+      this.$emit('update:modelValue', this.internalOptions)
       this.$emit('itemSelectChange', this.internalOptions)
     },
 
