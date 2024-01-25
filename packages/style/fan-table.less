@@ -234,21 +234,14 @@
                 display: inline-block;
                 width: 20px;
                 height: 20px;
+                transition: transform 0.3s;
 
                 i {
                   display: inline-flex;
-
-                  &::before {
-                    transform: rotate(0deg);
-                    transition: transform 0.3s;
-                  }
                 }
 
                 &.fan-table-expand-icon-collapsed {
-                  i::before {
-                    transform: rotate(90deg);
-                    transition: transform 0.3s;
-                  }
+                  transform: rotate(90deg);
                 }
               }
 

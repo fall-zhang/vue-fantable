@@ -180,7 +180,7 @@ export default {
 
   watch: {
     parentRendered: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
           // fixed #471
           this.setTableEl()
@@ -209,7 +209,7 @@ export default {
     },
     // cell selection key data
     'cellSelectionData.currentCell': {
-      handler: function (val) {
+      handler(val) {
         this.isEditCellFocus = false
 
         const { rowKey, colKey } = val
@@ -488,17 +488,6 @@ export default {
     const textareaProps = {
       ref: this.textareaInputRef,
       class: textareaClass,
-      // 'v-focus': {
-      //   focus: isEditCellFocus,
-      // },
-      // directives: [
-      //   {
-      //     name: 'focus',
-      //     value: {
-      //       focus: isEditCellFocus,
-      //     },
-      //   },
-      // ],
       value: rawCellValue,
       tabindex: -1,
       onInput: (e) => {

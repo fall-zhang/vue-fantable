@@ -1,5 +1,5 @@
 import VeDropdown from '@P/ve-dropdown/ve-dropdown.js'
-import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from '../util/constant'
+import { COMPS_NAME, LOCALE_COMP_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 import { isFunction } from '@P/src/utils/index'
 import { createLocale } from '@P/src/locale/index'
@@ -26,7 +26,7 @@ export default {
   },
   watch: {
     column: {
-      handler: function (column) {
+      handler(column) {
         if (column.filter && Array.isArray(column.filter.filterList)) {
           this.filterList = column.filter.filterList
         }

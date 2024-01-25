@@ -1,7 +1,5 @@
-// This file is auto gererated by build/build-entry.js
+// this file provide for vue createApp to use fan-table
 
-// next line only for test
-// import { createApp } from 'vue'
 import VeCheckbox from './ve-checkbox/ve-checkbox.js'
 import VeCheckboxGroup from './ve-checkbox-group/ve-checkbox-group.js'
 import VeContextmenu from './ve-contextmenu/ve-contextmenu.js'
@@ -15,44 +13,29 @@ import VeSelect from './ve-select/ve-select.js'
 import FanTable from './fan-table/fan-table.js'
 import { version } from '../package.json'
 // const app = createApp({})
-const components = [
-  VeCheckbox,
-  VeCheckboxGroup,
-  VeContextmenu,
-  VeDropdown,
-  VeIcon,
-  VeLoading,
-  VeLocale,
-  VePagination,
-  VeRadio,
-  VeSelect,
-  FanTable
-]
+const VeTable = FanTable
+const components = {
+  Checkbox: VeCheckbox,
+  CheckboxGroup: VeCheckboxGroup,
+  Contextmenu: VeContextmenu,
+  Dropdown: VeDropdown,
+  Icon: VeIcon,
+  Loading: VeLoading,
+  Locale: VeLocale,
+  Pagination: VePagination,
+  Radio: VeRadio,
+  Select: VeSelect,
+  Table: FanTable
+}
 
 function install (app) {
-  components.forEach(component => {
-    app.component(component.name, component)
+  Object.entries(components).forEach(([key, value]) => {
+    app.component('Ve' + key, value)
+    app.component('Fan' + key, value)
   })
-
-  app.component('FanCheckbox', VeCheckbox)
-  app.component('FanCheckboxGroup', VeCheckboxGroup)
-  app.component('FanContextmenu', VeContextmenu)
-  app.component('FanDropdown', VeDropdown)
-  app.component('FanIcon', VeIcon)
-  app.component('FanLoading', VeLoading)
-  app.component('FanLocale', VeLocale)
-  app.component('FanPagination', VePagination)
-  app.component('FanRadio', VeRadio)
-  app.component('FanSelect', VeSelect)
-  app.component('VeTable', FanTable)
 
   app.config.globalProperties.$veLoading = VeLoading
   app.config.globalProperties.$veLocale = VeLocale
-}
-
-/* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
 }
 
 export {
@@ -68,6 +51,7 @@ export {
   VePagination,
   VeRadio,
   VeSelect,
+  VeTable,
   FanTable
 }
 
@@ -84,5 +68,6 @@ export default {
   VePagination,
   VeRadio,
   VeSelect,
+  VeTable,
   FanTable
 }

@@ -22,7 +22,6 @@ const distConfig = defineConfig({
   external: ['vue'],
   output: [{
     format: 'es',
-    // entryFileNames: 'entry-[name].js',
     dir: './libs/lang',
     entryFileNames: `[name].js`,
     chunkFileNames: '[name]-[hash].js',
@@ -38,7 +37,6 @@ const distConfig = defineConfig({
       entries: [
         // { find: 'packages/', replacement: '@/' },
         { find: '@P', replacement: path.join(__dirname + 'packages') },
-        { find: '@U', replacement: path.join(__dirname + 'packages/utils') },
       ]
     }),
     // 让 Rollup 查找到外部模块，打包到产物内
@@ -54,12 +52,9 @@ const libConfig = defineConfig({
   input: 'packages/index.js',
   external: ['vue'],
   output: [{
-    // sourcemap: 'inline',
     format: 'es',
-    // entryFileNames: 'entry-[name].js',
     dir: './libs',
     entryFileNames: `main.js`,
-    // 'chunks/[name]-[hash:10].js'
     chunkFileNames: '[name].js',
     exports: 'named',
     plugins: [],
@@ -77,9 +72,7 @@ const libConfig = defineConfig({
     json(),
     alias({
       entries: [
-        // { find: 'packages/', replacement: '@/' },
         { find: '@P', replacement: path.join(__dirname + 'packages') },
-        { find: '@U', replacement: path.join(__dirname + 'packages/utils') },
       ]
     }),
     // 让 Rollup 查找到外部模块，打包到产物内
