@@ -1,15 +1,6 @@
 {
-  // Change this to match your project
-  "vueCompilerOptions": {
-    "target": 3.3
-  },
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "@P/*": [
-        "packages/*"
-      ]
-    },
     "target": "ESNext",
     "module": "ESNext",
     // This compiler run should only output d.ts files
@@ -32,5 +23,8 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true
+  },
+  "vueCompilerOptions": {
+    "target": 3.3
   }
 }

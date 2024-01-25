@@ -1,19 +1,21 @@
 {
   // Change this to match your project
   "extends": "./tsconfig.base.json",
-  "vueCompilerOptions": {
-    "target": 3.3
-  },
   "include": [
     "packages/**/*.js",
     "tests/**/*.js",
   ],
   "compilerOptions": {
-    "baseUrl": "./",
+    "paths": {
+      "@P/*": [
+        "packages/*"
+      ]
+    },
     "lib": [
       "ESNext",
       "DOM",
       "DOM.Iterable",
     ],
+    "outDir": "types"
   }
 }
