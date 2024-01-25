@@ -46,24 +46,24 @@ export default {
       }
       return result
     },
-
-    // icon name
-    // iconClass() {
-    //   const { name } = this
-    //   console.log(name)
-
-    //   if (!Object.values(ICON_NAMES).includes(name)) {
-    //     console.error(`${name} is not found in ${COMPS_NAME.VE_ICON}.`)
-    //   }
-    //   return `iconfont-vet icon-vet-${name}`
-    // },
     iconNameVue() {
       const { name } = this
+      // from @P/src/utils/constant ICON_NAMES
       const map = {
+        filter: FilterVue,
+
+        'double-right-arrow': DoubleArrowRight,
+        'double-left-arrow': DoubleArrowLeft,
+
+        'right-arrow': ArrowRight,
+        'top-arrow': ArrowUp,
+        'bottom-arrow': ArrowDown,
+        'left-arrow': ArrowLeft,
+
         'sort-top-arrow': CaretUpFill,
         'sort-bottom-arrow': CaretDownFill,
-        'right-arrow': ArrowRight,
-        filter: FilterVue,
+
+        search: SearchVue,
       }
       return map[name]
     },
@@ -72,7 +72,6 @@ export default {
   },
   render() {
     const { iconStyle } = this
-    // return <i style={iconStyle} class={['ve-icon', iconClass]} />
     return (<this.iconNameVue style={iconStyle}/>)
   },
 }
