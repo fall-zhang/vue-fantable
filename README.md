@@ -148,19 +148,16 @@ app.mounted('#app')
   - [x] （修复）多个实例之间事件没有进行隔离
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
-- [ ] 关注文档的问题
-  - [x] 文档的 anchor
-  - [ ] 示例的加载方式
-  - [ ] 优化返回顶部和跳转窗口的样式
-  - [ ] 发布 vue-fantable 文档
+- [ ] 关注文档的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
-  - [ ] 适配原测试内容
+  - [x] 舍弃 jest 全局 API 使用 vitest api
+  - [ ] 调整适配原测试内容
   - [ ] 添加新的测试
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
   - [ ] setTimeout 优化
   - [ ] 使用 CSS 变量
-  - [ ] 重写 Loading 组件
+  - [x] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
 - [ ] 使用 TS 重构应用
   - [x] 添加 TS 类型支持
@@ -168,7 +165,7 @@ app.mounted('#app')
 - [ ] 最后支持原生（无框架依赖）
   - [ ] 使用 shadow dom 替代
 
-如果没有你想要的的功能，请告诉[我]()
+如果没有你想要的的功能，请告诉[我](https://github.com/fall-zhang/vue-fantable/issues)
 
 ## 支持环境
 
@@ -189,7 +186,7 @@ app.mounted('#app')
 
 ## 讨论组
 
-- [加入 gitter 讨论]()
+- [加入 gitter 讨论](https://github.com/fall-zhang/vue-fantable/issues)
 
 ## License
 
