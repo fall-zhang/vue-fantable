@@ -3,15 +3,11 @@
 */
 import { nextTick } from 'vue'
 export default {
-  mounted(el, binding, vnode) {
-  },
   updated(el, binding, vnode) {
     const value = binding.value
-    console.log(value)
-    if (value) {
-      const { focus, select } = value
-
-      console.log('🚀 ~ vnode.context.$nextTick ~ vnode:', vnode, focus, select)
+    // 如果没有 focus
+    if (value && document.activeElement !== el) {
+      const { focus, select } = el
       nextTick(() => {
         if (focus) {
           el.focus()
