@@ -4,7 +4,7 @@ import { clsName } from '../util/index'
 import { isFunction } from '@P/src/utils/index'
 import { createLocale } from '@P/src/locale/index'
 import VeIcon from '@P/ve-icon/ve-icon.js'
-import { ICON_NAMES } from '../../../src/utils/constant'
+import { ICON_NAMES } from '@P/src/utils/constant'
 
 const t = createLocale(LOCALE_COMP_NAME)
 
@@ -37,10 +37,10 @@ export default {
   },
   methods: {
     /*
-         * @filterConfirm
-         * @desc  filter confirm
-         * @param {Array} val - filter list
-         */
+      * @filterConfirm
+      * @desc  filter confirm
+      * @param {Array} val - filter list
+    */
     filterConfirm() {
       const { filterConfirm } = this.column.filter
       filterConfirm && filterConfirm(this.filterList)
@@ -63,24 +63,21 @@ export default {
     },
   },
   render(h) {
-    const { filterList, isMultiple, maxHeight, beforeVisibleChange } =
-            this.column.filter
-    // const onHeaderFilterConfirm = EMIT_EVENTS.HEADER_FILTER_CONFIRM
-    // const onHeaderFilterReset = EMIT_EVENTS.HEADER_FILTER_RESET
-    const onHeaderFilterConfirm = 'onFilterConfirm'
-    const onHeaderFilterReset = 'onFilterReset'
+    const { filterList, isMultiple, maxHeight, beforeVisibleChange } = this.column.filter
     const compProps = {
-      value: filterList,
+      modelValue: filterList,
       showOperation: true,
       isMultiple,
       showRadio: true, // when single selection
       confirmFilterText: t('confirmFilter'),
       resetFilterText: t('resetFilter'),
       beforeVisibleChange,
-      [onHeaderFilterConfirm]: this.filterConfirm,
-      [onHeaderFilterReset]: this.filterReset,
+      // EMIT_EVENTS.HEADER_FILTER_CONFIRM
+      onFilterConfirm: this.filterConfirm,
+      // EMIT_EVENTS.HEADER_FILTER_RESET
+      onFilterReset: this.filterReset,
       // v-model
-      onInput: (val) => {
+      'onUpdate:modelValue': (val) => {
         this.filterList = val
       },
     }
