@@ -222,4 +222,4 @@ Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you 
 ```
 
 :::anchor Browser Compatible
-Support modern browser and ie10 and above
+Support all of modern browser

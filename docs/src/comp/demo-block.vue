@@ -1,13 +1,10 @@
 <template>
   <div class="demo-block" :class="[{ hover: hovering }]" @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <!-- <vue-lazy-container class="source-code-container" tag-name="div" @change="visibilityChange"> -->
     <div class="source-code-container" @change="visibilityChange">
       <div class="source">
         <slot name="source"></slot>
       </div>
     </div>
-    <!-- <div v-else class="source-empty">Loading...</div> -->
-    <!-- </vue-lazy-container> -->
     <div v-if="$slots.default" class="description">
       <div class="title-container">
         <span class="title">{{ demoLangInfo.description }}</span>
