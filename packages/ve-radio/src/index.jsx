@@ -1,10 +1,10 @@
 import { clsName } from './util/index'
-import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
+import { COMPS_NAME } from './util/constant'
 import { hasValue } from '@P/src/utils/mini-util'
 export default {
   name: COMPS_NAME.VE_RADIO,
   props: {
-    // 当前checkbox 选中状态,实现 v-model
+    // 当前 checkbox 选中状态,实现 v-model
     modelValue: {
       type: [String, Number, Boolean],
       default: null,

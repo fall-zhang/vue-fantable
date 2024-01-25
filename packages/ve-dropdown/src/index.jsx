@@ -243,7 +243,7 @@ export default {
   methods: {
     // 初始化
     initModel() {
-      this.internalOptions = Object.assign([], this.value)
+      this.internalOptions = Object.assign([], this.modelValue)
 
       if (this.isInput) {
         this.setInputValue()

@@ -2,7 +2,7 @@
     <vue-anchor label="Icon Collection">
         <div class="icon-container">
             <div
-                v-for="iconName in Object.values(this.icons)"
+                v-for="iconName in Object.values(icons)"
                 :key="iconName"
                 class="icon-item"
             >
