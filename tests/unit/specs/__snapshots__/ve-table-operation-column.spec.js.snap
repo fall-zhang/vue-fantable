@@ -1,4 +1,232 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`veTable operation column > render 1`] = `
+"<div class="vue-table-root">
+  <div style="width: 100%;" class="fan-table fan-table-border-around">
+    <div class="fan-table-container fan-table-enable-cell-selection" style="height: 0px;">
+      <!---->
+      <div class="fan-table-content-wrapper">
+        <table class="fan-table-content fan-table-border-x">
+          <colgroup>
+            <col style="width: 50px;">
+            <col style="width: 20%;">
+            <col style="width: 20%;">
+            <col style="width: 30%;">
+            <col style="width: 30%;">
+          </colgroup>
+          <thead class="fan-table-fixed-header fan-table-header" tableviewportwidth="0">
+            <tr class="fan-table-header-tr">
+              <th style="text-align: center; left: 0px; top: 0px;" class="fan-table-header-th fan-table-fixed-left fan-table-last-left-fixed-column" rowspan="1" colspan="1">
+                <!---->#
+                <!---->
+                <!---->
+                <!---->
+              </th>
+              <th style="text-align: left; top: 0px;" class="fan-table-header-th" rowspan="1" colspan="1">
+                <!---->Name
+                <!---->
+                <!---->
+                <!---->
+              </th>
+              <th style="text-align: left; top: 0px;" class="fan-table-header-th" rowspan="1" colspan="1">
+                <!---->Date
+                <!---->
+                <!---->
+                <!---->
+              </th>
+              <th style="text-align: center; top: 0px;" class="fan-table-header-th" rowspan="1" colspan="1">
+                <!---->Hobby
+                <!---->
+                <!---->
+                <!---->
+              </th>
+              <th style="text-align: center; top: 0px;" class="fan-table-header-th fan-table-last-column" rowspan="1" colspan="1">
+                <!---->Address
+                <!---->
+                <!---->
+                <!---->
+              </th>
+            </tr>
+          </thead>
+          <tbody class="fan-table-body fan-table-stripe fan-table-row-highlight">
+            <tr style="height: 0px;">
+              <td style="padding: 0px; border: 0px; height: 0px;"></td>
+              <td style="padding: 0px; border: 0px; height: 0px;"></td>
+              <td style="padding: 0px; border: 0px; height: 0px;"></td>
+              <td style="padding: 0px; border: 0px; height: 0px;"></td>
+              <td style="padding: 0px; border: 0px; height: 0px;"></td>
+            </tr>
+            <tr class="fan-table-body-tr" row-key="1">
+              <td class="fan-table-body-td fan-table-fixed-left fan-table-operation-col fan-table-last-left-fixed-column" style="text-align: center; left: 0px;" rowspan="1" colspan="1" col-key="index">
+                <!---->
+                <!---->
+                <!---->1
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="a">
+                <!---->
+                <!---->
+                <!---->John
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="b">
+                <!---->
+                <!---->
+                <!---->1900-05-20
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="c">
+                <!---->
+                <!---->
+                <!---->coding
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="d">
+                <!---->
+                <!---->
+                <!---->No.1 Century Avenue, Shanghai
+              </td>
+            </tr>
+            <!---->
+            <tr class="fan-table-body-tr" row-key="2">
+              <td class="fan-table-body-td fan-table-fixed-left fan-table-operation-col fan-table-last-left-fixed-column" style="text-align: center; left: 0px;" rowspan="1" colspan="1" col-key="index">
+                <!---->
+                <!---->
+                <!---->2
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="a">
+                <!---->
+                <!---->
+                <!---->Dickerson
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="b">
+                <!---->
+                <!---->
+                <!---->1910-06-20
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="c">
+                <!---->
+                <!---->
+                <!---->coding
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="d">
+                <!---->
+                <!---->
+                <!---->No.1 Century Avenue, Beijing
+              </td>
+            </tr>
+            <!---->
+            <tr class="fan-table-body-tr" row-key="3">
+              <td class="fan-table-body-td fan-table-fixed-left fan-table-operation-col fan-table-last-left-fixed-column" style="text-align: center; left: 0px;" rowspan="1" colspan="1" col-key="index">
+                <!---->
+                <!---->
+                <!---->3
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="a">
+                <!---->
+                <!---->
+                <!---->Larsen
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="b">
+                <!---->
+                <!---->
+                <!---->2000-07-20
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="c">
+                <!---->
+                <!---->
+                <!---->coding and coding repeat
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="d">
+                <!---->
+                <!---->
+                <!---->No.1 Century Avenue, Chongqing
+              </td>
+            </tr>
+            <!---->
+            <tr class="fan-table-body-tr" row-key="4">
+              <td class="fan-table-body-td fan-table-fixed-left fan-table-operation-col fan-table-last-left-fixed-column" style="text-align: center; left: 0px;" rowspan="1" colspan="1" col-key="index">
+                <!---->
+                <!---->
+                <!---->4
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="a">
+                <!---->
+                <!---->
+                <!---->Geneva
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="b">
+                <!---->
+                <!---->
+                <!---->2010-08-20
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="c">
+                <!---->
+                <!---->
+                <!---->coding and coding repeat
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="d">
+                <!---->
+                <!---->
+                <!---->No.1 Century Avenue, Xiamen
+              </td>
+            </tr>
+            <!---->
+            <tr class="fan-table-body-tr" row-key="5">
+              <td class="fan-table-body-td fan-table-fixed-left fan-table-operation-col fan-table-last-left-fixed-column" style="text-align: center; left: 0px;" rowspan="1" colspan="1" col-key="index">
+                <!---->
+                <!---->
+                <!---->5
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="a">
+                <!---->
+                <!---->
+                <!---->Jami
+              </td>
+              <td class="fan-table-body-td" style="text-align: left;" rowspan="1" colspan="1" col-key="b">
+                <!---->
+                <!---->
+                <!---->2020-09-20
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="c">
+                <!---->
+                <!---->
+                <!---->coding and coding repeat
+              </td>
+              <td class="fan-table-body-td" style="text-align: center;" rowspan="1" colspan="1" col-key="d">
+                <!---->
+                <!---->
+                <!---->No.1 Century Avenue, Shenzhen
+              </td>
+            </tr>
+            <!---->
+          </tbody>
+          <tfoot class="fan-table-fixed-footer fan-table-footer"></tfoot>
+        </table>
+        <div class="fan-table-selection-wrapper">
+          <div class="fan-table-selection-fixed-left">
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+          </div>
+          <div class="fan-table-selection-middle">
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+          </div>
+          <div class="fan-table-selection-fixed-right">
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;" class="fan-table-edit-input-container" allrowkeys="1,2,3,4,5"><textarea class="fan-table-edit-input" tabindex="-1"></textarea></div>
+    <!---->
+    <!---->
+  </div>
+</div>"
+`;
 
 exports[`veTable operation column render 1`] = `
 <div class="vue-table-root">
