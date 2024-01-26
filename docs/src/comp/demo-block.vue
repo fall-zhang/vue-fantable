@@ -10,12 +10,14 @@
         <span class="title">{{ demoLangInfo.description }}</span>
       </div>
       <div class="content">
-        <slot></slot>
+        {{ description }}
+        <!-- <slot></slot> -->
       </div>
     </div>
     <div ref="meta" class="meta">
       <div class="highlight">
-        <slot name="highlight"></slot>
+        <div v-html="htmlAfter"></div>
+        <!-- <slot name="highlight"></slot> -->
       </div>
     </div>
     <div ref="control" class="demo-block-control" :style="{ width: getDemoBlockControlWidth }"
@@ -50,6 +52,18 @@ import CodeSandBoxOnline from '@/comp/online-edit/code-sand-box/index.jsx'
 export default {
   components: { CodeSandBoxOnline },
   mixins: [I18nMixins],
+  props: {
+    description: {
+      require: false,
+      type: String,
+      default: ''
+    },
+    sourceCode: {
+      require: false,
+      type: String,
+      default: ''
+    },
+  },
   data() {
     return {
       onlineExample: {
@@ -68,6 +82,9 @@ export default {
   },
 
   computed: {
+    htmlAfter() {
+      return decodeURIComponent(this.sourceCode)
+    },
     // demo lang info
     demoLangInfo() {
       return locale[this.currentDocLang].demo
@@ -177,13 +194,13 @@ export default {
       const { top, bottom, left } =
         this.$refs.meta.getBoundingClientRect()
       // 44px 为自身高度
-      this.fixedControl =
-        bottom > document.documentElement.clientHeight &&
-        top + 44 <= document.documentElement.clientHeight
+      // this.fixedControl =
+      //   bottom > document.documentElement.clientHeight &&
+      //   top + 44 <= document.documentElement.clientHeight
 
-      this.$refs.control.style.left = this.fixedControl
-        ? `${left}px`
-        : '0'
+      // this.$refs.control.style.left = this.fixedControl
+      //   ? `${left}px`
+      //   : '0'
     },
 
     removeScrollHandler() {

@@ -2,9 +2,13 @@ import Markdown from 'unplugin-vue-markdown/vite'
 import MarkdownItAnchor from 'markdown-it-anchor'
 import MarkdownItPrism from 'markdown-it-prism'
 import MarkdownItContainer from 'markdown-it-container'
+import { resolve as pathResolve } from 'node:path'
 import fs from 'node:fs'
-import mdIt from './index'
+import { highlight } from './highlight'
+import { fileURLToPath } from 'node:url'
 
+// https://vitejs.dev/config/
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default function MarkdownPlugin() {
   return Markdown({
     // default options passed to markdown-it
@@ -47,18 +51,16 @@ export default function MarkdownPlugin() {
             const content = tokens[idx + 1].type === 'fence'
               ? tokens[idx + 1].content
               : ''
+            // 使用文件路径替代代码内容，且多个语言统一
             // const sourceFileToken = tokens[idx + 2]
             // let source = ''
             // if (sourceFileToken.type === 'inline') {
             //   source = fs.readFileSync(
-            //     path.resolve(docRoot, 'examples', `${sourceFile}.vue`),
+            //     pathResolve(__dirname, '../src/docs/example', `${sourceFile}.vue`),
             //     'utf-8'
             //   )
             // }
-            const result = mdIt(md, content)
-            return `<demo-block>
-                    ${description ? `<div>${md.render(description)}</div>` : ''}
-                    <!-- ${result} -->
+            return `<demo-block description="${description}" sourceCode="${encodeURIComponent(highlight(content, 'vue'))}">
                     `
           }
           return '</demo-block>'
