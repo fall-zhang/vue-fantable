@@ -6,7 +6,7 @@
 <template>
     <div>
         Open F12 to view the console information
-        <ve-table
+        <fan-table
             border-y
             fixed-header
             :max-height="300"

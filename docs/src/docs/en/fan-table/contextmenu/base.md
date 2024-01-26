@@ -7,7 +7,7 @@ Right click the table area to view the effect
 ```html
 <template>
     <div>
-        <ve-table
+        <fan-table
             :max-height="350"
             :scroll-width="1600"
             row-key-field-name="rowKey"

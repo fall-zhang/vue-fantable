@@ -10,7 +10,7 @@
 
 ```html
 <template>
-    <ve-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
+    <fan-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
 </template>
 
 <script>

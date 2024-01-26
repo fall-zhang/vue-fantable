@@ -1,12 +1,12 @@
 <vue-anchor label="用法"/>
 
-引入 `VeTable`
+引入 `FanTable`
 
 ```javascript
 import Vue from "vue";
-import { VeTable } from "vue-fantable";
+import { FanTable } from "vue-fantable";
 
-Vue.use(VeTable);
+Vue.use(FanTable);
 ```
 
 使用

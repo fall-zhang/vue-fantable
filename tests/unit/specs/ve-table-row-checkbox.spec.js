@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 globalThis.ResizeObserver = class ResizeObserver {
@@ -110,10 +110,10 @@ describe('veTable row checkbox', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-header-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-header-tr .ve-checkbox').exists()).toBe(
       true,
     )
-    expect(wrapper.find('.ve-table-body-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-body-tr .ve-checkbox').exists()).toBe(
       true,
     )
   })
@@ -135,7 +135,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -143,7 +143,7 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(3)
   })
@@ -168,7 +168,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -176,21 +176,21 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(4)
 
     // disable checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
       ).length,
     ).toBe(1)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -217,7 +217,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(false)
@@ -225,21 +225,21 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(0)
 
     // disable checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
       ).length,
     ).toBe(0)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -265,8 +265,8 @@ describe('veTable row checkbox', () => {
 
     // select all
     wrapper
-      .findAll('.ve-table-header-tr')[0]
-      .findAll('.ve-table-header-th')[0]
+      .findAll('.fan-table-header-tr')[0]
+      .findAll('.fan-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -275,7 +275,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -283,14 +283,14 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(3)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -298,7 +298,7 @@ describe('veTable row checkbox', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[4]
+        .findAll('.fan-table-body-tr')[4]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -323,14 +323,14 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(1)
 
@@ -344,7 +344,7 @@ describe('veTable row checkbox', () => {
 
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(2)
   })
@@ -364,7 +364,7 @@ describe('veTable row checkbox', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-header-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-header-tr .ve-checkbox').exists()).toBe(
       false,
     )
   })
@@ -390,8 +390,8 @@ describe('veTable row checkbox', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -418,8 +418,8 @@ describe('veTable row checkbox', () => {
     })
 
     wrapper
-      .find('.ve-table-header-tr')
-      .findAll('.ve-table-header-th')[0]
+      .find('.fan-table-header-tr')
+      .findAll('.fan-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 

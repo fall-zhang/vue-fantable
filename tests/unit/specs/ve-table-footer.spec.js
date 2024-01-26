@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable footer', () => {
   const TABLE_DATA = [
@@ -113,8 +114,8 @@ describe('veTable footer', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')[0]
-        .findAll('.ve-table-footer-td .text-bold')
+        .findAll('.fan-table-footer-tr')[0]
+        .findAll('.fan-table-footer-td .text-bold')
         .exists(),
     ).toBe(true)
   })
@@ -142,16 +143,16 @@ describe('veTable footer', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')[0]
-        .findAll('.ve-table-footer-td')[3]
+        .findAll('.fan-table-footer-tr')[0]
+        .findAll('.fan-table-footer-td')[3]
         .find('.table-footer-cell-class1')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-footer-tr')[1]
-        .findAll('.ve-table-footer-td')[1]
+        .findAll('.fan-table-footer-tr')[1]
+        .findAll('.fan-table-footer-td')[1]
         .find('.table-footer-cell-class2')
         .exists(),
     ).toBe(true)
@@ -172,9 +173,8 @@ describe('veTable footer', () => {
                   rowspan: 1,
                   colspan: 2,
                 }
-              }
-              // does not need to be rendered
-              else if (column.field === 'hobby') {
+              } else if (column.field === 'hobby') {
+                // does not need to be rendered
                 return {
                   rowspan: 0,
                   colspan: 0,
@@ -187,8 +187,8 @@ describe('veTable footer', () => {
     })
 
     const tdEl = wrapper
-      .findAll('.ve-table-footer-tr')[0]
-      .findAll('.ve-table-footer-td')[1]
+      .findAll('.fan-table-footer-tr')[0]
+      .findAll('.fan-table-footer-td')[1]
 
     expect(tdEl.attributes('rowspan')).toBe('1')
 
@@ -196,11 +196,11 @@ describe('veTable footer', () => {
   })
 
   it('custom row events', () => {
-    const mockClickFn = jest.fn()
-    const mockDblclickFn = jest.fn()
-    const mockContextmenuFn = jest.fn()
-    const mockMouseenterFn = jest.fn()
-    const mockMouseleaveFn = jest.fn()
+    const mockClickFn = vi.fn()
+    const mockDblclickFn = vi.fn()
+    const mockContextmenuFn = vi.fn()
+    const mockMouseenterFn = vi.fn()
+    const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -232,7 +232,7 @@ describe('veTable footer', () => {
       },
     })
 
-    const firstTrEl = wrapper.findAll('.ve-table-footer-tr')[0]
+    const firstTrEl = wrapper.findAll('.fan-table-footer-tr')[0]
 
     firstTrEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -271,11 +271,11 @@ describe('veTable footer', () => {
   })
 
   it('custom cell events', () => {
-    const mockClickFn = jest.fn()
-    const mockDblclickFn = jest.fn()
-    const mockContextmenuFn = jest.fn()
-    const mockMouseenterFn = jest.fn()
-    const mockMouseleaveFn = jest.fn()
+    const mockClickFn = vi.fn()
+    const mockDblclickFn = vi.fn()
+    const mockContextmenuFn = vi.fn()
+    const mockMouseenterFn = vi.fn()
+    const mockMouseleaveFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -308,8 +308,8 @@ describe('veTable footer', () => {
     })
 
     const firstTrTdEl = wrapper
-      .findAll('.ve-table-footer-tr')[0]
-      .findAll('.ve-table-footer-td')[0]
+      .findAll('.fan-table-footer-tr')[0]
+      .findAll('.fan-table-footer-td')[0]
 
     firstTrTdEl.trigger('click')
     expect(mockClickFn).toBeCalledWith(
@@ -364,7 +364,7 @@ describe('veTable footer', () => {
     })
 
     expect(
-      wrapper.findAll('.ve-table-fixed-footer .ve-table-footer').exists(),
+      wrapper.findAll('.fan-table-fixed-footer .fan-table-footer').exists(),
     ).toBe(false)
   })
 
@@ -408,13 +408,13 @@ describe('veTable footer', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-header-th.ve-table-fixed-left').exists(),
+      wrapper.find('.fan-table-header-th.fan-table-fixed-left').exists(),
     ).toBe(true)
 
     expect(
       wrapper
         .find(
-          '.ve-table-body-td.ve-table-fixed-left.ve-table-last-left-fixed-column',
+          '.fan-table-body-td.fan-table-fixed-left.fan-table-last-left-fixed-column',
         )
         .exists(),
     ).toBe(true)
@@ -422,7 +422,7 @@ describe('veTable footer', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-body-td.ve-table-fixed-right.ve-table-first-right-fixed-column',
+          '.fan-table-body-td.fan-table-fixed-right.fan-table-first-right-fixed-column',
         )
         .exists(),
     ).toBe(true)

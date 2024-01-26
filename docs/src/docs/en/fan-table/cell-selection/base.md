@@ -6,7 +6,7 @@ You can try clicking on the header, line number column, etc. to see the effect.
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         fixed-header
         :scroll-width="1600"
         :max-height="380"

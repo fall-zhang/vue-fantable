@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <ve-table
+        <fan-table
             :max-height="350"
             :columns="columns"
             :table-data="tableData"

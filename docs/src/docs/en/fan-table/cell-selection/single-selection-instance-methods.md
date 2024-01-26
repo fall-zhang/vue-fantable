@@ -13,7 +13,7 @@
         </button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             ref="tableRef"
             fixed-header
             :scroll-width="1600"

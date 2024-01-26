@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         style="width:900px"
         :scroll-width="1200"
         border-y

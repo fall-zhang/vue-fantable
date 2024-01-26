@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
@@ -97,15 +97,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -114,15 +114,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
+      WRAPPER.findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code right event', async () => {
@@ -139,15 +139,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -159,15 +159,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[3]
+      WRAPPER.findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[3]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code down event', async () => {
@@ -184,15 +184,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -201,15 +201,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[3]
-        .findAll('.ve-table-body-td')[2]
+      WRAPPER.findAll('.fan-table-body-tr')[3]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code left event', async () => {
@@ -226,15 +226,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -243,15 +243,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[1]
+      WRAPPER.findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code enter event', async () => {
@@ -268,15 +268,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -285,15 +285,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[3]
-        .findAll('.ve-table-body-td')[2]
+      WRAPPER.findAll('.fan-table-body-tr')[3]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code shift+enter event', async () => {
@@ -310,15 +310,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -330,15 +330,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
+      WRAPPER.findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code tab event', async () => {
@@ -355,15 +355,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -372,15 +372,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[3]
+      WRAPPER.findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[3]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('key code shift+tab event', async () => {
@@ -397,15 +397,15 @@ describe('veTable cell selection', () => {
     })
     const mockFn = vi.fn()
 
-    expect(WRAPPER.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(WRAPPER.find('.fan-table-cell-selection').exists()).toBe(false)
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown')
 
     await later()
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     document.addEventListener('keydown', mockFn)
     document.dispatchEvent(
@@ -417,15 +417,15 @@ describe('veTable cell selection', () => {
 
     await later()
     expect(mockFn).toBeCalled()
-    expect(firstTrTdEl.find('.ve-table-cell-selection').exists()).toBe(
+    expect(firstTrTdEl.find('.fan-table-cell-selection').exists()).toBe(
       false,
     )
 
     expect(
-      WRAPPER.findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[1]
+      WRAPPER.findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
   })
 
   it('cell selection effect', async () => {
@@ -442,16 +442,16 @@ describe('veTable cell selection', () => {
     })
 
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(false)
 
     firstCell.trigger('mousedown')
 
     await later()
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(true)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(true)
   })
 
   it('disable cell selection', async () => {
@@ -468,16 +468,16 @@ describe('veTable cell selection', () => {
     })
 
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(false)
 
     firstCell.trigger('mousedown')
 
     await later()
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(false)
   })
 
   // table clickoutside
@@ -518,22 +518,22 @@ describe('veTable cell selection', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     // set cell selection
     firstCell.trigger('mousedown')
 
     await later()
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(true)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(true)
 
     // click outside
     wrapper.find('#outsideButton').trigger('click')
 
     await later()
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(false)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(false)
   })
 
   it('table instance: setCellSelection method', async () => {
@@ -550,10 +550,10 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(selectionTd.classes()).toContain('ve-table-cell-selection')
+    expect(selectionTd.classes()).toContain('fan-table-cell-selection')
   })
 
   it('table instance: setRangeCellSelection method', async () => {
@@ -576,10 +576,10 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(selectionTd.classes()).toContain('ve-table-cell-selection')
+    expect(selectionTd.classes()).toContain('fan-table-cell-selection')
     expect(wrapper.vm.cellSelectionRangeData).toEqual({
       bottomRowKey: '5',
       leftColKey: 'a',
@@ -629,10 +629,10 @@ describe('veTable cell selection', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(selectionTd.classes()).toContain('ve-table-cell-selection')
+    expect(selectionTd.classes()).toContain('fan-table-cell-selection')
     expect(wrapper.vm.cellSelectionRangeData).toEqual({
       bottomRowKey: '5',
       leftColKey: 'a',
@@ -766,18 +766,18 @@ describe('veTable cell selection', () => {
 
         await later();
 
-        expect(wrapper.find(".ve-table-cell-selection").exists()).toBe(false);
+        expect(wrapper.find(".fan-table-cell-selection").exists()).toBe(false);
 
         const firstTrTdEl = wrapper
-            .findAll(".ve-table-body-tr")
+            .findAll(".fan-table-body-tr")
             .at(0)
-            .findAll(".ve-table-body-td")
+            .findAll(".fan-table-body-td")
             .at(2);
 
         firstTrTdEl.trigger("click");
 
         await later(3000);
-        expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+        expect(firstTrTdEl.classes()).toContain("fan-table-cell-selection");
 
         document.addEventListener("keydown", mockFn);
         document.dispatchEvent(
@@ -786,7 +786,7 @@ describe('veTable cell selection', () => {
 
         await later();
         expect(mockFn).toBeCalled();
-        expect(firstTrTdEl.find(".ve-table-cell-selection").exists()).toBe(
+        expect(firstTrTdEl.find(".fan-table-cell-selection").exists()).toBe(
             false
         );
     }); */

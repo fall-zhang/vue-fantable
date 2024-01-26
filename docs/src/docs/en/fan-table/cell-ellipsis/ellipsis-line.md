@@ -6,7 +6,7 @@ At present, this function only supports browser with [-webkit-line-clamp attribu
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         rowKeyFieldName="rowKey"
         :fixed-header="true"
         :columns="columns"

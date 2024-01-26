@@ -6,7 +6,7 @@
 <template>
     <div>
         <div>current selected row keys:{{selectedRowKeysCollection}}</div>
-        <ve-table
+        <fan-table
             :columns="columns"
             :table-data="currentPageData"
             :checkbox-option="checkboxOption"

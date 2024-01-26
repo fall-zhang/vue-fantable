@@ -17,7 +17,7 @@ When there are fixed columns, you can use this method to display the specified c
                 Scroll to col6 column
             </button>
         </div>
-        <ve-table
+        <fan-table
             ref="tableRef"
             style="width:1000px"
             :scroll-width="1600"

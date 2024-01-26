@@ -14,7 +14,7 @@
         </el-radio-group>
         <br />
         <br />
-        <ve-table
+        <fan-table
             :style="{'word-break':wordBreak}"
             :columns="columns"
             :table-data="tableData"

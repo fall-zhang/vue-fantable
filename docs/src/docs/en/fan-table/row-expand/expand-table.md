@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         style="width:100%"
         :columns="columns"
         :table-data="tableData"
@@ -20,7 +20,7 @@
         template: `
         <div class="child-table-comp">
             <span style="font-weight:bold;">Table Name:{{row.name}}</span>
-            <ve-table
+            <fan-table
               style="width:100%"
               :columns="columns"
               :table-data="tableData"

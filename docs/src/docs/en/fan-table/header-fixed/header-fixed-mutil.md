@@ -2,7 +2,7 @@
 
 ```html
 <template>
-    <ve-table fixed-header :columns="columns" :table-data="tableData" />
+    <fan-table fixed-header :columns="columns" :table-data="tableData" />
 </template>
 
 <script>

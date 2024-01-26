@@ -2,7 +2,7 @@
   <div class="api-tpl">
     <vue-anchor :is-edit="false" :label="getAnchor" />
     <div class="api-tpl-desc">{{ desc }}</div>
-    <ve-table class="tpl-table" :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
+    <fan-table class="tpl-table" :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
       :border-y="false" row-key-field-name="__key__" :expand-option="expandOption"
       :cell-selection-option="cellSelectionOption" />
   </div>

@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         fixed-header
         border-y
         :columns="columns"

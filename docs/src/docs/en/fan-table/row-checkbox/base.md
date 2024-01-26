@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <ve-table
+        <fan-table
             style="width:100%"
             :columns="columns"
             :table-data="tableData"

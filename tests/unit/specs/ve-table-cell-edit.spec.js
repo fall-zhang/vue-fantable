@@ -1,10 +1,11 @@
 import { mount } from '@vue/test-utils'
 import { cloneDeep } from '@P/src/utils/index'
-import veTable from '@P/ve-table/ve-table'
-import CellEditor from '@P/ve-table/src/editor/index.jsx'
+import veTable from '@P/fan-table/fan-table'
+import CellEditor from '@P/fan-table/src/editor/index.jsx'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
-import { HOOKS_NAME } from '@P/ve-table/src/util/constant'
+import { HOOKS_NAME } from '@P/fan-table/src/util/constant'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable cell edit', () => {
   const TABLE_DATA = [
@@ -110,13 +111,13 @@ describe('veTable cell edit', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     // set cell selection
     tdEl.trigger('click')
@@ -124,7 +125,7 @@ describe('veTable cell edit', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-is-cell-editing').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-is-cell-editing').exists()).toBe(true)
   })
 
   it('double click edit', async () => {
@@ -141,13 +142,13 @@ describe('veTable cell edit', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     // set cell selection
     tdEl.trigger('dblclick')
@@ -160,18 +161,18 @@ describe('veTable cell edit', () => {
     expect(wrapper.vm.editingCell.colKey).toEqual('date')
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
   })
 
@@ -189,13 +190,13 @@ describe('veTable cell edit', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
 
     // 1910-06-20
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
 
     tdEl.trigger('mousedown')
 
@@ -207,24 +208,24 @@ describe('veTable cell edit', () => {
     await later()
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
   })
 
   it('beforeStartCellEditing callback', async () => {
-    const beforeStartCellEditingMockFn = jest.fn()
-    const beforeCellValueChangeMockFn = jest.fn()
+    const beforeStartCellEditingMockFn = vi.fn()
+    const beforeCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -296,8 +297,8 @@ describe('veTable cell edit', () => {
   })
 
   it('beforeCellValueChange and afterCellValueChange callback', async () => {
-    const beforeCellValueChangeMockFn = jest.fn()
-    const afterCellValueChangeMockFn = jest.fn()
+    const beforeCellValueChangeMockFn = vi.fn()
+    const afterCellValueChangeMockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -418,7 +419,7 @@ describe('veTable cell edit', () => {
   })
 
   it('afterCellValueChange callback function by dblclick', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -436,15 +437,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -452,8 +453,8 @@ describe('veTable cell edit', () => {
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -485,7 +486,7 @@ describe('veTable cell edit', () => {
   })
 
   it('afterCellValueChange callback function by input letter directly', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -503,8 +504,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
 
     firstCell.trigger('mousedown')
 
@@ -516,7 +517,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -524,8 +525,8 @@ describe('veTable cell edit', () => {
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -557,7 +558,7 @@ describe('veTable cell edit', () => {
   })
 
   it('startEditingCell instance method', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -581,13 +582,13 @@ describe('veTable cell edit', () => {
 
     await later()
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
 
     // second cell
     const secondCell = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[1]
 
     secondCell.trigger('mousedown')
 
@@ -619,7 +620,7 @@ describe('veTable cell edit', () => {
   })
 
   it('stopEditingCell instance method', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -644,7 +645,7 @@ describe('veTable cell edit', () => {
     await later()
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
 
     wrapper.vm.stopEditingCell()
@@ -678,7 +679,7 @@ describe('veTable cell edit', () => {
 
   // 键盘上键结合文本直接输入
   it('key code arrowUp event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -696,8 +697,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -709,7 +710,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -723,10 +724,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[0]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[0]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(
@@ -758,7 +759,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowUp event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -776,15 +777,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -798,16 +799,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -840,7 +841,7 @@ describe('veTable cell edit', () => {
 
   // 键盘右键结合文本直接输入
   it('key code arrowRight event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -858,8 +859,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -871,7 +872,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -885,10 +886,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(
@@ -920,7 +921,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowRight event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -938,15 +939,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -960,16 +961,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1002,7 +1003,7 @@ describe('veTable cell edit', () => {
 
   // 键盘下键结合文本直接输入
   it('key code arrowDown event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1020,8 +1021,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -1033,7 +1034,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1047,10 +1048,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(
@@ -1082,7 +1083,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowDown event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1100,15 +1101,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1122,16 +1123,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1164,7 +1165,7 @@ describe('veTable cell edit', () => {
 
   // 键盘左键结合文本直接输入
   it('key code arrowLeft event by input directly edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1182,8 +1183,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('mousedown')
 
@@ -1195,7 +1196,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1209,10 +1210,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[0]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[0]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(
@@ -1244,7 +1245,7 @@ describe('veTable cell edit', () => {
     双击进入编辑状态不允许移动活动单元格
     */
   it('key code arrowLeft event by dblclick edit', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1262,15 +1263,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1284,16 +1285,16 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
@@ -1326,7 +1327,7 @@ describe('veTable cell edit', () => {
 
   // `Enter`键停止编辑状态并键向下移动活动单元格
   it('key code enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1344,15 +1345,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1366,10 +1367,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[2]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[2]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
 
@@ -1399,7 +1400,7 @@ describe('veTable cell edit', () => {
 
   //  `Ctrl + Enter`键停止编辑状态，并停留在当前单元格
   it('key code ctrl+enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1417,15 +1418,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1442,10 +1443,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
 
@@ -1475,7 +1476,7 @@ describe('veTable cell edit', () => {
 
   // `Tab`键停止编辑状态并向右移动活动单元格
   it('key code tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1493,15 +1494,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1515,10 +1516,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
 
@@ -1548,7 +1549,7 @@ describe('veTable cell edit', () => {
 
   // `Shift+Tab`键停止编辑状态并向左移动活动单元格
   it('key code shift+tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1566,15 +1567,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1591,10 +1592,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[0]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[0]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
 
@@ -1624,7 +1625,7 @@ describe('veTable cell edit', () => {
 
   // `F2`键活动单元格进入编辑状态
   it('key code shift+tab event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1642,8 +1643,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
       .trigger('mousedown')
 
     document.dispatchEvent(
@@ -1652,25 +1653,25 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
     await later()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).toHaveBeenCalled()
 
@@ -1700,7 +1701,7 @@ describe('veTable cell edit', () => {
 
   // `Alt + Enter`键单元格内文本换行
   it('key code alt+enter event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1718,15 +1719,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1742,8 +1743,8 @@ describe('veTable cell edit', () => {
     await later()
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     expect(mockFn).toHaveBeenCalled()
@@ -1774,7 +1775,7 @@ describe('veTable cell edit', () => {
 
   // table clickoutside
   it('table clickoutside width cell editing', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const ParentComp = {
       template: `
@@ -1816,8 +1817,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     // set cell selection
     firstCell.trigger('dblclick')
@@ -1825,7 +1826,7 @@ describe('veTable cell edit', () => {
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
     textInput.setValue('AAA')
 
@@ -1837,7 +1838,7 @@ describe('veTable cell edit', () => {
     await later()
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(false)
 
     expect(mockFn).toHaveBeenCalled()
@@ -1868,7 +1869,7 @@ describe('veTable cell edit', () => {
 
   // table clickoutside
   it('table cell focus', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const ParentComp = {
       template: `
@@ -1912,8 +1913,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     expect(cellEditor.vm.isEditCellFocus).toBe(false)
 
@@ -1946,22 +1947,22 @@ describe('veTable cell edit', () => {
 
     // address column
     const tdEl = wrapper
-      .findAll('.ve-table-body-tr')[3]
-      .findAll('.ve-table-body-td')[3]
+      .findAll('.fan-table-body-tr')[3]
+      .findAll('.fan-table-body-td')[3]
 
     // set cell selection
     tdEl.trigger('dblclick')
 
     await later()
 
-    expect(wrapper.find('.ve-table-is-cell-editing').exists()).toBe(false)
+    expect(wrapper.find('.fan-table-is-cell-editing').exists()).toBe(false)
   })
 
   /*
     编辑状态的输入框被点击后不允许移动活动单元格
     */
   it('cell editing click', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount(veTable, {
       props: {
@@ -1979,15 +1980,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
     await later()
 
     const textInput = wrapper.find(
-      '.ve-table-edit-input-container-show .ve-table-edit-input',
+      '.fan-table-edit-input-container-show .fan-table-edit-input',
     )
 
     textInput.trigger('mousedown')
@@ -2002,10 +2003,10 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[1]
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[1]
         .classes(),
-    ).toContain('ve-table-cell-selection')
+    ).toContain('fan-table-cell-selection')
 
     expect(mockFn).not.toHaveBeenCalled()
   })
@@ -2014,6 +2015,7 @@ describe('veTable cell edit', () => {
     不可编辑文本框双击允许移动单元格
     */
   it('normal cell dblclick move active cell', async () => {
+    const mockFn = vi.fn()
     const wrapper = mount(veTable, {
       props: {
         columns: COLUMNS,
@@ -2030,15 +2032,15 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[3]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[3]
 
     firstCell.trigger('mousedown')
     firstCell.trigger('dblclick')
 
     await later(100)
 
-    expect(firstCell.find('.ve-table-cell-selection').exists()).toBe(true)
+    expect(firstCell.find('.fan-table-cell-selection').exists()).toBe(true)
 
     document.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -2050,9 +2052,9 @@ describe('veTable cell edit', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .findAll('.ve-table-body-td')[2]
-        .find('.ve-table-cell-selection')
+        .findAll('.fan-table-body-tr')[1]
+        .findAll('.fan-table-body-td')[2]
+        .find('.fan-table-cell-selection')
         .exists(),
     ).toBe(true)
   })
@@ -2072,8 +2074,8 @@ describe('veTable cell edit', () => {
 
     // td
     const firstCell = wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[1]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[1]
 
     firstCell.trigger('dblclick')
 
@@ -2087,16 +2089,16 @@ describe('veTable cell edit', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .findAll('.ve-table-body-td')[2]
+      .findAll('.fan-table-body-tr')[1]
+      .findAll('.fan-table-body-td')[2]
       .trigger('mousedown')
 
     expect(
-      wrapper.find('.ve-table-edit-input-container-show').exists(),
+      wrapper.find('.fan-table-edit-input-container-show').exists(),
     ).toBe(true)
   })
 })

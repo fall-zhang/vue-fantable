@@ -44,9 +44,9 @@ import Vue from "vue";
 // 引入样式
 import "vue-fantable/libs/theme-default.css";
 // 引入组件库
-import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable";
+import { FanTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable";
 
-Vue.use(VeTable);
+Vue.use(FanTable);
 Vue.use(VePagination);
 Vue.use(VeIcon);
 Vue.use(VeLoading);

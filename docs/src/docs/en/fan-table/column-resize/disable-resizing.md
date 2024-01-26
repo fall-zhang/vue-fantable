@@ -6,7 +6,7 @@ Col1, Col2, and Col3 resizing is disabled through `disableResizing`
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         style="width:100%"
         :scroll-width="0"
         :columns="columns"

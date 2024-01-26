@@ -10,7 +10,7 @@
         <button class="button-demo" @click="foldAll()">Fold all</button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             style="width:100%"
             :columns="columns"
             :table-data="tableData"

@@ -6,7 +6,7 @@ The following example hides the hobby and name columns by default
 
 ```html
 <template>
-    <ve-table :columns="columns" :table-data="tableData" :columnHiddenOption="columnHiddenOption" />
+    <fan-table :columns="columns" :table-data="tableData" :columnHiddenOption="columnHiddenOption" />
 </template>
 
 <script>

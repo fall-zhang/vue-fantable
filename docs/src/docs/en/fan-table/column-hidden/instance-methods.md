@@ -21,7 +21,7 @@
         </button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             ref="tableRef"
             border-y
             :columns="columns"

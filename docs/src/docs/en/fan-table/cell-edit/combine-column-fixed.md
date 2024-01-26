@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <ve-table
+        <fan-table
             :scroll-width="1600"
             :max-height="500"
             row-key-field-name="rowKey"

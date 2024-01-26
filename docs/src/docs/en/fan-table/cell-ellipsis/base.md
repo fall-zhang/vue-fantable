@@ -5,7 +5,7 @@ When the default text content exceeds the cell width, it will be displayed as a 
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         rowKeyFieldName="rowKey"
         :fixed-header="true"
         :columns="columns"
