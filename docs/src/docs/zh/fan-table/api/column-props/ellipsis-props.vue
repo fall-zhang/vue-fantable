@@ -9,24 +9,24 @@
     </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl.vue";
-import { db } from "../db";
+import tpl from '@/comp/api-tpl.vue'
+import { db } from '../db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "单元格省略",
-        },
-        desc: {
-            type: String,
-            default: "ellipsis",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: '单元格省略',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'ellipsis',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

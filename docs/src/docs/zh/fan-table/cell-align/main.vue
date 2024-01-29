@@ -6,14 +6,14 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import BasicAlign from "./basic-align.md";
+import Explain from './explain.md'
+import BasicAlign from './basic-align.md'
 
 export default {
-    name: "cell-align",
-    components: {
-        Explain,
-        BasicAlign,
-    },
-};
+  name: 'CellAlign',
+  components: {
+    Explain,
+    BasicAlign,
+  },
+}
 </script>
