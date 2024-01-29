@@ -1,19 +1,13 @@
 <template>
-    <div>
-        <h2>右键菜单</h2>
-        <Explain />
-        <ContextmenuTypes />
-        <Base />
-        <Custom />
-        <API1
-            anchor="API contextmenuHeaderOption"
-            desc="contextmenuHeaderOption header 右键菜单配置"
-        />
-        <API2
-            anchor="API contextmenuBodyOption"
-            desc="contextmenuBodyOption body 右键菜单配置"
-        />
-    </div>
+  <div>
+    <h2>右键菜单</h2>
+    <Explain />
+    <ContextmenuTypes />
+    <Base />
+    <Custom />
+    <API1 anchor="API contextmenuHeaderOption" desc="contextmenuHeaderOption header 右键菜单配置" />
+    <API2 anchor="API contextmenuBodyOption" desc="contextmenuBodyOption body 右键菜单配置" />
+  </div>
 </template>
 <script>
 import Explain from './explain.md'
