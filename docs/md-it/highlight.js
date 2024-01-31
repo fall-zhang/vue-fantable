@@ -18,7 +18,7 @@ function wrap(code, lang) {
   if (lang === 'text') {
     code = escapeHtml(code)
   }
-  return `<pre v-pre><code>${code}</code></pre>`
+  return `<template #code><pre v-pre ><code>${code}</code></pre></template>`
 }
 /**
  *
