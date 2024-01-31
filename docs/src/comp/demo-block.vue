@@ -1,8 +1,13 @@
 <template>
   <div class="demo-block" :class="[{ hover: hovering }]" @mouseenter="hovering = true" @mouseleave="hovering = false">
+    <!-- 默认插槽的内容 -->
+    <!-- <div>
+      <slot></slot>
+    </div> -->
     <div class="source-code-container" @change="visibilityChange">
       <div class="source">
-        <slot name="source"></slot>
+        <component :is="currentComponent"></component>
+        <!-- <slot name="source"></slot> -->
       </div>
     </div>
     <div v-if="$slots.default" class="description">
@@ -11,13 +16,14 @@
       </div>
       <div class="content">
         {{ description }}
-        <!-- <slot></slot> -->
       </div>
     </div>
     <div ref="meta" class="meta">
       <div class="highlight">
-        <div v-html="htmlAfter"></div>
+        <!-- <div v-html="htmlAfter"></div> -->
+        <!-- {{ CurrentComponent }} -->
         <!-- <slot name="highlight"></slot> -->
+        <slot name="code"></slot>
       </div>
     </div>
     <div ref="control" class="demo-block-control" :style="{ width: getDemoBlockControlWidth }"
@@ -40,7 +46,7 @@
   </div>
 </template>
 
-<script type="text/babel">
+<script>
 import { stripScript, stripStyle, stripTemplate } from '@/utils/index'
 // 最外层
 import { version } from '../../../package.json'
@@ -48,12 +54,25 @@ import { version } from '../../../package.json'
 import locale from './locale'
 import I18nMixins from './mixins/i18n-mixins'
 import CodeSandBoxOnline from '@/comp/online-edit/code-sand-box/index.jsx'
+import { defineAsyncComponent } from 'vue'
+const allSource = import.meta.glob('@/docs/example/**/*.vue')
+// for (const path in allSource) {
+//   allSource[path]().then((mod) => {
+//     // console.log(path, mod)
+//     console.log("🚀 ~ allSource:", path, mod)
+//   })
+// }
 
 export default {
   components: { CodeSandBoxOnline },
   mixins: [I18nMixins],
   props: {
     description: {
+      require: false,
+      type: String,
+      default: ''
+    },
+    filePath: {
       require: false,
       type: String,
       default: ''
@@ -82,6 +101,25 @@ export default {
   },
 
   computed: {
+    currentComponent() {
+      let result = null
+      console.log()
+      const key = '/src/docs/example/' + this.filePath + '.vue'
+      if (allSource[key]) {
+        result = defineAsyncComponent(allSource[key])
+      } else {
+        console.error('no file: ', this.filePath)
+      }
+
+      // allSource[]
+      // for (const path in allSource) {
+      //   allSource[path]().then((mod) => {
+      //     // console.log(path, mod)
+      //     console.log("🚀 ~ allSource:", path, mod)
+      //   })
+      // }
+      return result
+    },
     htmlAfter() {
       return decodeURIComponent(this.sourceCode)
     },
@@ -166,7 +204,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      console.log(this.$slots)
+      // console.log(this.$slots)
       const highlight = this.$el.getElementsByClassName('highlight')[0]
       if (this.$el.getElementsByClassName('description').length === 0) {
         highlight.style.width = '100%'
