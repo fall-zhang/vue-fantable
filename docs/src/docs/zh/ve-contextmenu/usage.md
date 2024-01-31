@@ -11,7 +11,7 @@ Vue.use(VeContextmenu);
 
 使用
 
-```javascript
+```vue
 <template>
     <div>
          <div id="contextmenu-target" ref="contextmenuTargetRef">
@@ -26,7 +26,6 @@ export default {
         return {
             eventTarget:"",
             options: [
-              [
                     {
                         label: "menu1",
                         type: "menu1-type",
