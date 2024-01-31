@@ -4,6 +4,6 @@
 
 :::demo 1、通过 `minWidth`设置列拖动的最小宽度<br>2、通过`sizeChange({ column, differWidth, columnWidth })`列拖动变化的回调信息
 
-fan-tanble/column-resize/column-resize
+fan-table/column-resize/column-resize
 
 :::

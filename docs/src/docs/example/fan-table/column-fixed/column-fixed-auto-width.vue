@@ -1,5 +1,5 @@
 <template>
-    <fan-table :scroll-width="1600" border-y :columns="columns" :table-data="tableData" row-key-field-name="rowKey" />
+  <fan-table :scroll-width="1600" border-y :columns="columns" :table-data="tableData" row-key-field-name="rowKey" />
 </template>
 
 <script>
@@ -15,18 +15,8 @@ export default {
         { field: 'col6', key: 'f', title: 'Title6' },
         { field: 'col7', key: 'g', title: 'Title7' },
         { field: 'col8', key: 'h', title: 'Title8' },
-        {
-          field: 'col9',
-          key: 'i',
-          title: 'Title9',
-          fixed: 'right',
-        },
-        {
-          field: 'col10',
-          key: 'j',
-          title: 'Title10',
-          fixed: 'right',
-        },
+        { field: 'col9', key: 'i', title: 'Title9', fixed: 'right', },
+        { field: 'col10', key: 'j', title: 'Title10', fixed: 'right', },
       ],
     }
   },

@@ -2,6 +2,6 @@
 
 :::demo
 
-fan-tanble/clipboard/clipboard-base
+fan-table/clipboard/clipboard-base
 
 :::

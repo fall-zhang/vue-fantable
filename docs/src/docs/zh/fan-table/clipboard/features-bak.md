@@ -2,6 +2,6 @@
 
 :::demo
 
-fan-tanble/clipboard/features-bak
+fan-table/clipboard/features-bak
 
 :::

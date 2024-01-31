@@ -2,6 +2,6 @@
 
 :::demo
 
-fan-tanble/contextmenu/custom-menu
+fan-table/contextmenu/custom-menu
 
 :::

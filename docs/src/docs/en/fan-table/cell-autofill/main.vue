@@ -8,18 +8,18 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import Base from "./base.md";
-import AutofillDirection from "./autofill-direction.md";
-import API from "../api/cell-autofill-option-props";
+import Explain from './explain.md'
+import Base from './base.md'
+import AutofillDirection from './autofill-direction.md'
+import API from '../api/cell-autofill-option-props.vue'
 
 export default {
-    name: "cell-selection",
-    components: {
-        Explain,
-        Base,
-        AutofillDirection,
-        API,
-    },
-};
+  name: 'CellSelection',
+  components: {
+    Explain,
+    Base,
+    AutofillDirection,
+    API,
+  },
+}
 </script>

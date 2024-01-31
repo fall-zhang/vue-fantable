@@ -4,6 +4,6 @@
 
 :::demo 你可以根据需要进行组合使用
 
-fan-tanble/contextmenu/contextmenu-base
+fan-table/contextmenu/contextmenu-base
 
 :::

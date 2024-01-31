@@ -4,6 +4,6 @@
 
 :::demo
 
-fan-tanble/cell-selection/cell-seletion
+fan-table/cell-selection/cell-seletion
 
 :::

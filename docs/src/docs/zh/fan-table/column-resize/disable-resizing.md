@@ -4,6 +4,6 @@
 
 :::demo
 
-fan-tanble/column-resize/disable-resizing
+fan-table/column-resize/disable-resizing
 
 :::

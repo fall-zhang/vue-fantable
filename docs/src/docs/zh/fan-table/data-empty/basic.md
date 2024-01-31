@@ -2,6 +2,6 @@
 
 :::demo
 
-fan-tanble/data-empty/data-empty
+fan-table/data-empty/data-empty
 
 :::
