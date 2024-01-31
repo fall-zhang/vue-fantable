@@ -23,7 +23,7 @@ import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './mixins/i18n-mixins'
 
 export default {
-  name: 'DemoCatalog',
+  name: 'VueCatalog',
   mixins: [I18nMixins],
   props: {
     catalogData: {
