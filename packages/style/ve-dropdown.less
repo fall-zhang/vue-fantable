@@ -18,15 +18,15 @@
   .ve-dropdown-dt-selected {
     position: relative;
     display: block;
-    border: 1px solid @ve-dropdown-border-color;
+    border: 1px solid var(--ve-dropdown-border-color);
     border-radius: 2px;
     font-size: 14px;
     height: 32px;
     line-height: 32px;
 
     &:hover {
-      color: @ve-dropdown-item-hover-text-color;
-      border-color: @ve-dropdown-item-hover-text-color;
+      color: var(--ve-dropdown-item-hover-text-color);
+      border-color: var(--ve-dropdown-item-hover-text-color);
     }
 
     .ve-dropdown-dt-selected-span {
@@ -61,7 +61,7 @@
 
 // dropdown popper
 .ve-dropdown-popper {
-  z-index: @ve-dropdown-z-index;
+  z-index: var(--ve-dropdown-z-index);
 
   .ve-dropdown-dd,
   .ve-dropdown-items {
@@ -83,10 +83,10 @@
       left: 0px;
       list-style: none;
       border-radius: 2px;
-      background-color: @ve-dropdown-background-color;
+      background-color: var(--ve-dropdown-background-color);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
         0 0 6px rgba(0, 0, 0, 0.04);
-      border: 1px solid @ve-dropdown-item-border-color;
+      border: 1px solid var(--ve-dropdown-item-border-color);
 
       padding: 5px 0px;
       width: auto;
@@ -105,23 +105,23 @@
           font-size: 14px;
           height: 32px;
           line-height: 32px;
-          background-color: @ve-dropdown-item-background-color;
+          background-color: var(--ve-dropdown-item-background-color);
 
           &:hover {
-            background-color: @ve-dropdown-item-hover-background-color;
-            color: @ve-dropdown-item-hover-text-color;
+            background-color: var(--ve-dropdown-item-hover-background-color);
+            color: var(--ve-dropdown-item-hover-text-color);
           }
 
           &.active {
-            background-color: @ve-dropdown-item-active-background-color;
+            background-color: var(--ve-dropdown-item-active-background-color);
 
             a {
-              color: @ve-dropdown-active-text-color;
+              color: var(--ve-dropdown-active-text-color);
             }
           }
 
           &.active:hover {
-            background-color: @ve-dropdown-item-active-background-color;
+            background-color: var(--ve-dropdown-item-active-background-color);
           }
 
           .ve-dropdown-items-li-a {
@@ -129,7 +129,7 @@
             display: block;
             padding-left: 8px;
             padding-right: 8px;
-            color: @ve-dropdown-text-color;
+            color: var(--ve-dropdown-text-color);
           }
 
           .ve-dropdown-items-li-a-left {
@@ -164,11 +164,11 @@
           span {
             font-size: 14px;
             font-weight: normal;
-            color: @ve-dropdown-item-hover-text-color;
+            color: var(--ve-dropdown-item-hover-text-color);
           }
 
           &:hover {
-            background-color: @ve-dropdown-item-hover-background-color;
+            background-color: var(--ve-dropdown-item-hover-background-color);
           }
         }
       }
@@ -187,14 +187,14 @@
     justify-content: space-around;
 
     .ve-dropdown-operation-item {
-      color: @ve-dropdown-operation-item-text-color;
+      color: var(--ve-dropdown-operation-item-text-color);
 
       &.ve-dropdown-filter-disable {
         color: #999;
       }
 
       &:not(.ve-dropdown-filter-disable):hover {
-        color: @ve-dropdown-operation-item-hover-text-color;
+        color: var(--ve-dropdown-operation-item-hover-text-color);
       }
     }
 
@@ -203,7 +203,7 @@
     }
 
     &:hover {
-      color: @ve-dropdown-item-hover-background-color;
+      color: var(--ve-dropdown-item-hover-background-color);
     }
   }
 }
