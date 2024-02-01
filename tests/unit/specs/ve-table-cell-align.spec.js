@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
@@ -107,7 +107,7 @@ describe('veTable cell align', () => {
 
     // th
     const thEls = wrapper.findAll(
-      '.ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header-tr .fan-table-header-th',
     )
     expect(thEls[0].attributes('style')).toContain(
       'text-align: center;',
@@ -117,8 +117,8 @@ describe('veTable cell align', () => {
 
     // td
     const tdEls = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')
     expect(tdEls[0].attributes('style')).toContain(
       'text-align: center;',
     )

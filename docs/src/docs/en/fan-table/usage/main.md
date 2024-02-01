@@ -1,12 +1,12 @@
 <vue-anchor label="Usage"/>
 
-import `VeTable`
+import `FanTable`
 
 ```javascript
 import Vue from "vue";
-import { VeTable } from "vue-fantable";
+import { FanTable } from "vue-fantable";
 
-Vue.use(VeTable);
+Vue.use(FanTable);
 ```
 
 use

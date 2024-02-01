@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         rowKeyFieldName="rowKey"
         :fixed-header="true"
         :columns="columns"

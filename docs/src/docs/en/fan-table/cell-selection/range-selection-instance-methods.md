@@ -9,7 +9,7 @@
         <button class="button-demo" @click="setRangeCellSelection()">Set Range Selection</button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             ref="tableRef"
             fixed-header
             :scroll-width="1600"

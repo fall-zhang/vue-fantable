@@ -11,7 +11,7 @@
         </button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             ref="tableRef"
             rowKeyFieldName="rowKey"
             :max-height="300"

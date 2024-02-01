@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         rowKeyFieldName="rowKey"
         :max-height="300"
         :fixed-header="true"

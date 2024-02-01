@@ -5,7 +5,7 @@
 ```html
 <template>
     <div>
-        <ve-table :columns="columns" :table-data="tableData" />
+        <fan-table :columns="columns" :table-data="tableData" />
         <div class="table-pagination">
             <ve-pagination
                 :total="totalCount"

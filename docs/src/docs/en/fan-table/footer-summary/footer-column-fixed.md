@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         border-y
         fixed-header
         :max-height="300"

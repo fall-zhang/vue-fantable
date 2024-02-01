@@ -8,7 +8,7 @@
         <button class="button-demo" @click="submit()">Submit</button>
         <br />
         <br />
-        <ve-table
+        <fan-table
             rowKeyFieldName="rowKey"
             :fixed-header="true"
             :columns="columns"

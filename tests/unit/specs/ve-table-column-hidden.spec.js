@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { later } from '../util'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable column hidden', () => {
@@ -83,10 +83,10 @@ describe('veTable column hidden', () => {
     expect(wrapper.vm.hiddenColumns).toEqual(['col8'])
 
     const firstHeaderTr = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr',
+      '.fan-table-header .fan-table-header-tr',
     )[0]
 
-    const Ths = firstHeaderTr.findAll('.ve-table-header-th')
+    const Ths = firstHeaderTr.findAll('.fan-table-header-th')
 
     expect(Ths[Ths.length - 1].text()).toEqual('col7')
   })

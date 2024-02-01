@@ -32,8 +32,8 @@ VeLocale.update(lang);
 
 :::tip
 1、从目录 “//unpkg.com/vue-fantable/libs/locale/lang/” 目录下引用需要的语言包<br>
-2、使用 `VETable.VeLocale.use` 方法使用和切换语言包<br>
-3、语言包固定格式为 `VETable.lang.[语言包名称]`，[语言包名称] 不包含‘-’符号，具体见下面示例<br>
+2、使用 `FanTable.VeLocale.use` 方法使用和切换语言包<br>
+3、语言包固定格式为 `FanTable.lang.[语言包名称]`，[语言包名称] 不包含‘-’符号，具体见下面示例<br>
 :::
 
 ```
@@ -44,11 +44,11 @@ VeLocale.update(lang);
 
 <script>
   // 切换到英文
-  VETable.VeLocale.use(VETable.lang.enUS);
+  FanTable.VeLocale.use(FanTable.lang.enUS);
 
   /*
   切换中文
-  VETable.VeLocale.use(VETable.lang.zhCN);
+  FanTable.VeLocale.use(FanTable.lang.zhCN);
   */
 </script>
 ```

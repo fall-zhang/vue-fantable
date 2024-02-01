@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable header fixed', () => {
@@ -96,7 +96,7 @@ describe('veTable header fixed', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-container').attributes('style'),
+      wrapper.find('.fan-table-container').attributes('style'),
     ).toContain('max-height: 200px;')
   })
 
@@ -111,6 +111,6 @@ describe('veTable header fixed', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-fixed-header').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-fixed-header').exists()).toBe(true)
   })
 })

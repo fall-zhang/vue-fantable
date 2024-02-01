@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table
+    <fan-table
         fixed-header
         :scroll-width="1600"
         :max-height="380"

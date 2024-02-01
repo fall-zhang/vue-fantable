@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import Base from "./base.md";
-import Controlled from "./controlled.md";
-import API from "./api.md";
+import Base from './base.md'
+import Controlled from './controlled.md'
+import API from './api.md'
 export default {
-    components: {
-        Base,
-        Controlled,
-        API,
-    },
-};
+  components: {
+    Base,
+    Controlled,
+    API,
+  },
+}
 </script>

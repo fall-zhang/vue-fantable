@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table :columns="columns" :table-data="tableData" border-y />
+    <fan-table :columns="columns" :table-data="tableData" border-y />
 </template>
 
 <script>

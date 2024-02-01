@@ -231,9 +231,9 @@ export default {
     'cellSelectionData.normalEndCell': {
       handler: function (val) {
         /*
-                trigger editor(textarea) element select
-                解决通过点击的区域选择，无法复制的问题
-                */
+          trigger editor(textarea) element select
+          解决通过点击的区域选择，无法复制的问题
+        */
         if (!isEmptyValue(val.colKey)) {
           this[INSTANCE_METHODS.TEXTAREA_SELECT]()
         }

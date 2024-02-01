@@ -12,7 +12,7 @@
         </el-radio-group>
         <br />
         <br />
-        <ve-table
+        <fan-table
             fixed-header
             border-y
             :columns="columns"

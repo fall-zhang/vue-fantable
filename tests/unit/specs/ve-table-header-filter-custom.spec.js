@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
-import veIcon from '@P/ve-table/ve-table'
+import { VeTable, VeIcon } from '@P/index'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable header filter custom', () => {
-  const mockFilterFn = jest.fn((closeFn) => closeFn())
-  const mockBeforeVisibleChangeFn = jest.fn()
+  const mockFilterFn = vi.fn((closeFn) => closeFn())
+  const mockBeforeVisibleChangeFn = vi.fn()
 
   const TABLE_DATA = [
     {
@@ -241,7 +241,7 @@ describe('veTable header filter custom', () => {
     // default icon
     expect(wrapper.find('.icon-vet-filter').exists()).toBe(true)
 
-    wrapper.find('.ve-table-filter-icon').trigger('click')
+    wrapper.find('.fan-table-filter-icon').trigger('click')
     // 延迟展示
     await later(100)
 
@@ -366,7 +366,7 @@ describe('veTable header filter custom', () => {
     // default icon
     expect(wrapper.find('.icon-vet-filter').exists()).toBe(true)
 
-    wrapper.find('.ve-table-filter-icon').trigger('click')
+    wrapper.find('.fan-table-filter-icon').trigger('click')
     // 延迟展示
     await later(100)
 

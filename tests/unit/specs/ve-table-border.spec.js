@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veTable border', () => {
@@ -76,8 +76,8 @@ describe('veTable border', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-border-around').exists()).toBe(true)
-    expect(wrapper.find('.ve-table-border-x').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-border-around').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-border-x').exists()).toBe(true)
   })
 
   it('border-x prop', () => {
@@ -89,7 +89,7 @@ describe('veTable border', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-border-x').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-border-x').exists()).toBe(true)
   })
 
   it('border-y prop', () => {
@@ -101,7 +101,7 @@ describe('veTable border', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-border-y').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-border-y').exists()).toBe(true)
   })
 
   it('border-around prop', () => {
@@ -113,6 +113,6 @@ describe('veTable border', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-border-around').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-border-around').exists()).toBe(true)
   })
 })

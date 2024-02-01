@@ -13,7 +13,7 @@
             <button class="button-demo" @click="scrollX(300)">Scroll horizontally to 200px</button>
             <button class="button-demo" @click="scrollX(0)">Scroll horizontally to 0px</button>
         </div>
-        <ve-table
+        <fan-table
             ref="tableRef"
             style="width:1000px"
             :scroll-width="1600"

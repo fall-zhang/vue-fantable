@@ -11,7 +11,7 @@
         </el-radio-group>
         <br />
         <br />
-        <ve-table :show-header="showHeader" :columns="columns" :table-data="tableData" />
+        <fan-table :show-header="showHeader" :columns="columns" :table-data="tableData" />
     </div>
 </template>
 

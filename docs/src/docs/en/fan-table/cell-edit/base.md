@@ -7,7 +7,7 @@ Trying to change the value of the 'Number' column to a non number
 ```html
 <template>
     <div>
-        <ve-table
+        <fan-table
             rowKeyFieldName="rowKey"
             :fixed-header="true"
             :columns="columns"

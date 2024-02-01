@@ -19,7 +19,7 @@
                 Scroll to the row with rowkey 0
             </button>
         </div>
-        <ve-table
+        <fan-table
             ref="tableRef"
             style="width:1000px"
             :scroll-width="1600"

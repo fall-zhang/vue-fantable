@@ -41,9 +41,9 @@ Write the following in main.js：
 import Vue from "vue";
 import "vue-fantable/libs/theme-default.css"; // import style
 
-import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable"; // import library
+import { FanTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable"; // import library
 
-Vue.use(VeTable);
+Vue.use(FanTable);
 Vue.use(VePagination);
 Vue.use(VeIcon);
 Vue.use(VeLoading);
@@ -63,7 +63,7 @@ new Vue({
 
 ```html
 <template>
-    <ve-table :columns="columns" :table-data="tableData" />
+    <fan-table :columns="columns" :table-data="tableData" />
 </template>
 
 <script>
@@ -149,7 +149,7 @@ Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you 
     </head>
     <body>
         <div id="app">
-            <ve-table :columns="columns" :table-data="tableData"></ve-table>
+            <fan-table :columns="columns" :table-data="tableData"></fan-table>
         </div>
     </body>
     <!-- import Vue -->
@@ -222,4 +222,4 @@ Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you 
 ```
 
 :::anchor Browser Compatible
-Support modern browser and ie10 and above
+Support all of modern browser

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
@@ -185,34 +185,34 @@ describe('veTable cell span', () => {
   })
 
   it('body cell span', () => {
-    const spanTrEl = wrapper.findAll('.ve-table-body-tr')[1]
+    const spanTrEl = wrapper.findAll('.fan-table-body-tr')[1]
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td')[0].attributes('rowspan'),
+      spanTrEl.findAll('.fan-table-body-td')[0].attributes('rowspan'),
     ).toBe('2')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td')[0].attributes('colspan'),
+      spanTrEl.findAll('.fan-table-body-td')[0].attributes('colspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td')[1].attributes('rowspan'),
+      spanTrEl.findAll('.fan-table-body-td')[1].attributes('rowspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-body-td')[1].attributes('colspan'),
+      spanTrEl.findAll('.fan-table-body-td')[1].attributes('colspan'),
     ).toBe('2')
   })
 
   it('footer cell span', () => {
-    const spanTrEl = wrapper.findAll('.ve-table-footer-tr')[0]
+    const spanTrEl = wrapper.findAll('.fan-table-footer-tr')[0]
 
     expect(
-      spanTrEl.findAll('.ve-table-footer-td')[1].attributes('rowspan'),
+      spanTrEl.findAll('.fan-table-footer-td')[1].attributes('rowspan'),
     ).toBe('1')
 
     expect(
-      spanTrEl.findAll('.ve-table-footer-td')[1].attributes('colspan'),
+      spanTrEl.findAll('.fan-table-footer-td')[1].attributes('colspan'),
     ).toBe('2')
   })
 })

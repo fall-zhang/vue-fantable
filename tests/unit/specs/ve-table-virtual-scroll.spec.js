@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
-import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
+import bodyTrScrolling from '@P/fan-table/src/body/body-tr-scrolling.jsx'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 globalThis.ResizeObserver = class ResizeObserver {
@@ -152,7 +152,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-virtual-scroll').exists()).toBe(false)
+    expect(wrapper.find('.fan-table-virtual-scroll').exists()).toBe(false)
 
     wrapper.setProps({
       virtualScrollOption: {
@@ -163,15 +163,15 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    const tableContainerEl = wrapper.find('.ve-table-container')
+    const tableContainerEl = wrapper.find('.fan-table-container')
 
     expect(tableContainerEl.attributes('style')).toBe(
       'max-height: 500px; height: 500px;',
     )
 
-    expect(wrapper.find('.ve-table-virtual-scroll').exists()).toBe(true)
-    expect(wrapper.find('.ve-table-virtual-phantom').exists()).toBe(true)
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.find('.fan-table-virtual-scroll').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-virtual-phantom').exists()).toBe(true)
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -216,7 +216,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -261,7 +261,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -309,7 +309,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) * (bufferCount + 1),
     )
   })
@@ -359,7 +359,7 @@ describe('veTable virtual scroll', () => {
 
     expect(wrapper.find('.ve-checkbox').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -409,7 +409,7 @@ describe('veTable virtual scroll', () => {
 
     expect(wrapper.find('.ve-radio').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -467,9 +467,9 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-row-expand-icon').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-row-expand-icon').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -517,34 +517,34 @@ describe('veTable virtual scroll', () => {
     await later()
 
     const thEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
-    expect(thEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(thEls[0].classes()).toContain('fan-table-fixed-left')
     expect(thEls[0].classes()).toContain(
-      've-table-last-left-fixed-column',
+      'fan-table-last-left-fixed-column',
     )
 
-    expect(thEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(thEls[2].classes()).toContain('fan-table-fixed-right')
     expect(thEls[2].classes()).toContain(
-      've-table-first-right-fixed-column',
+      'fan-table-first-right-fixed-column',
     )
 
     const tdEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
-    expect(tdEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(tdEls[0].classes()).toContain('fan-table-fixed-left')
     expect(tdEls[0].classes()).toContain(
-      've-table-last-left-fixed-column',
+      'fan-table-last-left-fixed-column',
     )
 
-    expect(tdEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(tdEls[2].classes()).toContain('fan-table-fixed-right')
     expect(tdEls[2].classes()).toContain(
-      've-table-first-right-fixed-column',
+      'fan-table-first-right-fixed-column',
     )
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -608,10 +608,10 @@ describe('veTable virtual scroll', () => {
     await later()
 
     expect(
-      wrapper.findAll('.ve-table-footer-tr .ve-table-footer-td').length,
+      wrapper.findAll('.fan-table-footer-tr .fan-table-footer-td').length,
     ).toBe(6)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -713,7 +713,7 @@ describe('veTable virtual scroll', () => {
     await later()
 
     const rowCount = getTableRenderedRowCountByRowHeight(minRowHeight)
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(rowCount)
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(rowCount)
   })
 
   /*

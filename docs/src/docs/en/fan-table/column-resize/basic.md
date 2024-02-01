@@ -12,7 +12,7 @@ You can hover the mouse between two columns and Resizing.If the column width is 
             <div>differWidth:{{columnResizeInfo.differWidth}}</div>
             <div>columnWidth:{{columnResizeInfo.columnWidth}}</div>
         </div>
-        <ve-table
+        <fan-table
             style="width:100%"
             :scroll-width="0"
             :columns="columns"

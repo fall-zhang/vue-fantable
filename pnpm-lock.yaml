@@ -123,6 +123,9 @@ importers:
       axios:
         specifier: ^1.6.5
         version: 1.6.5
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
       clipboard:
         specifier: ^2.0.11
         version: 2.0.11
@@ -147,6 +150,9 @@ importers:
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.29.0
       transliteration:
         specifier: ^2.3.5
         version: 2.3.5
@@ -166,6 +172,9 @@ importers:
       element-plus:
         specifier: ^2.5.1
         version: 2.5.1(vue@3.4.14)
+      escape-html:
+        specifier: ^1.0.3
+        version: 1.0.3
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -2596,7 +2605,6 @@ packages:
   /chalk@5.3.0:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-    dev: true
 
   /check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
@@ -5586,7 +5594,6 @@ packages:
   /prismjs@1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
     engines: {node: '>=6'}
-    dev: true
 
   /proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}

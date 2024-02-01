@@ -4,7 +4,7 @@
 
 ```html
 <template>
-    <ve-table :max-height="300" :fixed-header="true" :columns="columns" :table-data="tableData" />
+    <fan-table :max-height="300" :fixed-header="true" :columns="columns" :table-data="tableData" />
 </template>
 
 <script>

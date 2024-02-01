@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import veTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
@@ -123,17 +123,17 @@ describe('veTable header group', () => {
       },
     })
 
-    const trEls = wrapper.findAll('.ve-table-header-tr')
+    const trEls = wrapper.findAll('.fan-table-header-tr')
 
     // first row last column
     expect(
-      trEls[0].findAll('.ve-table-header-th')[2].classes(),
-    ).toContain('ve-table-last-column')
+      trEls[0].findAll('.fan-table-header-th')[2].classes(),
+    ).toContain('fan-table-last-column')
 
     // second row last column
     expect(
-      trEls[1].findAll('.ve-table-header-th')[3].classes(),
-    ).toContain('ve-table-last-column')
+      trEls[1].findAll('.fan-table-header-th')[3].classes(),
+    ).toContain('fan-table-last-column')
   })
 
   it('colspan and rowspan', () => {
@@ -145,11 +145,11 @@ describe('veTable header group', () => {
       },
     })
 
-    const trEls = wrapper.findAll('.ve-table-header-tr')
+    const trEls = wrapper.findAll('.fan-table-header-tr')
     expect(trEls.length).toBe(3)
 
     /* first tr ths */
-    const firstTrThEls = trEls[0].findAll('.ve-table-header-th')
+    const firstTrThEls = trEls[0].findAll('.fan-table-header-th')
     expect(firstTrThEls.length).toBe(3)
     expect(firstTrThEls[0].attributes('rowspan')).toBe('3')
     expect(firstTrThEls[0].attributes('colspan')).toBe('1')
@@ -161,7 +161,7 @@ describe('veTable header group', () => {
     expect(firstTrThEls[2].attributes('colspan')).toBe('3')
 
     /* second tr ths */
-    const secondTrThEls = trEls[1].findAll('.ve-table-header-th')
+    const secondTrThEls = trEls[1].findAll('.fan-table-header-th')
     expect(secondTrThEls.length).toBe(4)
     expect(secondTrThEls[0].attributes('rowspan')).toBe('2')
     expect(secondTrThEls[0].attributes('colspan')).toBe('1')
@@ -176,7 +176,7 @@ describe('veTable header group', () => {
     expect(secondTrThEls[3].attributes('colspan')).toBe('1')
 
     /* third tr ths */
-    const thirdTrThEls = trEls[2].findAll('.ve-table-header-th')
+    const thirdTrThEls = trEls[2].findAll('.fan-table-header-th')
     expect(thirdTrThEls.length).toBe(2)
     expect(thirdTrThEls[0].attributes('rowspan')).toBe('1')
     expect(thirdTrThEls[0].attributes('colspan')).toBe('1')
@@ -231,16 +231,16 @@ describe('veTable header group', () => {
       },
     })
 
-    const trEls = wrapper.findAll('.ve-table-header-tr')
+    const trEls = wrapper.findAll('.fan-table-header-tr')
 
     // first row first fixed column
     const firtRowFirstFixedColumn = trEls[0]
-      .findAll('.ve-table-header-th')[1]
+      .findAll('.fan-table-header-th')[1]
 
     expect(firtRowFirstFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-first-right-fixed-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-first-right-fixed-column',
     ])
     expect(firtRowFirstFixedColumn.attributes('style')).toContain(
       'right: 200px;',
@@ -248,12 +248,12 @@ describe('veTable header group', () => {
 
     // first row last fixed column
     const firstRowLastFixedColumn = trEls[0]
-      .findAll('.ve-table-header-th')[2]
+      .findAll('.fan-table-header-th')[2]
 
     expect(firstRowLastFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-last-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-last-column',
     ])
     expect(firstRowLastFixedColumn.attributes('style')).toContain(
       'right: 0px;',
@@ -261,12 +261,12 @@ describe('veTable header group', () => {
 
     // second row first fixed column
     const secondRowFirstFixedColumn = trEls[1]
-      .findAll('.ve-table-header-th')[0]
+      .findAll('.fan-table-header-th')[0]
 
     expect(secondRowFirstFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-first-right-fixed-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-first-right-fixed-column',
     ])
     expect(secondRowFirstFixedColumn.attributes('style')).toContain(
       'right: 200px;',
@@ -274,12 +274,12 @@ describe('veTable header group', () => {
 
     // second row last fixed column
     const secondRowLastFixedColumn = trEls[1]
-      .findAll('.ve-table-header-th')[1]
+      .findAll('.fan-table-header-th')[1]
 
     expect(secondRowLastFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-last-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-last-column',
     ])
     expect(secondRowLastFixedColumn.attributes('style')).toContain(
       'right: 0px;',
@@ -325,17 +325,17 @@ describe('veTable header group', () => {
       },
     })
 
-    const trEls = wrapper.findAll('.ve-table-header-tr')
+    const trEls = wrapper.findAll('.fan-table-header-tr')
 
     // first row first fixed column
     const firtRowFirstFixedColumn = trEls[0]
-      .findAll('.ve-table-header-th')[1]
+      .findAll('.fan-table-header-th')[1]
 
     expect(firtRowFirstFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-first-right-fixed-column',
-      've-table-last-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-first-right-fixed-column',
+      'fan-table-last-column',
     ])
     expect(firtRowFirstFixedColumn.attributes('style')).toContain(
       'right: 0px;',
@@ -343,12 +343,12 @@ describe('veTable header group', () => {
 
     // second row first fixed column
     const secondRowFirstFixedColumn = trEls[1]
-      .findAll('.ve-table-header-th')[0]
+      .findAll('.fan-table-header-th')[0]
 
     expect(secondRowFirstFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-first-right-fixed-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-first-right-fixed-column',
     ])
     expect(secondRowFirstFixedColumn.attributes('style')).toContain(
       'right: 200px;',
@@ -356,12 +356,12 @@ describe('veTable header group', () => {
 
     // second row last fixed column
     const secondRowLastFixedColumn = trEls[1]
-      .findAll('.ve-table-header-th')[1]
+      .findAll('.fan-table-header-th')[1]
 
     expect(secondRowLastFixedColumn.classes()).toEqual([
-      've-table-header-th',
-      've-table-fixed-right',
-      've-table-last-column',
+      'fan-table-header-th',
+      'fan-table-fixed-right',
+      'fan-table-last-column',
     ])
     expect(secondRowLastFixedColumn.attributes('style')).toContain(
       'right: 0px;',
