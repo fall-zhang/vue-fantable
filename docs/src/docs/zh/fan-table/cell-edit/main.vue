@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <h2>单元格编辑</h2>
-        <Explain />
-        <ShortCuts />
-        <Base />
-        <InstanceMethods />
-        <CombineColumnFixed />
-        <CombineElementUi />
-        <API title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
-    </div>
+  <div>
+    <h2>单元格编辑</h2>
+    <Explain />
+    <ShortCuts />
+    <Base />
+    <InstanceMethods />
+    <CombineColumnFixed />
+    <CombineElementUi />
+    <API title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
+  </div>
 </template>
 <script>
 import Explain from './explain.md'
@@ -17,7 +17,7 @@ import Base from './base.md'
 import InstanceMethods from './instance-method.md'
 import CombineColumnFixed from './combine-column-fixed.md'
 import CombineElementUi from './combine-element-ui.md'
-import API from '../api/edit-option-props'
+import API from '../api/edit-option-props.vue'
 
 export default {
   name: 'BasicMain',

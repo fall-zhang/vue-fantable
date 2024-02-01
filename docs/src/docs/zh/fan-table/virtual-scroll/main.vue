@@ -29,7 +29,7 @@ import ColumnFixed from './column-fixed.md'
 import RowIndex from './row-index.md'
 import CombineLazyLoad from './combine-lazy-load.md'
 import DynamicEnable from './dynamic-enable.md'
-import API from '../api/virtual-scroll-option-props'
+import API from '../api/virtual-scroll-option-props.vue'
 
 export default {
   name: 'BasicMain',
