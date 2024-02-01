@@ -471,7 +471,8 @@ export default {
     },
 
     // hide contextmenu
-    [INSTANCE_METHODS.HIDE_CONTEXTMENU]() {
+    // INSTANCE_METHODS.HIDE_CONTEXTMENU
+    hideContextmenu() {
       this.emptyContextmenuPanels()
     },
   },
@@ -500,29 +501,6 @@ export default {
             class: {
               [clsName('panel')]: true,
             },
-            'v-events-outside': {
-              events: ['click'],
-              callback: (e) => {
-                // only for root panel
-                if (panelIndex === 0) {
-                  emptyContextmenuPanels()
-                }
-              },
-            },
-            // directives: [
-            //   {
-            //     name: 'events-outside',
-            //     value: {
-            //       events: ['click'],
-            //       callback: (e) => {
-            //         // only for root panel
-            //         if (panelIndex === 0) {
-            //           emptyContextmenuPanels()
-            //         }
-            //       },
-            //     },
-            //   },
-            // ],
             onClick: () => {
               if (panelIndex !== 0) {
                 this.isChildrenPanelsClicked = true
@@ -533,7 +511,15 @@ export default {
             },
           }
           return (
-            <div {...contextmenuPanelProps}>
+            <div {...contextmenuPanelProps} v-events-outside={{
+              events: ['click'],
+              callback: (e) => {
+              // only for root panel
+                if (panelIndex === 0) {
+                  emptyContextmenuPanels()
+                }
+              },
+            }}>
               <ul class={clsName('list')}>
                 {panelOption.menus.map((menu) => {
                   let contextmenuNodeProps
