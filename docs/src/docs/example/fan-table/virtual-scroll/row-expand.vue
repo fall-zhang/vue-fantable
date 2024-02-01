@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script>
+<script lang="jsx">
 export default {
   data() {
     return {
@@ -24,8 +24,8 @@ export default {
         render: ({ row, column, rowIndex }, h) => {
           return (
             <p>
-                                My name is <span style="color:#1890ff;">{row.name}</span>
-                                ,I'm living in {row.address}
+              My name is <span style="color:#1890ff;">{row.name}</span>
+              ,I'm living in {row.address}
             </p>
           )
         },

@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script>
+<script lang="jsx">
 // 此示例是在组件内部定义了一个子组件。你当然也可以通过 `import`关键字导入一个组件
 const ChildTableComp = {
   name: 'ChildTableComp',

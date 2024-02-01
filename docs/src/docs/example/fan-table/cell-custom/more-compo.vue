@@ -2,14 +2,14 @@
   <fan-table style="width:100%" border-y :columns="columns" :table-data="tableData" />
 </template>
 
-<script>
+<script lang="jsx">
 // 此示例是在组件内部定义了一个子组件。你当然也可以通过 `import`关键字导入一个组件
 const OtherComp = {
   name: 'OtherComp',
   template: `
-        <div class="other-comp">
-            <span style="color:#1890ff;">row index: {{rowIndex}}</span>
-        </div>
+    <div class="other-comp">
+      <span style="color:#1890ff;">row index: {{rowIndex}}</span>
+    </div>
     `,
   props: {
     row: Object,

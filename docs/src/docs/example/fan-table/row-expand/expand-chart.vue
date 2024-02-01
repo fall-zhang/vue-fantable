@@ -8,7 +8,7 @@
     />
 </template>
 
-<script>
+<script lang="jsx">
 import * as echarts from 'echarts'
 export default {
   data() {
