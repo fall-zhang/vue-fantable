@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable row radio', () => {
+describe('FanTable row radio', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -76,7 +76,7 @@ describe('veTable row radio', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -92,7 +92,7 @@ describe('veTable row radio', () => {
   })
 
   it('has radio', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -108,7 +108,7 @@ describe('veTable row radio', () => {
   })
 
   it('check default selected key', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -130,7 +130,7 @@ describe('veTable row radio', () => {
   })
 
   it('check disable selected keys', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -160,7 +160,7 @@ describe('veTable row radio', () => {
   })
 
   it('controllable attr selectedRowKey', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -187,7 +187,7 @@ describe('veTable row radio', () => {
   it('radioOption selectedRowChange event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

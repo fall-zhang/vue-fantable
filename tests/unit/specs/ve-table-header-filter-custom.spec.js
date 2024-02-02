@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import { VeTable, VeIcon } from '@P/index'
+import { FanTable, VeIcon } from '@P/index'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header filter custom', () => {
+describe('FanTable header filter custom', () => {
   const mockFilterFn = vi.fn((closeFn) => closeFn())
   const mockBeforeVisibleChangeFn = vi.fn()
 
@@ -58,7 +58,7 @@ describe('veTable header filter custom', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             columns={this.columns}
             tableData={this.tableData}
           />
@@ -150,7 +150,7 @@ describe('veTable header filter custom', () => {
       {
         render() {
           return (
-            <veTable
+            <FanTable
               columns={this.columns}
               tableData={this.tableData}
             />
@@ -270,7 +270,7 @@ describe('veTable header filter custom', () => {
       {
         render() {
           return (
-            <veTable
+            <FanTable
               columns={this.columns}
               tableData={this.tableData}
             />

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`veTable border renders border default 1`] = `
+exports[`FanTable border renders border default 1`] = `
 <div class="vue-table-root">
   <div class="fan-table fan-table-border-around" style="width: 100%;">
     <div class="fan-table-container" style="height: 0px;">

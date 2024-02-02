@@ -3,7 +3,7 @@
 */
 
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import {
   later,
   mockElementMeasurement,
@@ -11,7 +11,7 @@ import {
 } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable common', () => {
+describe('FanTable common', () => {
   afterEach(() => {
     clearMockElementMeasurement('scrollWidth')
     clearMockElementMeasurement('clientWidth')
@@ -64,7 +64,7 @@ describe('veTable common', () => {
 
     const ParentComp = {
       template: `
-                <veTable
+                <FanTable
                     style="width:900px"
                     :scrollWidth="1200"
                     :columns="columns"
@@ -83,7 +83,7 @@ describe('veTable common', () => {
         }
       },
       components: {
-        veTable,
+        FanTable,
       },
     }
 
@@ -95,7 +95,7 @@ describe('veTable common', () => {
       },
     })
 
-    const wrapper = parentWrapper.findComponent(veTable)
+    const wrapper = parentWrapper.findComponent(FanTable)
 
     expect(wrapper.vm.isRightScrolling).toBe(false)
 

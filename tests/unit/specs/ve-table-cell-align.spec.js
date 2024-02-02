@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell align', () => {
+describe('FanTable cell align', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -68,7 +68,7 @@ describe('veTable cell align', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             columns={this.columns}
             tableData={this.tableData}
             rowKeyFieldName="rowkey"
@@ -90,7 +90,7 @@ describe('veTable cell align', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             columns={this.columns}
             tableData={this.tableData}
             rowKeyFieldName="rowkey"

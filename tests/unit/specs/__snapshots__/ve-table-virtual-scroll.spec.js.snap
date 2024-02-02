@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`veTable virtual scroll render same row height 1`] = `
+exports[`FanTable virtual scroll render same row height 1`] = `
 <div class="vue-table-root">
   <div class="fan-table fan-table-border-around" style="width: 100%;">
     <div class="fan-table-container fan-table-virtual-scroll fan-table-enable-cell-selection" style="max-height: 500px; height: 500px;">
@@ -172,7 +172,7 @@ exports[`veTable virtual scroll render same row height 1`] = `
 </div>
 `;
 
-exports[`veTable virtual scroll virtual scroll palceholder 1`] = `
+exports[`FanTable virtual scroll virtual scroll palceholder 1`] = `
 <tr class="fan-table-body-tr fan-table-body-row-scrolling">
   <td colspan="1"></td>
 </tr>

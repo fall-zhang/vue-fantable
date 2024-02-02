@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 globalThis.ResizeObserver = class ResizeObserver {
@@ -15,7 +15,7 @@ globalThis.ResizeObserver = class ResizeObserver {
     // do nothing
   }
 }
-describe('veTable row checkbox', () => {
+describe('FanTable row checkbox', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -88,7 +88,7 @@ describe('veTable row checkbox', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -101,7 +101,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('has checkbox', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -119,7 +119,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('check default selected key', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -149,7 +149,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('check disable selected keys with defaultSelectedRowKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -198,7 +198,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('check disable selected keys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -247,7 +247,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('select all event with check disable selected keys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -306,7 +306,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('controllable attr selectedRowKey', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -350,7 +350,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('header hideSelectAll', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -372,7 +372,7 @@ describe('veTable row checkbox', () => {
   it('checkboxOption selectedRowChange event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -404,7 +404,7 @@ describe('veTable row checkbox', () => {
   it('checkboxOption selectedAllChange event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable footer', () => {
+describe('FanTable footer', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -90,7 +90,7 @@ describe('veTable footer', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -103,7 +103,7 @@ describe('veTable footer', () => {
   })
 
   it('custom cell content', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -121,7 +121,7 @@ describe('veTable footer', () => {
   })
 
   it('custom cell style', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -159,7 +159,7 @@ describe('veTable footer', () => {
   })
 
   it('cell span', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -202,7 +202,7 @@ describe('veTable footer', () => {
     const mockMouseenterFn = vi.fn()
     const mockMouseleaveFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -277,7 +277,7 @@ describe('veTable footer', () => {
     const mockMouseenterFn = vi.fn()
     const mockMouseleaveFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -353,7 +353,7 @@ describe('veTable footer', () => {
   })
 
   it('footer not fixed', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -369,7 +369,7 @@ describe('veTable footer', () => {
   })
 
   it('column fixed', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {

@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable row expand', () => {
+describe('FanTable row expand', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -76,7 +76,7 @@ describe('veTable row expand', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -98,7 +98,7 @@ describe('veTable row expand', () => {
   })
 
   it('trigger type default(icon)', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -146,7 +146,7 @@ describe('veTable row expand', () => {
   })
 
   it('trigger type:cell', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -182,7 +182,7 @@ describe('veTable row expand', () => {
   })
 
   it('trigger type:row', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -215,7 +215,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption expandable', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -248,7 +248,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption defaultExpandedRowKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -284,7 +284,7 @@ describe('veTable row expand', () => {
   })
 
   it('expandOption defaultExpandAllRows', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -310,7 +310,7 @@ describe('veTable row expand', () => {
   it('expandOption beforeExpandRowChange event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -372,7 +372,7 @@ describe('veTable row expand', () => {
   it('expandOption afterExpandRowChange event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

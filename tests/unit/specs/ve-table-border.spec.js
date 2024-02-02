@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable border', () => {
+describe('FanTable border', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -61,7 +61,7 @@ describe('veTable border', () => {
   it('renders border default', () => {
     const wrapper = mount({
       render() {
-        return <veTable columns={COLUMNS} tableData={TABLE_DATA} />
+        return <FanTable columns={COLUMNS} tableData={TABLE_DATA} />
       },
     })
 
@@ -69,7 +69,7 @@ describe('veTable border', () => {
   })
 
   it('border default prop', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -81,7 +81,7 @@ describe('veTable border', () => {
   })
 
   it('border-x prop', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -93,7 +93,7 @@ describe('veTable border', () => {
   })
 
   it('border-y prop', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -105,7 +105,7 @@ describe('veTable border', () => {
   })
 
   it('border-around prop', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

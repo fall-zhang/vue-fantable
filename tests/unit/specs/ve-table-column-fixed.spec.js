@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable column fixed', () => {
+describe('FanTable column fixed', () => {
   const TABLE_DATA = [
     {
       col1: '1',
@@ -158,7 +158,7 @@ describe('veTable column fixed', () => {
   it('renders normal', () => {
     const wrapper = mount({
       render() {
-        return <veTable columns={COLUMNS} tableData={TABLE_DATA} />
+        return <FanTable columns={COLUMNS} tableData={TABLE_DATA} />
       },
     })
 
@@ -166,7 +166,7 @@ describe('veTable column fixed', () => {
   })
 
   it('header fixed left', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -200,7 +200,7 @@ describe('veTable column fixed', () => {
   })
 
   it('header fixed right', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -234,7 +234,7 @@ describe('veTable column fixed', () => {
   })
 
   it('column fixed left', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -268,7 +268,7 @@ describe('veTable column fixed', () => {
   })
 
   it('column fixed right', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

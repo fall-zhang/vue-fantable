@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header sort', () => {
+describe('FanTable header sort', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -76,7 +76,7 @@ describe('veTable header sort', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             sortOption={this.sortOption}
             columns={this.columns}
             tableData={this.tableData}
@@ -132,7 +132,7 @@ describe('veTable header sort', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             sortOption={this.sortOption}
             columns={this.columns}
             tableData={this.tableData}
@@ -193,7 +193,7 @@ describe('veTable header sort', () => {
       weight: '',
     }
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,
@@ -332,7 +332,7 @@ describe('veTable header sort', () => {
       weight: 'asc',
     }
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,
@@ -404,7 +404,7 @@ describe('veTable header sort', () => {
 
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,

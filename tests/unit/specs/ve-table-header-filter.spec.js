@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import { VeTable } from '@P/index'
+import { FanTable } from '@P/index'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('VeTable header filter', () => {
+describe('FanTable header filter', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -209,7 +209,7 @@ describe('VeTable header filter', () => {
   ]
 
   it('render single filter', () => {
-    const wrapper = mount(VeTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
@@ -221,7 +221,7 @@ describe('VeTable header filter', () => {
   })
 
   it('render multiple filter', () => {
-    const wrapper = mount(VeTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,
@@ -233,7 +233,7 @@ describe('VeTable header filter', () => {
   })
 
   it('render filter custom icon', () => {
-    const wrapper = mount(VeTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_CUSTOM_ICON,
         tableData: TABLE_DATA,
@@ -245,7 +245,7 @@ describe('VeTable header filter', () => {
   })
 
   it('single filter', async () => {
-    const wrapper = mount(VeTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
@@ -292,7 +292,7 @@ describe('VeTable header filter', () => {
   })
 
   it('multiple filter', async () => {
-    const wrapper = mount(VeTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,

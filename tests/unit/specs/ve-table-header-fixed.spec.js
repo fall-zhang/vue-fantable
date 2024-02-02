@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header fixed', () => {
+describe('FanTable header fixed', () => {
   const TABLE_DATA = [
     {
       rowkey: 0,
@@ -71,7 +71,7 @@ describe('veTable header fixed', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,
@@ -85,7 +85,7 @@ describe('veTable header fixed', () => {
   })
 
   it('maxHeight props', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,
@@ -101,7 +101,7 @@ describe('veTable header fixed', () => {
   })
 
   it('fixedHeader props', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,

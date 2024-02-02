@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import bodyTrScrolling from '@P/fan-table/src/body/body-tr-scrolling.jsx'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
@@ -17,7 +17,7 @@ globalThis.ResizeObserver = class ResizeObserver {
     // do nothing
   }
 }
-describe('veTable virtual scroll', () => {
+describe('FanTable virtual scroll', () => {
   // same row height
   const TABLE_DATA_SAME_ROW_HEIGHT = []
   for (let i = 0; i < 1000; i++) {
@@ -70,7 +70,7 @@ describe('veTable virtual scroll', () => {
   }
 
   it('render same row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -113,7 +113,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('dynamically turns virtual scrolling on', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -177,7 +177,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('same row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -222,7 +222,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('different row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -269,7 +269,7 @@ describe('veTable virtual scroll', () => {
   it('buffer scale', async () => {
     const bufferCount = 10
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -315,7 +315,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('with row checkbox', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -365,7 +365,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('with row radio', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -415,7 +415,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('with row expand', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -475,7 +475,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('with column fixed', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -550,7 +550,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('with column footer', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -618,7 +618,7 @@ describe('veTable virtual scroll', () => {
 
   it('scrolling callback', async () => {
     const mockFn = vi.fn()
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -672,7 +672,7 @@ describe('veTable virtual scroll', () => {
   it('minRowHeight prop', async () => {
     const mockFn = vi.fn()
     const minRowHeight = 50
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
