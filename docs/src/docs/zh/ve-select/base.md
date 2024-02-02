@@ -29,6 +29,6 @@ ve-select/select-drop
 <vue-anchor  label="事件"></vue-anchor>
 :::demo
 
-ve-select/select-drop
+ve-select/select-event
 
 :::

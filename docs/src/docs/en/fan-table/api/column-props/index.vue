@@ -1,13 +1,8 @@
 <template>
-    <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.columns.data"
-            :columns="db.columns.columns"
-            :expand-option="expandOption"
-        />
-    </div>
+  <div>
+    <tpl :desc="desc" :anchor="anchor" :table-data="db.columns.data" :columns="db.columns.columns"
+      :expand-option="expandOption" />
+  </div>
 </template>
 <script>
 import tpl from '@/comp/api-tpl.vue'
