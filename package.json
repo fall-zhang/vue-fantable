@@ -1,6 +1,6 @@
 {
   "name": "vue-fantable",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "main": "libs/main.js",
   "description": "Vue table component for huge data",
