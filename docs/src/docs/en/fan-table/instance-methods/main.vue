@@ -9,20 +9,20 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import ScrollTo from "./scroll-to.md";
-import ScrollToColKey from "./scroll-to-col-key.md";
-import ScrollToRowKey from "./scroll-to-row-key.md";
-import API from "../api/instance-methods";
+import Explain from './explain.md'
+import ScrollTo from './scroll-to.md'
+import ScrollToColKey from './scroll-to-col-key.md'
+import ScrollToRowKey from './scroll-to-row-key.md'
+import API from '../api/instance-methods.vue'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        ScrollTo,
-        ScrollToColKey,
-        ScrollToRowKey,
-        API,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    ScrollTo,
+    ScrollToColKey,
+    ScrollToRowKey,
+    API,
+  },
+}
 </script>

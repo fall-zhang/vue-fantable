@@ -8,6 +8,20 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.2.0
+
+#### Feature
+
+- 为所有的组件添加 v-model（绑定值现在是 modelValue（不是 value），和 element-plus 一致）
+- fan- 和 ve- 都可以做组件的前缀
+- 现在样式使用的是 css 变量
+
+#### Bug Fixes
+
+- 修复双击表格时，无法立即编辑
+- 修复点击空白处时，menu 无法关闭的问题
+- 完善了打包时的类型处理
+
 ### V0.1.9
 
 #### Bug Fixes
@@ -20,7 +34,7 @@ Vx.x.x(TPL)
 
 #### Feature
 
-- 修复类型引入的问题，为组件补充类型
+- 修复 ts 中类型引入，为组件补充类型
 
 ### V0.1.7
 
@@ -36,7 +50,7 @@ Vx.x.x(TPL)
 
 #### Feature
 
-- 添加新的生成文件
+- 为 libs/ 路径下添加新的生成文件
 
 ### V0.1.3
 

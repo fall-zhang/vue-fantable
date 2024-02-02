@@ -4,9 +4,10 @@ import MarkdownItPrism from 'markdown-it-prism'
 import MarkdownItContainer from 'markdown-it-container'
 import { resolve as pathResolve } from 'node:path'
 import fs from 'node:fs'
-import { highlight } from './highlight'
+import { highlight, tag } from './highlight'
 import { fileURLToPath } from 'node:url'
-
+import MarkdownIt from 'markdown-it'
+const localMd = MarkdownIt().use(tag)
 // https://vitejs.dev/config/
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default function MarkdownPlugin() {
@@ -59,7 +60,10 @@ export default function MarkdownPlugin() {
         render(tokens, idx) {
           const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
           if (tokens[idx].nesting === 1) {
-            const description = m && m.length > 1 ? m[1] : ''
+            const descriptionText = m && m.length > 1 ? m[1] : ''
+            const description = descriptionText
+              ? `<template #description> ${localMd.render(descriptionText)}</template>`
+              : ''
             const sourceFileToken = tokens[idx + 2]
             const sourceFile = sourceFileToken.children?.[0].content ?? ''
             let source = ''
@@ -71,7 +75,8 @@ export default function MarkdownPlugin() {
             }
             if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
             const contentCode = highlight(source, 'vue')
-            return `<demo-block description="${description}" filePath="${sourceFile}" sourceCode="">
+            return `<demo-block filePath="${sourceFile}" sourceCode="">
+              ${description}
              ${contentCode}`
           }
           // console.log(tokens[idx].nesting);

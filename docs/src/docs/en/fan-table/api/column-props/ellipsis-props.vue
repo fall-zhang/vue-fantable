@@ -1,12 +1,8 @@
 <template>
-    <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.columns.ellipsisProps.data"
-            :columns="db.columns.ellipsisProps.columns"
-        />
-    </div>
+  <div>
+    <tpl :desc="desc" :anchor="anchor" :table-data="db.columns.ellipsisProps.data"
+      :columns="db.columns.ellipsisProps.columns" />
+  </div>
 </template>
 <script>
 import tpl from '@/comp/api-tpl.vue'

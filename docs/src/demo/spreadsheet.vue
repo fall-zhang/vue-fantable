@@ -5,8 +5,7 @@
       <br />
       <br />
     </div>
-    <fan-table style="word-break: break-word" fixed-header :scroll-width="0" :max-height="500"
-border-y :columns="columns"
+    <fan-table style="word-break: break-word" fixed-header :scroll-width="0" :max-height="500" border-y :columns="columns"
       :table-data="tableData" row-key-field-name="rowKey" :virtual-scroll-option="virtualScrollOption"
       :cell-autofill-option="cellAutofillOption" :edit-option="editOption"
       :contextmenu-body-option="contextmenuBodyOption" :contextmenu-header-option="contextmenuHeaderOption"
@@ -84,66 +83,37 @@ export default {
         beforeCellValueChange: ({ row, column, changeValue }) => { },
         afterCellValueChange: ({ row, column, changeValue }) => { },
       },
-      // contextmenu header option
+      // contextmenu header
       contextmenuHeaderOption: {
-        /*
-                    before contextmenu show.
-                    In this function,You can change the `contextmenu` options
-                    */
+        //  before contextmenu show. 你可以在这里更改 contextmenu 配置
         beforeShow: ({
           isWholeColSelection,
           selectionRangeKeys,
           selectionRangeIndexes,
         }) => {
-          //
+          // do something
         },
-        // after menu click
         afterMenuClick: ({
           type,
           selectionRangeKeys,
           selectionRangeIndexes,
         }) => {
-          //
+          // do something
         },
-
-        // contextmenus
         contextmenus: [
-          {
-            type: 'CUT',
-          },
-          {
-            type: 'COPY',
-          },
-          {
-            type: 'SEPARATOR',
-          },
-          {
-            type: 'EMPTY_COLUMN',
-          },
-          {
-            type: 'SEPARATOR',
-          },
-          {
-            type: 'LEFT_FIXED_COLUMN_TO',
-          },
-          {
-            type: 'CANCEL_LEFT_FIXED_COLUMN_TO',
-          },
-          {
-            type: 'RIGHT_FIXED_COLUMN_TO',
-          },
-          {
-            type: 'CANCEL_RIGHT_FIXED_COLUMN_TO',
-          },
+          { type: 'CUT', },
+          { type: 'COPY', },
+          { type: 'SEPARATOR', },
+          { type: 'EMPTY_COLUMN', },
+          { type: 'SEPARATOR', },
+          { type: 'LEFT_FIXED_COLUMN_TO', },
+          { type: 'CANCEL_LEFT_FIXED_COLUMN_TO', },
+          { type: 'RIGHT_FIXED_COLUMN_TO', },
+          { type: 'CANCEL_RIGHT_FIXED_COLUMN_TO', },
         ],
       },
-
-      // contextmenu body option
       contextmenuBodyOption: {
-        /*
-                    before contextmenu show.
-                    In this function,You can change the `contextmenu` options
-                    */
+        //  before contextmenu show. 你可以在这里更改 contextmenu 配置
         beforeShow: ({
           isWholeRowSelection,
           selectionRangeKeys,
@@ -157,7 +127,6 @@ export default {
             selectionRangeIndexes,
           )
         },
-        // after menu click
         afterMenuClick: ({
           type,
           selectionRangeKeys,
@@ -166,41 +135,18 @@ export default {
           console.log('---contextmenu body afterMenuClick--')
           console.log('type::', type)
           console.log('selectionRangeKeys::', selectionRangeKeys)
-          console.log(
-            'selectionRangeIndexes::',
-            selectionRangeIndexes,
-          )
+          console.log('selectionRangeIndexes::', selectionRangeIndexes)
         },
-
-        // contextmenus
         contextmenus: [
-          {
-            type: 'CUT',
-          },
-          {
-            type: 'COPY',
-          },
-          {
-            type: 'SEPARATOR',
-          },
-          {
-            type: 'INSERT_ROW_ABOVE',
-          },
-          {
-            type: 'INSERT_ROW_BELOW',
-          },
-          {
-            type: 'SEPARATOR',
-          },
-          {
-            type: 'REMOVE_ROW',
-          },
-          {
-            type: 'EMPTY_ROW',
-          },
-          {
-            type: 'EMPTY_CELL',
-          },
+          { type: 'CUT', },
+          { type: 'COPY', },
+          { type: 'SEPARATOR', },
+          { type: 'INSERT_ROW_ABOVE', },
+          { type: 'INSERT_ROW_BELOW', },
+          { type: 'SEPARATOR', },
+          { type: 'REMOVE_ROW', },
+          { type: 'EMPTY_ROW', },
+          { type: 'EMPTY_CELL', },
         ],
       },
       rowStyleOption: {
@@ -239,7 +185,6 @@ export default {
           }
         }),
       )
-
       return columns
     },
   },
@@ -247,7 +192,7 @@ export default {
     this.initTableData()
   },
   methods: {
-    // render row index
+    // 渲染 row index
     renderRowIndex({ row, column, rowIndex }) {
       return (<span>{rowIndex + this.startRowIndex + 1}</span>)
     },
@@ -266,11 +211,9 @@ export default {
         const dataItem = {
           rowKey: i,
         }
-
         COLUMN_KEYS.forEach((keyValue) => {
           dataItem[keyValue] = ''
         })
-
         if (i === 1 || i === 3) {
           dataItem.C = 'YOU'
           dataItem.D = 'CAN'
@@ -280,10 +223,8 @@ export default {
           dataItem.H = 'WORDS'
           dataItem.I = '!!!'
         }
-
         tableData.push(dataItem)
       }
-
       this.tableData = tableData
     },
   },

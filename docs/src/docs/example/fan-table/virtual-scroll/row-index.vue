@@ -14,7 +14,7 @@
     </div>
 </template>
 
-<script>
+<script lang="jsx">
 import Mock from 'mockjs'
 export default {
   data() {

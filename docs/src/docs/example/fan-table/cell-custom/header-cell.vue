@@ -3,7 +3,7 @@
     :table-data="tableData.filter(item => !searchText || item.name.toLowerCase().includes(searchText.toLowerCase()))" />
 </template>
 
-<script>
+<script lang="jsx">
 export default {
   data() {
     return {

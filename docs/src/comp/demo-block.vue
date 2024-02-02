@@ -10,12 +10,12 @@
         <!-- <slot name="source"></slot> -->
       </div>
     </div>
-    <div v-if="$slots.default" class="description">
+    <div v-if="$slots.description" class="description">
       <div class="title-container">
         <span class="title">{{ demoLangInfo.description }}</span>
       </div>
       <div class="content">
-        {{ description }}
+        <slot name="description"></slot>
       </div>
     </div>
     <div ref="meta" class="meta">
