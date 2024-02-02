@@ -348,6 +348,7 @@ export default {
   - [x] （修复）多个实例之间事件没有进行隔离
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
+  - [x] 各个组件使用 v-model
 - [ ] 关注文档的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
   - [x] 舍弃 jest 全局 API 使用 vitest api
@@ -356,7 +357,7 @@ export default {
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
   - [ ] setTimeout 优化
-  - [ ] 使用 CSS 变量
+  - [x] 使用 CSS 变量
   - [x] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
 - [ ] 使用 TS 重构应用
