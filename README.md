@@ -349,7 +349,7 @@ export default {
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
   - [x] 各个组件使用 v-model
-- [ ] 关注文档的问题，详情查看 [文档](./docs/README.md)
+- [ ] 发布文档，并解决文档中遇到的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
   - [x] 舍弃 jest 全局 API 使用 vitest api
   - [ ] 调整适配原测试内容

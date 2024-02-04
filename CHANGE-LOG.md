@@ -8,6 +8,12 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.2.1
+
+#### Bug Fixes
+
+- 修复黑色主题样式不生效的问题
+
 ### V0.2.0
 
 #### Feature
