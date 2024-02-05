@@ -70,6 +70,7 @@ const libConfig = defineConfig({
     pluginVue(),
     pluginVueJSX(),
     json(),
+    // terser(),
     alias({
       entries: [
         { find: '@P', replacement: path.join(__dirname + 'packages') },
