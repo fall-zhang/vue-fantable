@@ -6,7 +6,6 @@ import {
   INIT_DATA,
   EMIT_EVENTS,
   CONTEXTMENU_NODE_TYPES,
-  INSTANCE_METHODS,
   COMPS_NAME
 } from './util/constant'
 import { getRandomId } from '@P/src/utils/random'
@@ -32,6 +31,7 @@ export default {
       required: true,
     },
   },
+  emits: ['nodeClick'],
   data() {
     return {
       internalOptions: [],
@@ -57,7 +57,6 @@ export default {
       isPanelsEmptyed: true,
     }
   },
-
   computed: {
     // active menus ids
     activeMenuIds() {
@@ -552,10 +551,8 @@ export default {
                           !menu.disabled &&
                             !hasChildren(menu)
                         ) {
-                          this.$emit(
-                            EMIT_EVENTS.ON_NODE_CLICK,
-                            menu.type,
-                          )
+                          // EMIT_EVENTS.ON_NODE_CLICK,
+                          this.$emit('nodeClick', menu.type)
                           setTimeout(() => {
                             emptyContextmenuPanels()
                           }, 50)
