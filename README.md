@@ -356,6 +356,7 @@ export default {
   - [ ] 添加新的测试
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
+  - [ ] 移除过时以及兼容性 API（使用新的 web 标准）
   - [ ] setTimeout 优化
   - [x] 使用 CSS 变量
   - [x] 重写 Loading 组件

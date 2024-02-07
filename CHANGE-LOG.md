@@ -8,6 +8,12 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.2.2
+
+#### Bug Fixes
+
+- 修复右键菜单默认功能不生效的问题
+
 ### V0.2.1
 
 #### Bug Fixes
