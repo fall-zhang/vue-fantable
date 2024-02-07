@@ -77,11 +77,11 @@ export function getViewportOffset(triggerEl) {
               ? triggerEl.getBoundingClientRect()
               : 0
   const scrollLeft =
-            (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0)
+            (window.scrollX || doc.scrollLeft) - (doc.clientLeft || 0)
   const scrollTop =
-            (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
-  const offsetLeft = box.left + window.pageXOffset
-  const offsetTop = box.top + window.pageYOffset
+            (window.scrollY || doc.scrollTop) - (doc.clientTop || 0)
+  const offsetLeft = box.left + window.scrollX
+  const offsetTop = box.top + window.scrollY
 
   const left = offsetLeft - scrollLeft
   const top = offsetTop - scrollTop
@@ -91,10 +91,10 @@ export function getViewportOffset(triggerEl) {
     offsetLeft,
     left,
     top,
-    right: window.document.documentElement.clientWidth - box.width - left,
-    bottom: window.document.documentElement.clientHeight - box.height - top,
-    right2: window.document.documentElement.clientWidth - left,
-    bottom2: window.document.documentElement.clientHeight - top,
+    right: doc.clientWidth - box.width - left,
+    bottom: doc.clientHeight - box.height - top,
+    right2: doc.clientWidth - left,
+    bottom2: doc.clientHeight - top,
   }
 }
 
@@ -154,17 +154,13 @@ export function getMousePosition(event) {
   let y = 0
   const doc = document.documentElement
   const body = document.body
-  if (!event) event = window.event
-  if (window.pageYoffset) {
-    // pageYoffset是Netscape特有
-    x = window.pageXOffset
-    y = window.pageYOffset
+  if (window.scrollY) {
+    x = window.scrollX
+    y = window.scrollY
   } else {
-    x =
-            ((doc && doc.scrollLeft) || (body && body.scrollLeft) || 0) -
+    x = ((doc && doc.scrollLeft) || (body && body.scrollLeft) || 0) -
             ((doc && doc.clientLeft) || (body && body.clientLeft) || 0)
-    y =
-            ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
+    y = ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
             ((doc && doc.clientTop) || (body && body.clientTop) || 0)
   }
   x += event.clientX
@@ -218,7 +214,7 @@ export function getCaretPosition(el) {
  * @param {number} endPos The selection end position.
  */
 export function setCaretPosition(element, pos, endPos) {
-  if (endPos === void 0) {
+  if (endPos === undefined) {
     endPos = pos
   }
   if (element.setSelectionRange) {
