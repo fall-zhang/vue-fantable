@@ -1,13 +1,8 @@
 <template>
-    <div>
-        <fan-table
-            :max-height="500"
-            :virtual-scroll-option="virtualScrollOption"
-            :columns="columns"
-            :table-data="tableData"
-            row-key-field-name="rowKey"
-        />
-    </div>
+  <div>
+    <fan-table :max-height="500" :virtual-scroll-option="virtualScrollOption" :columns="columns" :table-data="tableData"
+      row-key-field-name="rowKey" />
+  </div>
 </template>
 
 <script>
@@ -92,7 +87,7 @@ export default {
 
       if (
         remoteData.find((x) => x.index === currentStartIndex) &&
-                    remoteData.find((x) => x.index === nextStartIndex)
+        remoteData.find((x) => x.index === nextStartIndex)
       ) {
         return false
       }
@@ -112,8 +107,7 @@ export default {
     // get remote data
     getRemoteData(startIndex, isDouble) {
       console.log(
-        `send request by ${
-          isDouble ? 'double' : 'single'
+        `send request by ${isDouble ? 'double' : 'single'
         } page. start index:${startIndex}`,
       )
       const { pagingInfo } = this
