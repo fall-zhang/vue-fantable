@@ -5,13 +5,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve as pathResolve } from 'node:path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import MarkdownPlugin from './md-it/plugin'
+import MarkdownPlugin from './md-it'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath } from 'node:url'
 
 // https://vitejs.dev/config/
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
+  build: {
+    outDir: '../document'
+  },
   // host:true, // 表示可以通过 ip 进行访问
   resolve: {
     alias: {

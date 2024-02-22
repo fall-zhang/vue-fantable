@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header group', () => {
+describe('FanTable header group', () => {
   const TABLE_DATA = [
     {
       rowkey: 0,
@@ -102,7 +102,7 @@ describe('veTable header group', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS,
         tableData: TABLE_DATA,
@@ -114,7 +114,7 @@ describe('veTable header group', () => {
   })
 
   it('row last column', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         borderY: true,
         columns: TABLE_COLUMNS,
@@ -137,7 +137,7 @@ describe('veTable header group', () => {
   })
 
   it('colspan and rowspan', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS,
         tableData: TABLE_DATA,
@@ -194,7 +194,7 @@ describe('veTable header group', () => {
          * +------------------------------+
          */
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         borderY: true,
         columns: [
@@ -295,7 +295,7 @@ describe('veTable header group', () => {
      * +------------------------------+
      */
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         borderY: true,
         columns: [

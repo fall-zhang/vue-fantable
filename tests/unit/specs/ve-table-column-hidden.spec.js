@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
 import { later } from '../util'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable column hidden', () => {
+describe('FanTable column hidden', () => {
   const TABLE_DATA = [
     {
       col1: 'col1-1',
@@ -69,7 +69,7 @@ describe('veTable column hidden', () => {
   ]
 
   it('columnHiddenOption defaultHiddenColumnKeys prop snapshot', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -92,7 +92,7 @@ describe('veTable column hidden', () => {
   })
 
   it('columnHiddenOption defaultHiddenColumnKeys prop', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -107,7 +107,7 @@ describe('veTable column hidden', () => {
   })
 
   it('instance method hideColumnsByKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -293,7 +293,7 @@ describe('veTable column hidden', () => {
   })
 
   it('instance method showColumnsByKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

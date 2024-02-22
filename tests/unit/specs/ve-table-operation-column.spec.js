@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable operation column', () => {
+describe('FanTable operation column', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -81,7 +81,7 @@ describe('veTable operation column', () => {
   ]
 
   it('render', () => {
-    const WRAPPER = mount(veTable, {
+    const WRAPPER = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -96,7 +96,7 @@ describe('veTable operation column', () => {
   })
 
   it('operation column', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

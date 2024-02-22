@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`veTable column hidden > columnHiddenOption defaultHiddenColumnKeys prop 1`] = `
+exports[`FanTable column hidden > columnHiddenOption defaultHiddenColumnKeys prop 1`] = `
 "<div class="vue-table-root">
   <div style="width: 100%;" class="fan-table fan-table-border-around">
     <div class="fan-table-container" style="height: 0px;">
@@ -113,7 +113,7 @@ exports[`veTable column hidden > columnHiddenOption defaultHiddenColumnKeys prop
 </div>"
 `;
 
-exports[`veTable column hidden columnHiddenOption defaultHiddenColumnKeys prop 1`] = `
+exports[`FanTable column hidden columnHiddenOption defaultHiddenColumnKeys prop 1`] = `
 <div class="vue-table-root">
   <div class="fan-table fan-table-border-around" style="width: 100%;">
     <div class="fan-table-container" style="height: 0px;">

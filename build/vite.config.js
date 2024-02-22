@@ -1,5 +1,8 @@
 // vite.config.js
-// 无法导出为多个 css 文件，因此暂时弃用
+
+// 对 vite 打包的配置不熟悉，导致不会使用 vite 多个 css 文件，以及导出多个语言包失败，因此暂时弃用
+// 项目是纯 js
+
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 const pathResolve = (file) => {

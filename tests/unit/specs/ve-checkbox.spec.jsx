@@ -22,10 +22,10 @@ describe('VeCheckbox', () => {
       },
       template: `
         <ve-checkbox-group v-model="checkboxValue">
-            <ve-checkbox label="南瓜" />
-            <ve-checkbox disabled label="西红柿" />
-            <ve-checkbox label="哈密瓜" />
-            <ve-checkbox label="水蜜桃" />
+          <ve-checkbox label="南瓜" />
+          <ve-checkbox disabled label="西红柿" />
+          <ve-checkbox label="哈密瓜" />
+          <ve-checkbox label="水蜜桃" />
         </ve-checkbox-group>
       `,
       data() {

@@ -33,14 +33,10 @@
                   ? 'dropdown-pannel-show'
                   : ''
                   ">
-                  <span v-for="item in switchLangOptions" :key="item.value" :class="[
-                    'dropdown-item',
-                    {
-                      active:
-                        item.value ===
-                        currentDocLang,
-                    },
-                  ]" @click.stop="langChange(item)">
+                  <span v-for="item in switchLangOptions" :key="item.value" :class="{
+                    'dropdown-item': true,
+                    active: item.value === currentDocLang,
+                  }" @click.stop="langChange(item)">
                     {{ item.label }}
                   </span>
                 </div>
@@ -84,20 +80,16 @@
                   !showVersionDropdown
                   ">
                   {{ currentDocVersion }}
-                  <i class="icon iconfont icon-dropdown" />
+                  <i class="icon iconfont icon-dropdown"></i>
                 </span>
-                <div class="switch-version-dropdown-pannel" :class="showVersionDropdown
-                  ? 'dropdown-pannel-show'
-                  : ''
+                <div class="switch-version-dropdown-pannel" :class="{
+                  'dropdown-pannel-show': showVersionDropdown
+                }
                   ">
-                  <span v-for="item in switchVersionOptions" :key="item.value" :class="[
-                    'dropdown-item',
-                    {
-                      active:
-                        item.label ===
-                        currentDocVersion,
-                    },
-                  ]" @click.stop="versionChange(item)">
+                  <span v-for="item in switchVersionOptions" :key="item.value" :class="{
+                    'dropdown-item': true,
+                    active: item.label === currentDocVersion,
+                  }" @click.stop="versionChange(item)">
                     {{ item.label }}
                   </span>
                 </div>
@@ -200,7 +192,8 @@ export default {
       const { matched } = this.$route
 
       const lang = item.value
-
+      // console.log(matched[0].path);
+      // console.log(lang);
       if (matched[0].path !== `/${lang}`) {
         const path = this.$route.path.replace(
           this.currentDocLang,

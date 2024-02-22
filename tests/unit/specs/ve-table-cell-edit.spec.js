@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils'
 import { cloneDeep } from '@P/src/utils/index'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import CellEditor from '@P/fan-table/src/editor/index.jsx'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
 import { HOOKS_NAME } from '@P/fan-table/src/util/constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell edit', () => {
+describe('FanTable cell edit', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -82,7 +82,7 @@ describe('veTable cell edit', () => {
   ]
 
   it('cell editor render', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -98,7 +98,7 @@ describe('veTable cell edit', () => {
   })
 
   it('cell editing style', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -129,7 +129,7 @@ describe('veTable cell edit', () => {
   })
 
   it('double click edit', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -177,7 +177,7 @@ describe('veTable cell edit', () => {
   })
 
   it('letter input directly edit', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -227,7 +227,7 @@ describe('veTable cell edit', () => {
     const beforeStartCellEditingMockFn = vi.fn()
     const beforeCellValueChangeMockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -300,7 +300,7 @@ describe('veTable cell edit', () => {
     const beforeCellValueChangeMockFn = vi.fn()
     const afterCellValueChangeMockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -421,7 +421,7 @@ describe('veTable cell edit', () => {
   it('afterCellValueChange callback function by dblclick', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -488,7 +488,7 @@ describe('veTable cell edit', () => {
   it('afterCellValueChange callback function by input letter directly', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -560,7 +560,7 @@ describe('veTable cell edit', () => {
   it('startEditingCell instance method', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -622,7 +622,7 @@ describe('veTable cell edit', () => {
   it('stopEditingCell instance method', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -681,7 +681,7 @@ describe('veTable cell edit', () => {
   it('key code arrowUp event by input directly edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -761,7 +761,7 @@ describe('veTable cell edit', () => {
   it('key code arrowUp event by dblclick edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -843,7 +843,7 @@ describe('veTable cell edit', () => {
   it('key code arrowRight event by input directly edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -923,7 +923,7 @@ describe('veTable cell edit', () => {
   it('key code arrowRight event by dblclick edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1005,7 +1005,7 @@ describe('veTable cell edit', () => {
   it('key code arrowDown event by input directly edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1085,7 +1085,7 @@ describe('veTable cell edit', () => {
   it('key code arrowDown event by dblclick edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1167,7 +1167,7 @@ describe('veTable cell edit', () => {
   it('key code arrowLeft event by input directly edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1247,7 +1247,7 @@ describe('veTable cell edit', () => {
   it('key code arrowLeft event by dblclick edit', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1329,7 +1329,7 @@ describe('veTable cell edit', () => {
   it('key code enter event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1402,7 +1402,7 @@ describe('veTable cell edit', () => {
   it('key code ctrl+enter event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1478,7 +1478,7 @@ describe('veTable cell edit', () => {
   it('key code tab event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1551,7 +1551,7 @@ describe('veTable cell edit', () => {
   it('key code shift+tab event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1627,7 +1627,7 @@ describe('veTable cell edit', () => {
   it('key code shift+tab event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1703,7 +1703,7 @@ describe('veTable cell edit', () => {
   it('key code alt+enter event', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1781,7 +1781,7 @@ describe('veTable cell edit', () => {
       template: `
                 <div>
                     <button id="outsideButton">outside table</button>
-                    <veTable
+                    <FanTable
                         :columns="columns"
                         :tableData="tableData"
                         :editOption="editOption"
@@ -1803,7 +1803,7 @@ describe('veTable cell edit', () => {
         }
       },
       components: {
-        veTable,
+        FanTable,
       },
     }
 
@@ -1875,7 +1875,7 @@ describe('veTable cell edit', () => {
       template: `
                 <div>
                     <button id="outsideButton">outside table</button>
-                    <veTable
+                    <FanTable
                         :columns="columns"
                         :tableData="tableData"
                         :editOption="editOption"
@@ -1897,7 +1897,7 @@ describe('veTable cell edit', () => {
         }
       },
       components: {
-        veTable,
+        FanTable,
       },
     }
 
@@ -1933,7 +1933,7 @@ describe('veTable cell edit', () => {
   })
 
   it('disable editing columns', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -1964,7 +1964,7 @@ describe('veTable cell edit', () => {
   it('cell editing click', async () => {
     const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -2016,7 +2016,7 @@ describe('veTable cell edit', () => {
     */
   it('normal cell dblclick move active cell', async () => {
     const mockFn = vi.fn()
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),
@@ -2060,7 +2060,7 @@ describe('veTable cell edit', () => {
   })
 
   it('cell editing with table size change and scrolling', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: cloneDeep(TABLE_DATA),

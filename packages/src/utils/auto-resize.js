@@ -26,15 +26,13 @@ export function autoResize() {
     element.removeEventListener(event, handler, false)
   }
   const resize = function (newChar) {
-    let width, scrollHeight
-
     if (!newChar) {
       newChar = ''
-    } else if (!/^[a-zA-Z \.,\\\/\|0-9]$/.test(newChar)) {
+    } else if (!/^[a-zA-Z .,\\/|0-9]$/.test(newChar)) {
       newChar = '.'
     }
 
-    if (text.textContent !== void 0) {
+    if (text.textContent !== undefined) {
       text.textContent = el.value + newChar
     } else {
       text.data = el.value + newChar // IE8
@@ -44,7 +42,7 @@ export function autoResize() {
     span.style.whiteSpace = 'pre'
 
     body.appendChild(span)
-    width = span.clientWidth + defaults.paddingWidth
+    const width = span.clientWidth + defaults.paddingWidth
     body.removeChild(span)
 
     el.style.height = defaults.minHeight + 'px'
@@ -56,7 +54,7 @@ export function autoResize() {
     } else {
       el.style.width = width + 'px'
     }
-    scrollHeight = el.scrollHeight ? el.scrollHeight - 1 : 0
+    const scrollHeight = el.scrollHeight ? el.scrollHeight - 1 : 0
 
     if (defaults.minHeight > scrollHeight) {
       el.style.height = defaults.minHeight + 'px'
@@ -72,7 +70,7 @@ export function autoResize() {
   }
   const extendDefaults = function (config) {
     if (config && config.minHeight) {
-      if (config.minHeight == 'inherit') {
+      if (config.minHeight === 'inherit') {
         defaults.minHeight = el.clientHeight
       } else {
         const minHeight = parseInt(config.minHeight)
@@ -83,7 +81,7 @@ export function autoResize() {
     }
 
     if (config && config.maxHeight) {
-      if (config.maxHeight == 'inherit') {
+      if (config.maxHeight === 'inherit') {
         defaults.maxHeight = el.clientHeight
       } else {
         const maxHeight = parseInt(config.maxHeight)
@@ -94,7 +92,7 @@ export function autoResize() {
     }
 
     if (config && config.minWidth) {
-      if (config.minWidth == 'inherit') {
+      if (config.minWidth === 'inherit') {
         defaults.minWidth = el.clientWidth
       } else {
         const minWidth = parseInt(config.minWidth)
@@ -105,7 +103,7 @@ export function autoResize() {
     }
 
     if (config && config.maxWidth) {
-      if (config.maxWidth == 'inherit') {
+      if (config.maxWidth === 'inherit') {
         defaults.maxWidth = el.clientWidth
       } else {
         const maxWidth = parseInt(config.maxWidth)
@@ -125,7 +123,7 @@ export function autoResize() {
     el = el_
     extendDefaults(config)
 
-    if (el.nodeName == 'TEXTAREA') {
+    if (el.nodeName === 'TEXTAREA') {
       el.style.resize = 'none'
       el.style.overflowY = ''
       el.style.height = defaults.minHeight + 'px'
@@ -150,10 +148,7 @@ export function autoResize() {
   }
 
   function getComputedStyle(element) {
-    return (
-      element.currentStyle ||
-            document.defaultView.getComputedStyle(element)
-    )
+    return (element.currentStyle || document.defaultView.getComputedStyle(element))
   }
 
   return {

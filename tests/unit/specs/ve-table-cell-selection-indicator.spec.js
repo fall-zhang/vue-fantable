@@ -1,10 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
-import { KEY_CODES } from '../constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell selection', () => {
+describe('FanTable cell selection', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -81,7 +80,7 @@ describe('veTable cell selection', () => {
   ]
 
   it('single cell selection indicator', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -106,7 +105,7 @@ describe('veTable cell selection', () => {
   })
 
   it('range cell selection header indicator', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

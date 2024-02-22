@@ -15,22 +15,12 @@ if (typeof window !== 'undefined') {
 
 // requestAnimationFrame() shim by Paul Irish
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-const request =
-    win.requestAnimationFrame ||
-    win.webkitRequestAnimationFrame ||
-    win.mozRequestAnimationFrame ||
-    win.oRequestAnimationFrame ||
-    win.msRequestAnimationFrame ||
+const request = win.requestAnimationFrame ||
     function (callback) {
       return win.setTimeout(callback, 1000 / 60)
     }
 
-const cancel =
-    win.cancelAnimationFrame ||
-    win.webkitCancelAnimationFrame ||
-    win.mozCancelAnimationFrame ||
-    win.oCancelAnimationFrame ||
-    win.msCancelAnimationFrame ||
+const cancel = win.cancelAnimationFrame ||
     function (id) {
       win.clearTimeout(id)
     }

@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later, mockScrollTo } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable instance methods', () => {
+describe('FanTable instance methods', () => {
   const TABLE_DATA = [
     {
       rowkey: 0,
@@ -65,7 +65,7 @@ describe('veTable instance methods', () => {
   ]
 
   it('scrollTo method', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -88,7 +88,7 @@ describe('veTable instance methods', () => {
   it('scrollToRowKey method', async () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

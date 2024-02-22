@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/fan-table/fan-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { cloneDeep } from 'lodash-es'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable contextmenu', () => {
+describe('FanTable contextmenu', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -160,7 +160,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,

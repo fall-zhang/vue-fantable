@@ -17,7 +17,7 @@ import Base from './base.md'
 import InstanceMethods from './instance-method.md'
 import CombineColumnFixed from './combine-column-fixed.md'
 import CombineElementUi from './combine-element-ui.md'
-import API from '../api/edit-option-props'
+import API from '../api/edit-option-props.vue'
 
 export default {
   name: 'BasicMain',

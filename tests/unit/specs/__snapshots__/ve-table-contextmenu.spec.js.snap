@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`veTable contextmenu render 1`] = `
+exports[`FanTable contextmenu render 1`] = `
 <div class="vue-table-root">
   <div class="fan-table fan-table-border-around" style="width: 100%;">
     <div class="fan-table-container fan-table-enable-cell-selection" style="height: 0px;">
