@@ -25,7 +25,7 @@ The style of vue-fantable uses less as the development language,A series of glob
 
 #### Choose Blue Theme To Customize
 
-If the theme you need is close to the blue theme,You can choose to customize according to the blue theme.All blue theme style variables **[Can Be Found Here](https://github.com/huangshuwei/vue-fantable/blob/master/packages/theme-default/var.less).**
+If the theme you need is close to the blue theme,You can choose to customize according to the blue theme.All blue theme style variables **[Can Be Found Here](https://github.com/fall-zhang/vue-fantable/blob/master/packages/theme-default/var.less).**
 
 Create a less variable file,For example "vue-fantable-variables.less",Introduce this file overlay var.less The variables in.
 
@@ -46,7 +46,7 @@ Vue.use(VueFantable)
 
 #### Choose Dark Theme To Customize
 
-If the theme you need is close to the dark theme,You can choose to customize according to the dark theme.All dark theme style variables can be found **[Can Be Found Here](https://github.com/huangshuwei/vue-fantable/blob/master/packages/theme-dark/var.less)**.
+If the theme you need is close to the dark theme,You can choose to customize according to the dark theme.All dark theme style variables can be found **[Can Be Found Here](https://github.com/fall-zhang/vue-fantable/blob/master/packages/theme-dark/var.less)**.
 
 Create a less variable file,For example "vue-fantable-variables.less",Introduce this file overlay var.less The variables in.
 

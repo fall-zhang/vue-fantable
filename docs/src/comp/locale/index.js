@@ -31,7 +31,7 @@ export default {
     compLang: zhCN,
     eidtDemoTitle: '在 Github 上编辑',
     eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/zh/',
+            'https://github.com/fall-zhang/vue-fantable/edit/master/examples/src/docs/zh/',
     demo: {
       description: '功能描述',
       expandCode: '展开代码',
@@ -102,7 +102,7 @@ export default {
     compLang: enUS,
     eidtDemoTitle: 'Edit this on Github',
     eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/en/',
+            'https://github.com/fall-zhang/vue-fantable/edit/master/examples/src/docs/en/',
     demo: {
       description: 'Code Description',
       expandCode: 'Expand Code',

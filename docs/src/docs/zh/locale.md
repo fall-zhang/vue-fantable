@@ -68,4 +68,4 @@ VeLocale.update(lang);
 | 韩文(KR) | ko-KR |
 | 俄语(RU) | ru-RU |
 
-如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里](https://github.com/huangshuwei/vue-fantable/tree/master/packages/src/locale/lang) 添加一个语言配置文件即可。
+如果你需要使用其他的语言，欢迎贡献 PR：只需在 [这里](https://github.com/fall-zhang/vue-fantable/tree/master/packages/src/locale/lang) 添加一个语言配置文件即可。

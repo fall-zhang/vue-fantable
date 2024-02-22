@@ -56,4 +56,4 @@
 
 ### 如何贡献
 
-如果你希望参与贡献，欢迎 [Pull Request](https://github.com/huangshuwei/vue-fantable/pulls)
+如果你希望参与贡献，欢迎 [Pull Request](https://github.com/fall-zhang/vue-fantable/pulls)

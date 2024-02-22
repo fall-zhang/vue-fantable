@@ -67,4 +67,4 @@ The following languages are currently supported：
 | Korean(KR) | ko-KR |
 | Russian (RU) | ru-RU |
 
-If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-fantable/tree/master/packages/src/locale/lang).
+If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/fall-zhang/vue-fantable/tree/master/packages/src/locale/lang).
