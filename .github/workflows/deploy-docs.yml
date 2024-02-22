@@ -61,7 +61,7 @@ jobs:
           pnpm build
 
       - name: Deploy Doc 🚀
-        uses: JamesIves/github-pages-deploy-action@4.4.3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: github-pages
           folder: ./docs/dist
