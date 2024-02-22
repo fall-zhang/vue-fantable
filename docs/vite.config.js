@@ -12,6 +12,9 @@ import { fileURLToPath } from 'node:url'
 // https://vitejs.dev/config/
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
+  build: {
+    outDir: '../document'
+  },
   // host:true, // 表示可以通过 ip 进行访问
   resolve: {
     alias: {

@@ -14,6 +14,7 @@ pnpm run dev
 - [x] 移除 theme-switch-tool
 - [x] 移除 vue-lazy-container
 - [x] 文档的 :::anchor
+- [ ] 修复文档，可以完成打包
 - [ ] 示例的加载方式
   - [ ] 考虑如何读取代码，渲染到代码展示区域中
   - [ ] 将所有带 :::demo 的内容，全都复制到新的 example 文件夹内
