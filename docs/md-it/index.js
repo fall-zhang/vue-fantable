@@ -1,103 +1,93 @@
-// 将 <!--element-demo --> 转换为 vue 组件提供调用
-/*
-fork by https://github.com/ElemeFE/element/blob/dev/build/md-loader/index.js
-*/
-// const { getOptions } = require("loader-utils");
-import path from 'node:path'
-import {
-  stripScript,
-  stripStyle,
-  stripTemplate,
-  genInlineComponentText,
-} from './utils'
-// https://regexr.com/47jlq
-const IMPORT_RE =
-  /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g
+import Markdown from 'unplugin-vue-markdown/vite'
+import MarkdownItAnchor from 'markdown-it-anchor'
+import MarkdownItPrism from 'markdown-it-prism'
+import MarkdownItContainer from 'markdown-it-container'
+import { resolve as pathResolve } from 'node:path'
+import fs from 'node:fs'
+import { highlight, tag } from './highlight'
+import { fileURLToPath } from 'node:url'
+import MarkdownIt from 'markdown-it'
+const localMd = MarkdownIt().use(tag)
+// https://vitejs.dev/config/
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
+export default function MarkdownPlugin() {
+  return Markdown({
+    // default options passed to markdown-it
+    // see: https://markdown-it.github.io/markdown-it/
+    markdownItOptions: {
+      html: true,
+      linkify: true,
+      typographer: true,
+    },
+    // A function providing the Markdown It instance gets the ability to apply custom settings/plugins
+    markdownItSetup(md) {
+      // for example
+      md.use(MarkdownItAnchor)
+      md.use(MarkdownItPrism)
+      // md.use(MarkdownItIns)
+      md.use(MarkdownItContainer, 'anchor', {
+        validate(params) {
+          // console.log(md.configure())
+          return params.trim().match(/^anchor\s*(.*)$/)
+        },
+        render(tokens, idx) {
+          const m = tokens[idx].info.trim().match(/^anchor\s*(.*)$/)
+          if (tokens[idx].nesting === 1) {
+            const label = m && m.length > 1 ? m[1] : ''
 
-export default function (md, source) {
-  const content = md.genInlineComponentText(source, path.basename())
+            return `<vue-anchor is-edit label="${label}" fileName="" /> `
+          }
+          return ''
+        },
+      })
+      md.use(MarkdownItContainer, 'demo', {
+        validate(params) {
+          // console.log('🚀 ~ render ~ m:', params)
+          return params.trim().match(/^demo\s*(.*)$/)
+        },
+        // render(tokens, idx) {
+        //   const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
+        //   if (tokens[idx].nesting === 1) {
+        //     const description = m && m.length > 1 ? m[1] : ''
+        //     const content = tokens[idx + 1].type === 'fence'
+        //       ? tokens[idx + 1].content
+        //       : ''
+        //     return `<demo-block description="${description}" sourceCode="${encodeURIComponent(highlight(content, 'vue'))}">`
+        //   }
+        //   return '</demo-block>'
+        // },
+        // 使用文件路径替代代码内容，且多个语言统一
+        render(tokens, idx) {
+          const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
+          if (tokens[idx].nesting === 1) {
+            const descriptionText = m && m.length > 1 ? m[1] : ''
+            const description = descriptionText
+              ? `<template #description> ${localMd.render(descriptionText)}</template>`
+              : ''
+            const sourceFileToken = tokens[idx + 2]
+            const sourceFile = sourceFileToken.children?.[0].content ?? ''
+            let source = ''
+            if (sourceFileToken.type === 'inline') {
+              source = fs.readFileSync(
+                pathResolve(__dirname, '../src/docs/example', `${sourceFile}.vue`),
+                'utf-8'
+              )
+            }
+            if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
+            const contentCode = highlight(source, 'vue')
+            return `<demo-block filePath="${sourceFile}" sourceCode="">
+              ${description}
+             ${contentCode}`
+          }
+          // console.log(tokens[idx].nesting);
+          return '</demo-block>'
+        },
+      })
 
-  const startTag = '<!--element-demo:'
-  const startTagLen = `startTag`.length
-  const endTag = ':element-demo-->'
-  const endTagLen = endTag.length
-
-  let componenetsString = ''
-  let id = 0 // demo 的 id
-  const htmlOutput = [] // 输出的html内容
-  const styleOutput = [] // 输出的style内容
-  let start = 0 // 字符串开始位置
-  let importMods = null // 依赖项
-
-  let commentStart = content.indexOf(startTag)
-  let commentEnd = content.indexOf(endTag, commentStart + startTagLen)
-  while (commentStart !== -1 && commentEnd !== -1) {
-    htmlOutput.push(content.slice(start, commentStart))
-
-    const commentContent = content.slice(
-      commentStart + startTagLen,
-      commentEnd,
-    )
-    const html = stripTemplate(commentContent)
-    // add style
-    const style = stripStyle(commentContent)
-    let script = stripScript(commentContent)
-
-    // 去除 import 引入
-    importMods = script.match(IMPORT_RE)
-    if (importMods) {
-      script = script.replace(IMPORT_RE, '')
-    }
-
-    styleOutput.push(style)
-
-    const demoComponentContent = genInlineComponentText(html, script)
-
-    const demoComponentName = `element-demo${id}`
-    htmlOutput.push(
-      `<template slot="source"><${demoComponentName} /></template>`,
-    )
-    componenetsString += `${JSON.stringify(
-      demoComponentName,
-    )}: ${demoComponentContent},`
-
-    // 重新计算下一次的位置
-    id++
-    start = commentEnd + endTagLen
-    commentStart = content.indexOf(startTag, start)
-    commentEnd = content.indexOf(endTag, commentStart + startTagLen)
-  }
-
-  // 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
-  // 优化这段逻辑
-  let pageScript = ''
-  if (componenetsString) {
-    pageScript = `<script>
-      ${importMods && importMods.join('\r\n')}
-    export default {
-      name: 'component-doc',
-      components: {
-        ${componenetsString}
-      }
-    }
-  </script>`
-  } else if (content.indexOf('<script>') === 0) {
-    // 硬编码，有待改善
-    start = content.indexOf('</script>') + '</script>'.length
-    pageScript = content.slice(0, start)
-  }
-
-  htmlOutput.push(content.slice(start))
-
-  return `
-  <template>
-    <section class="content example-md-doc">
-      ${htmlOutput.join('')}
-    </section>
-  </template>
-  ${'pageScript'}
-  <style lang="less">
-    ${styleOutput.join('\r\n')}
-  </style>
-`
+      md.use(MarkdownItContainer, 'tip')
+      md.use(MarkdownItContainer, 'warning')
+    },
+    // Class names for the wrapper div
+    wrapperClasses: 'markdown-body'
+  })
 }

@@ -64,7 +64,7 @@ new Vue({
 
 :::demo
 
-start-demo
+start-example
 
 :::
 
