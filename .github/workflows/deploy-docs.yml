@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: 18
 
       - name: Install pnpm
         run: npm i -g pnpm
@@ -61,7 +61,7 @@ jobs:
           pnpm build
 
       - name: Deploy Doc 🚀
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: github-pages
           folder: ./docs/dist
