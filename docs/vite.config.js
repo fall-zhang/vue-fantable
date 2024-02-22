@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url'
 // https://vitejs.dev/config/
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
+  base: '/vue-fantable/',
   // build: {
   //   outDir: '../document'
   // },
