@@ -4,6 +4,6 @@ You can try clicking on the header, line number column, etc. to see the effect.
 
 :::demo
 
-fan-table/cell-selection/cell-seletion
+fan-table/cell-selection/cell-selection
 
 :::
