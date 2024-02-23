@@ -1,0 +1,1 @@
+import{_ as n,r as s,o as e,a as l,b as _,w as i,c as o,x as a,ah as u}from"./index-y7N75Dfv.js";const m={};function p(r,f){const c=s("router-view");return e(),l("div",null,[_(c,null,{default:i(({Component:t})=>[r.$route.meta.keepAlive?(e(),o(u,{key:0},[(e(),o(a(t)))],1024)):(e(),o(a(t),{key:1}))]),_:1})])}const d=n(m,[["render",p]]);export{d as default};
