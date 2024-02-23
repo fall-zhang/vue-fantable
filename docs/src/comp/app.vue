@@ -53,10 +53,7 @@
                   {{ currentLocal.docTheme }}
                   <i class="icon iconfont icon-dropdown" />
                 </span>
-                <div class="switch-theme-dropdown-pannel" :class="showThemeDropdown
-                  ? 'dropdown-pannel-show'
-                  : ''
-                  ">
+                <div class="switch-theme-dropdown-pannel" :class="{ 'dropdown-pannel-show': showThemeDropdown }">
                   <span v-for="item in currentLocal.switchDocThemeOptions" :key="item.value" :class="[
                     'dropdown-item',
                     {
@@ -211,16 +208,9 @@ export default {
       setDocTheme(value)
       this.currentDocTheme = value
       this.showThemeDropdown = false
-
-      if (window.env === 'dev') {
-        setTimeout(() => {
-          window.location.reload()
-        })
-      } else {
-        this.switchThemeMix(value).finally(() => {
-          // this.loadingInstance.close();
-        })
-      }
+      setTimeout(() => {
+        window.location.reload()
+      }, 50)
     },
     // version change
     versionChange(item) {
@@ -270,7 +260,7 @@ export default {
     },
     switchThemeMix(theme) {
       console.log(this.currentDocTheme)
-      window.location.reload()
+      // window.location.reload()
     }
   },
 }

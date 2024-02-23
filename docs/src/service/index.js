@@ -10,9 +10,9 @@ export function getVersions() {
     let url = `${net.protocol}//${net.hostname}:${net.port}`
 
     // 包含 /vue-fantable/ 目录
-    if (!isDev) {
-      url += '/vue-fantable'
-    }
+    // if (!isDev) {
+    url += '/vue-fantable'
+    // }
     url += `/versions.json?t=${new Date().getTime()}`
 
     httpRequest({

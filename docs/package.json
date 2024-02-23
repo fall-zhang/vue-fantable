@@ -1,12 +1,13 @@
 {
   "name": "vue-fantable-doc",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "https://github.com/fall-zhang",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "lint": "vue-cli-service lint",
     "lint:fix": "eslint src/ --fix --ext .js,.jsx"
   },

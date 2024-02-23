@@ -46,13 +46,11 @@ dev mode
 1、生产环境使用已发布的样式文件，参考 theme-switch-mixins.js
 */
 
-if (window.env === 'dev') {
-  const docTheme = getDocTheme()
-  if (docTheme && docTheme === 'dark') {
-    import('@P/theme-dark/index.less')
-  } else {
-    import('@P/theme-default/index.less')
-  }
+const docTheme = getDocTheme()
+if (docTheme === 'dark') {
+  import('@P/theme-dark/index.less')
+} else {
+  import('@P/theme-default/index.less')
 }
 
 app.use(VeCheckbox)
