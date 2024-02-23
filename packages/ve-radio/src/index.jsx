@@ -1,6 +1,6 @@
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
-import { hasValue } from '@P/src/utils/mini-util'
+import { hasValue } from '@P/src/utils/index'
 export default {
   name: COMPS_NAME.VE_RADIO,
   props: {

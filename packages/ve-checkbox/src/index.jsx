@@ -1,7 +1,6 @@
-import { getParentCompByName } from '@P/src/utils/index'
+import { getParentCompByName, hasValue } from '@P/src/utils/index'
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
-import { hasValue } from '@P/src/utils/mini-util'
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {
