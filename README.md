@@ -1,4 +1,5 @@
-> 已经基本完成适配，如果遇到了任何问题，可以提交 [issue](https://github.com/fall-zhang/vue-fantable/issues)
+> 已经基本完成[文档](https://fall-zhang.github.io/vue-fantable/#/zh/doc/intro)的开发
+> vue-fantable 开发已经初步完成，如果遇到了任何组件和文档有关问题，可以提交 [issue](https://github.com/fall-zhang/vue-fantable/issues)
 
 # vue-fantable
 
@@ -21,8 +22,9 @@
 
 ## API & 文档
 
-> 文档更新较慢，大家可以看 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。组件使用方式和原组件一致。
+> 文档正在逐步完善，大家可以参照 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。组件使用方式和原组件一致。
 
+- [vue-fantable 文档](https://fall-zhang.github.io/vue-fantable/#/zh/doc/intro)
 - [CHANGE_LOG](./CHANGE-LOG.md)
 
 ## 安装
@@ -349,7 +351,7 @@ export default {
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
   - [x] 各个组件使用 v-model
-- [ ] 发布文档，并解决文档中遇到的问题，详情查看 [文档](./docs/README.md)
+- [x] 发布文档，并解决文档中遇到的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
   - [x] 舍弃 jest 全局 API 使用 vitest api
   - [ ] 调整适配原测试内容

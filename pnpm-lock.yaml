@@ -129,9 +129,6 @@ importers:
       clipboard:
         specifier: ^2.0.11
         version: 2.0.11
-      core-js:
-        specifier: ^3.35.0
-        version: 3.35.0
       echarts:
         specifier: ^5.4.3
         version: 5.4.3
@@ -2793,11 +2790,6 @@ packages:
     dependencies:
       is-what: 3.14.1
     dev: true
-
-  /core-js@3.35.0:
-    resolution: {integrity: sha512-ntakECeqg81KqMueeGJ79Q5ZgQNR+6eaE8sxGCx62zMbAIj65q+uYvatToew3m6eAGdU4gNZwpZ34NMe4GYswg==}
-    requiresBuild: true
-    dev: false
 
   /cosmiconfig-typescript-loader@5.0.0(@types/node@18.19.4)(cosmiconfig@8.3.6)(typescript@5.3.3):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
