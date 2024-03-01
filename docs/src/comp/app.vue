@@ -4,8 +4,7 @@
       <div class="main-banner-warpper">
         <!-- logo -->
         <div class="main-banner-logo">
-          <i style="font-size: 20px" class="icon iconfont icon-table"></i>
-          &nbsp;vue-fantable
+          <FoldingFan /> vue-fantable
         </div>
         <!-- menus -->
         <div class="main-banner-menus-container">
@@ -36,7 +35,7 @@
                   <span v-for="item in switchLangOptions" :key="item.value" :class="{
                     'dropdown-item': true,
                     active: item.value === currentDocLang,
-                  }" @click.stop="langChange(item)">
+                  }" @click.stop="onChangeLang(item)">
                     {{ item.label }}
                   </span>
                 </div>
@@ -54,14 +53,10 @@
                   <i class="icon iconfont icon-dropdown" />
                 </span>
                 <div class="switch-theme-dropdown-pannel" :class="{ 'dropdown-pannel-show': showThemeDropdown }">
-                  <span v-for="item in currentLocal.switchDocThemeOptions" :key="item.value" :class="[
-                    'dropdown-item',
-                    {
-                      active:
-                        item.value ===
-                        currentDocTheme,
-                    },
-                  ]" @click.stop="themeChange(item)">
+                  <span v-for="item in currentLocal.switchDocThemeOptions" :key="item.value" :class="{
+                    'dropdown-item': true,
+                    active: item.value === currentDocTheme,
+                  }" @click.stop="onThemeChange(item)">
                     {{ item.label }}
                   </span>
                 </div>
@@ -120,10 +115,14 @@ import clickoutside from './directives/clickoutside.js'
 import { version as latestVersion } from '../../../package.json'
 
 import { getVersions } from '@/service/index.js'
+import FoldingFan from '@/components/icons/folding-fan.vue'
 
 export default {
   directives: {
     'click-outside': clickoutside,
+  },
+  components: {
+    FoldingFan
   },
   mixins: [I18nMixins, ThemeSwitchMixins],
   data() {
@@ -172,7 +171,7 @@ export default {
   },
   watch: {
     currentDocLang() {
-      this.$veLocale.use(locale[this.currentDocLang].compLang)
+      // this.$veLocale.use(locale[this.currentDocLang].compLang)
     },
   },
   created() {
@@ -185,26 +184,25 @@ export default {
   },
   methods: {
     // lang change
-    langChange(item) {
+    onChangeLang(item) {
       const { matched } = this.$route
-
       const lang = item.value
-      // console.log(matched[0].path);
-      // console.log(lang);
       if (matched[0].path !== `/${lang}`) {
         const path = this.$route.path.replace(
           this.currentDocLang,
           lang,
         )
-        this.$router.push(path)
-        this.$veLocale.use(locale[lang].compLang)
+        this.$router.replace(path)
+        // this.$router.replace(path)
+        // this.$veLocale.use(locale[lang].compLang)
       }
-      setTimeout(() => {
-        this.showLangDropdown = false
-      }, 150)
+
+      // setTimeout(() => {
+      //   this.showLangDropdown = false
+      // }, 150)
     },
     // theme change
-    themeChange({ value }) {
+    onThemeChange({ value }) {
       setDocTheme(value)
       this.currentDocTheme = value
       this.showThemeDropdown = false
