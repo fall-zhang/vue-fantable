@@ -1,13 +1,13 @@
 import { createApp } from 'vue'
 
-import APP from '@/comp/app.vue'
+import APP from './App.vue'
 import Router from '@/router/index'
 
 import { getDocTheme } from '@/utils/cookies'
 
 import '@/css/index.less'
 import '@/css/custom.less'
-import '@/comp/app.less'
+import './css/App.less'
 
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'
