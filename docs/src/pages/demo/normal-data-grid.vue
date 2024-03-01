@@ -46,8 +46,8 @@
 
 <script lang="jsx">
 import Mock from 'mockjs'
-import locale from '../comp/locale'
-import I18nMixins from '../comp/mixins/i18n-mixins'
+import locale from '@/comp/locale'
+import I18nMixins from '@/comp/mixins/i18n-mixins'
 export default {
   name: 'NormalDataGrid',
   components: {

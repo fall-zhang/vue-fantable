@@ -14,8 +14,8 @@
 </template>
 
 <script lang="jsx">
-import locale from '../comp/locale'
-import I18nMixins from '../comp/mixins/i18n-mixins'
+import locale from '@/comp/locale'
+import I18nMixins from '@/comp/mixins/i18n-mixins'
 
 const COLUMN_KEYS = [
   'A',

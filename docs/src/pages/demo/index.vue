@@ -2,7 +2,7 @@
   <div>
     <div class="site-demo-container">
       <h1 class="main-title">
-        <img :src="Icon">vue-fantable
+        <FoldingFan /> vue-fantable
       </h1>
       <div class="demo-title">
         <div class="demo-title-text">
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import locale from '../comp/locale'
-import I18nMixins from '../comp/mixins/i18n-mixins'
+import locale from '@/comp/locale'
+import I18nMixins from '@/comp/mixins/i18n-mixins'
 import NormalDataGrid from './normal-data-grid.vue'
 import SpreadSheet from './SpreadSheet.vue'
 import Icon from 'vue-fantable/packages/src/icon/fantable.svg'
