@@ -12,6 +12,7 @@
     "lint:fix": "eslint src/ --fix --ext .js,.jsx"
   },
   "dependencies": {
+    "@icon-park/vue-next": "^1.4.2",
     "axios": "^1.6.5",
     "chalk": "^5.3.0",
     "clipboard": "^2.0.11",

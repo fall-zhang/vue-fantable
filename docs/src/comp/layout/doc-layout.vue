@@ -54,10 +54,8 @@
     </div>
 
     <!--回到顶部-->
-    <div>
-      <div v-show="showBackTop" class="main-back-top">
-        <i class="icon iconfont icon-huidaodingbu-copy main-back-top-icon" @click="goBackTop()" />
-      </div>
+    <div v-show="showBackTop" class="main-back-top" @click="onBackTop()">
+      <UpOne theme="outline" size="28" fill="#000000" :strokeWidth="2" strokeLinejoin="bevel" strokeLinecap="butt" />
     </div>
 
     <!--目录-->
@@ -73,10 +71,11 @@ import Footer from './doc-footer.vue'
 import routers from '@/router/locale/index'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './../mixins/i18n-mixins'
+import { UpOne } from '@icon-park/vue-next'
 
 export default {
   name: 'App',
-  components: { Footer, catolog },
+  components: { Footer, catolog, UpOne },
   mixins: [I18nMixins],
   data() {
     return {
@@ -107,7 +106,7 @@ export default {
     document.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    goBackTop() {
+    onBackTop() {
       window.scroll(0, 0)
     },
 
@@ -166,3 +165,27 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="less">
+/* 回到顶部 start */
+.main-back-top {
+  position: fixed;
+  cursor: pointer;
+  bottom: 100px;
+  right: 38px;
+  border: 1px solid #969696;
+  // background-color: #;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 1;
+  transition: .3s;
+
+  &:hover {
+    background-color: #8b9bcd;
+  }
+}
+</style>

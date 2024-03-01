@@ -8,6 +8,7 @@ import { getDocTheme } from '@/utils/cookies'
 import '@/css/index.less'
 import '@/css/custom.less'
 import './css/App.less'
+import 'prismjs/themes/prism-coy.min.css'
 
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'

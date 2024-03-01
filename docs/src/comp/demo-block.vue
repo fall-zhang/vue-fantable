@@ -356,20 +356,8 @@ export default {
     transition: height 0.2s;
 
     .highlight {
-      pre {
-        margin: 0;
-      }
-
-      code.hljs {
-        margin: 0;
-        max-height: none;
-        border-radius: 0;
-        border-bottom: none;
-
-        &::before {
-          content: none;
-        }
-      }
+      background-color: #f5f7fa;
+      padding: 20px;
     }
   }
 

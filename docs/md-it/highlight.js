@@ -18,7 +18,7 @@ function wrap(code, lang) {
   if (lang === 'text') {
     code = escapeHtml(code)
   }
-  return `<template #code><pre v-pre ><code>${code}</code></pre></template>`
+  return `<template #code><pre v-pre><code>${code}</code></pre></template>`
 }
 /**
  *
@@ -58,6 +58,7 @@ export const highlight = (str, lang) => {
   }
   if (prism.languages[lang]) {
     const code = prism.highlight(str, prism.languages[lang], lang)
+    console.log('🚀 ~ highlight ~ code:', code)
     return wrap(code, rawLang)
   }
   return wrap(str, 'text')
