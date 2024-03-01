@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable row style', () => {
+describe('FanTable row style', () => {
   const TABLE_DATA = [
     {
       rowKey: 0,
@@ -67,7 +67,7 @@ describe('veTable row style', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -84,7 +84,7 @@ describe('veTable row style', () => {
   })
 
   it('rowStyleOption', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -97,13 +97,13 @@ describe('veTable row style', () => {
       },
     })
 
-    expect(wrapper.findAll('.ve-table-stripe').exists()).toBe(true)
-    expect(wrapper.findAll('.ve-table-row-hover').exists()).toBe(true)
-    expect(wrapper.findAll('.ve-table-row-highlight').exists()).toBe(true)
+    expect(wrapper.findAll('.fan-table-stripe').exists()).toBe(true)
+    expect(wrapper.findAll('.fan-table-row-hover').exists()).toBe(true)
+    expect(wrapper.findAll('.fan-table-row-highlight').exists()).toBe(true)
   })
 
   it('row click highlight ', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -116,17 +116,17 @@ describe('veTable row style', () => {
       },
     })
 
-    const firstTr = wrapper.findAll('.ve-table-body-tr')[0]
+    const firstTr = wrapper.findAll('.fan-table-body-tr')[0]
 
     firstTr.trigger('click')
 
     await later()
 
-    expect(firstTr.classes()).toContain('ve-table-tr-highlight')
+    expect(firstTr.classes()).toContain('fan-table-tr-highlight')
   })
 
   it('row highlight by setHighlightRow method', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -143,8 +143,8 @@ describe('veTable row style', () => {
 
     await later()
 
-    const highlightRow = wrapper.findAll('.ve-table-body-tr')[2]
+    const highlightRow = wrapper.findAll('.fan-table-body-tr')[2]
 
-    expect(highlightRow.classes()).toContain('ve-table-tr-highlight')
+    expect(highlightRow.classes()).toContain('fan-table-tr-highlight')
   })
 })

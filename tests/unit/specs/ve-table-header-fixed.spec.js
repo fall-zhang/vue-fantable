@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header fixed', () => {
+describe('FanTable header fixed', () => {
   const TABLE_DATA = [
     {
       rowkey: 0,
@@ -71,7 +71,7 @@ describe('veTable header fixed', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,
@@ -85,7 +85,7 @@ describe('veTable header fixed', () => {
   })
 
   it('maxHeight props', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,
@@ -96,12 +96,12 @@ describe('veTable header fixed', () => {
     })
 
     expect(
-      wrapper.find('.ve-table-container').attributes('style'),
+      wrapper.find('.fan-table-container').attributes('style'),
     ).toContain('max-height: 200px;')
   })
 
   it('fixedHeader props', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         maxHeight: 200,
         fixedHeader: true,
@@ -111,6 +111,6 @@ describe('veTable header fixed', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-fixed-header').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-fixed-header').exists()).toBe(true)
   })
 })

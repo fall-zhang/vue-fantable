@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell custom', () => {
+describe('FanTable cell custom', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -109,7 +109,7 @@ describe('veTable cell custom', () => {
     },
   ]
 
-  const wrapper = mount(veTable, {
+  const wrapper = mount(FanTable, {
     props: {
       columns: COLUMNS,
       tableData: TABLE_DATA,

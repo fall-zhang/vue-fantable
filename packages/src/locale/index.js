@@ -2,21 +2,24 @@ import locale from '@P/ve-locale/ve-locale.js'
 function isFunction(val) {
   return typeof val === 'function'
 }
-/*
- * @createI18N
- * @desc create i18n
- * @param {string} compName
- * @return {array<function>}
- */
-/*
+
+/**
  * @createLocale
  * @desc create namespace by comp name
  * @param {string} compName
  * @return {function}
  */
+
 export function createLocale(compName) {
   return createI18N(compName)
 }
+
+/**
+ * @createI18N
+ * @desc create i18n
+ * @param {string} compName
+ * @return {array<function>}
+ */
 
 export function createI18N(compName) {
   return function (path, ...args) {

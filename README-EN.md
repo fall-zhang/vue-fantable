@@ -1,14 +1,16 @@
-[![license](https://img.shields.io/npm/l/vue-fantable.svg)](http://www.opensource.org/licenses/mit-license.php)
-
-# still work on adept vue3
+> If you have any question, open an [issue](https://github.com/fall-zhang/vue-fantable/issues)
 
 # vue-fantable
 
-**English** | [中文](./README-CN.md)
+[![license](https://img.shields.io/npm/l/vue-fantable.svg)](http://www.opensource.org/licenses/mit-license.php)
 
-> *If I have seen further, it is by standing on the shoulders of giants.*
+**English** | [中文](./README.md)
+
+> If I have seen further, it is by standing on the shoulders of giants.
 
 ## Introduction
+
+If you are using Vue2, you should use [vue-easytable](https://www.npmjs.com/package/vue-easytable).
 
 A powerful data table based on vue You can use it as data grid、Microsoft Excel or Google sheets. It supports virtual scroll、cell edit etc.
 
@@ -16,23 +18,21 @@ Just use vue-fantable like vue-easytable
 
 ## Characteristics
 
--   Support 300000 rows of data display through virtual scroll
--   Free forever. Of course, you can also choose to donate, ensure the long-term maintenance of the project
+- Support 300000 rows of data display through virtual scroll
+- Free forever. Of course, you can also choose to donate, ensure the long-term maintenance of the project
 
 ## API & Examples
 
--   [Official documents (Github)]()
--   [Official documents (China)]()
+- [Official documents (Github)]()
+- [Official documents (China)]()
 
 ## Install
 
+Make sure your program having Vue@3.2 or above.
+
 ```
 npm install vue-fantable
-```
-
-or
-
-```
+# or
 yarn add vue-fantable
 ```
 
@@ -55,7 +55,7 @@ Example:
 
 ```vue
 <template>
-  <fan-table :columns="columns" :table-data="tableData" />
+  <fan-table :columns="columns" :table-data="tableData" :max-height="400"/>
 </template>
 
 <script >
@@ -154,13 +154,14 @@ If there is no feature you want,
 
 - Modern browser
 
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
 ## How to contribute
 
-If you want to contribute,just create a
+- One star is helpful to let more people know us.
+- If you want to contribute,just create a pull request.
 
 ## Contributors
 

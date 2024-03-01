@@ -1,12 +1,10 @@
 /*
-events outside
-desc:绑定元素触发的事件不在指定事件中，将会触发。此指令可替代 clickoutside
-
+  events outside
+  desc: 绑定元素触发的事件不在指定事件中，将会触发。此指令可替代 clickoutside
 */
 
 export default {
   mounted (el, binding, vNode) {
-    // console.log('222222')
     const { events, callback } = binding.value
 
     if (

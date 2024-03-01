@@ -1,4 +1,5 @@
-> 已经基本完成适配，如果遇到了任何问题，可以提交 [issue](https://github.com/fall-zhang/vue-fantable/issues)
+> 已经基本完成[文档](https://fall-zhang.github.io/vue-fantable/#/zh/doc/intro)的开发
+> vue-fantable 开发已经初步完成，如果遇到了任何组件和文档有关问题，可以提交 [issue](https://github.com/fall-zhang/vue-fantable/issues)
 
 # vue-fantable
 
@@ -21,10 +22,10 @@
 
 ## API & 文档
 
-> 文档更新较慢，大家可以看 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。组件使用方式和原组件一致。
+> 文档正在逐步完善，大家可以参照 [vue-easytable](https://happy-coding-clans.github.io/vue-easytable/#/zh/doc/intro) 的文档。组件使用方式和原组件一致。
 
-- [官方文档 (Github)]()
-- [官方文档 (国内)]()
+- [vue-fantable 文档](https://fall-zhang.github.io/vue-fantable/#/zh/doc/intro)
+- [CHANGE_LOG](./CHANGE-LOG.md)
 
 ## 安装
 
@@ -32,11 +33,7 @@
 
 ```
 npm install vue-fantable
-```
-
-or
-
-```
+# or
 yarn add vue-fantable
 ```
 
@@ -55,7 +52,7 @@ app.use(VueFantable);
 app.mounted('#app')
 ```
 
-示例:
+### 示例 1
 
 ```vue
 <template>
@@ -110,6 +107,211 @@ app.mounted('#app')
 </script>
 ```
 
+### 示例 2
+
+```vue
+<template>
+  <div class="spreadsheet">
+    <fan-table style="word-break: break-word" fixed-header :scroll-width="0" :max-height="500" border-y :columns="columns"
+      :table-data="tableData" row-key-field-name="rowKey" :virtual-scroll-option="virtualScrollOption"
+      :cell-autofill-option="cellAutofillOption" :edit-option="editOption"
+      :contextmenu-body-option="contextmenuBodyOption" :contextmenu-header-option="contextmenuHeaderOption"
+      :row-style-option="rowStyleOption" :column-width-resize-option="columnWidthResizeOption" />
+  </div>
+</template>
+
+<script lang="jsx">
+
+const COLUMN_KEYS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
+export default {
+  name: 'SpreadSheet',
+  data() {
+    return {
+      // start row index
+      startRowIndex: 0,
+      columnWidthResizeOption: {
+        enable: true,
+      },
+      virtualScrollOption: {
+        // 是否开启
+        enable: true,
+        scrolling: this.scrolling,
+      },
+      cellAutofillOption: {
+        directionX: true,
+        directionY: true,
+        beforeAutofill: ({
+          direction,
+          sourceSelectionRangeIndexes,
+          targetSelectionRangeIndexes,
+          sourceSelectionData,
+          targetSelectionData,
+        }) => { },
+        afterAutofill: ({
+          direction,
+          sourceSelectionRangeIndexes,
+          targetSelectionRangeIndexes,
+          sourceSelectionData,
+          targetSelectionData,
+        }) => { },
+      },
+      // edit option 可控单元格编辑
+      editOption: {
+        beforeCellValueChange: ({ row, column, changeValue }) => { },
+        afterCellValueChange: ({ row, column, changeValue }) => { },
+      },
+      // contextmenu header
+      contextmenuHeaderOption: {
+        //  before contextmenu show. 你可以在这里更改 contextmenu 配置
+        beforeShow: ({
+          isWholeColSelection,
+          selectionRangeKeys,
+          selectionRangeIndexes,
+        }) => {
+          // do something
+        },
+        afterMenuClick: ({
+          type,
+          selectionRangeKeys,
+          selectionRangeIndexes,
+        }) => {
+          // do something
+        },
+        contextmenus: [
+          { type: 'CUT', },
+          { type: 'COPY', },
+          { type: 'SEPARATOR', },
+          { type: 'EMPTY_COLUMN', },
+          { type: 'SEPARATOR', },
+          { type: 'LEFT_FIXED_COLUMN_TO', },
+          { type: 'CANCEL_LEFT_FIXED_COLUMN_TO', },
+          { type: 'RIGHT_FIXED_COLUMN_TO', },
+          { type: 'CANCEL_RIGHT_FIXED_COLUMN_TO', },
+        ],
+      },
+      contextmenuBodyOption: {
+        //  before contextmenu show. 你可以在这里更改 contextmenu 配置
+        beforeShow: ({
+          isWholeRowSelection,
+          selectionRangeKeys,
+          selectionRangeIndexes,
+        }) => {
+          console.log('---contextmenu body beforeShow--')
+          console.log('isWholeRowSelection::', isWholeRowSelection)
+          console.log('selectionRangeKeys::', selectionRangeKeys)
+          console.log(
+            'selectionRangeIndexes::',
+            selectionRangeIndexes,
+          )
+        },
+        afterMenuClick: ({
+          type,
+          selectionRangeKeys,
+          selectionRangeIndexes,
+        }) => {
+          console.log('---contextmenu body afterMenuClick--')
+          console.log('type::', type)
+          console.log('selectionRangeKeys::', selectionRangeKeys)
+          console.log('selectionRangeIndexes::', selectionRangeIndexes)
+        },
+        contextmenus: [
+          { type: 'CUT', },
+          { type: 'COPY', },
+          { type: 'SEPARATOR', },
+          { type: 'INSERT_ROW_ABOVE', },
+          { type: 'INSERT_ROW_BELOW', },
+          { type: 'SEPARATOR', },
+          { type: 'REMOVE_ROW', },
+          { type: 'EMPTY_ROW', },
+          { type: 'EMPTY_CELL', },
+        ],
+      },
+      rowStyleOption: {
+        clickHighlight: false,
+        hoverHighlight: false,
+      },
+      tableData: [],
+    }
+  },
+  computed: {
+    // current local
+    columns() {
+      let columns = [
+        {
+          field: 'index',
+          key: 'index',
+          // is operation column
+          operationColumn: true,
+          title: '',
+          width: 55,
+          fixed: 'left',
+          renderBodyCell: this.renderRowIndex,
+        },
+      ]
+      columns = columns.concat(
+        COLUMN_KEYS.map((keyValue) => {
+          return {
+            title: keyValue,
+            field: keyValue,
+            key: keyValue,
+            width: 90,
+            edit: true,
+          }
+        }),
+      )
+      return columns
+    },
+  },
+  created() {
+    this.initTableData()
+  },
+  methods: {
+    // 渲染 row index
+    renderRowIndex({ row, column, rowIndex }) {
+      return (<span>{rowIndex + this.startRowIndex + 1}</span>)
+    },
+    scrolling({
+      startRowIndex,
+      visibleStartIndex,
+      visibleEndIndex,
+      visibleAboveCount,
+      visibleBelowCount,
+    }) {
+      this.startRowIndex = startRowIndex
+    },
+    initTableData() {
+      const tableData = []
+      for (let i = 0; i < 5000; i++) {
+        const dataItem = {
+          rowKey: i,
+        }
+        COLUMN_KEYS.forEach((keyValue) => {
+          dataItem[keyValue] = ''
+        })
+        if (i === 1 || i === 3) {
+          dataItem.C = 'YOU'
+          dataItem.D = 'CAN'
+          dataItem.E = 'TRY'
+          dataItem.F = 'ENTER'
+          dataItem.G = 'SOME'
+          dataItem.H = 'WORDS'
+          dataItem.I = '!!!'
+        }
+        tableData.push(dataItem)
+      }
+      this.tableData = tableData
+    },
+  },
+}
+</script>
+<style lang="less">
+.spreadsheet {
+  padding: 0 100px;
+  margin: 30px 0;
+}
+</style>
+```
+
 ## 功能支持
 
 **其它基础组件**
@@ -148,28 +350,32 @@ app.mounted('#app')
   - [x] （修复）多个实例之间事件没有进行隔离
   - [x] 排序完成后没有立即刷新表格
   - [x] 筛选功能无法使用
-- [ ] 关注文档的问题
-  - [ ] 文档的 anchor
-  - [ ] 示例是如何加载的
+  - [x] 各个组件使用 v-model
+- [x] 发布文档，并解决文档中遇到的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
-  - [ ] 更新测试
+  - [x] 舍弃 jest 全局 API 使用 vitest api
+  - [ ] 调整适配原测试内容
+  - [ ] 添加新的测试
 - [ ] 关注性能和优化
   - [ ] 加上防抖和节流
-  - [ ] 使用 CSS 变量
-  - [ ] 重写 Loading 组件
+  - [ ] 移除过时以及兼容性 API（使用新的 web 标准）
+  - [ ] setTimeout 优化
+  - [x] 使用 CSS 变量
+  - [x] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
-  - [ ] 添加 TS 的 type
-- [ ] 之后加上 TS
+- [ ] 使用 TS 重构应用
+  - [x] 添加 TS 类型支持
+  - [ ] TS 重写组件
 - [ ] 最后支持原生（无框架依赖）
   - [ ] 使用 shadow dom 替代
 
-如果没有你想要的的功能，请告诉[我]()
+如果没有你想要的的功能，请告诉[我](https://github.com/fall-zhang/vue-fantable/issues)
 
 ## 支持环境
 
 - 所有现代浏览器
 
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" /></br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
@@ -184,7 +390,7 @@ app.mounted('#app')
 
 ## 讨论组
 
-- [加入 gitter 讨论]()
+- [加入 gitter 讨论](https://github.com/fall-zhang/vue-fantable/issues)
 
 ## License
 

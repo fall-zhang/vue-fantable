@@ -1,15 +1,11 @@
-<!--
- ⚠️ ⚠️ ⚠️  IMPORTANT: Please use the following link to create a new issue: ⚠️ ⚠️ ⚠️
+<!-- 请尽可能详细的描述问题，包括但不限于以下几点： -->
 
-  http://doc.huangsw.com/issue-template-generater/
+fan-table 的版本：
 
-If your issue was not created using the app above, it will be closed immediately.
--->
+vue 的版本：
 
-<!--
- ⚠️ ⚠️ ⚠️  注意：请使用下面的链接来新建 issue： ⚠️ ⚠️ ⚠️
+使用的浏览器：
 
-  http://doc.huangsw.com/issue-template-generater/
+问题的类型（issue or feature）：
 
-不是用上面的链接创建的 issue 会被立即关闭。
--->
+对问题的详细说明：

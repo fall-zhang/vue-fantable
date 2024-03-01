@@ -1,4 +1,4 @@
-<fa-anchor label="Usage"/>
+<vue-anchor label="Usage"/>
 
 ```javascript
 import Vue from "vue";
@@ -9,7 +9,7 @@ import enUS from "vue-fantable/libs/locale/lang/en-US.js";
 VeLocale.use(enUS);
 ```
 
-<fa-anchor label="Global Usage"/>
+<vue-anchor label="Global Usage"/>
 Mount the `velocale` component on the prototype of Vue for global call
 
 ```javascript

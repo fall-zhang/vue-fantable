@@ -2,7 +2,8 @@
 import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
 // import VeIcon from '../../ve-icon/ve-icon'
-import { ICON_NAMES } from '../../src/utils/constant'
+import { ICON_NAMES } from '@P/src/utils/constant'
+import { hasValue } from '@P/src/utils/index'
 
 export default {
   name: COMPS_NAME.VE_SELECT,
@@ -25,7 +26,7 @@ export default {
     },
 
     // 用户传入v-model 的值 [{value/label/selected}]
-    value: {
+    modelValue: {
       type: Array,
       default: null,
     },
@@ -58,7 +59,7 @@ export default {
       },
     },
   },
-  emits: ['input', 'selectChange'],
+  emits: ['selectChange', 'update:modelValue'],
   data() {
     return {
       visible: false,
@@ -81,19 +82,20 @@ export default {
     },
   },
   watch: {
-    value: function () {
-      this.init()
+    modelValue () {
+      this.initModel()
     },
   },
   created() {
-    this.init()
+    this.initModel()
   },
   methods: {
     // 初始化
-    init() {
-      this.internalOptions = Object.assign([], this.value)
+    initModel() {
+      if (hasValue(this.modelValue)) {
+        this.internalOptions = [].concat(this.modelValue)
+      }
     },
-
     // 显示选中的信息
     showSelectInfo() {
       let result
@@ -122,8 +124,8 @@ export default {
 
     // dropdown change event
     dropdownChange() {
-      // 使用户传入的v-model 生效
-      this.$emit('input', this.internalOptions)
+      // 使用户传入的 v-model 生效
+      this.$emit('update:modelValue', this.internalOptions)
       // this.$emit(EMIT_EVENTS.SELECT_CHANGE, this.internalOptions)
       this.$emit('selectChange', this.internalOptions)
     },
@@ -185,7 +187,6 @@ export default {
             name={ICON_NAMES.BOTTOM_ARROW}
             class={this.iconClass}
           />
-          {/* <i class={[this.iconClass]}></i> */}
         </span>
       </VeDropdown>
     )

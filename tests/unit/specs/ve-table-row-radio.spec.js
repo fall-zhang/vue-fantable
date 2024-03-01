@@ -1,8 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable row radio', () => {
+describe('FanTable row radio', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -75,7 +76,7 @@ describe('veTable row radio', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -91,7 +92,7 @@ describe('veTable row radio', () => {
   })
 
   it('has radio', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -107,7 +108,7 @@ describe('veTable row radio', () => {
   })
 
   it('check default selected key', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -122,14 +123,14 @@ describe('veTable row radio', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[2]
+        .findAll('.fan-table-body-tr')[2]
         .find('.ve-radio-checked')
         .exists(),
     ).toBe(true)
   })
 
   it('check disable selected keys', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -145,21 +146,21 @@ describe('veTable row radio', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[2]
+        .findAll('.fan-table-body-tr')[2]
         .find('.ve-radio-checked.ve-radio-disabled')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[4]
+        .findAll('.fan-table-body-tr')[4]
         .find('.ve-radio-disabled')
         .exists(),
     ).toBe(true)
   })
 
   it('controllable attr selectedRowKey', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -184,9 +185,9 @@ describe('veTable row radio', () => {
   })
 
   it('radioOption selectedRowChange event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -200,8 +201,8 @@ describe('veTable row radio', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
       .find('.ve-radio')
       .trigger('click')
 

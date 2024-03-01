@@ -2,10 +2,10 @@
 .ve-contextmenu-popper {
   z-index: 9999;
   overflow: hidden;
-  border-radius: @ve-contextmenu-border-radius;
-  border: 1px solid @ve-contextmenu-border-color;
-  background-color: @ve-contextmenu-background-color;
-  box-shadow: 0 2px 12px 0 @ve-contextmenu-box-shadow-color;
+  border-radius: var(--ve-contextmenu-border-radius);
+  border: 1px solid var(--ve-contextmenu-border-color);
+  background-color: var(--ve-contextmenu-background-color);
+  box-shadow: 0 2px 12px 0 var(--ve-contextmenu-box-shadow-color);
 }
 
 .ve-contextmenu {
@@ -13,8 +13,8 @@
   flex-direction: row;
 
   &-panel {
-    min-width: @ve-contextmenu-min-width;
-    min-height: @ve-contextmenu-min-height;
+    min-width: var(--ve-contextmenu-min-width);
+    min-height: var(--ve-contextmenu-min-height);
     overflow: hidden;
 
     .ve-contextmenu-list {
@@ -31,17 +31,17 @@
         height: 34px;
         justify-content: center;
         outline: none;
-        color: @ve-contextmenu-node-text-color;
+        color: var(--ve-contextmenu-node-text-color);
         cursor: pointer;
 
         &:not(&-disabled):hover {
-          background: @ve-contextmenu-node-hover-background-color;
-          color: @ve-contextmenu-node-hover-text-color;
+          background: var(--ve-contextmenu-node-hover-background-color);
+          color: var(--ve-contextmenu-node-hover-text-color);
         }
 
         &-active {
-          background: @ve-contextmenu-node-hover-background-color;
-          color: @ve-contextmenu-node-active-text-color;
+          background: var(--ve-contextmenu-node-hover-background-color);
+          color: var(--ve-contextmenu-node-active-text-color);
         }
 
         &-label {
@@ -53,15 +53,15 @@
         }
 
         &-icon-postfix {
-          color: @ve-contextmenu-node-icon-postfix-color;
+          color: var(--ve-contextmenu-node-icon-postfix-color);
         }
 
         &-disabled {
-          color: @ve-contextmenu-node-disabled-text-color;
+          color: var(--ve-contextmenu-node-disabled-text-color);
           cursor: not-allowed;
 
           .ve-contextmenu-node-icon-postfix {
-            color: @ve-contextmenu-node-disabled-icon-postfix-color;
+            color: var(--ve-contextmenu-node-disabled-icon-postfix-color);
           }
         }
       }
@@ -69,7 +69,7 @@
       .ve-contextmenu-node-separator {
         height: 1px;
         margin: 5px 0px;
-        border-bottom: 1px solid @ve-contextmenu-node-separator-line-color;
+        border-bottom: 1px solid var(--ve-contextmenu-node-separator-line-color);
       }
     }
   }

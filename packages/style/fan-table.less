@@ -1,9 +1,10 @@
-@ve-virtual-phantom-index: -1;
-
-@ve-normal-cell-selection-border-index: 0;
-@ve-normal-cell-selection-corner-index: 1;
-@ve-column-resizer-handler-index: 50;
-@ve-column-resizer-line-index: 50;
+:root{
+  --ve-virtual-phantom-index: -1;
+  --ve-normal-cell-selection-border-index: 0;
+  --ve-normal-cell-selection-corner-index: 1;
+  --ve-column-resizer-handler-index: 50;
+  --ve-column-resizer-line-index: 50;
+}
 
 .fan-table *,
 .fan-table *:before,
@@ -43,24 +44,24 @@
         // 表头（需要处理多表头情况）
         thead.fan-table-header {
           tr.fan-table-header-tr {
-            height: @fan-table-head-row-height;
+            height: var(--fan-table-head-row-height);
 
             th.fan-table-header-th {
-              background-color: @fan-table-header-background-color;
-              padding: @fan-table-head-row-td-padding;
+              background-color: var(--fan-table-header-background-color);
+              padding: var(--fan-table-head-row-td-padding);
               font-weight: 500;
-              color: @fan-table-head-text-color;
-              font-size: @fan-table-head-text-font-size;
+              color: var(--fan-table-head-text-color);
+              font-size: var(--fan-table-head-text-font-size);
 
               // cell indicator
               &.fan-table-cell-indicator {
-                background-color: @fan-table-header-cell-indicator-background-color;
+                background-color: var(--fan-table-header-cell-indicator-background-color);
               }
 
               // cell indicator active
               &.fan-table-cell-indicator-active {
-                background-color: @fan-table-header-cell-indicator-active-background-color;
-                color: @fan-table-head-indicator-active-text-color;
+                background-color: var(--fan-table-header-cell-indicator-active-background-color);
+                color: var(--fan-table-head-indicator-active-text-color);
               }
             }
           }
@@ -69,7 +70,7 @@
           &.fan-table-fixed-header {
             tr th {
               position: sticky;
-              z-index: @ve-fixed-header-index;
+              z-index: var(--ve-fixed-header-index);
             }
           }
 
@@ -80,7 +81,7 @@
               &.fan-table-fixed-left,
               &.fan-table-fixed-right {
                 position: sticky;
-                z-index: @ve-fixed-header-cell-index;
+                z-index: var(--ve-fixed-header-cell-index);
               }
 
               // checkbox
@@ -95,7 +96,7 @@
                 width: 16px;
                 height: 16px;
                 margin-left: 5px;
-                color: @fan-table-sort-icon-default-color;
+                color: var(--fan-table-sort-icon-default-color);
                 pointer-events: none;
 
                 .fan-table-sort-icon {
@@ -112,7 +113,7 @@
                   }
 
                   &.active {
-                    color: @fan-table-sort-icon-active-color;
+                    color: var(--fan-table-sort-icon-active-color);
                   }
                 }
               }
@@ -130,7 +131,7 @@
                 cursor: pointer;
 
                 .fan-table-filter-icon {
-                  color: @fan-table-header-filter-icon-color;
+                  color: var(--fan-table-header-filter-icon-color);
                   position: absolute;
                   top: 0;
                   left: 5px;
@@ -145,38 +146,38 @@
 
           tr.fan-table-body-tr,
           tr.fan-table-expand-tr {
-            height: @fan-table-body-row-height;
+            height: var(--fan-table-body-row-height);
 
             td.fan-table-body-td,
             td.fan-table-expand-td {
-              background-color: @fan-table-body-background-color;
-              color: @fan-table-body-text-color;
+              background-color: var(--fan-table-body-background-color);
+              color: var(--fan-table-body-text-color);
               // hack content fill td height
               //height: 1px;
               height: inherit;
-              font-size: @fan-table-body-text-font-size;
+              font-size: var(--fan-table-body-text-font-size);
               // 解决展开表格偶发抖动的问题
               overflow: hidden;
             }
 
             td.fan-table-body-td {
-              padding: @fan-table-body-row-td-padding;
+              padding: var(--fan-table-body-row-td-padding);
               white-space: pre-wrap;
               overflow: hidden;
             }
 
             td.fan-table-operation-col {
-              background-color: @fan-table-td-operation-column-background-color;
+              background-color: var(--fan-table-td-operation-column-background-color);
 
               // cell indicator
               &.fan-table-cell-indicator {
-                background-color: @fan-table-body-cell-indicator-background-color;
+                background-color: var(--fan-table-body-cell-indicator-background-color);
               }
 
               // cell indicator active
               &.fan-table-cell-indicator-active {
-                background-color: @fan-table-body-cell-indicator-active-background-color;
-                color: @fan-table-body-indicator-active-text-color;
+                background-color: var(--fan-table-body-cell-indicator-active-background-color);
+                color: var(--fan-table-body-indicator-active-text-color);
               }
             }
           }
@@ -189,21 +190,21 @@
           // 滚动中效果
           tr.fan-table-body-row-scrolling {
             &>td {
-              background-color: @fan-table-body-row-row-scrolling-background-color;
+              background-color: var(--fan-table-body-row-row-scrolling-background-color);
             }
           }
 
           // 斑马纹
           &.fan-table-stripe {
             tr.fan-table-body-tr:nth-child(2n + 1) td {
-              background-color: @fan-table-body-row-stripe-background-color;
+              background-color: var(--fan-table-body-row-stripe-background-color);
             }
           }
 
           // 行悬浮效果
           &.fan-table-row-hover {
             tr.fan-table-body-tr:hover td {
-              background-color: @fan-table-body-row-hover-background-color;
+              background-color: var(--fan-table-body-row-hover-background-color);
             }
           }
 
@@ -212,7 +213,7 @@
             tr.fan-table-body-tr {
               &.fan-table-tr-highlight {
                 td {
-                  background-color: @fan-table-body-row-highlight-background-color;
+                  background-color: var(--fan-table-body-row-highlight-background-color);
                 }
               }
             }
@@ -225,7 +226,7 @@
               &.fan-table-fixed-left,
               &.fan-table-fixed-right {
                 position: sticky;
-                z-index: @ve-fixed-body-cell-index;
+                z-index: var(--ve-fixed-body-cell-index);
               }
 
               // expand row icon
@@ -234,21 +235,14 @@
                 display: inline-block;
                 width: 20px;
                 height: 20px;
+                transition: transform 0.3s;
 
                 i {
                   display: inline-flex;
-
-                  &::before {
-                    transform: rotate(0deg);
-                    transition: transform 0.3s;
-                  }
                 }
 
                 &.fan-table-expand-icon-collapsed {
-                  i::before {
-                    transform: rotate(90deg);
-                    transition: transform 0.3s;
-                  }
+                  transform: rotate(90deg);
                 }
               }
 
@@ -272,9 +266,9 @@
           .fan-table-expand-tr {
             .fan-table-expand-td-content {
               position: sticky;
-              z-index: @ve-fixed-body-cell-index;
+              z-index: var(--ve-fixed-body-cell-index);
               left: 0px;
-              padding: @fan-table-body-row-expand-content-padding;
+              padding: var(--fan-table-body-row-expand-content-padding);
             }
           }
         }
@@ -282,13 +276,13 @@
         //  tfooter
         tfoot.fan-table-footer {
           tr.fan-table-footer-tr {
-            height: @fan-table-foot-row-height;
+            height: var(--fan-table-foot-row-height);
 
             td.fan-table-footer-td {
-              background-color: @fan-table-foot-background-color;
-              color: @fan-table-foot-text-color;
-              padding: @fan-table-foot-row-td-padding;
-              font-size: @fan-table-foot-text-font-size;
+              background-color: var(--fan-table-foot-background-color);
+              color: var(--fan-table-foot-text-color);
+              padding: var(--fan-table-foot-row-td-padding);
+              font-size: var(--fan-table-foot-text-font-size);
             }
           }
 
@@ -296,7 +290,7 @@
           &.fan-table-fixed-footer {
             tr td {
               position: sticky;
-              z-index: @ve-fixed-foot-index;
+              z-index: var(--ve-fixed-foot-index);
             }
           }
 
@@ -307,7 +301,7 @@
               &.fan-table-fixed-left,
               &.fan-table-fixed-right {
                 position: sticky;
-                z-index: @ve-fixed-foot-cell-index;
+                z-index: var(--ve-fixed-foot-cell-index);
               }
             }
           }
@@ -323,18 +317,18 @@
           .fan-table-selection-autofill-area {
             .fan-table-selection-corner {
               position: absolute;
-              z-index: @ve-fixed-cell-selection-corner-index;
+              z-index: var(--ve-fixed-cell-selection-corner-index);
             }
 
             .fan-table-selection-border {
               position: absolute;
-              z-index: @ve-fixed-cell-selection-border-index;
+              z-index: var(--ve-fixed-cell-selection-border-index);
             }
           }
 
           .fan-table-selection-normal-area-layer {
             position: absolute;
-            z-index: @ve-fixed-cell-selection-border-index;
+            z-index: var(--ve-fixed-cell-selection-border-index);
           }
         }
 
@@ -345,18 +339,18 @@
           .fan-table-selection-autofill-area {
             .fan-table-selection-corner {
               position: absolute;
-              z-index: @ve-normal-cell-selection-corner-index;
+              z-index: var(--ve-normal-cell-selection-corner-index);
             }
 
             .fan-table-selection-border {
               position: absolute;
-              z-index: @ve-normal-cell-selection-border-index;
+              z-index: var(--ve-normal-cell-selection-border-index);
             }
           }
 
           .fan-table-selection-normal-area-layer {
             position: absolute;
-            z-index: @ve-normal-cell-selection-border-index;
+            z-index: var(--ve-normal-cell-selection-border-index);
           }
         }
 
@@ -367,24 +361,24 @@
           .fan-table-selection-autofill-area {
             .fan-table-selection-corner {
               position: absolute;
-              z-index: @ve-fixed-cell-selection-corner-index;
+              z-index: var(--ve-fixed-cell-selection-corner-index);
             }
 
             .fan-table-selection-border {
               position: absolute;
-              z-index: @ve-fixed-cell-selection-border-index;
+              z-index: var(--ve-fixed-cell-selection-border-index);
             }
           }
 
           .fan-table-selection-normal-area-layer {
             position: absolute;
-            z-index: @ve-fixed-cell-selection-border-index;
+            z-index: var(--ve-fixed-cell-selection-border-index);
           }
         }
 
         // 浮层
         .fan-table-selection-normal-area-layer {
-          background-color: @fan-table-selection-area-layer-background-color;
+          background-color: var(--fan-table-selection-area-layer-background-color);
           opacity: 0.1;
           pointer-events: none;
         }
@@ -396,21 +390,21 @@
             height: 8px;
             width: 8px;
             border-style: solid;
-            border-color: @fan-table-selection-corner-border-color;
-            background-color: @fan-table-selection-corner-background-color;
+            border-color: var(--fan-table-selection-corner-border-color);
+            background-color: var(--fan-table-selection-corner-background-color);
             cursor: crosshair;
           }
 
           .fan-table-selection-border {
             display: block;
-            background-color: @fan-table-selection-border-color;
+            background-color: var(--fan-table-selection-border-color);
           }
         }
 
         .fan-table-selection-autofill-area {
           .fan-table-selection-border {
             display: block;
-            background-color: @fan-table-selection-autofill-border-color;
+            background-color: var(--fan-table-selection-autofill-border-color);
           }
         }
 
@@ -427,20 +421,20 @@
         left: 0;
         top: 0;
         right: 0;
-        z-index: @ve-virtual-phantom-index;
+        z-index: var(--ve-virtual-phantom-index);
       }
     }
 
     // column fix effect
     &.fan-table-container-left-scrolling {
       .fan-table-last-left-fixed-column {
-        border-right-color: @fan-table-column-fixed-border-color;
+        border-right-color: var(--fan-table-column-fixed-border-color);
       }
     }
 
     &.fan-table-container-right-scrolling {
       .fan-table-first-right-fixed-column {
-        border-left: 1px solid @fan-table-column-fixed-border-color;
+        border-left: 1px solid var(--fan-table-column-fixed-border-color);
       }
     }
 
@@ -459,13 +453,13 @@
 
       th,
       td {
-        border-bottom: 1px solid @fan-table-border-color;
+        border-bottom: 1px solid var(--fan-table-border-color);
       }
 
       tr:first-child>th,
       // footer
       tr.fan-table-footer-tr:first-child>td {
-        border-top: 1px solid @fan-table-border-color;
+        border-top: 1px solid var(--fan-table-border-color);
       }
     }
 
@@ -474,19 +468,19 @@
 
       th,
       td {
-        border-right: 1px solid @fan-table-border-color;
+        border-right: 1px solid var(--fan-table-border-color);
       }
 
       th:first-child,
       td:first-child {
-        border-left: 1px solid @fan-table-border-color;
+        border-left: 1px solid var(--fan-table-border-color);
       }
     }
   }
 
   // border around
   &.fan-table-border-around {
-    border: 1px solid @fan-table-border-color;
+    border: 1px solid var(--fan-table-border-color);
 
     .fan-table-container {
       table.fan-table-content {
@@ -529,14 +523,14 @@
       margin: 0;
       padding: 1px 5px 0;
       font-family: inherit;
-      line-height: @fan-table-td-editing-line-height;
+      line-height: var(--fan-table-td-editing-line-height);
       font-size: inherit;
-      border: 2px solid @fan-table-td-editing-border-color;
-      box-shadow: 1px 2px 5px 0 @fan-table-td-editing-box-shadow-color;
+      border: 2px solid var(--fan-table-td-editing-border-color);
+      box-shadow: 1px 2px 5px 0 var(--fan-table-td-editing-box-shadow-color);
       display: block;
-      color: @fan-table-td-editing-font-color;
+      color: var(--fan-table-td-editing-font-color);
       border-radius: 0;
-      background-color: @fan-table-td-editing-background-color;
+      background-color: var(--fan-table-td-editing-background-color);
     }
   }
 
@@ -550,10 +544,10 @@
       bottom: 0;
       width: 5px;
       height: 40px;
-      z-index: @ve-column-resizer-handler-index;
+      z-index: var(--ve-column-resizer-handler-index);
 
       &.active {
-        background-color: @fan-table-column-resizer-handler-background-color;
+        background-color: var(--fan-table-column-resizer-handler-background-color);
       }
     }
 
@@ -564,8 +558,8 @@
       top: 0;
       bottom: 0;
       width: 0;
-      border-left: 1px solid @fan-table-column-resizer-line-background-color;
-      z-index: @ve-column-resizer-line-index;
+      border-left: 1px solid var(--fan-table-column-resizer-line-background-color);
+      z-index: var(--ve-column-resizer-line-index);
     }
   }
 }

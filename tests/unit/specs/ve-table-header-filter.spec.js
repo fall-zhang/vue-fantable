@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
-import veIcon from '@P/ve-table/ve-table'
+import { FanTable } from '@P/index'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header filter', () => {
+describe('FanTable header filter', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -42,8 +42,8 @@ describe('veTable header filter', () => {
     },
   ]
 
-  const mockFilterFn = jest.fn()
-  const mockBeforeVisibleChangeFn = jest.fn()
+  const mockFilterFn = vi.fn()
+  const mockBeforeVisibleChangeFn = vi.fn()
 
   // filter single
   const TABLE_COLUMNS_FILTER_SINGLE = [
@@ -209,7 +209,7 @@ describe('veTable header filter', () => {
   ]
 
   it('render single filter', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
@@ -221,7 +221,7 @@ describe('veTable header filter', () => {
   })
 
   it('render multiple filter', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,
@@ -233,7 +233,7 @@ describe('veTable header filter', () => {
   })
 
   it('render filter custom icon', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_CUSTOM_ICON,
         tableData: TABLE_DATA,
@@ -245,7 +245,7 @@ describe('veTable header filter', () => {
   })
 
   it('single filter', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_SINGLE,
         tableData: TABLE_DATA,
@@ -292,7 +292,7 @@ describe('veTable header filter', () => {
   })
 
   it('multiple filter', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: TABLE_COLUMNS_FILTER_MULTIPLE,
         tableData: TABLE_DATA,
@@ -342,7 +342,7 @@ describe('veTable header filter', () => {
     const wrapper = mount({
       render() {
         return (
-          <ve-table
+          <fan-table
             columns={this.columns}
             tableData={this.tableData}
           />

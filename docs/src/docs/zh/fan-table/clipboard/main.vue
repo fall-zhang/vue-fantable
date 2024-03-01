@@ -11,7 +11,7 @@
 import Explain from "./explain.md";
 import ShortCuts from "./shortcuts.md";
 import Base from "./base.md";
-import API from "../api/clipboard-option-props";
+import API from "../api/clipboard-option-props.vue";
 
 export default {
     name: "basic-main",

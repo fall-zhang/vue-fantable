@@ -41,9 +41,9 @@ Write the following in main.js：
 import Vue from "vue";
 import "vue-fantable/libs/theme-default.css"; // import style
 
-import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable"; // import library
+import { FanTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-fantable"; // import library
 
-Vue.use(VeTable);
+Vue.use(FanTable);
 Vue.use(VePagination);
 Vue.use(VeIcon);
 Vue.use(VeLoading);
@@ -61,63 +61,7 @@ new Vue({
 
 :::demo
 
-```html
-<template>
-    <ve-table :columns="columns" :table-data="tableData" />
-</template>
-
-<script>
-    export default {
-        data() {
-            return {
-                columns: [
-                    { field: "name", key: "a", title: "Name", align: "center" },
-                    { field: "date", key: "b", title: "Date", align: "left" },
-                    {
-                        field: "hobby",
-                        key: "c",
-                        title: "Hobby",
-                        align: "right",
-                    },
-                    { field: "address", key: "d", title: "Address" },
-                ],
-                tableData: [
-                    {
-                        name: "John",
-                        date: "1900-05-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shanghai",
-                    },
-                    {
-                        name: "Dickerson",
-                        date: "1910-06-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Beijing",
-                    },
-                    {
-                        name: "Larsen",
-                        date: "2000-07-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Chongqing",
-                    },
-                    {
-                        name: "Geneva",
-                        date: "2010-08-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Xiamen",
-                    },
-                    {
-                        name: "Jami",
-                        date: "2020-09-20",
-                        hobby: "coding and coding repeat",
-                        address: "No.1 Century Avenue, Shenzhen",
-                    },
-                ],
-            };
-        },
-    };
-</script>
-```
+start-example
 
 :::
 
@@ -149,7 +93,7 @@ Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you 
     </head>
     <body>
         <div id="app">
-            <ve-table :columns="columns" :table-data="tableData"></ve-table>
+            <fan-table :columns="columns" :table-data="tableData"></fan-table>
         </div>
     </body>
     <!-- import Vue -->
@@ -222,4 +166,4 @@ Through [https://unpkg.com/vue-fantable/](https://unpkg.com/vue-fantable/), you 
 ```
 
 :::anchor Browser Compatible
-Support modern browser and ie10 and above
+Support all of modern browser

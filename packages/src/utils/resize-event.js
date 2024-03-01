@@ -3,7 +3,23 @@ fork from:
 https://github.com/ElemeFE/element
 */
 import { debounce } from '@P/src/utils/index.js'
-class ResizeObserverPro extends ResizeObserver {
+if (!window.ResizeObserver) {
+  console.warn('current package fan-table do not support IE browser')
+  window.ResizeObserver = class ResizeObserver {
+    observe() {
+      // do nothing
+    }
+
+    unobserve() {
+      // do nothing
+    }
+
+    disconnect() {
+      // do nothing
+    }
+  }
+}
+class ResizeObserverPro extends window.ResizeObserver {
   constructor(callback) {
     super(debounce(callback, 40))
   }

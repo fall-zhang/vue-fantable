@@ -28,13 +28,11 @@ export default class Hooks {
      * @param {Function} callback The listener function to add.
      */
   addHook(hookName, callback) {
-    let hooks
-
     if (!this.hooks[hookName]) {
       this.hooks[hookName] = []
     }
 
-    hooks = this.hooks[hookName]
+    const hooks = this.hooks[hookName]
 
     // exclude repeat hook
     let isRepeat = false

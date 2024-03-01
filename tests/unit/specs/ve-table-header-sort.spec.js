@@ -1,8 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable header sort', () => {
+describe('FanTable header sort', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -75,7 +76,7 @@ describe('veTable header sort', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             sortOption={this.sortOption}
             columns={this.columns}
             tableData={this.tableData}
@@ -131,7 +132,7 @@ describe('veTable header sort', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable
+          <FanTable
             sortOption={this.sortOption}
             columns={this.columns}
             tableData={this.tableData}
@@ -186,13 +187,13 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
     const callBackData = {
       age: 'asc',
       weight: '',
     }
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,
@@ -205,17 +206,17 @@ describe('veTable header sort', () => {
       },
     })
 
-    const thEls = wrapper.findAll('.ve-table-header-tr th')
-    expect(thEls[1].find('.ve-table-sort').exists()).toBe(true)
+    const thEls = wrapper.findAll('.fan-table-header-tr th')
+    expect(thEls[1].find('.fan-table-sort').exists()).toBe(true)
 
     expect(
       thEls[2]
-        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
+        .findAll('.fan-table-sort .fan-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
 
-    thEls[1].find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.fan-table-sortable-column').trigger('click')
 
     await later()
 
@@ -288,7 +289,7 @@ describe('veTable header sort', () => {
 
     expect(
       thEls[1]
-        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
+        .findAll('.fan-table-sort .fan-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
@@ -325,13 +326,13 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
     const callBackData = {
       age: 'asc',
       weight: 'asc',
     }
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,
@@ -345,17 +346,17 @@ describe('veTable header sort', () => {
       },
     })
 
-    const thEls = wrapper.findAll('.ve-table-header-tr th')
-    expect(thEls[1].find('.ve-table-sort').exists()).toBe(true)
+    const thEls = wrapper.findAll('.fan-table-header-tr th')
+    expect(thEls[1].find('.fan-table-sort').exists()).toBe(true)
 
     expect(
       thEls[2]
-        .findAll('.ve-table-sort .ve-table-sort-icon')[0]
+        .findAll('.fan-table-sort .fan-table-sort-icon')[0]
         .find('.active')
         .exists(),
     ).toBe(true)
 
-    thEls[1].find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.fan-table-sortable-column').trigger('click')
 
     await later()
 
@@ -363,7 +364,7 @@ describe('veTable header sort', () => {
     expect(mockFn).toHaveBeenCalledWith(callBackData)
 
     expect(
-      wrapper.findAll('.ve-table-sort .ve-table-sort-icon.active').length,
+      wrapper.findAll('.fan-table-sort .fan-table-sort-icon.active').length,
     ).toBe(2)
 
     // 多个字段排序
@@ -401,9 +402,9 @@ describe('veTable header sort', () => {
       { field: 'address', key: 'e', title: 'Address', align: 'left' },
     ]
 
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns,
         tableData: TABLE_DATA,
@@ -417,9 +418,9 @@ describe('veTable header sort', () => {
       },
     })
 
-    const thEls = wrapper.findAll('.ve-table-header-tr th')
+    const thEls = wrapper.findAll('.fan-table-header-tr th')
 
-    thEls[1].find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.fan-table-sortable-column').trigger('click')
 
     await later()
 
@@ -428,7 +429,7 @@ describe('veTable header sort', () => {
       weight: '',
     })
 
-    thEls[1].find('.ve-table-sortable-column').trigger('click')
+    thEls[1].find('.fan-table-sortable-column').trigger('click')
 
     await later()
 

@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
-import veDropdown from '@/ve-dropdown'
+import veDropdown from '@P/ve-dropdown'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
 describe('veDropdown', () => {
   // dropdown items
@@ -428,7 +429,7 @@ describe('veDropdown', () => {
   })
 
   it('beforeVisibleChange callback method', async () => {
-    const mockBeforeVisibleChangeFn = jest.fn()
+    const mockBeforeVisibleChangeFn = vi.fn()
     const wrapper = mount({
       render() {
         return (

@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable clolum width', () => {
+describe('FanTable clolum width', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -93,7 +93,7 @@ describe('veTable clolum width', () => {
   it('renders normal', () => {
     const wrapper = mount({
       render() {
-        return <veTable columns={COLUMNS_PX} tableData={TABLE_DATA} />
+        return <FanTable columns={COLUMNS_PX} tableData={TABLE_DATA} />
       },
     })
 
@@ -104,12 +104,12 @@ describe('veTable clolum width', () => {
     const wrapper = mount({
       render() {
         return (
-          <veTable columns={COLUMNS_PERCENT} tableData={TABLE_DATA} />
+          <FanTable columns={COLUMNS_PERCENT} tableData={TABLE_DATA} />
         )
       },
     })
 
-    const colgroupEl = wrapper.find('.ve-table-content colgroup')
+    const colgroupEl = wrapper.find('.fan-table-content colgroup')
 
     expect(colgroupEl.findAll('col').length).toBe(4)
     expect(colgroupEl.findAll('col')[0].attributes('style')).toBe(
@@ -120,11 +120,11 @@ describe('veTable clolum width', () => {
   it('width px', () => {
     const wrapper = mount({
       render() {
-        return <veTable columns={COLUMNS_PX} tableData={TABLE_DATA} />
+        return <FanTable columns={COLUMNS_PX} tableData={TABLE_DATA} />
       },
     })
 
-    const colgroupEl = wrapper.find('.ve-table-content colgroup')
+    const colgroupEl = wrapper.find('.fan-table-content colgroup')
 
     expect(colgroupEl.findAll('col').length).toBe(4)
     expect(colgroupEl.findAll('col')[0].attributes('style')).toBe(

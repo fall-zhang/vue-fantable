@@ -1,7 +1,7 @@
 import Pager from './pager.jsx'
 import VeSelect from '@P/ve-select/ve-select.js'
 import VeIcon from '@P/ve-icon/ve-icon.js'
-import { COMPS_NAME, EMIT_EVENTS, LOCALE_COMP_NAME } from './util/constant'
+import { COMPS_NAME, LOCALE_COMP_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { createLocale } from '@P/src/locale/index'
 import { ICON_NAMES } from '../../src/utils/constant'
@@ -195,11 +195,11 @@ export default {
     },
   },
   watch: {
-    pageIndex: function (newVal) {
+    pageIndex (newVal) {
       this.newPageIndex = newVal
     },
 
-    pageSize: function (newVal) {
+    pageSize(newVal) {
       this.newPageSize = newVal
     },
   },

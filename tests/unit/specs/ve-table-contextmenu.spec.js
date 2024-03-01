@@ -1,9 +1,10 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { cloneDeep } from 'lodash-es'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable contextmenu', () => {
+describe('FanTable contextmenu', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -159,7 +160,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -197,7 +198,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('header contextmenu beforeShow callback', async () => {
-    const mockBeforeShowFn = jest.fn()
+    const mockBeforeShowFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -206,7 +207,7 @@ describe('veTable contextmenu', () => {
         render() {
           return (
             <div>
-              <ve-table
+              <fan-table
                 row-key-field-name="rowKey"
                 columns={COLUMNS}
                 table-data={tableData}
@@ -247,8 +248,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')[0]
-      .findAll('.ve-table-header-th')[1]
+    const firstTrThEl = WRAPPER.findAll('.fan-table-header-tr')[0]
+      .findAll('.fan-table-header-th')[1]
 
     firstTrThEl.trigger('mousedown', {
       button: 3,
@@ -281,7 +282,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('header contextmenu afterMenuClick callback', async () => {
-    const mockAfterMenuClickFn = jest.fn()
+    const mockAfterMenuClickFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -290,7 +291,7 @@ describe('veTable contextmenu', () => {
         render() {
           return (
             <div>
-              <ve-table
+              <fan-table
                 row-key-field-name="rowKey"
                 columns={COLUMNS}
                 table-data={tableData}
@@ -331,8 +332,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrThEl = WRAPPER.findAll('.ve-table-header-tr')[0]
-      .findAll('.ve-table-header-th')[1]
+    const firstTrThEl = WRAPPER.findAll('.fan-table-header-tr')[0]
+      .findAll('.fan-table-header-th')[1]
 
     firstTrThEl.trigger('mousedown', {
       button: 3,
@@ -375,7 +376,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('body contextmenu beforeShow callback', async () => {
-    const mockBeforeShowFn = jest.fn()
+    const mockBeforeShowFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -384,7 +385,7 @@ describe('veTable contextmenu', () => {
         render() {
           return (
             <div>
-              <ve-table
+              <fan-table
                 row-key-field-name="rowKey"
                 columns={COLUMNS}
                 table-data={tableData}
@@ -425,8 +426,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown', {
       button: 3,
@@ -435,7 +436,7 @@ describe('veTable contextmenu', () => {
     firstTrTdEl.trigger('contextmenu')
     await later()
 
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     const contextmenuNodes = document.querySelectorAll(
       '.ve-contextmenu-node',
@@ -461,7 +462,7 @@ describe('veTable contextmenu', () => {
   })
 
   it('body contextmenu afterMenuClick callback', async () => {
-    const mockAfterMenuClickFn = jest.fn()
+    const mockAfterMenuClickFn = vi.fn()
 
     const tableData = cloneDeep(TABLE_DATA)
 
@@ -470,7 +471,7 @@ describe('veTable contextmenu', () => {
         render() {
           return (
             <div>
-              <ve-table
+              <fan-table
                 row-key-field-name="rowKey"
                 columns={COLUMNS}
                 table-data={tableData}
@@ -511,8 +512,8 @@ describe('veTable contextmenu', () => {
       { attachTo: document.body },
     )
 
-    const firstTrTdEl = WRAPPER.findAll('.ve-table-body-tr')[2]
-      .findAll('.ve-table-body-td')[2]
+    const firstTrTdEl = WRAPPER.findAll('.fan-table-body-tr')[2]
+      .findAll('.fan-table-body-td')[2]
 
     firstTrTdEl.trigger('mousedown', {
       button: 3,
@@ -521,7 +522,7 @@ describe('veTable contextmenu', () => {
     firstTrTdEl.trigger('contextmenu')
     await later()
 
-    expect(firstTrTdEl.classes()).toContain('ve-table-cell-selection')
+    expect(firstTrTdEl.classes()).toContain('fan-table-cell-selection')
 
     const contextmenuNodes = document.querySelectorAll(
       '.ve-contextmenu-node',
@@ -557,7 +558,7 @@ describe('veTable contextmenu', () => {
   })
 
   // it("contextmenu INSERT_ROW_ABOVE", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -566,7 +567,7 @@ describe('veTable contextmenu', () => {
   //             render() {
   //                 return (
   //                     <div>
-  //                         <ve-table
+  //                         <fan-table
   //                             row-key-field-name="rowKey"
   //                             columns={COLUMNS}
   //                             table-data={tableData}
@@ -607,9 +608,9 @@ describe('veTable contextmenu', () => {
   //         { attachTo: document.body },
   //     );
 
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+  //     const firstTrTdEl = WRAPPER.findAll(".fan-table-body-tr")
   //         .at(2)
-  //         .findAll(".ve-table-body-td")
+  //         .findAll(".fan-table-body-td")
   //         .at(2);
 
   //     firstTrTdEl.trigger("mousedown", {
@@ -619,9 +620,9 @@ describe('veTable contextmenu', () => {
   //     firstTrTdEl.trigger("contextmenu");
   //     await later();
 
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+  //     expect(firstTrTdEl.classes()).toContain("fan-table-cell-selection");
 
-  //     //const tableVm = WRAPPER.findComponent({ name: "ve-table" }).vm;
+  //     //const tableVm = WRAPPER.findComponent({ name: "fan-table" }).vm;
 
   //     const contextmenuNodes = document.querySelectorAll(
   //         ".ve-contextmenu-node",
@@ -651,7 +652,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu INSERT_ROW_BELOW", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -660,7 +661,7 @@ describe('veTable contextmenu', () => {
   //             render() {
   //                 return (
   //                     <div>
-  //                         <ve-table
+  //                         <fan-table
   //                             row-key-field-name="rowKey"
   //                             columns={COLUMNS}
   //                             table-data={tableData}
@@ -694,9 +695,9 @@ describe('veTable contextmenu', () => {
   //         { attachTo: document.body },
   //     );
 
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+  //     const firstTrTdEl = WRAPPER.findAll(".fan-table-body-tr")
   //         .at(2)
-  //         .findAll(".ve-table-body-td")
+  //         .findAll(".fan-table-body-td")
   //         .at(2);
 
   //     firstTrTdEl.trigger("contextmenu");
@@ -705,9 +706,9 @@ describe('veTable contextmenu', () => {
   //     });
   //     await later();
 
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+  //     expect(firstTrTdEl.classes()).toContain("fan-table-cell-selection");
 
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
+  //     const bodyEl = WRAPPER.find(".fan-table-body");
   //     bodyEl.trigger("contextmenu");
 
   //     await later();
@@ -740,7 +741,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu REMOVE_ROW", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -749,7 +750,7 @@ describe('veTable contextmenu', () => {
   //             render() {
   //                 return (
   //                     <div>
-  //                         <ve-table
+  //                         <fan-table
   //                             row-key-field-name="rowKey"
   //                             columns={COLUMNS}
   //                             table-data={tableData}
@@ -783,18 +784,18 @@ describe('veTable contextmenu', () => {
   //         { attachTo: document.body },
   //     );
 
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+  //     const firstTrTdEl = WRAPPER.findAll(".fan-table-body-tr")
   //         .at(2)
-  //         .findAll(".ve-table-body-td")
+  //         .findAll(".fan-table-body-td")
   //         .at(2);
 
   //     firstTrTdEl.trigger("mousedown");
 
   //     await later();
 
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+  //     expect(firstTrTdEl.classes()).toContain("fan-table-cell-selection");
 
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
+  //     const bodyEl = WRAPPER.find(".fan-table-body");
   //     bodyEl.trigger("contextmenu");
 
   //     await later();
@@ -829,7 +830,7 @@ describe('veTable contextmenu', () => {
   // });
 
   // it("contextmenu HIDE_COLUMN", async () => {
-  //     const mockFn = jest.fn();
+  //     const mockFn = vi.fn();
 
   //     let tableData = cloneDeep(TABLE_DATA);
 
@@ -838,7 +839,7 @@ describe('veTable contextmenu', () => {
   //             render() {
   //                 return (
   //                     <div>
-  //                         <ve-table
+  //                         <fan-table
   //                             row-key-field-name="rowKey"
   //                             columns={COLUMNS}
   //                             table-data={tableData}
@@ -872,24 +873,24 @@ describe('veTable contextmenu', () => {
   //         { attachTo: document.body },
   //     );
 
-  //     const firstTrTdEl = WRAPPER.findAll(".ve-table-body-tr")
+  //     const firstTrTdEl = WRAPPER.findAll(".fan-table-body-tr")
   //         .at(2)
-  //         .findAll(".ve-table-body-td")
+  //         .findAll(".fan-table-body-td")
   //         .at(2);
 
   //     firstTrTdEl.trigger("mousedown");
 
   //     await later();
 
-  //     expect(firstTrTdEl.classes()).toContain("ve-table-cell-selection");
+  //     expect(firstTrTdEl.classes()).toContain("fan-table-cell-selection");
 
-  //     const bodyEl = WRAPPER.find(".ve-table-body");
+  //     const bodyEl = WRAPPER.find(".fan-table-body");
   //     bodyEl.trigger("contextmenu");
 
   //     await later();
 
   //     const DateTh = WRAPPER.findAll(
-  //         ".ve-table-header-tr .ve-table-header-th",
+  //         ".fan-table-header-tr .fan-table-header-th",
   //     ).at(2);
   //     expect(DateTh.text()).toBe("Date");
 
@@ -912,7 +913,7 @@ describe('veTable contextmenu', () => {
   //     await later();
 
   //     const DateTh2 = WRAPPER.findAll(
-  //         ".ve-table-header-tr .ve-table-header-th",
+  //         ".fan-table-header-tr .fan-table-header-th",
   //     ).at(2);
   //     expect(DateTh2.text()).toBe("Number");
 

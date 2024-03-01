@@ -1,14 +1,10 @@
-import Cookies from 'js-cookie'
-
-import { DOC_THEME_COOKIE } from './constant'
-
 // set doc theme cookie
 export function setDocTheme(value) {
-  return Cookies.set(DOC_THEME_COOKIE, value)
+  return localStorage.setItem('DOC_THEME', value)
 }
 
 // get doc theme cookie
 export function getDocTheme() {
-  const result = Cookies.get(DOC_THEME_COOKIE)
+  const result = localStorage.getItem('DOC_THEME')
   return result
 }

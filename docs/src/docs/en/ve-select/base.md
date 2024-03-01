@@ -1,124 +1,34 @@
-<fa-anchor  label="基本功能"></fa-anchor>
+<vue-anchor  label="基本功能"></vue-anchor>
 :::demo
 
-```html
-<template>
-    <ve-select v-model="selectItems1" placeholder="姓名" />
-</template>
-<script>
-    export default {
-        data() {
-            return {
-                selectItems1: [
-                    { value: 0, label: "张三" },
-                    { value: 1, label: "李四" },
-                    { value: 2, label: "王二" },
-                ],
-            };
-        },
-    };
-</script>
-```
+ve-select/select-base
 
 :::
 
-<fa-anchor  label="设置 width"></fa-anchor>
+<vue-anchor  label="设置 width"></vue-anchor>
 :::demo
 
-```html
-<template>
-    <ve-select v-model="selectItems1" placeholder="姓名" :width="120" />
-</template>
-<script>
-    export default {
-        data() {
-            return {
-                selectItems1: [
-                    { value: 0, label: "张三" },
-                    { value: 1, label: "李四" },
-                    { value: 2, label: "王二" },
-                ],
-            };
-        },
-    };
-</script>
-```
+ve-select/select-width
 
 :::
 
-<fa-anchor  label="多选功能"></fa-anchor>
+<vue-anchor  label="多选功能"></vue-anchor>
 :::demo
 
-```html
-<template>
-    <ve-select v-model="selectItems2" is-multiple placeholder="姓名" />
-</template>
-<script>
-    export default {
-        data() {
-            return {
-                selectItems2: [
-                    { value: 0, label: "张三" },
-                    { value: 1, label: "李四" },
-                    { value: 2, label: "王二" },
-                ],
-            };
-        },
-    };
-</script>
-```
+ve-select/select-multiple
 
 :::
 
-<fa-anchor  label="input 文本框下拉"></fa-anchor>
+<vue-anchor  label="input 文本框下拉"></vue-anchor>
 :::demo
 
-```html
-<template>
-    <ve-select v-model="selectItems3" placeholder="姓名" isInput />
-</template>
-<script>
-    export default {
-        data() {
-            return {
-                selectItems3: [
-                    { value: 0, label: "张三" },
-                    { value: 1, label: "李四" },
-                    { value: 2, label: "王二" },
-                ],
-            };
-        },
-    };
-</script>
-```
+ve-select/select-drop
 
 :::
 
-<fa-anchor  label="事件"></fa-anchor>
+<vue-anchor  label="事件"></vue-anchor>
 :::demo
 
-```html
-<template>
-    <ve-select v-model="selectItems1" placeholder="姓名" @on-select-change="selectChange" />
-</template>
-<script>
-    export default {
-        data() {
-            return {
-                selectItems1: [
-                    { value: 0, label: "张三" },
-                    { value: 1, label: "李四" },
-                    { value: 2, label: "王二" },
-                ],
-            };
-        },
-        methods: {
-            selectChange(items) {
-                console.log("items::", items);
-            },
-        },
-    };
-</script>
-```
+ve-select/select-event
 
 :::

@@ -1,7 +1,13 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
-import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
+import bodyTrScrolling from '@P/fan-table/src/body/body-tr-scrolling.jsx'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
+
+globalThis.ResizeObserver = class ResizeObserver {
+  observe() {
+    // do nothing
+  }
 
   unobserve() {
     // do nothing
@@ -11,25 +17,10 @@ import bodyTrScrolling from '@P/ve-table/src/body/body-tr-scrolling.jsx'
     // do nothing
   }
 }
-describe('veTable virtual scroll', () => {
-  beforeEach(() => {
-    globalThis.ResizeObserver = class ResizeObserver {
-      observe() {
-        // do nothing
-      }
-
-      unobserve() {
-        // do nothing
-      }
-
-      disconnect() {
-        // do nothing
-      }
-    }
-  })
+describe('FanTable virtual scroll', () => {
   // same row height
   const TABLE_DATA_SAME_ROW_HEIGHT = []
-  for (var i = 0; i < 1000; i++) {
+  for (let i = 0; i < 1000; i++) {
     TABLE_DATA_SAME_ROW_HEIGHT.push({
       rowKey: i,
       name: i,
@@ -46,7 +37,7 @@ describe('veTable virtual scroll', () => {
 
   const TABLE_DATA_DIFFERENT_ROW_HEIGHT = []
 
-  for (var i = 0; i < 1000; i++) {
+  for (let i = 0; i < 1000; i++) {
     let value = i
     if (i % 2 === 0) {
       const rowCount = getRandom(3, 5)
@@ -79,7 +70,7 @@ describe('veTable virtual scroll', () => {
   }
 
   it('render same row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -122,7 +113,7 @@ describe('veTable virtual scroll', () => {
   })
 
   it('dynamically turns virtual scrolling on', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -161,7 +152,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-virtual-scroll').exists()).toBe(false)
+    expect(wrapper.find('.fan-table-virtual-scroll').exists()).toBe(false)
 
     wrapper.setProps({
       virtualScrollOption: {
@@ -172,21 +163,21 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    const tableContainerEl = wrapper.find('.ve-table-container')
+    const tableContainerEl = wrapper.find('.fan-table-container')
 
     expect(tableContainerEl.attributes('style')).toBe(
       'max-height: 500px; height: 500px;',
     )
 
-    expect(wrapper.find('.ve-table-virtual-scroll').exists()).toBe(true)
-    expect(wrapper.find('.ve-table-virtual-phantom').exists()).toBe(true)
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.find('.fan-table-virtual-scroll').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-virtual-phantom').exists()).toBe(true)
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('same row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -225,13 +216,13 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('different row height', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -270,7 +261,7 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
@@ -278,7 +269,7 @@ describe('veTable virtual scroll', () => {
   it('buffer scale', async () => {
     const bufferCount = 10
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -318,13 +309,13 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       Math.ceil(MAX_HEIGHT / MIN_ROW_HEIGHT) * (bufferCount + 1),
     )
   })
 
   it('with row checkbox', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -368,13 +359,13 @@ describe('veTable virtual scroll', () => {
 
     expect(wrapper.find('.ve-checkbox').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('with row radio', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -418,13 +409,13 @@ describe('veTable virtual scroll', () => {
 
     expect(wrapper.find('.ve-radio').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('with row expand', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -476,15 +467,15 @@ describe('veTable virtual scroll', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-row-expand-icon').exists()).toBe(true)
+    expect(wrapper.find('.fan-table-row-expand-icon').exists()).toBe(true)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('with column fixed', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -526,40 +517,40 @@ describe('veTable virtual scroll', () => {
     await later()
 
     const thEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
-    expect(thEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(thEls[0].classes()).toContain('fan-table-fixed-left')
     expect(thEls[0].classes()).toContain(
-      've-table-last-left-fixed-column',
+      'fan-table-last-left-fixed-column',
     )
 
-    expect(thEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(thEls[2].classes()).toContain('fan-table-fixed-right')
     expect(thEls[2].classes()).toContain(
-      've-table-first-right-fixed-column',
+      'fan-table-first-right-fixed-column',
     )
 
     const tdEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
-    expect(tdEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(tdEls[0].classes()).toContain('fan-table-fixed-left')
     expect(tdEls[0].classes()).toContain(
-      've-table-last-left-fixed-column',
+      'fan-table-last-left-fixed-column',
     )
 
-    expect(tdEls[2].classes()).toContain('ve-table-fixed-right')
+    expect(tdEls[2].classes()).toContain('fan-table-fixed-right')
     expect(tdEls[2].classes()).toContain(
-      've-table-first-right-fixed-column',
+      'fan-table-first-right-fixed-column',
     )
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('with column footer', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -617,17 +608,17 @@ describe('veTable virtual scroll', () => {
     await later()
 
     expect(
-      wrapper.findAll('.ve-table-footer-tr .ve-table-footer-td').length,
+      wrapper.findAll('.fan-table-footer-tr .fan-table-footer-td').length,
     ).toBe(6)
 
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(
       TABLE_ROW_COUNT,
     )
   })
 
   it('scrolling callback', async () => {
-    const mockFn = jest.fn()
-    const wrapper = mount(veTable, {
+    const mockFn = vi.fn()
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -679,9 +670,9 @@ describe('veTable virtual scroll', () => {
   })
 
   it('minRowHeight prop', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
     const minRowHeight = 50
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -722,7 +713,7 @@ describe('veTable virtual scroll', () => {
     await later()
 
     const rowCount = getTableRenderedRowCountByRowHeight(minRowHeight)
-    expect(wrapper.findAll('.ve-table-body-tr').length).toBe(rowCount)
+    expect(wrapper.findAll('.fan-table-body-tr').length).toBe(rowCount)
   })
 
   /*

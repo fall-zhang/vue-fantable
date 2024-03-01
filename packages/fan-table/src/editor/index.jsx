@@ -180,7 +180,7 @@ export default {
 
   watch: {
     parentRendered: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
           // fixed #471
           this.setTableEl()
@@ -209,7 +209,7 @@ export default {
     },
     // cell selection key data
     'cellSelectionData.currentCell': {
-      handler: function (val) {
+      handler(val) {
         this.isEditCellFocus = false
 
         const { rowKey, colKey } = val
@@ -231,9 +231,9 @@ export default {
     'cellSelectionData.normalEndCell': {
       handler: function (val) {
         /*
-                trigger editor(textarea) element select
-                解决通过点击的区域选择，无法复制的问题
-                */
+          trigger editor(textarea) element select
+          解决通过点击的区域选择，无法复制的问题
+        */
         if (!isEmptyValue(val.colKey)) {
           this[INSTANCE_METHODS.TEXTAREA_SELECT]()
         }
@@ -488,17 +488,6 @@ export default {
     const textareaProps = {
       ref: this.textareaInputRef,
       class: textareaClass,
-      // 'v-focus': {
-      //   focus: isEditCellFocus,
-      // },
-      // directives: [
-      //   {
-      //     name: 'focus',
-      //     value: {
-      //       focus: isEditCellFocus,
-      //     },
-      //   },
-      // ],
       value: rawCellValue,
       tabindex: -1,
       onInput: (e) => {

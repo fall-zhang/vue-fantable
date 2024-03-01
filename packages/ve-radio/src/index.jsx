@@ -1,10 +1,11 @@
 import { clsName } from './util/index'
-import { COMPS_NAME, EMIT_EVENTS } from './util/constant'
+import { COMPS_NAME } from './util/constant'
+import { hasValue } from '@P/src/utils/index'
 export default {
   name: COMPS_NAME.VE_RADIO,
   props: {
-    // 当前checkbox 选中状态,实现 v-model
-    value: {
+    // 当前 checkbox 选中状态,实现 v-model
+    modelValue: {
       type: [String, Number, Boolean],
       default: null,
     },
@@ -25,11 +26,11 @@ export default {
       default: false,
     },
   },
-  emits: ['input', 'radioChange'],
+  emits: ['radioChange', 'update:modelValue'],
   data() {
     return {
       // 当前checkbox 选中状态
-      model: this.value,
+      model: this.modelValue,
     }
   },
   computed: {
@@ -52,7 +53,7 @@ export default {
   },
 
   watch: {
-    value() {
+    modelValue() {
       this.updateModelBySingle()
     },
   },
@@ -63,16 +64,19 @@ export default {
 
   methods: {
     // checked change
+    initModel() {
+      if (hasValue(this.modelValue)) {
+        this.internalOptions = [].concat(this.modelValue)
+      }
+    },
     checkedChange(event) {
       if (this.disabled) {
         return false
       }
       const isChecked = event.target.checked
 
-      // console.log(this.label)
-      // console.log(this.model)
       if (!this.isControlled) {
-        this.$emit('input', isChecked)
+        this.$emit('update:modelValue', isChecked)
       }
       // this.$emit(EMIT_EVENTS.ON_RADIO_CHANGE, isChecked)
       this.$emit('radioChange', isChecked)
@@ -84,15 +88,10 @@ export default {
 
       return label || $slots.default
     },
-
-    initModel() {
-      this.model = this.value
-    },
-
     // 通过单选更新 model
     updateModelBySingle() {
       if (!this.disabled) {
-        this.model = this.value
+        this.model = this.modelValue
       }
     },
   },

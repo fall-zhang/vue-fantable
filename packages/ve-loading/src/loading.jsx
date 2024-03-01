@@ -68,7 +68,7 @@ export default {
         this.loading = false
       })
     },
-    destroy () {
+    unmounted () {
       removeClass(this.parent__, PARENT_RELATIVE_CLASS)
       removeClass(this.parent__, PARENT_LOCK_CLASS)
 

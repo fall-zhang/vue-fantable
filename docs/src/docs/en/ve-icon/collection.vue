@@ -1,8 +1,8 @@
 <template>
-    <fa-anchor label="Icon Collection">
+    <vue-anchor label="Icon Collection">
         <div class="icon-container">
             <div
-                v-for="iconName in Object.values(this.icons)"
+                v-for="iconName in Object.values(icons)"
                 :key="iconName"
                 class="icon-item"
             >
@@ -12,7 +12,7 @@
                 <span class="icon-name">{{ iconName }}</span>
             </div>
         </div>
-    </fa-anchor>
+    </vue-anchor>
 </template>
 
 <script>

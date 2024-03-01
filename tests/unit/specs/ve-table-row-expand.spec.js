@@ -1,8 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable row expand', () => {
+describe('FanTable row expand', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -75,7 +76,7 @@ describe('veTable row expand', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -97,7 +98,7 @@ describe('veTable row expand', () => {
   })
 
   it('trigger type default(icon)', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -117,35 +118,35 @@ describe('veTable row expand', () => {
     })
 
     // 默认不渲染节点
-    expect(wrapper.find('.ve-table-expand-tr').exists()).toBe(false)
+    expect(wrapper.find('.fan-table-expand-tr').exists()).toBe(false)
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[0]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')[0]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .findAll('.fan-table-expand-tr')[0]
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[0]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
 
     await later()
 
     // 折叠后销毁节点
-    expect(wrapper.find('.ve-table-expand-tr').exists()).toBe(false)
+    expect(wrapper.find('.fan-table-expand-tr').exists()).toBe(false)
   })
 
   it('trigger type:cell', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -166,22 +167,22 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
       .trigger('click')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')[0]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .findAll('.fan-table-expand-tr')[0]
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
   })
 
   it('trigger type:row', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -201,20 +202,20 @@ describe('veTable row expand', () => {
       },
     })
 
-    wrapper.findAll('.ve-table-body-tr')[0].trigger('click')
+    wrapper.findAll('.fan-table-body-tr')[0].trigger('click')
 
     await later()
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')[0]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .findAll('.fan-table-expand-tr')[0]
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
   })
 
   it('expandOption expandable', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -240,14 +241,14 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
-        .find('.ve-table-row-expand-icon')
+        .findAll('.fan-table-body-tr')[1]
+        .find('.fan-table-row-expand-icon')
         .exists(),
     ).toBe(false)
   })
 
   it('expandOption defaultExpandedRowKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -269,21 +270,21 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[0]
-        .find('.ve-table-row-expand-icon')
+        .findAll('.fan-table-body-tr')[0]
+        .find('.fan-table-row-expand-icon')
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[2]
-        .find('.ve-table-row-expand-icon')
+        .findAll('.fan-table-body-tr')[2]
+        .find('.fan-table-row-expand-icon')
         .exists(),
     ).toBe(true)
   })
 
   it('expandOption defaultExpandAllRows', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -303,13 +304,13 @@ describe('veTable row expand', () => {
       },
     })
 
-    expect(wrapper.findAll('.ve-table-row-expand-icon').length).toBe(5)
+    expect(wrapper.findAll('.fan-table-row-expand-icon').length).toBe(5)
   })
 
   it('expandOption beforeExpandRowChange event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -342,18 +343,18 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[0]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(false)
 
     await later()
-    expect(wrapper.findAll('.ve-table-expand-tr').exists()).toBe(false)
+    expect(wrapper.findAll('.fan-table-expand-tr').exists()).toBe(false)
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[1]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
     expect(mockFn).toHaveBeenCalledWith(true)
@@ -361,17 +362,17 @@ describe('veTable row expand', () => {
     await later()
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')
+        .findAll('.fan-table-expand-tr')
       // 只要一行[0]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
   })
 
   it('expandOption afterExpandRowChange event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -399,20 +400,20 @@ describe('veTable row expand', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[0]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
     expect(mockFn).toHaveBeenCalled()
   })
 
   it('expandOption expandedRowKeys(controllable attr)', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     const wrapper = mount({
       template: `
             <div>
                 <button class="button-demo" @click="expandRow(1003)">第3行展开切换</button>
-                <ve-table
+                <fan-table
                 style="width:100%"
                 :columns="columns"
                 :table-data="tableData"
@@ -465,8 +466,8 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')[0]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .findAll('.fan-table-expand-tr')[0]
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
 
@@ -476,14 +477,14 @@ describe('veTable row expand', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-expand-tr')[1]
-        .find('.ve-table-expand-td .ve-table-expand-td-content')
+        .findAll('.fan-table-expand-tr')[1]
+        .find('.fan-table-expand-td .fan-table-expand-td-content')
         .exists(),
     ).toBe(true)
 
     wrapper
-      .findAll('.ve-table-body-tr')[1]
-      .find('.ve-table-row-expand-icon')
+      .findAll('.fan-table-body-tr')[1]
+      .find('.fan-table-row-expand-icon')
       .trigger('click')
 
     await later()

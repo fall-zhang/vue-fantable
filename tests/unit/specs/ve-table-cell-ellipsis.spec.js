@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell ellipsis', () => {
+describe('FanTable cell ellipsis', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -79,7 +79,7 @@ describe('veTable cell ellipsis', () => {
   ]
 
   it('render single line ellipsis', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -90,7 +90,7 @@ describe('veTable cell ellipsis', () => {
   })
 
   it('render multiline ellipsis', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: [
           {
@@ -134,11 +134,11 @@ describe('veTable cell ellipsis', () => {
 
     await later()
 
-    const trEl = wrapper.findAll('.ve-table-body-tr')[0]
+    const trEl = wrapper.findAll('.fan-table-body-tr')[0]
     expect(
       trEl
-        .findAll('.ve-table-body-td')[3]
-        .find('.ve-table-body-td-span-ellipsis')
+        .findAll('.fan-table-body-td')[3]
+        .find('.fan-table-body-td-span-ellipsis')
         .exists(),
     ).toBe(true)
   })

@@ -5,8 +5,8 @@ import routerConfig from './router.config.js'
 // Progress 进度条 样式
 import 'nprogress/nprogress.css'
 // highlight theme
-import hljs from 'highlight.js'
-import 'highlight.js/styles/color-brewer.css'
+// import hljs from 'highlight.js'
+// import 'highlight.js/styles/color-brewer.css'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -21,9 +21,9 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(() => {
   nextTick(() => {
-    const blocks = document.querySelectorAll('pre code:not(.hljs)')
-    Array.prototype.forEach.call(blocks, hljs.highlightBlock)
-    window.scroll(0, 0)
+    // const blocks = document.querySelectorAll('pre code:not(.hljs)')
+    // Array.prototype.forEach.call(blocks, hljs.highlightElement)
+    // window.scroll(0, 0)
   })
   NProgress.done() // 结束Progress
 })

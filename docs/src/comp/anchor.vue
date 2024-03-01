@@ -81,7 +81,7 @@ export default {
             result = `ve-${routerUrlDetail[1]}/${fileName}`
           } else if (routerUrlDetail[0] === 'table') {
             // scene 3 : /#/en/doc/table/header-fixed
-            result = `ve-table/${routerUrlDetail[1]}/${fileName}`
+            result = `fan-table/${routerUrlDetail[1]}/${fileName}`
           }
 
           if (result) {

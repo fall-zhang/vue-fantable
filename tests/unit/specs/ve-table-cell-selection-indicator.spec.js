@@ -1,10 +1,9 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
-import { KEY_CODES } from '../constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable cell selection', () => {
+describe('FanTable cell selection', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -81,7 +80,7 @@ describe('veTable cell selection', () => {
   ]
 
   it('single cell selection indicator', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -94,19 +93,19 @@ describe('veTable cell selection', () => {
     await later()
 
     const th = wrapper
-      .findAll('.ve-table-header-tr')[0]
-      .findAll('.ve-table-header-th')[1]
+      .findAll('.fan-table-header-tr')[0]
+      .findAll('.fan-table-header-th')[1]
 
-    expect(th.classes()).toContain('ve-table-cell-indicator')
+    expect(th.classes()).toContain('fan-table-cell-indicator')
 
     const td = wrapper
       .find("tr[row-key='2']")
-      .findAll('.ve-table-body-td')[0]
-    expect(td.classes()).toContain('ve-table-cell-indicator')
+      .findAll('.fan-table-body-td')[0]
+    expect(td.classes()).toContain('fan-table-cell-indicator')
   })
 
   it('range cell selection header indicator', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -126,13 +125,13 @@ describe('veTable cell selection', () => {
 
     expect(
       wrapper.findAll(
-        '.ve-table-header .ve-table-header-th.ve-table-cell-indicator',
+        '.fan-table-header .fan-table-header-th.fan-table-cell-indicator',
       ).length,
     ).toEqual(3)
 
     expect(
       wrapper.findAll(
-        '.ve-table-body .ve-table-body-td.ve-table-cell-indicator',
+        '.fan-table-body .fan-table-body-td.fan-table-cell-indicator',
       ).length,
     ).toEqual(4)
   })

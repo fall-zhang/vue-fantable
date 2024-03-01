@@ -1,24 +1,16 @@
 <template>
-    <div class="api-tpl">
-        <fa-anchor :is-edit="false" :label="getAnchor" />
-        <div class="api-tpl-desc">{{ desc }}</div>
-        <ve-table
-            class="tpl-table"
-            :columns="columns"
-            :table-data="cloneTable"
-            :border-around="true"
-            :border-x="true"
-            :border-y="false"
-            row-key-field-name="__key__"
-            :expand-option="expandOption"
-            :cell-selection-option="cellSelectionOption"
-        />
-    </div>
+  <div class="api-tpl">
+    <vue-anchor :is-edit="false" :label="getAnchor" />
+    <div class="api-tpl-desc">{{ desc }}</div>
+    <fan-table class="tpl-table" :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
+      :border-y="false" row-key-field-name="__key__" :expand-option="expandOption"
+      :cell-selection-option="cellSelectionOption" />
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'api-tpl',
+  name: 'ApiTpl',
   props: {
     desc: {
       type: String,
@@ -76,46 +68,49 @@ export default {
 </script>
 <style lang="less">
 .api-tpl {
-    margin-bottom: 30px;
-    .api-tpl-desc {
-        height: 30px;
+  margin-bottom: 30px;
+
+  .api-tpl-desc {
+    height: 30px;
+  }
+
+  .tpl-table {
+
+    td,
+    th {
+      color: #5e6d82 !important;
+      font-size: 14px;
+
+      code {
+        display: inline-block;
+        background: #f7f7f7;
+        font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono,
+          monospace;
+        margin: 0 3px;
+        padding: 1px 5px;
+        border-radius: 3px;
+        color: #666;
+        border: 1px solid #eee;
+      }
     }
 
-    .tpl-table {
-        td,
-        th {
-            color: #5e6d82 !important;
-            font-size: 14px;
-            code {
-                display: inline-block;
-                background: #f7f7f7;
-                font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono,
-                    monospace;
-                margin: 0 3px;
-                padding: 1px 5px;
-                border-radius: 3px;
-                color: #666;
-                border: 1px solid #eee;
-            }
-        }
-
-        td:first-child {
-            code {
-                margin: 0;
-                padding: 2 px 6 px;
-                color: #1989fa;
-                font-weight: 600;
-                font-size: 11px;
-                background-color: rgba(25, 137, 250, 0.1);
-                border-radius: 20 px;
-            }
-        }
-
-        td {
-            .expand {
-                font-weight: bold;
-            }
-        }
+    td:first-child {
+      code {
+        margin: 0;
+        padding: 2 px 6 px;
+        color: #1989fa;
+        font-weight: 600;
+        font-size: 11px;
+        background-color: rgba(25, 137, 250, 0.1);
+        border-radius: 20 px;
+      }
     }
+
+    td {
+      .expand {
+        font-weight: bold;
+      }
+    }
+  }
 }
 </style>

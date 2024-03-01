@@ -1,236 +1,236 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`veTable row expand expandOption expandedRowKeys(controllable attr) 1`] = `
+exports[`FanTable row expand expandOption expandedRowKeys(controllable attr) 1`] = `
 <div><button class="button-demo">第3行展开切换</button>
   <div class="vue-table-root" style="width: 100%;">
-    <div class="ve-table ve-table-border-around" style="width: 100%;">
-      <div class="ve-table-container ve-table-enable-cell-selection" style="height: 0px;">
-        <div class="ve-table-content-wrapper">
-          <table class="ve-table-content ve-table-border-x">
+    <div class="fan-table fan-table-border-around" style="width: 100%;">
+      <div class="fan-table-container fan-table-enable-cell-selection" style="height: 0px;">
+        <div class="fan-table-content-wrapper">
+          <table class="fan-table-content fan-table-border-x">
             <colgroup>
               <col style="width: 50px;">
               <col style="width: 200px;">
               <col style="width: 300px;">
               <col>
             </colgroup>
-            <thead class="ve-table-fixed-header ve-table-header">
-              <tr class="ve-table-header-tr">
-                <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;"></th>
-                <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
-                <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
-                <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+            <thead class="fan-table-fixed-header fan-table-header">
+              <tr class="fan-table-header-tr">
+                <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: center; top: 0px;"></th>
+                <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: left; top: 0px;">Name</th>
+                <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
+                <th rowspan="1" colspan="1" class="fan-table-header-th fan-table-last-column" style="text-align: left; top: 0px;">Address</th>
               </tr>
             </thead>
-            <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+            <tbody class="fan-table-body fan-table-row-hover fan-table-row-highlight">
               <tr style="height: 0px;">
                 <td style="padding: 0px; border: 0px; height: 0px;"></td>
                 <td style="padding: 0px; border: 0px; height: 0px;"></td>
                 <td style="padding: 0px; border: 0px; height: 0px;"></td>
                 <td style="padding: 0px; border: 0px; height: 0px;"></td>
               </tr>
-              <tr row-key="1001" class="ve-table-body-tr">
-                <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-                <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+              <tr row-key="1001" class="fan-table-body-tr">
+                <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon fan-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+                <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                   <!---->John
                 </td>
-                <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                   <!---->coding
                 </td>
-                <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                   <!---->No.1 Century Avenue, Shanghai
                 </td>
               </tr>
-              <tr class="ve-table-expand-tr">
-                <td colspan="4" class="ve-table-expand-td">
-                  <div class="ve-table-expand-td-content">
+              <tr class="fan-table-expand-tr">
+                <td colspan="4" class="fan-table-expand-td">
+                  <div class="fan-table-expand-td-content">
                     <p>My name is<span style="color: rgb(24, 144, 255);">John</span>,I'm living in No.1 Century Avenue, Shanghai</p>
                   </div>
                 </td>
               </tr>
-              <tr row-key="1002" class="ve-table-body-tr">
-                <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-                <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+              <tr row-key="1002" class="fan-table-body-tr">
+                <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon fan-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+                <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                   <!---->Dickerson
                 </td>
-                <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                   <!---->coding
                 </td>
-                <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                   <!---->No.1 Century Avenue, Beijing
                 </td>
               </tr>
-              <tr class="ve-table-expand-tr">
-                <td colspan="4" class="ve-table-expand-td">
-                  <div class="ve-table-expand-td-content">
+              <tr class="fan-table-expand-tr">
+                <td colspan="4" class="fan-table-expand-td">
+                  <div class="fan-table-expand-td-content">
                     <p>My name is<span style="color: rgb(24, 144, 255);">Dickerson</span>,I'm living in No.1 Century Avenue, Beijing</p>
                   </div>
                 </td>
               </tr>
-              <tr row-key="1003" class="ve-table-body-tr">
-                <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-                <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+              <tr row-key="1003" class="fan-table-body-tr">
+                <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon fan-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+                <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                   <!---->Larsen
                 </td>
-                <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                   <!---->coding and coding repeat
                 </td>
-                <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                   <!---->No.1 Century Avenue, Chongqing
                 </td>
               </tr>
-              <tr class="ve-table-expand-tr">
-                <td colspan="4" class="ve-table-expand-td">
-                  <div class="ve-table-expand-td-content">
+              <tr class="fan-table-expand-tr">
+                <td colspan="4" class="fan-table-expand-td">
+                  <div class="fan-table-expand-td-content">
                     <p>My name is<span style="color: rgb(24, 144, 255);">Larsen</span>,I'm living in No.1 Century Avenue, Chongqing</p>
                   </div>
                 </td>
               </tr>
-              <tr row-key="1004" class="ve-table-body-tr">
-                <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-                <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+              <tr row-key="1004" class="fan-table-body-tr">
+                <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+                <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                   <!---->Geneva
                 </td>
-                <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                   <!---->coding and coding repeat
                 </td>
-                <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                   <!---->No.1 Century Avenue, Xiamen
                 </td>
               </tr>
               <!---->
-              <tr row-key="1005" class="ve-table-body-tr">
-                <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-                <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+              <tr row-key="1005" class="fan-table-body-tr">
+                <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+                <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                   <!---->Jami
                 </td>
-                <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                   <!---->coding and coding repeat
                 </td>
-                <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+                <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                   <!---->No.1 Century Avenue, Shenzhen
                 </td>
               </tr>
               <!---->
             </tbody>
-            <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+            <tfoot class="fan-table-fixed-footer fan-table-footer"></tfoot>
           </table>
-          <div class="ve-table-selection-wrapper">
-            <div class="ve-table-selection-fixed-left"></div>
-            <div class="ve-table-selection-middle"></div>
-            <div class="ve-table-selection-fixed-right"></div>
+          <div class="fan-table-selection-wrapper">
+            <div class="fan-table-selection-fixed-left"></div>
+            <div class="fan-table-selection-middle"></div>
+            <div class="fan-table-selection-fixed-right"></div>
           </div>
         </div>
       </div>
-      <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
+      <div class="fan-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="fan-table-edit-input"></textarea></div>
     </div>
   </div>
 </div>
 `;
 
-exports[`veTable row expand render 1`] = `
+exports[`FanTable row expand render 1`] = `
 <div class="vue-table-root">
-  <div class="ve-table ve-table-border-around" style="width: 100%;">
-    <div class="ve-table-container ve-table-enable-cell-selection" style="height: 0px;">
-      <div class="ve-table-content-wrapper">
-        <table class="ve-table-content ve-table-border-x">
+  <div class="fan-table fan-table-border-around" style="width: 100%;">
+    <div class="fan-table-container fan-table-enable-cell-selection" style="height: 0px;">
+      <div class="fan-table-content-wrapper">
+        <table class="fan-table-content fan-table-border-x">
           <colgroup>
             <col style="width: 50px;">
             <col style="width: 200px;">
             <col style="width: 300px;">
             <col>
           </colgroup>
-          <thead class="ve-table-fixed-header ve-table-header">
-            <tr class="ve-table-header-tr">
-              <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: center; top: 0px;"></th>
-              <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Name</th>
-              <th rowspan="1" colspan="1" class="ve-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
-              <th rowspan="1" colspan="1" class="ve-table-header-th ve-table-last-column" style="text-align: left; top: 0px;">Address</th>
+          <thead class="fan-table-fixed-header fan-table-header">
+            <tr class="fan-table-header-tr">
+              <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: center; top: 0px;"></th>
+              <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: left; top: 0px;">Name</th>
+              <th rowspan="1" colspan="1" class="fan-table-header-th" style="text-align: left; top: 0px;">Hobby</th>
+              <th rowspan="1" colspan="1" class="fan-table-header-th fan-table-last-column" style="text-align: left; top: 0px;">Address</th>
             </tr>
           </thead>
-          <tbody class="ve-table-body ve-table-row-hover ve-table-row-highlight">
+          <tbody class="fan-table-body fan-table-row-hover fan-table-row-highlight">
             <tr style="height: 0px;">
               <td style="padding: 0px; border: 0px; height: 0px;"></td>
               <td style="padding: 0px; border: 0px; height: 0px;"></td>
               <td style="padding: 0px; border: 0px; height: 0px;"></td>
               <td style="padding: 0px; border: 0px; height: 0px;"></td>
             </tr>
-            <tr row-key="1001" class="ve-table-body-tr">
-              <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-              <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+            <tr row-key="1001" class="fan-table-body-tr">
+              <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon fan-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+              <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                 <!---->John
               </td>
-              <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                 <!---->coding
               </td>
-              <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                 <!---->No.1 Century Avenue, Shanghai
               </td>
             </tr>
-            <tr class="ve-table-expand-tr">
-              <td colspan="4" class="ve-table-expand-td">
-                <div class="ve-table-expand-td-content"></div>
+            <tr class="fan-table-expand-tr">
+              <td colspan="4" class="fan-table-expand-td">
+                <div class="fan-table-expand-td-content"></div>
               </td>
             </tr>
-            <tr row-key="1002" class="ve-table-body-tr">
-              <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"></td>
-              <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">Dickerson</td>
-              <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">coding</td>
-              <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
+            <tr row-key="1002" class="fan-table-body-tr">
+              <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"></td>
+              <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">Dickerson</td>
+              <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">coding</td>
+              <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">No.1 Century Avenue, Beijing</td>
             </tr>
-            <tr row-key="1003" class="ve-table-body-tr">
-              <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon ve-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-              <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+            <tr row-key="1003" class="fan-table-body-tr">
+              <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon fan-table-expand-icon-collapsed"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+              <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                 <!---->Larsen
               </td>
-              <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                 <!---->coding and coding repeat
               </td>
-              <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                 <!---->No.1 Century Avenue, Chongqing
               </td>
             </tr>
-            <tr class="ve-table-expand-tr">
-              <td colspan="4" class="ve-table-expand-td">
-                <div class="ve-table-expand-td-content"></div>
+            <tr class="fan-table-expand-tr">
+              <td colspan="4" class="fan-table-expand-td">
+                <div class="fan-table-expand-td-content"></div>
               </td>
             </tr>
-            <tr row-key="1004" class="ve-table-body-tr">
-              <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-              <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+            <tr row-key="1004" class="fan-table-body-tr">
+              <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+              <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                 <!---->Geneva
               </td>
-              <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                 <!---->coding and coding repeat
               </td>
-              <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                 <!---->No.1 Century Avenue, Xiamen
               </td>
             </tr>
             <!---->
-            <tr row-key="1005" class="ve-table-body-tr">
-              <td rowspan="1" colspan="1" col-key="a" class="ve-table-body-td" style="text-align: center;"><span class="ve-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
-              <td rowspan="1" colspan="1" col-key="b" class="ve-table-body-td" style="text-align: left;">
+            <tr row-key="1005" class="fan-table-body-tr">
+              <td rowspan="1" colspan="1" col-key="a" class="fan-table-body-td" style="text-align: center;"><span class="fan-table-row-expand-icon"><i class="ve-icon iconfont-vet icon-vet-right-arrow"></i></span></td>
+              <td rowspan="1" colspan="1" col-key="b" class="fan-table-body-td" style="text-align: left;">
                 <!---->Jami
               </td>
-              <td rowspan="1" colspan="1" col-key="c" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="c" class="fan-table-body-td" style="text-align: left;">
                 <!---->coding and coding repeat
               </td>
-              <td rowspan="1" colspan="1" col-key="d" class="ve-table-body-td" style="text-align: left;">
+              <td rowspan="1" colspan="1" col-key="d" class="fan-table-body-td" style="text-align: left;">
                 <!---->No.1 Century Avenue, Shenzhen
               </td>
             </tr>
             <!---->
           </tbody>
-          <tfoot class="ve-table-fixed-footer ve-table-footer"></tfoot>
+          <tfoot class="fan-table-fixed-footer fan-table-footer"></tfoot>
         </table>
-        <div class="ve-table-selection-wrapper">
-          <div class="ve-table-selection-fixed-left"></div>
-          <div class="ve-table-selection-middle"></div>
-          <div class="ve-table-selection-fixed-right"></div>
+        <div class="fan-table-selection-wrapper">
+          <div class="fan-table-selection-fixed-left"></div>
+          <div class="fan-table-selection-middle"></div>
+          <div class="fan-table-selection-fixed-right"></div>
         </div>
       </div>
     </div>
-    <div class="ve-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="ve-table-edit-input"></textarea></div>
+    <div class="fan-table-edit-input-container" style="top: 0px; left: 0px; height: 1px; z-index: -1; opacity: 0;"><textarea tabindex="-1" class="fan-table-edit-input"></textarea></div>
   </div>
 </div>
 `;

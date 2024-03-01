@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable column fixed', () => {
+describe('FanTable column fixed', () => {
   const TABLE_DATA = [
     {
       col1: '1',
@@ -158,7 +158,7 @@ describe('veTable column fixed', () => {
   it('renders normal', () => {
     const wrapper = mount({
       render() {
-        return <veTable columns={COLUMNS} tableData={TABLE_DATA} />
+        return <FanTable columns={COLUMNS} tableData={TABLE_DATA} />
       },
     })
 
@@ -166,7 +166,7 @@ describe('veTable column fixed', () => {
   })
 
   it('header fixed left', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -174,33 +174,33 @@ describe('veTable column fixed', () => {
     })
 
     const thEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
-    expect(thEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(thEls[0].classes()).toContain('fan-table-fixed-left')
     expect(thEls[1].classes()).toEqual(
       expect.arrayContaining([
-        've-table-fixed-left',
-        've-table-last-left-fixed-column',
+        'fan-table-fixed-left',
+        'fan-table-last-left-fixed-column',
       ]),
     )
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const thEls2 = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
     expect(thEls2[0].classes()).toEqual(
       expect.arrayContaining([
-        've-table-fixed-left',
-        've-table-last-left-fixed-column',
+        'fan-table-fixed-left',
+        'fan-table-last-left-fixed-column',
       ]),
     )
   })
 
   it('header fixed right', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -208,33 +208,33 @@ describe('veTable column fixed', () => {
     })
 
     const thEls = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
     expect(thEls[8].classes()).toEqual(
       expect.arrayContaining([
-        've-table-first-right-fixed-column',
-        've-table-fixed-right',
+        'fan-table-first-right-fixed-column',
+        'fan-table-fixed-right',
       ]),
     )
-    expect(thEls[9].classes()).toContain('ve-table-fixed-right')
+    expect(thEls[9].classes()).toContain('fan-table-fixed-right')
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const thEls2 = wrapper.findAll(
-      '.ve-table-header .ve-table-header-tr .ve-table-header-th',
+      '.fan-table-header .fan-table-header-tr .fan-table-header-th',
     )
 
     expect(thEls2[9].classes()).toEqual(
       expect.arrayContaining([
-        've-table-first-right-fixed-column',
-        've-table-fixed-right',
+        'fan-table-first-right-fixed-column',
+        'fan-table-fixed-right',
       ]),
     )
   })
 
   it('column fixed left', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -242,33 +242,33 @@ describe('veTable column fixed', () => {
     })
 
     const tdEls = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')
+      .findAll('.fan-table-body .fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')
 
-    expect(tdEls[0].classes()).toContain('ve-table-fixed-left')
+    expect(tdEls[0].classes()).toContain('fan-table-fixed-left')
     expect(tdEls[1].classes()).toEqual(
       expect.arrayContaining([
-        've-table-last-left-fixed-column',
-        've-table-fixed-left',
+        'fan-table-last-left-fixed-column',
+        'fan-table-fixed-left',
       ]),
     )
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const tdEls2 = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')
+      .findAll('.fan-table-body .fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')
 
     expect(tdEls2[0].classes()).toEqual(
       expect.arrayContaining([
-        've-table-last-left-fixed-column',
-        've-table-fixed-left',
+        'fan-table-last-left-fixed-column',
+        'fan-table-fixed-left',
       ]),
     )
   })
 
   it('column fixed right', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -276,27 +276,27 @@ describe('veTable column fixed', () => {
     })
 
     const tdEls = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')
+      .findAll('.fan-table-body .fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')
 
     expect(tdEls[9].classes()).toEqual(
       expect.arrayContaining([
-        've-table-first-right-fixed-column',
-        've-table-fixed-right',
+        'fan-table-first-right-fixed-column',
+        'fan-table-fixed-right',
       ]),
     )
-    expect(tdEls[9].classes()).toContain('ve-table-fixed-right')
+    expect(tdEls[9].classes()).toContain('fan-table-fixed-right')
 
     await wrapper.setProps({ columns: COLUMNS_FIXED_CHANGE })
 
     const tdEls2 = wrapper
-      .findAll('.ve-table-body .ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')
+      .findAll('.fan-table-body .fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')
 
     expect(tdEls2[9].classes()).toEqual(
       expect.arrayContaining([
-        've-table-first-right-fixed-column',
-        've-table-fixed-right',
+        'fan-table-first-right-fixed-column',
+        'fan-table-fixed-right',
       ]),
     )
   })

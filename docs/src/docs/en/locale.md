@@ -32,8 +32,8 @@ VeLocale.update(lang);
 
 :::tip
 1、import languages from "//unpkg.com/vue-fantable/libs/locale/lang/"<br>
-2、Use `VETable.VeLocale.use` method to switch languages.<br>
-3、Language configs are fixed format `VETable.lang.[Language config name]`,[Language config name] does not contain the '-' symbol, as shown in the following example
+2、Use `FanTable.VeLocale.use` method to switch languages.<br>
+3、Language configs are fixed format `FanTable.lang.[Language config name]`,[Language config name] does not contain the '-' symbol, as shown in the following example
 :::
 
 ```
@@ -44,11 +44,11 @@ VeLocale.update(lang);
 
 <script>
   // Switch to English
-  VETable.VeLocale.use(VETable.lang.enUS);
+  FanTable.VeLocale.use(FanTable.lang.enUS);
 
   /*
   Switch to Chinese
-  VETable.VeLocale.use(VETable.lang.zhCN);
+  FanTable.VeLocale.use(FanTable.lang.zhCN);
   */
 </script>
 ```
@@ -67,4 +67,4 @@ The following languages are currently supported：
 | Korean(KR) | ko-KR |
 | Russian (RU) | ru-RU |
 
-If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/huangshuwei/vue-fantable/tree/master/packages/src/locale/lang).
+If you need to use other languages, you are welcome to contribute PR: just add a language configuration file in [here](https://github.com/fall-zhang/vue-fantable/tree/master/packages/src/locale/lang).

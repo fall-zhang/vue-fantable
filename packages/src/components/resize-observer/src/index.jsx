@@ -48,9 +48,7 @@ export default {
       return <this.tagName></this.tagName>
     }
   }
-  // setup() {
-  //   const slot = useSlots()
-  //   const prop = defineProps()
-  //   return () => (<div>{slot.default}</div>)
+  // setup(prop,{slot}) {
+  //   return () => (<prop.tagName>{slot.default}</prop.tagName>)
   // },
 }

@@ -20,9 +20,8 @@ export default {
   },
   watch: {
     column: {
-      handler: function (column) {
-        if (
-          column.filterCustom &&
+      handler(column) {
+        if (column.filterCustom &&
                     isBoolean(column.filterCustom.defaultVisible)
         ) {
           this.internalVisible = column.filterCustom.defaultVisible

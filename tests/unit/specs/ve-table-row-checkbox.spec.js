@@ -1,8 +1,21 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
+globalThis.ResizeObserver = class ResizeObserver {
+  observe() {
+    // do nothing
+  }
 
-describe('veTable row checkbox', () => {
+  unobserve() {
+    // do nothing
+  }
+
+  disconnect() {
+    // do nothing
+  }
+}
+describe('FanTable row checkbox', () => {
   const TABLE_DATA = [
     {
       rowKey: 1001,
@@ -75,7 +88,7 @@ describe('veTable row checkbox', () => {
   ]
 
   it('render', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -88,7 +101,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('has checkbox', () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -97,16 +110,16 @@ describe('veTable row checkbox', () => {
       },
     })
 
-    expect(wrapper.find('.ve-table-header-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-header-tr .ve-checkbox').exists()).toBe(
       true,
     )
-    expect(wrapper.find('.ve-table-body-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-body-tr .ve-checkbox').exists()).toBe(
       true,
     )
   })
 
   it('check default selected key', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -122,7 +135,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -130,13 +143,13 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(3)
   })
 
   it('check disable selected keys with defaultSelectedRowKeys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -155,7 +168,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -163,21 +176,21 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(4)
 
     // disable checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
       ).length,
     ).toBe(1)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -185,7 +198,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('check disable selected keys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -204,7 +217,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(false)
@@ -212,21 +225,21 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(0)
 
     // disable checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked.ve-checkbox-disabled',
       ).length,
     ).toBe(0)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -234,7 +247,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('select all event with check disable selected keys', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -252,8 +265,8 @@ describe('veTable row checkbox', () => {
 
     // select all
     wrapper
-      .findAll('.ve-table-header-tr')[0]
-      .findAll('.ve-table-header-th')[0]
+      .findAll('.fan-table-header-tr')[0]
+      .findAll('.fan-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -262,7 +275,7 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
@@ -270,14 +283,14 @@ describe('veTable row checkbox', () => {
     // checked count
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(3)
 
     // disable unchecked count
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[1]
+        .findAll('.fan-table-body-tr')[1]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -285,7 +298,7 @@ describe('veTable row checkbox', () => {
 
     expect(
       wrapper
-        .findAll('.ve-table-body-tr')[4]
+        .findAll('.fan-table-body-tr')[4]
         .find('.ve-checkbox-content')
         .classes()
         .includes('ve-checkbox-checked'),
@@ -293,7 +306,7 @@ describe('veTable row checkbox', () => {
   })
 
   it('controllable attr selectedRowKey', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -310,14 +323,14 @@ describe('veTable row checkbox', () => {
     expect(
       wrapper
         .find(
-          '.ve-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
+          '.fan-table-header-tr .ve-checkbox .ve-checkbox-indeterminate',
         )
         .exists(),
     ).toBe(true)
 
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(1)
 
@@ -331,13 +344,13 @@ describe('veTable row checkbox', () => {
 
     expect(
       wrapper.findAll(
-        '.ve-table-body-tr .ve-checkbox .ve-checkbox-checked',
+        '.fan-table-body-tr .ve-checkbox .ve-checkbox-checked',
       ).length,
     ).toBe(2)
   })
 
   it('header hideSelectAll', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -351,15 +364,15 @@ describe('veTable row checkbox', () => {
 
     await later()
 
-    expect(wrapper.find('.ve-table-header-tr .ve-checkbox').exists()).toBe(
+    expect(wrapper.find('.fan-table-header-tr .ve-checkbox').exists()).toBe(
       false,
     )
   })
 
   it('checkboxOption selectedRowChange event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -377,8 +390,8 @@ describe('veTable row checkbox', () => {
     })
 
     wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
       .find('.ve-checkbox')
       .trigger('click')
 
@@ -389,9 +402,9 @@ describe('veTable row checkbox', () => {
   })
 
   it('checkboxOption selectedAllChange event', async () => {
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -405,8 +418,8 @@ describe('veTable row checkbox', () => {
     })
 
     wrapper
-      .find('.ve-table-header-tr')
-      .findAll('.ve-table-header-th')[0]
+      .find('.fan-table-header-tr')
+      .findAll('.fan-table-header-th')[0]
       .find('.ve-checkbox')
       .trigger('click')
 

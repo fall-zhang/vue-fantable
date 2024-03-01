@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
-import veTable from '@P/ve-table/ve-table'
+import FanTable from '@P/fan-table/fan-table'
 import { later } from '../util'
 import { KEY_CODES } from '../constant'
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest'
 
-describe('veTable operation column', () => {
+describe('FanTable operation column', () => {
   const TABLE_DATA = [
     {
       name: 'John',
@@ -81,7 +81,7 @@ describe('veTable operation column', () => {
   ]
 
   it('render', () => {
-    const WRAPPER = mount(veTable, {
+    const WRAPPER = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -96,7 +96,7 @@ describe('veTable operation column', () => {
   })
 
   it('operation column', async () => {
-    const wrapper = mount(veTable, {
+    const wrapper = mount(FanTable, {
       props: {
         columns: COLUMNS,
         tableData: TABLE_DATA,
@@ -107,9 +107,9 @@ describe('veTable operation column', () => {
     await later()
 
     const selectionTd = wrapper
-      .findAll('.ve-table-body-tr')[0]
-      .findAll('.ve-table-body-td')[0]
+      .findAll('.fan-table-body-tr')[0]
+      .findAll('.fan-table-body-td')[0]
 
-    expect(selectionTd.classes()).toContain('ve-table-operation-col')
+    expect(selectionTd.classes()).toContain('fan-table-operation-col')
   })
 })

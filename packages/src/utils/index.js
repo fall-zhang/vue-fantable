@@ -2,6 +2,15 @@ import debounce from './debounce.js'
 import cloneDeep from './cloneDeep.js'
 
 /*
+ * @hasValue
+ * @desc has value
+ * @param {array} arr
+ */
+export function hasValue(rec) {
+  return rec !== null && rec !== undefined
+}
+
+/*
  * @isEmptyArray
  * @desc  is empty array
  * @param {array} arr

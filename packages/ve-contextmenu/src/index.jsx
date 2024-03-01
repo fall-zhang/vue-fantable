@@ -4,9 +4,7 @@ import { ICON_NAMES } from '@P/src/utils/constant'
 import { getMousePosition, getViewportOffset } from '@P/src/utils/dom'
 import {
   INIT_DATA,
-  EMIT_EVENTS,
   CONTEXTMENU_NODE_TYPES,
-  INSTANCE_METHODS,
   COMPS_NAME
 } from './util/constant'
 import { getRandomId } from '@P/src/utils/random'
@@ -23,15 +21,13 @@ export default {
       type: Array,
       required: true,
     },
-    /*
-    event target
-    contextmenu event will register on it
-    */
+    // eventTarget: contextmenu event will register on it
     eventTarget: {
       type: [String, HTMLElement],
       required: true,
     },
   },
+  emits: ['nodeClick'],
   data() {
     return {
       internalOptions: [],
@@ -57,7 +53,6 @@ export default {
       isPanelsEmptyed: true,
     }
   },
-
   computed: {
     // active menus ids
     activeMenuIds() {
@@ -69,7 +64,7 @@ export default {
 
   watch: {
     options: {
-      handler: function (val) {
+      handler(val) {
         if (Array.isArray(val) && val.length > 0) {
           /*
           如果配置项修改,则重新销毁并创建
@@ -85,7 +80,7 @@ export default {
       immediate: true,
     },
     eventTarget: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
           this.registerContextmenuEvent()
         }
@@ -95,7 +90,6 @@ export default {
   },
 
   created() {
-    // bug fixed #467
     this.debounceCreatePanelByHover = debounce(
       this.createPanelByHover,
       300,
@@ -122,9 +116,7 @@ export default {
       return Array.isArray(option.children) && option.children.length
     },
 
-    /*
-    get panel option by menu id
-    */
+    // get panel option by menu id
     getPanelOptionByMenuId(options, menuId) {
       for (let i = 0; i < options.length; i++) {
         if (options[i].id === menuId) {
@@ -172,10 +164,8 @@ export default {
         return false
       }
 
-      /*
-      移除 panel 深度大于等于当前悬浮菜单的。从后往前删除
-      remove panels
-      */
+      // remove panels
+      // 移除 panel 深度大于等于当前悬浮菜单的。从后往前删除
       const deletePanelDeeps = panelOptions
         .filter((x) => x.parentDeep >= menu.deep)
         .map((x) => x.parentDeep)
@@ -281,9 +271,7 @@ export default {
     showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
       const { getParentContextmenuPanelEl } = this
 
-      const contextmenuPanelEl = document.querySelector(
-        `#${contextmenuId}`,
-      )
+      const contextmenuPanelEl = document.querySelector(`#${contextmenuId}`)
 
       if (contextmenuPanelEl) {
         // remove first
@@ -377,10 +365,8 @@ export default {
 
     // empty contextmenu panels
     emptyContextmenuPanels() {
-      /*
-      wait for children panel clicked by setTimeout
-      如果点击的是非 root panel 不关闭
-      */
+      // wait for children panel clicked by setTimeout
+      // 如果点击的是非 root panel 不关闭
       setTimeout(() => {
         if (this.isChildrenPanelsClicked) {
           this.isChildrenPanelsClicked = false
@@ -417,9 +403,7 @@ export default {
 
     // add context menu panel to body
     addContextmenuPanelToBody({ contextmenuId }) {
-      const contextmenuPanelEl = document.querySelector(
-        `#${contextmenuId}`,
-      )
+      const contextmenuPanelEl = document.querySelector(`#${contextmenuId}`)
 
       if (contextmenuPanelEl) {
         return false
@@ -471,7 +455,8 @@ export default {
     },
 
     // hide contextmenu
-    [INSTANCE_METHODS.HIDE_CONTEXTMENU]() {
+    // INSTANCE_METHODS.HIDE_CONTEXTMENU
+    hideContextmenu() {
       this.emptyContextmenuPanels()
     },
   },
@@ -487,9 +472,7 @@ export default {
 
     const contextmenuProps = {
       class: ['ve-contextmenu'],
-      style: {
-        display: 'none',
-      },
+      style: { display: 'none' },
     }
 
     return (
@@ -497,32 +480,7 @@ export default {
         {panelOptions.map((panelOption, panelIndex) => {
           const contextmenuPanelProps = {
             ref: panelOption.parentId,
-            class: {
-              [clsName('panel')]: true,
-            },
-            'v-events-outside': {
-              events: ['click'],
-              callback: (e) => {
-                // only for root panel
-                if (panelIndex === 0) {
-                  emptyContextmenuPanels()
-                }
-              },
-            },
-            // directives: [
-            //   {
-            //     name: 'events-outside',
-            //     value: {
-            //       events: ['click'],
-            //       callback: (e) => {
-            //         // only for root panel
-            //         if (panelIndex === 0) {
-            //           emptyContextmenuPanels()
-            //         }
-            //       },
-            //     },
-            //   },
-            // ],
+            class: clsName('panel'),
             onClick: () => {
               if (panelIndex !== 0) {
                 this.isChildrenPanelsClicked = true
@@ -533,15 +491,20 @@ export default {
             },
           }
           return (
-            <div {...contextmenuPanelProps}>
+            <div {...contextmenuPanelProps} v-events-outside={{
+              events: ['click'],
+              callback: (e) => {
+                // only for root panel
+                if (panelIndex === 0) {
+                  emptyContextmenuPanels()
+                }
+              },
+            }}>
               <ul class={clsName('list')}>
                 {panelOption.menus.map((menu) => {
                   let contextmenuNodeProps
 
-                  if (
-                    menu.type !==
-                    CONTEXTMENU_NODE_TYPES.SEPARATOR
-                  ) {
+                  if (menu.type !== CONTEXTMENU_NODE_TYPES.SEPARATOR) {
                     const nodeActive = clsName('node-active')
                     const nodeDisable = clsName('node-disabled')
                     contextmenuNodeProps = {
@@ -553,23 +516,13 @@ export default {
                       onMouseover: (event) => {
                         // disable
                         if (!menu.disabled) {
-                          debounceCreatePanelByHover(
-                            {
-                              event,
-                              menu,
-                            },
-                          )
+                          debounceCreatePanelByHover({ event, menu })
                         }
                       },
                       onClick: () => {
-                        if (
-                          !menu.disabled &&
-                            !hasChildren(menu)
-                        ) {
-                          this.$emit(
-                            EMIT_EVENTS.ON_NODE_CLICK,
-                            menu.type,
-                          )
+                        if (!menu.disabled && !hasChildren(menu)) {
+                          // EMIT_EVENTS.ON_NODE_CLICK,
+                          this.$emit('nodeClick', menu.type)
                           setTimeout(() => {
                             emptyContextmenuPanels()
                           }, 50)
@@ -579,34 +532,21 @@ export default {
                   } else { // separator
                     contextmenuNodeProps = {
                       class: {
-                        [clsName(
-                          'node-separator',
-                        )]: true,
+                        [clsName('node-separator')]: true,
                       },
                     }
                   }
 
-                  if (
-                    menu.type !==
-                    CONTEXTMENU_NODE_TYPES.SEPARATOR
-                  ) {
+                  if (menu.type !== CONTEXTMENU_NODE_TYPES.SEPARATOR) {
                     return (
                       <li {...contextmenuNodeProps}>
-                        <span
-                          class={clsName(
-                            'node-label',
-                          )}
-                        >
+                        <span class={clsName('node-label')}>
                           {menu.label}
                         </span>
                         {menu.hasChildren && (
                           <VeIcon
-                            class={clsName(
-                              'node-icon-postfix',
-                            )}
-                            name={
-                              ICON_NAMES.RIGHT_ARROW
-                            }
+                            class={clsName('node-icon-postfix')}
+                            name={ICON_NAMES.RIGHT_ARROW}
                           />
                         )}
                       </li>

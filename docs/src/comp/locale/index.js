@@ -31,7 +31,7 @@ export default {
     compLang: zhCN,
     eidtDemoTitle: '在 Github 上编辑',
     eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/zh/',
+            'https://github.com/fall-zhang/vue-fantable/edit/master/examples/src/docs/zh/',
     demo: {
       description: '功能描述',
       expandCode: '展开代码',
@@ -41,7 +41,7 @@ export default {
     },
     completeDemo: {
       demo1: {
-        selection: '这是数据表格的应用场景',
+        selection: '表格应用场景',
         dataRowsOption: [
           {
             value: 5000,
@@ -101,8 +101,7 @@ export default {
     anchorCatalogTitle: 'Contents',
     compLang: enUS,
     eidtDemoTitle: 'Edit this on Github',
-    eidtDemoUrlPrefix:
-            'https://github.com/huangshuwei/vue-fantable/edit/master/examples/src/docs/en/',
+    eidtDemoUrlPrefix: 'https://github.com/fall-zhang/vue-fantable/edit/master/examples/src/docs/en/',
     demo: {
       description: 'Code Description',
       expandCode: 'Expand Code',
@@ -139,10 +138,8 @@ export default {
         checkbox: 'Row Checkbox:',
       },
       demo2: {
-        selection:
-                    'Of course, you can use it like Excel or Google Sheets .',
-        description:
-                    'In this case, you can try features such as right-click menu, multiple selection of rows and columns, real-time input, and cell autofilling, etc.',
+        selection: 'Of course, you can use it like Excel or Google Sheets .',
+        description: 'In this case, you can try features such as right-click menu, multiple selection of rows and columns, real-time input, and cell autofilling, etc.',
       },
     },
   },

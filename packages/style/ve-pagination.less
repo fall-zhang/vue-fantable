@@ -8,7 +8,7 @@
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  background-color: @ve-pagination-background-color;
+  background-color: var(--ve-pagination-background-color);
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -19,7 +19,7 @@
   .ve-pagination-total {
     float: left;
     margin: 0 4px;
-    color: @ve-pagination-item-text-color;
+    color: var(--ve-pagination-item-text-color);
   }
 
   // 分页大小
@@ -38,28 +38,28 @@
   .ve-pagination-goto {
     float: left;
     margin: 0 4px;
-    color: @ve-pagination-item-text-color;
+    color: var(--ve-pagination-item-text-color);
 
     .ve-pagination-goto-input {
       width: 50px;
       height: 32px;
       padding: 1px 7px;
       display: inline-block;
-      border: 1px solid @ve-pagination-item-border-color;
-      background-color: @ve-pagination-goto-background-color;
+      border: 1px solid var(--ve-pagination-item-border-color);
+      background-color: var(--ve-pagination-goto-background-color);
       background-image: none;
       transition: border 0.2s ease-in-out,
         background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
       border-radius: 4px;
-      color: @ve-pagination-goto-input-color;
+      color: var(--ve-pagination-goto-input-color);
 
       &:focus {
         outline: none !important;
-        border-color: @ve-pagination-goto-input-hover-color;
+        border-color: var(--ve-pagination-goto-input-hover-color);
       }
 
       &:hover {
-        border-color: @ve-pagination-goto-input-hover-color;
+        border-color: var(--ve-pagination-goto-input-hover-color);
       }
     }
   }
@@ -74,36 +74,36 @@
     transition: all 0.1s ease-in-out;
     text-align: center;
     list-style: none;
-    background-color: @ve-pagination-item-background-color;
-    border: 1px solid @ve-pagination-item-border-color;
+    background-color: var(--ve-pagination-item-background-color);
+    border: 1px solid var(--ve-pagination-item-border-color);
     border-radius: 4px;
 
     a {
-      color: @ve-pagination-item-text-color;
+      color: var(--ve-pagination-item-text-color);
     }
 
     &:hover {
-      border-color: @ve-pagination-li-color;
+      border-color: var(--ve-pagination-li-color);
 
       a {
-        color: @ve-pagination-li-color;
+        color: var(--ve-pagination-li-color);
       }
     }
 
     &.ve-pagination-li-active {
-      border-color: @ve-pagination-li-color;
+      border-color: var(--ve-pagination-li-color);
 
       a {
         font-weight: bold;
-        color: @ve-pagination-li-color;
+        color: var(--ve-pagination-li-color);
       }
 
       &:hover {
-        border-color: @ve-pagination-li-color;
+        border-color: var(--ve-pagination-li-color);
 
         a {
           font-weight: bold;
-          color: @ve-pagination-li-color;
+          color: var(--ve-pagination-li-color);
         }
       }
     }
@@ -116,7 +116,7 @@
 
   .ve-pagination-prev:hover i,
   .ve-pagination-next:hover i {
-    color: @ve-pagination-jump-hover-color;
+    color: var(--ve-pagination-jump-hover-color);
   }
 
   .ve-pagination-jump-prev:after,
@@ -138,15 +138,15 @@
   .ve-pagination-jump-prev:hover i,
   .ve-pagination-jump-next:hover i {
     display: inline;
-    color: @ve-pagination-jump-hover-color;
+    color: var(--ve-pagination-jump-hover-color);
   }
 
   .ve-pagination-disabled {
     cursor: not-allowed;
-    border-color: @ve-pagination-item-border-color;
+    border-color: var(--ve-pagination-item-border-color);
 
     &:hover {
-      border-color: @ve-pagination-item-border-color;
+      border-color: var(--ve-pagination-item-border-color);
 
       i {
         color: #ccc;

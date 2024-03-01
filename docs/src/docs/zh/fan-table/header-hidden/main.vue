@@ -6,14 +6,14 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import Base from "./base.md";
+import Explain from './explain.md'
+import Base from './base.md'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        Base,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    Base,
+  },
+}
 </script>

@@ -1,10 +1,9 @@
 import { getChildCompsByName } from '@P/src/utils/index'
 import { COMPS_NAME } from './util/constant'
-import { h } from 'vue'
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP,
   props: {
-    value: {
+    modelValue: {
       type: Array,
       default() {
         return []
@@ -16,10 +15,15 @@ export default {
       default: false,
     },
   },
-  emits: ['input', 'checkedChange'],
+  emits: ['update:modelValue', 'checkedChange'],
+  data() {
+    return {
+      model: []
+    }
+  },
   watch: {
     // 更新子组件选中状态
-    value(newVal) {
+    modelValue(newVal) {
       const children = getChildCompsByName(this, COMPS_NAME.VE_CHECKBOX)
 
       if (children.length > 0) {
@@ -32,25 +36,26 @@ export default {
 
   methods: {
     updateModel(label, checkedVal) {
-      const index = this.value.indexOf(label)
+      const index = this.modelValue.indexOf(label)
       if (index > -1) {
         if (!checkedVal) {
           // eslint-disable-next-line vue/no-mutating-props
-          this.value.splice(index, 1)
+          this.modelValue.splice(index, 1)
         }
       } else {
         if (checkedVal) {
           // eslint-disable-next-line vue/no-mutating-props
-          this.value.push(label)
+          this.modelValue.push(label)
         }
       }
 
-      this.$emit('input', this.value)
-      // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.value)
-      this.$emit('checkedChange', this.value)
+      this.$emit('update:modelValue', this.modelValue)
+      // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.modelValue)
+      this.$emit('checkedChange', this.modelValue)
     },
   },
   render() {
-    return <div class="ve-checkbox-group">{h(this.$slots.default)}</div>
+    const defaultSlot = this.$slots.default ? this.$slots.default() : ''
+    return <div class="ve-checkbox-group">{defaultSlot}</div>
   },
 }

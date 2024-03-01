@@ -1,20 +1,15 @@
 <template>
-    <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.columns.data"
-            :columns="db.columns.columns"
-            :expand-option="expandOption"
-        />
-    </div>
+  <div>
+    <tpl :desc="desc" :anchor="anchor" :table-data="db.columns.data" :columns="db.columns.columns"
+      :expand-option="expandOption" />
+  </div>
 </template>
-<script>
+<script lang="jsx">
 import tpl from '@/comp/api-tpl.vue'
-import { db } from '../db'
-import EllipsisProps from './ellipsis-props'
-import FilterProps from './filter-props'
-import FilterCustomProps from './filter-custom-props'
+import { db } from '../db.jsx'
+import EllipsisProps from './ellipsis-props.vue'
+import FilterProps from './filter-props.vue'
+import FilterCustomProps from './filter-custom-props.vue'
 export default {
   name: 'ColumnProps',
   components: { tpl },

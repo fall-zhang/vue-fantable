@@ -17,36 +17,36 @@
     </div>
 </template>
 <script>
-import Explain from "./explain.md";
-import Base from "./base.md";
-import AutoHeight from "./auto-height.md";
-import RowCheckbox from "./row-checkbox.md";
-import RowRadio from "./row-radio.md";
-import RowExpand from "./row-expand.md";
-import RowExpandTable from "./row-expand-table.md";
-import FooterSummary from "../footer-summary/virtual-scroll.md";
-import ColumnFixed from "./column-fixed.md";
-import RowIndex from "./row-index.md";
-import CombineLazyLoad from "./combine-lazy-load.md";
-import DynamicEnable from "./dynamic-enable.md";
-import API from "../api/virtual-scroll-option-props";
+import Explain from './explain.md'
+import Base from './base.md'
+import AutoHeight from './auto-height.md'
+import RowCheckbox from './row-checkbox.md'
+import RowRadio from './row-radio.md'
+import RowExpand from './row-expand.md'
+import RowExpandTable from './row-expand-table.md'
+import FooterSummary from '../footer-summary/virtual-scroll.md'
+import ColumnFixed from './column-fixed.md'
+import RowIndex from './row-index.md'
+import CombineLazyLoad from './combine-lazy-load.md'
+import DynamicEnable from './dynamic-enable.md'
+import API from '../api/virtual-scroll-option-props.vue'
 
 export default {
-    name: "basic-main",
-    components: {
-        Explain,
-        Base,
-        AutoHeight,
-        RowCheckbox,
-        RowRadio,
-        RowExpand,
-        RowExpandTable,
-        ColumnFixed,
-        FooterSummary,
-        RowIndex,
-        CombineLazyLoad,
-        DynamicEnable,
-        API,
-    },
-};
+  name: 'BasicMain',
+  components: {
+    Explain,
+    Base,
+    AutoHeight,
+    RowCheckbox,
+    RowRadio,
+    RowExpand,
+    RowExpandTable,
+    ColumnFixed,
+    FooterSummary,
+    RowIndex,
+    CombineLazyLoad,
+    DynamicEnable,
+    API,
+  },
+}
 </script>

@@ -1,13 +1,14 @@
 import { createApp } from 'vue'
 
-import APP from '@/comp/app.vue'
+import APP from './App.vue'
 import Router from '@/router/index'
 
 import { getDocTheme } from '@/utils/cookies'
 
 import '@/css/index.less'
 import '@/css/custom.less'
-import '@/comp/app.less'
+import './css/App.less'
+import 'prismjs/themes/prism-coy.min.css'
 
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'
@@ -33,7 +34,7 @@ import {
 const app = createApp(APP)
 app.use(Router)
 app.component('DemoBlock', DemoBlock)
-app.component('FaAnchor', Anchor)
+app.component('VueAnchor', Anchor)
 // app.use(VueLazyContainer)
 
 // product
@@ -46,13 +47,11 @@ dev mode
 1、生产环境使用已发布的样式文件，参考 theme-switch-mixins.js
 */
 
-if (window.env === 'dev') {
-  const docTheme = getDocTheme()
-  if (docTheme && docTheme === 'dark') {
-    import('@P/theme-dark/index.less')
-  } else {
-    import('@P/theme-default/index.less')
-  }
+const docTheme = getDocTheme()
+if (docTheme === 'dark') {
+  import('@P/theme-dark/index.less')
+} else {
+  import('@P/theme-default/index.less')
 }
 
 app.use(VeCheckbox)

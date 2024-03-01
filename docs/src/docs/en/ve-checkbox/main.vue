@@ -1,15 +1,15 @@
 <template>
     <div>
         <div>
-            <fa-anchor label="单选功能" />
+            <vue-anchor label="单选功能" />
             <checkbox-single></checkbox-single>
         </div>
         <div>
-            <fa-anchor label="多选功能普通用法" />
+            <vue-anchor label="多选功能普通用法" />
             <checkbox-multiple-simple></checkbox-multiple-simple>
         </div>
         <div>
-            <fa-anchor label="多选功能高级用法" />
+            <vue-anchor label="多选功能高级用法" />
             <checkbox-multiple-advanced></checkbox-multiple-advanced>
         </div>
         <API />

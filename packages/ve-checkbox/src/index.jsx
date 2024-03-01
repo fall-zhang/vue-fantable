@@ -1,10 +1,14 @@
-import { getParentCompByName } from '@P/src/utils/index'
+import { getParentCompByName, hasValue } from '@P/src/utils/index'
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
   props: {
     // 当前 checkbox 选中状态,实现 v-model
+    modelValue: {
+      type: [String, Number, Boolean],
+      default: null,
+    },
     value: {
       type: [String, Number, Boolean],
       default: null,
@@ -28,11 +32,11 @@ export default {
       default: false,
     },
   },
-  emits: ['input', 'checkedChange'],
+  emits: ['input', 'checkedChange', 'update:modelValue'],
   data() {
     return {
       // 当前checkbox 选中状态
-      model: this.value,
+      model: null,
       checkboxGroup: {},
     }
   },
@@ -71,9 +75,19 @@ export default {
     value() {
       this.updateModelBySingle()
     },
+    modelValue() {
+      if (!this.disabled) {
+        this.model = this.modelValue
+      }
+    },
   },
 
   created() {
+    if (hasValue(this.modelValue)) {
+      this.model = this.modelValue
+    } else if (hasValue(this.value)) {
+      this.model = this.modelValue
+    }
     this.initModel()
   },
 
@@ -90,6 +104,7 @@ export default {
       }
       // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
       this.$emit('checkedChange', isChecked)
+      this.$emit('update:modelValue', isChecked)
 
       if (this.isCheckBoxGroup()) {
         // update parent comp:checkbox-group
@@ -109,8 +124,11 @@ export default {
     // get label content
     getLabelContent() {
       const { label, $slots } = this
-
-      return label || $slots.default
+      let result = label
+      if (!result) {
+        result = $slots.default ? $slots.default() : null
+      }
+      return result
     },
 
     initModel() {
