@@ -67,19 +67,13 @@ export default {
           renderBodyCell: ({ row, column, rowIndex }, h) => {
             return (
               <span>
-                <button
-                  class="button-demo"
-                  on-click={() => this.editRow(rowIndex)}
-                >
+                <el-button on-click={() => this.editRow(rowIndex)}>
                   Edit
-                </button>
+                </el-button>
                 &nbsp;
-                <button
-                  class="button-demo"
-                  on-click={() => this.deleteRow(rowIndex)}
-                >
+                <el-button on-click={() => this.deleteRow(rowIndex)}>
                   Delete
-                </button>
+                </el-button>
               </span>
             )
           },

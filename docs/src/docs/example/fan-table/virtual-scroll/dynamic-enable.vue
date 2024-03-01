@@ -1,19 +1,14 @@
 <template>
-    <div>
-        <el-button @click="switchVirtual(1)">开启虚拟滚动</el-button>
-        <el-button @click="switchVirtual(0)">禁用虚拟滚动</el-button>
-        <br />
-        <br />
-        <div>虚拟滚动状态：{{ virtualScrollOption.enable ? "已开启" : "已禁用" }}</div>
-        <br />
-        <fan-table
-            :max-height="500"
-            :virtual-scroll-option="virtualScrollOption"
-            :columns="columns"
-            :table-data="tableData"
-            row-key-field-name="rowKey"
-        />
-    </div>
+  <div>
+    <el-button type="primary" @click="switchVirtual(1)">开启虚拟滚动</el-button>
+    <el-button type="primary" @click="switchVirtual(0)">禁用虚拟滚动</el-button>
+    <br />
+    <br />
+    <div>虚拟滚动状态：{{ virtualScrollOption.enable ? "已开启" : "已禁用" }}</div>
+    <br />
+    <fan-table :max-height="500" :virtual-scroll-option="virtualScrollOption" :columns="columns" :table-data="tableData"
+      row-key-field-name="rowKey" />
+  </div>
 </template>
 
 <script>

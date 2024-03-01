@@ -1,17 +1,12 @@
 <template>
-    <div>
-        <el-input v-model="searchValue" style="width:250px" placeholder="search name"></el-input>
-        <el-button type="primary" @click="search">Search</el-button>
-        <br />
-        <br />
-        <fan-table
-            :max-height="500"
-            :virtual-scroll-option="virtualScrollOption"
-            :columns="columns"
-            :table-data="tableData"
-            row-key-field-name="rowKey"
-        />
-    </div>
+  <div>
+    <el-input v-model="searchValue" style="width:250px" placeholder="search name"></el-input>
+    <el-button type="primary" @click="search">Search</el-button>
+    <br />
+    <br />
+    <fan-table :max-height="500" :virtual-scroll-option="virtualScrollOption" :columns="columns" :table-data="tableData"
+      row-key-field-name="rowKey" />
+  </div>
 </template>
 
 <script lang="jsx">
@@ -100,7 +95,7 @@ export default {
       this.tableData = this.sourceData.filter(
         (x) =>
           !searchValue.length ||
-                        x.name.toLowerCase().includes(searchValue.toLowerCase()),
+          x.name.toLowerCase().includes(searchValue.toLowerCase()),
       )
     },
 

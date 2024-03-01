@@ -22,6 +22,7 @@
 
 <script>
 import locale from '@/comp/locale'
+import FoldingFan from '@/components/icons/folding-fan.vue'
 import I18nMixins from '@/comp/mixins/i18n-mixins'
 import NormalDataGrid from './normal-data-grid.vue'
 import SpreadSheet from './SpreadSheet.vue'
@@ -31,6 +32,7 @@ export default {
   components: {
     NormalDataGrid,
     SpreadSheet,
+    FoldingFan
   },
   mixins: [I18nMixins],
   data() {

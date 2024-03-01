@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="button-demo" @click="submit()">提交</button>
+    <el-button type="primary" @click="submit()">提交</el-button>
     <br />
     <br />
     <fan-table row-key-field-name="rowKey" :fixed-header="true" :columns="columns" :table-data="tableData"

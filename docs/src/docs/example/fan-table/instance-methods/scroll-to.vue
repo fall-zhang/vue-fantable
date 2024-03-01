@@ -1,24 +1,16 @@
 <template>
-    <div>
-        <div style="margin-bottom:20px;line-height:3.0;">
-            <button class="button-demo" @click="scrollY(1000)">垂直滚动到1000px</button>
-            <button class="button-demo" @click="scrollY(500)">垂直滚动到500px</button>
-            <button class="button-demo" @click="scrollY(0)">垂直滚动到0px</button>
-            <button class="button-demo" @click="scrollX(500)">水平滚动到300px</button>
-            <button class="button-demo" @click="scrollX(300)">水平滚动到200px</button>
-            <button class="button-demo" @click="scrollX(0)">水平滚动到0px</button>
-        </div>
-        <fan-table
-            ref="tableRef"
-            style="width:1000px"
-            :scroll-width="1600"
-            :max-height="350"
-            border-y
-            :columns="columns"
-            :table-data="tableData"
-            row-key-field-name="rowKey"
-        />
+  <div>
+    <div style="margin-bottom:20px;line-height:3.0;">
+      <el-button type="primary" @click="scrollY(1000)">垂直滚动到 1000px</el-button>
+      <el-button type="primary" @click="scrollY(500)">垂直滚动到 500px</el-button>
+      <el-button type="primary" @click="scrollY(0)">垂直滚动到 0px</el-button>
+      <el-button type="primary" @click="scrollX(500)">水平滚动到 300px</el-button>
+      <el-button type="primary" @click="scrollX(300)">水平滚动到 200px</el-button>
+      <el-button type="primary" @click="scrollX(0)">水平滚动到 0px</el-button>
     </div>
+    <fan-table ref="tableRef" style="width:1000px" :scroll-width="1600" :max-height="350" border-y :columns="columns"
+      :table-data="tableData" row-key-field-name="rowKey" />
+  </div>
 </template>
 
 <script>

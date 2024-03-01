@@ -1,14 +1,13 @@
 import routers from './locale'
 
-const emptyLayout = () => import('@/comp/layout/empty-layout.vue')
+import BlankLayout from '@/comp/layout/empty-layout.vue'
 
 const docLayout = () => import('@/comp/layout/doc-layout.vue')
 
 export default [
   {
     path: '/',
-    meta: { keepAlive: true, hide: true },
-    redirect: '/en',
+    redirect: '/zh',
   }, // 默认路由
   {
     path: '/:pathMatch(.*)*', // 页面不存在的情况下会跳到首页
@@ -16,13 +15,13 @@ export default [
   },
   {
     path: '/zh',
-    component: emptyLayout,
+    component: BlankLayout,
     redirect: '/zh/demo',
     children: [
       {
         path: 'demo',
-        component: () => import('../demo/index.vue'),
-        name: '示例',
+        component: () => import('@/pages/demo/index.vue'),
+        name: 'demo-zh',
         meta: { keepAlive: false, hide: true },
       },
       {
@@ -35,13 +34,13 @@ export default [
   },
   {
     path: '/en',
-    component: emptyLayout,
+    component: BlankLayout,
     redirect: '/en/demo',
     children: [
       {
         path: 'demo',
-        component: () => import('../demo/index.vue'),
-        name: '示例',
+        component: () => import('@/pages/demo/index.vue'),
+        name: 'demo-en',
         meta: { keepAlive: false, hide: true },
       },
       {

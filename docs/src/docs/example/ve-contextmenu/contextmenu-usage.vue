@@ -1,10 +1,10 @@
 <template>
-    <div>
-         <div id="contextmenu-target" ref="contextmenuTargetRef">
-            <div>右键点击此区域</div>
-        </div>
-        <ve-contextmenu event-target="#contextmenu-target" :options="options" />
+  <div>
+    <div id="contextmenu-target" ref="contextmenuTargetRef">
+      <div>右键点击此区域</div>
     </div>
+    <ve-contextmenu event-target="#contextmenu-target" :options="options" />
+  </div>
 </template>
 <script>
 export default {
@@ -42,11 +42,11 @@ export default {
   },
   mounted() {
     /*
-            eventTarget can be the following case:
-            1、this.eventTarget = "#contextmenu-target";
-            2、this.eventTarget = document.querySelector('#contextmenu-target');
-            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
-            */
+      eventTarget can be the following case:
+      1、this.eventTarget = "#contextmenu-target";
+      2、this.eventTarget = document.querySelector('#contextmenu-target');
+      3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+    */
     this.eventTarget = this.$refs.contextmenuTargetRef
   },
 }

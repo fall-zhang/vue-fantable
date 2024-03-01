@@ -1,5 +1,5 @@
 export default {
-  mounted: function (el, binding, vNode) {
+  mounted(el, binding, vNode) {
     if (typeof binding.value !== 'function') {
       let msg = `in [clickoutside] directives, provided expression '${binding.expression}' is not a function `
 
@@ -24,7 +24,7 @@ export default {
     document.addEventListener('click', handler, true)
   },
 
-  unmounted: function (el) {
+  unmounted(el) {
     document.removeEventListener('click', el.__clickOutSide__, true)
     el.__clickOutSide__ = null
   },
