@@ -27,20 +27,11 @@ export function isFunction(val) {
 
 // 根据锚点id 定位
 export function goTobyAnchorId(context, id) {
-  context.$router
-    .replace({
-      path: context.$route.path,
-      query: { anchor: id },
+  const targetDOM = document.querySelector('#' + id)
+  if (targetDOM) {
+    window.scrollTo({
+      top: targetDOM.offsetTop - 48,
+      behavior: 'smooth'
     })
-    .finally(() => {
-      context.$nextTick(() => {
-        const anchor = document.querySelector(`#${id}`)
-
-        if (anchor) {
-          // 65 为 头部高度
-          window.scroll(0, anchor.offsetTop - 65)
-        }
-      })
-    })
-    .catch(() => {})
+  }
 }

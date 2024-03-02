@@ -37,9 +37,9 @@
 
       <transition name="text-slide">
         <div v-show="hovering || isExpanded" size="small" type="text" class="slide-content online-edit-btn">
-          <CodeSandBoxOnline :btn-name="demoLangInfo['openInCodeSandBox'] || ''" :version="onlineExample.version"
+          <!-- <CodeSandBoxOnline :btn-name="demoLangInfo['openInCodeSandBox'] || ''" :version="onlineExample.version"
             :example-tpl="onlineExample.html" :example-script="onlineExample.script"
-            :example-style="onlineExample.style" />
+            :example-style="onlineExample.style" /> -->
         </div>
       </transition>
     </div>
