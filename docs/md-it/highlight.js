@@ -58,7 +58,7 @@ export const highlight = (str, lang) => {
   }
   if (prism.languages[lang]) {
     const code = prism.highlight(str, prism.languages[lang], lang)
-    console.log('🚀 ~ highlight ~ code:', code)
+    // console.log('🚀 ~ highlight ~ code:', code)
     return wrap(code, rawLang)
   }
   return wrap(str, 'text')

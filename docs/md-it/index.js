@@ -22,9 +22,10 @@ export default function MarkdownPlugin() {
     // A function providing the Markdown It instance gets the ability to apply custom settings/plugins
     markdownItSetup(md) {
       // for example
+      md.renderer.rules.table_open = () => `<table class="md-it-table">`
+      md.renderer.rules.table_close = () => `</table>`
       md.use(MarkdownItAnchor)
       md.use(MarkdownItPrism)
-      // md.use(MarkdownItIns)
       md.use(MarkdownItContainer, 'anchor', {
         validate(params) {
           // console.log(md.configure())

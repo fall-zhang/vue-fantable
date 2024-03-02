@@ -2,7 +2,7 @@
   <div class="api-tpl">
     <vue-anchor :is-edit="false" :label="getAnchor" />
     <div class="api-tpl-desc">{{ desc }}</div>
-    <fan-table class="tpl-table" :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
+    <fan-table class="tpl-table " :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
       :border-y="false" row-key-field-name="__key__" :expand-option="expandOption"
       :cell-selection-option="cellSelectionOption" />
   </div>
@@ -30,7 +30,7 @@ export default {
     },
     expandOption: {
       type: Object,
-      default: function () {
+      default() {
         return null
       },
     },
@@ -47,25 +47,33 @@ export default {
   },
   computed: {
     getAnchor() {
+      // return ''
       return this.anchor ? this.anchor : this.desc
     },
   },
   watch: {
     // auto create row key
     tableData: {
-      handler: function (val) {
+      handler(val) {
         if (val) {
-          this.cloneTable = val.map((item, index) => {
-            item.__key__ = index
-            return item
-          })
+          this.cloneTable = val.map((item, index) => ({
+            ...item,
+            __key__: index
+          }))
         }
+        // console.log(this.cloneTable, this.columns);
+        //
+        setTimeout(() => {
+          console.log(this.cloneTable, this.columns)
+          this.$forceUpdate()
+        }, 2000)
       },
       immediate: true,
     },
   },
 }
 </script>
+
 <style lang="less">
 .api-tpl {
   margin-bottom: 30px;
