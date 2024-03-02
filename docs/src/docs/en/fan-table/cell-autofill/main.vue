@@ -1,25 +1,22 @@
 <template>
-    <div>
-        <h2>Cell Autofill</h2>
-        <Explain />
-        <Base />
-        <AutofillDirection />
-        <API title="API" anchor="API" />
-    </div>
+  <div>
+    <h2>Cell Autofill</h2>
+    <Description />
+    <AutofillDirection />
+    <CellAutofillOption title="API" anchor="API" />
+  </div>
 </template>
 <script>
-import Explain from './explain.md'
-import Base from './base.md'
+import Description from './explain.md'
 import AutofillDirection from './autofill-direction.md'
-import API from '../api/cell-autofill-option-props.vue'
+import CellAutofillOption from '../api/cell-autofill-option-props.vue'
 
 export default {
   name: 'CellSelection',
   components: {
-    Explain,
-    Base,
+    Description,
     AutofillDirection,
-    API,
+    CellAutofillOption,
   },
 }
 </script>

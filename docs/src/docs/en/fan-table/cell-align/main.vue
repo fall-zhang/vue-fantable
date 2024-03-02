@@ -1,19 +1,15 @@
 <template>
-    <div>
-        <h2>Cell Align</h2>
-        <Explain />
-        <BasicAlign />
-    </div>
+  <div>
+    <h2>Cell Align</h2>
+    <Description />
+  </div>
 </template>
-<script>
-import Explain from "./explain.md";
-import BasicAlign from "./basic-align.md";
+<script setup>
+import Description from './Description.md'
+</script>
 
+<script>
 export default {
-    name: "cell-align",
-    components: {
-        Explain,
-        BasicAlign,
-    },
-};
+  name: 'CellAlign',
+}
 </script>

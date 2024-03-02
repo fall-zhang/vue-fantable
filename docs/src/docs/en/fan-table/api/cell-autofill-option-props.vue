@@ -1,14 +1,14 @@
 <template>
   <div>
-    <tpl :desc="desc" :anchor="anchor" :table-data="db.cellAutofillOption.data"
+    <ApiTpl :desc="desc" :anchor="anchor" :table-data="db.cellAutofillOption.data"
       :columns="db.cellAutofillOption.columns" />
   </div>
 </template>
 <script>
-import tpl from '@/comp/api-tpl.vue'
+import ApiTpl from '@/comp/api-tpl.vue'
 import { db } from './db'
 export default {
-  components: { tpl },
+  components: { ApiTpl },
   props: {
     anchor: {
       type: String,

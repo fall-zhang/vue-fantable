@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <button class="button-demo" @click="show()">开启 Loading</button>
-        <button class="button-demo" @click="close()">关闭 Loading</button>
-        <br />
-        <br />
-        <fan-table id="loading-container" :columns="columns" :table-data="tableData" />
-    </div>
+  <div>
+    <button class="button-demo" @click="show()">开启 Loading</button>
+    <button class="button-demo" @click="close()">关闭 Loading</button>
+    <br />
+    <fan-table id="loading-container" :columns="columns" :table-data="tableData" />
+  </div>
 </template>
+
 <script>
 export default {
   data() {

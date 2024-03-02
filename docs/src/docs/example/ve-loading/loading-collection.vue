@@ -8,6 +8,7 @@
     </div>
   </vue-anchor>
 </template>
+
 <script>
 export default {
   name: 'FanLoading',
@@ -33,6 +34,7 @@ export default {
   },
 }
 </script>
+
 <style lang="less" scoped>
 .loading-container {
   display: flex;

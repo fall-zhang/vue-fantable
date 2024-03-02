@@ -7,7 +7,7 @@
     <InstanceMethods />
     <CombineColumnFixed />
     <CombineElementUi />
-    <API title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
+    <editOptionProps title="API" anchor="API" desc="eidtOption 单元格编辑配置" />
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ import Base from './base.md'
 import InstanceMethods from './instance-method.md'
 import CombineColumnFixed from './combine-column-fixed.md'
 import CombineElementUi from './combine-element-ui.md'
-import API from '../api/edit-option-props.vue'
+import editOptionProps from '../api/edit-option-props.vue'
 
 export default {
   name: 'BasicMain',
@@ -28,7 +28,7 @@ export default {
     InstanceMethods,
     CombineColumnFixed,
     CombineElementUi,
-    API,
+    editOptionProps,
   },
 }
 </script>
