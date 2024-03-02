@@ -75,8 +75,10 @@ export default {
       if (this.$el && this.$attrs.parent__) {
         this.$el.remove()
       }
-      this.$destroy()
       this.loading = false
+    },
+    destroy () {
+      this.unmounted()
     }
   },
   render() {
