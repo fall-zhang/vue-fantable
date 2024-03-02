@@ -15,13 +15,8 @@
                   <li>
                     <a>
                       {{ subConfig.name }}
-                      <span v-show="subConfig.meta &&
-                        subConfig.meta.version
-                        " class="version">
-                        {{
-                          subConfig.meta &&
-                          subConfig.meta.version
-                        }}
+                      <span v-show="subConfig.meta && subConfig.meta.version" class="version">
+                        {{ subConfig.meta && subConfig.meta.version }}
                       </span>
                     </a>
                   </li>
@@ -48,26 +43,24 @@
         </router-view>
         <!--主体内容 End-->
       </div>
+      <DocCatalog :catalog-data="catalogData" />
 
-      <!-- footer -->
-      <Footer />
     </div>
+    <DocFooter />
 
     <!--回到顶部-->
     <div v-show="showBackTop" class="main-back-top" @click="onBackTop()">
-      <UpOne theme="outline" size="28" fill="#000000" :strokeWidth="2" strokeLinejoin="bevel" strokeLinecap="butt" />
+      <UpOne style="padding-top: 2px;" theme="outline" size="28" fill="currentColor" :stroke-width="2"
+        stroke-linejoin="bevel" stroke-linecap="butt" />
     </div>
 
     <!--目录-->
-    <div>
-      <catolog :catalog-data="catalogData" />
-    </div>
   </div>
 </template>
 
 <script>
-import catolog from '@/comp/catalog.vue'
-import Footer from './doc-footer.vue'
+import DocCatalog from '@/components/layout-material/DocCatalog.vue'
+import DocFooter from './doc-footer.vue'
 import routers from '@/router/locale/index'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './../mixins/i18n-mixins'
@@ -75,7 +68,7 @@ import { UpOne } from '@icon-park/vue-next'
 
 export default {
   name: 'App',
-  components: { Footer, catolog, UpOne },
+  components: { DocFooter, DocCatalog, UpOne },
   mixins: [I18nMixins],
   data() {
     return {
@@ -183,9 +176,12 @@ export default {
   border-radius: 50%;
   z-index: 1;
   transition: .3s;
+  box-shadow: 1px 2px 6px -2px #969696;
 
   &:hover {
-    background-color: #8b9bcd;
+    color: #409eff;
+    border-color: #409eff;
+    box-shadow: 1px 2px 6px -2px #4391df;
   }
 }
 </style>

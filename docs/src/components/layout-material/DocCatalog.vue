@@ -1,15 +1,11 @@
 <template>
-  <div v-if="catalogData && catalogData.length > 0" class="catalog-container">
-    <div v-show="!showCatalogList2" class="catalog-corner" @click.stop="toggleCatalogList()">
-      <span>{{ catalogTitle }}</span>
-    </div>
-    <ul v-show="showCatalogList2" class="catalog-ul">
-      <li class="catalog-li-title" @click.stop="toggleCatalogList()">
+  <div class="catalog-container">
+    <ul v-show="catalogData && catalogData.length > 0" class="catalog-ul">
+      <li class="catalog-li-title">
         {{ catalogTitle }}
-        <i class="catalog-li-title-down icon iconfont icon-shouqi1"></i>
       </li>
       <li v-for="(item, index) in catalogData" :key="index" :title="item.label" class="catalog-li">
-        <a href="javascript:void(0);" @click.stop="goAnchor(item.id)">
+        <a @click.stop="goAnchor(item.id)">
           {{ item.label }}
         </a>
       </li>
@@ -18,9 +14,9 @@
 </template>
 
 <script>
-import locale from './locale'
+import locale from '@/comp/locale'
 import { goTobyAnchorId } from '@/utils/index'
-import I18nMixins from './mixins/i18n-mixins'
+import I18nMixins from '@/comp/mixins/i18n-mixins'
 
 export default {
   name: 'VueCatalog',
@@ -37,7 +33,6 @@ export default {
   },
   data() {
     return {
-      showCatalogList2: this.showCatalogList,
     }
   },
   computed: {
@@ -50,25 +45,25 @@ export default {
     goAnchor(id) {
       goTobyAnchorId(this, id)
     },
-
-    toggleCatalogList() {
-      this.showCatalogList2 = !this.showCatalogList2
-    },
   },
 }
 </script>
 
 <style lang="less" scoped>
 .catalog-container {
+  position: sticky;
+  top: 80px;
+  margin-left: 24px;
+  min-width: 160px;
+  max-width: 220px;
+  height: fit-content;
+
   .catalog-corner {
-    z-index: 999;
+    z-index: 99;
     cursor: pointer;
     display: block;
     width: 45px;
     height: 180px;
-    position: fixed;
-    right: 0;
-    top: 120px;
     background-color: #fff;
     border-radius: 5px 0 0 5px;
     border: solid 1px #eee;
@@ -80,19 +75,15 @@ export default {
   }
 
   .catalog-ul {
-    z-index: 999;
+    z-index: 10;
     display: block;
     list-style: none;
-    min-width: 100px;
-    max-width: 200px;
+
     margin: 0;
     padding: 10px;
     background-color: #fff;
-    position: fixed;
-    right: 0;
-    top: 120px;
     border-radius: 3px;
-    border: solid 1px #eee;
+    border-left: solid 1px #dddddd;
     font-size: 12px;
 
     .catalog-li-title {
@@ -120,6 +111,10 @@ export default {
       word-wrap: normal;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      a {
+        cursor: pointer;
+      }
     }
   }
 }
