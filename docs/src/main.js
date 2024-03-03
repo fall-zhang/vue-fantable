@@ -6,7 +6,6 @@ import Router from '@/router/index'
 import { getDocTheme } from '@/utils/cookies'
 
 import '@/css/index.less'
-import '@/css/custom.less'
 import './css/App.less'
 // import 'prismjs/themes/prism-coy.min.css'
 // import 'prismjs/themes/prism-okaidia.min.css'

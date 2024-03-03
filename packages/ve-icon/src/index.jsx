@@ -72,7 +72,6 @@ export default {
   },
   render() {
     const { iconStyle } = this
-    console.log('🚀 ~ render ~ iconStyle:')
     return (<span style={iconStyle}><this.iconNameVue /></span>)
   },
 }

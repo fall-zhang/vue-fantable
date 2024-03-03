@@ -16,8 +16,8 @@ export default {
       },
       {
         name: '更新日志',
-        path: 'https://github.com/Happy-Coding-Clans/vue-fantable/releases',
-        isRouter: false,
+        path: '/changelog',
+        isRouter: true,
       },
     ],
     docTheme: '组件主题',
@@ -88,8 +88,8 @@ export default {
       },
       {
         name: 'Changelog',
-        path: 'https://github.com/Happy-Coding-Clans/vue-fantable/releases',
-        isRouter: false,
+        path: '/changelog',
+        isRouter: true,
       },
     ],
     docTheme: 'Component Theme',
