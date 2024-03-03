@@ -1,0 +1,20 @@
+{
+  // Change this to match your project
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "src/**/*.js",
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@P/*": [
+        "packages/*"
+      ]
+    },
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable",
+    ],
+    "outDir": "types"
+  }
+}
