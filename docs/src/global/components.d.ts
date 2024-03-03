@@ -7,7 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    DocCatalog: typeof import('./../components/layout-material/DocCatalog.vue')['default']
+    DocCatalog: typeof import('./../components/layout-material/doc-catalog.vue')['default']
+    DocFooter: typeof import('./../components/layout-material/doc-footer.vue')['default']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']

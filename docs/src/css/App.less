@@ -2,7 +2,7 @@
 @-main-content-min-width: 1280px;
 
 // 左侧内容宽度
-@-main-left-content-width: 15.62%; // 200/1280
+@-main-left-content-width: 15.62%;
 @-main-left-content-min-width: 240px;
 @-main-left-content-max-width: 280px;
 
@@ -32,6 +32,8 @@
     width: 100%;
     position: fixed;
     top: 0px;
+    display: flex;
+    justify-content: center;
     height: 60px;
     background-color: #fff;
     z-index: @-header-index;
@@ -40,7 +42,9 @@
     box-shadow: 0 2px 8px #f0f1f2;
 
     .main-banner-warpper {
+      min-width: calc(240px + 760px);
       width: 100%;
+      max-width: calc(280px + 1080px);
       height: 100%;
       display: flex;
       line-height: 60px;
@@ -305,7 +309,6 @@
   .main-footer {
     height: 60px;
     line-height: 60px;
-    // margin-left: #{"min(310px, #{@-main-left-content-width})"};
 
     text-align: center;
     background-color: #fff;
