@@ -14,9 +14,7 @@
 @-main-right-content-min-width: 760px;
 @-main-right-content-max-width: 1080px;
 
-@-footer-height: 60px;
 @-header-index: 999;
-@-left-menu-index: 2;
 @-right-content-index: 1;
 
 .main {
@@ -188,7 +186,7 @@
       min-width: @-main-left-content-min-width;
       max-width: @-main-left-content-max-width;
       padding-bottom: 25px;
-      z-index: @-left-menu-index;
+      z-index: 10;
       height: calc(100vh - 60px);
       color: #495060;
       display: block;

@@ -5,8 +5,6 @@ import routerConfig from './router.config.js'
 // Progress 进度条 样式
 import 'nprogress/nprogress.css'
 // highlight theme
-// import hljs from 'highlight.js'
-// import 'highlight.js/styles/color-brewer.css'
 
 const router = createRouter({
   history: createWebHashHistory(),

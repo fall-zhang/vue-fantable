@@ -9,6 +9,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     DocCatalog: typeof import('./../components/layout-material/doc-catalog.vue')['default']
     DocFooter: typeof import('./../components/layout-material/doc-footer.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
@@ -16,7 +20,6 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     FoldingFan: typeof import('./../components/icons/folding-fan.vue')['default']
-    Header: typeof import('./../components/layout-material/Header.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
