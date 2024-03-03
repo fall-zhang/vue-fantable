@@ -4,7 +4,8 @@ import VeIcon from '@P/ve-icon/ve-icon.js'
 import { COMPS_NAME, LOCALE_COMP_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { createLocale } from '@P/src/locale/index'
-import { ICON_NAMES } from '../../src/utils/constant'
+import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
+
 const t = createLocale(LOCALE_COMP_NAME)
 
 export default {

@@ -1,5 +1,5 @@
-import { ICON_NAMES } from '../../src/utils/constant'
-import { COMPS_NAME } from './util/constant'
+import { COMPS_NAME, ICON_NAMES } from './util/constant'
+
 import { getValByUnit } from '../../src/utils/index.js'
 import {
   ArrowUp,
@@ -72,6 +72,7 @@ export default {
   },
   render() {
     const { iconStyle } = this
-    return (<this.iconNameVue style={iconStyle}/>)
+    console.log('🚀 ~ render ~ iconStyle:')
+    return (<span style={iconStyle}><this.iconNameVue /></span>)
   },
 }

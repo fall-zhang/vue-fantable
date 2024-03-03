@@ -16,24 +16,6 @@ export const KEY_CODES = {
   F2: 113,
 }
 
-// icon name
-export const ICON_NAMES = {
-  FILTER: 'filter',
-
-  DOUBLE_RIGHT_ARROW: 'double-right-arrow',
-  DOUBLE_LEFT_ARROW: 'double-left-arrow',
-
-  TOP_ARROW: 'top-arrow',
-  RIGHT_ARROW: 'right-arrow',
-  BOTTOM_ARROW: 'bottom-arrow',
-  LEFT_ARROW: 'left-arrow',
-
-  SORT_TOP_ARROW: 'sort-top-arrow',
-  SORT_BOTTOM_ARROW: 'sort-bottom-arrow',
-
-  SEARCH: 'search',
-}
-
 // mouse event key type
 export const MOUSE_EVENT_CLICK_TYPE = {
   LEFT_MOUSE: 1,
