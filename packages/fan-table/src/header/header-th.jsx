@@ -10,7 +10,7 @@ import {
 import { getValByUnit, isEmptyValue } from '../../../src/utils/index.js'
 import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
-import { ICON_NAMES } from '../../../src/utils/constant'
+import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 // import eventCenter from '@P/events/event-center.js'
 

@@ -3,7 +3,7 @@ import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 import { isFunction, isBoolean } from '../../../src/utils/index'
 import VeIcon from '@P/ve-icon/ve-icon.js'
-import { ICON_NAMES } from '../../../src/utils/constant'
+import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 
 export default {
   name: COMPS_NAME.FAN_TABLE_HEADER_FILTER_CUSTOM_CONTENT,

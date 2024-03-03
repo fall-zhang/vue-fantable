@@ -1,7 +1,7 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME, COLUMN_TYPES } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
-import { ICON_NAMES } from '../../../src/utils/constant'
+import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 
 export default {
   name: COMPS_NAME.FAN_TABLE_EXPAND_TR_ICON,
