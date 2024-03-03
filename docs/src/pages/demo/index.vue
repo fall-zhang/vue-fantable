@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="demo-page">
     <div class="site-demo-container">
       <h1 class="main-title">
         <FoldingFan /> vue-fantable
@@ -48,7 +48,13 @@ export default {
   },
 }
 </script>
+
 <style lang="less">
+.demo-page {
+  display: flex;
+  justify-content: center;
+}
+
 .main-title {
   // display: ;
   font-size: 3em;
@@ -59,6 +65,8 @@ export default {
 }
 
 .site-demo-container {
+  min-width: calc(240px + 760px);
+  max-width: calc(280px + 1080px);
   display: flex;
   flex-direction: column;
   background: #fff;

@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import DocCatalog from '@/components/layout-material/DocCatalog.vue'
-import DocFooter from './doc-footer.vue'
+import DocCatalog from '@/components/layout-material/doc-catalog.vue'
+import DocFooter from '@/components/layout-material/doc-footer.vue'
 import routers from '@/router/locale/index'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './../mixins/i18n-mixins'
