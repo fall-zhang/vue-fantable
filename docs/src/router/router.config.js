@@ -14,10 +14,6 @@ export default [
     redirect: '/',
   },
   {
-    path: '/changelog', // 页面不存在的情况下会跳到首页
-    component: () => import('@/pages/changelog/index.vue'),
-  },
-  {
     path: '/zh',
     component: BlankLayout,
     redirect: '/zh/demo',
@@ -36,7 +32,7 @@ export default [
       },
       {
         path: 'changelog',
-        component: () => import('@/pages/demo/index.vue'),
+        component: () => import('@/pages/changelog/index.vue'),
         name: 'changelog-zh',
         meta: { keepAlive: false, hide: true },
       },
@@ -61,7 +57,7 @@ export default [
       },
       {
         path: 'changelog',
-        component: () => import('@/pages/demo/index.vue'),
+        component: () => import('@/pages/changelog/index.vue'),
         name: 'changelog-en',
         meta: { keepAlive: false, hide: true },
       },
