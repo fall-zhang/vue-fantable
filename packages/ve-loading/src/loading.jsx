@@ -2,7 +2,7 @@
 
 import { clsName } from './util/index'
 import { nextTick } from 'vue'
-import { COMPS_NAME } from './util/constant'
+import { COMPS_NAME, SPIN_NAMES } from './util/constant'
 import { addClass, removeClass } from '../../src/utils/dom'
 import Plane from './components/plane.jsx'
 import Bounce from './components/bounce.jsx'
@@ -16,6 +16,16 @@ const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 export default {
   name: COMPS_NAME.VE_LOADING,
   components: { Plane, Bounce, Wave, Pulse, Flow, Grid },
+  props: {
+    name: {
+      require: true,
+      type: String,
+      validate(val) {
+        return Object.values(SPIN_NAMES).includes(val)
+      },
+      default: 'Grid'
+    }
+  },
   data() {
     return {
       loading: false,
@@ -44,10 +54,9 @@ export default {
       }
     },
     loadIcon() {
-      const name = this.$attrs.name
+      const name = this.name
       const map = { Plane, Bounce, Wave, Pulse, Flow, Grid }
       const result = name.at(0).toUpperCase() + name.slice(1)
-
       return map[result]
     }
   },
@@ -89,6 +98,7 @@ export default {
       height,
       color
     }
+    const IconName = this.loadIcon
     return (
       <div
         style={this.loadingStyle}
@@ -96,7 +106,7 @@ export default {
       >
         <div class={clsName('spin-container')}>
           <div class={clsName('spin')}>
-            <Grid {...spinProps}></Grid>
+            <IconName {...spinProps}></IconName>
           </div>
           <div style={{ color: this.$attrs.color }} class={clsName('spin-tip')}>
             {this.$attrs.tip}

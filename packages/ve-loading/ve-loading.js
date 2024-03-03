@@ -1,7 +1,6 @@
-// Vue2 的 vue.extend 是做什么的？
-import { nextTick, createApp, h } from 'vue'
+import { createApp } from 'vue'
 import VeLoadingJsx from './src/loading.jsx'
-import { addClass, removeClass } from '../src/utils/dom'
+import { addClass, removeClass } from '../src/utils/dom.js'
 import { clsName } from './src/util/index'
 import { SPIN_NAMES, COMPS_NAME } from './src/util/constant'
 // default options
@@ -16,12 +15,11 @@ const defaultOptions = {
   fullscreen: false,
   target: '',
   lock: false,
-  // parent “__parent__”会被忽略
   parent__: null,
 }
 
 // parent relative class
-const PARENT_RELATIVE_CLASS = clsName('parent-relative')
+const PARENT_RELATIVE_CLASS = clsName('parent-relative  ')
 // parent lock class
 
 // create instance
