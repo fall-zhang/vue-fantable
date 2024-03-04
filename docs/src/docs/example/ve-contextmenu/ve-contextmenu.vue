@@ -104,11 +104,11 @@ export default {
   },
   mounted() {
     /*
-            eventTarget can be the following case:
-            1、this.eventTarget = "#contextmenu-target";
-            2、this.eventTarget = document.querySelector('#contextmenu-target');
-            3、this.eventTarget = this.$refs["contextmenuTargetRef"];
-            */
+    eventTarget can be the following case:
+    1、this.eventTarget = "#contextmenu-target";
+    2、this.eventTarget = document.querySelector('#contextmenu-target');
+    3、this.eventTarget = this.$refs["contextmenuTargetRef"];
+    */
     this.eventTarget = this.$refs.contextmenuTargetRef
   },
   methods: {
@@ -118,6 +118,7 @@ export default {
   },
 }
 </script>
+
 <style>
 #contextmenu-target {
   display: flex;

@@ -6,6 +6,7 @@
     <ve-contextmenu event-target="#contextmenu-target" :options="options" />
   </div>
 </template>
+
 <script>
 export default {
   data() {
