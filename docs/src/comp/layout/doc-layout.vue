@@ -67,7 +67,7 @@ import I18nMixins from './../mixins/i18n-mixins'
 import { UpOne } from '@icon-park/vue-next'
 
 export default {
-  name: 'App',
+  name: 'DocLayout',
   components: { DocFooter, DocCatalog, UpOne },
   mixins: [I18nMixins],
   data() {

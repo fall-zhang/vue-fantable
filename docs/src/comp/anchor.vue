@@ -1,13 +1,13 @@
 <template>
   <div v-if="label.length && id.length" class="anchor-container">
     <div class="content">
-      <a :id="id" class="anchor-link" :label="label" href="javascript:void(0)" @click.stop="goAnchor()">
-        <i style="font-size: 15px" class="icon iconfont icon-ai-link" />
+      <a :id="id" class="anchor-link" :label="label" href="javascript:void(0)" @click.stop="onClickAnchor()">
+        <i style="font-size: 15px" class="icon iconfont icon-ai-link"></i>
       </a>
       <div class="anchor-label">
         <h3>
           {{ label }}
-          <i v-show="isEdit" :title="eidtDemoTitle" class="iconfont icon-edit" @click.stop="eidt" />
+          <i v-show="isEdit" :title="eidtDemoTitle" class="iconfont icon-edit" @click.stop="onDditOnline"></i>
         </h3>
       </div>
       <slot></slot>
@@ -56,11 +56,11 @@ export default {
     }
   },
   methods: {
-    goAnchor() {
+    onClickAnchor() {
       goTobyAnchorId(this, this.id)
     },
     // edit on github or gitlab etc.
-    eidt() {
+    onDditOnline() {
       if (this.isEdit) {
         const fileName = this.fileName
 
