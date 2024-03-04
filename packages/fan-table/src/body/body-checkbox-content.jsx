@@ -1,5 +1,5 @@
 import VeCheckbox from '@P/ve-checkbox/ve-checkbox.js'
-import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
+import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'

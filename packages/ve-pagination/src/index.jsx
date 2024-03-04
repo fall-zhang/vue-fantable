@@ -97,7 +97,6 @@ export default {
           if (event.keyCode !== 13) return
 
           const val = this.$parent.getValidNum(event.target.value)
-          // bug fixed #483
           event.target.value = val
           this.$parent.jumpPageHandler(val)
         },
@@ -277,7 +276,7 @@ export default {
     },
   },
   render() {
-    const template = <ul class="ve-pagination"></ul>
+    // const template =
 
     const comps = {
       // 'total','prev','pager','next','sizer','jumper'
@@ -295,15 +294,16 @@ export default {
       sizer: <sizer></sizer>,
       jumper: <jumper onJumpPageHandler={this.jumpPageHandler}></jumper>,
     }
+    // template.children = template.children || []
 
-    // https://github.com/ElemeFE/element/issues/10033
-    // https://github.com/ElemeFE/element/issues/9587
-    template.children = template.children || []
+    // this.layout.forEach((item) => {
+    //   template.children.push(comps[item])
+    // })
 
-    this.layout.forEach((item) => {
-      template.children.push(comps[item])
-    })
-
-    return template
+    return <ul class="ve-pagination">
+      {this.layout.map((compoName) => {
+        return comps[compoName]
+      })}
+    </ul>
   },
 }

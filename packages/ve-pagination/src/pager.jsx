@@ -22,6 +22,7 @@ export default {
       required: true,
     },
   },
+  emits: ['jumpPageHandler'],
   computed: {
     numOffset() {
       return Math.floor((this.pagingCount + 2) / 2) - 1
@@ -38,7 +39,6 @@ export default {
 
     showJumpNext() {
       if (this.pageCount > this.pagingCount + 2) {
-        // if (this.pageIndex < this.pageCount - this.numOffset) {
         if (this.pageIndex <= this.pageCount - this.pagingCount) {
           return true
         }
