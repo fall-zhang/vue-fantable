@@ -18,34 +18,24 @@
 
   .ve-select-selected-span {
     width: 80%;
-    display: block !important;
-    /*修复会被别的样式覆盖的问题*/
+    display: block;
+    border-radius: 4px;
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
-    padding-left: 2px;
+    padding: 0 4px;
     color: var(--ve-select-text-color);
   }
 
   .ve-select-toggle-icon {
-    display: inline-flex;
-    position: absolute;
-    line-height: 32px;
-    top: 0;
-    right: 5px;
+    display: flex;
     color: #999;
-
-    &::before {
-      transform: rotate(0deg);
-      transition: transform 0.3s;
-    }
+    transition: transform 0.3s;
 
     &.ve-select-show {
-      &::before {
-        transform: rotate(180deg);
-        transition: transform 0.3s;
-      }
+      transform: rotate(180deg);
+      transform-origin: center center;
     }
   }
 }

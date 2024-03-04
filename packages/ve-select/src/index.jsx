@@ -181,7 +181,7 @@ export default {
 
     return (
       <VeDropdown {...dropdownProps}>
-        <span>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
           {content}
           <VeIcon
             name={ICON_NAMES.BOTTOM_ARROW}
