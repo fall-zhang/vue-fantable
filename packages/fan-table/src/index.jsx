@@ -1,4 +1,13 @@
-import { cloneDeep, debounce } from '@P/src/utils/index.js'
+import {
+  cloneDeep, debounce, getValByUnit,
+  isFunction,
+  isNumber,
+  scrollTo,
+  isEmptyValue,
+  isEmptyArray,
+  isBoolean,
+  isDefined,
+} from '@P/src/utils/index.js'
 import {
   initGroupColumns,
   clsName,
@@ -32,27 +41,18 @@ import {
   onBeforeDelete,
   onAfterDelete
 } from './util/clipboard'
-import {
-  getValByUnit,
-  isFunction,
-  isNumber,
-  scrollTo,
-  isEmptyValue,
-  isEmptyArray,
-  isBoolean,
-  isDefined,
-} from '../../src/utils/index.js'
+
 import { createLocale } from '@P/src/locale/index'
 
-import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from '../../src/utils/constant'
-import { getScrollbarWidth } from '../../src/utils/scroll-bar'
+import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from '@P/src/utils/constant'
+import { getScrollbarWidth } from '@P/src/utils/scroll-bar'
 import {
   requestAnimationTimeout,
   cancelAnimationTimeout
-} from '../../src/utils/request-animation-timeout'
-import { isInputKeyCode } from '../../src/utils/event-key-codes'
-import Hooks from '../../src/utils/hooks-manager'
-import { getMouseEventClickType } from '../../src/utils/mouse-event'
+} from '@P/src/utils/request-animation-timeout'
+import { isInputKeyCode } from '@P/src/utils/event-key-codes'
+import Hooks from '@P/src/utils/hooks-manager'
+import { getMouseEventClickType } from '@P/src/utils/mouse-event'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 import {
   COMPS_NAME,
@@ -73,7 +73,7 @@ import TableBody from './body/index.jsx'
 import TableFooter from './footer/index.jsx'
 import EditInput from './editor/index.jsx'
 import Selection from './selection/index.jsx'
-import clickoutside from '../../src/directives/clickoutside'
+import clickoutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index.jsx'
@@ -2409,21 +2409,21 @@ export default {
     },
 
     /*
-         * @bodyCellClick
-         * @desc  recieve td click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+    * @bodyCellClick
+    * @desc  recieve td click event
+    * @param {object} rowData - row data
+    * @param {object} column - column data
+    */
     bodyCellClick({ event, rowData, column }) {
       // feature...
     },
 
     /*
-         * @bodyCellMousedown
-         * @desc  recieve td mousedown event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+    * @bodyCellMousedown
+    * @desc  recieve td mousedown event
+    * @param {object} rowData - row data
+    * @param {object} column - column data
+    */
     bodyCellMousedown({ event, rowData, column }) {
       if (!this.enableCellSelection) {
         return false
@@ -2536,11 +2536,11 @@ export default {
     },
 
     /*
-         * @bodyCellMouseover
-         * @desc  recieve td mouseover event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+    * @bodyCellMouseover
+    * @desc  recieve td mouseover event
+    * @param {object} rowData - row data
+    * @param {object} column - column data
+    */
     bodyCellMouseover({ event, rowData, column }) {
       const {
         rowKeyFieldName,
@@ -2592,11 +2592,11 @@ export default {
     },
 
     /*
-         * @bodyCellMousemove
-         * @desc  recieve td mousemove event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+    * @bodyCellMousemove
+    * @desc  recieve td mousemove event
+    * @param {object} rowData - row data
+    * @param {object} column - column data
+    */
     bodyCellMousemove({ event, rowData, column }) {
       this.hooks.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, {
         event,
@@ -2605,11 +2605,11 @@ export default {
     },
 
     /*
-         * @bodyCellMouseup
-         * @desc  recieve td mouseup event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+    * @bodyCellMouseup
+    * @desc  recieve td mouseup event
+    * @param {object} rowData - row data
+    * @param {object} column - column data
+    */
     bodyCellMouseup({ event, rowData, column }) {
       // feature...
     },
@@ -3568,8 +3568,8 @@ export default {
     },
 
     /*
-        set all cell selection and column to visible
-        */
+      set all cell selection and column to visible
+    */
     [INSTANCE_METHODS.SET_ALL_CELL_SELECTION]() {
       const { enableCellSelection } = this
 

@@ -207,7 +207,7 @@ export function getTotalWidthByColKeys({ colKeys, colgroups }) {
  * @initGroupColumns
  * @desc  int group columns
  * @param {array} cloneColumns - clone columns
- * @return {
+ * @return {}
    isGroupHeader,
    colgroups,
    groupColumns
