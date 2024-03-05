@@ -106,7 +106,7 @@ import ThemeSwitchMixins from '@/comp/mixins/theme-switch-mixins.js'
 import clickoutside from '@/comp/directives/clickoutside.js'
 import { version as latestVersion } from '../../../package.json'
 
-import { getVersions } from '@/service/index.js'
+import { getVersions } from '@/api/index.js'
 import FoldingFan from '@/components/icons/folding-fan.vue'
 
 export default {

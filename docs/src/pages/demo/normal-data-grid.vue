@@ -436,9 +436,6 @@ export default {
       name: 'grid',
     })
   },
-  unmounted() {
-    // this.switchThemeMix("theme-default");
-  },
   methods: {
     // virtual scrolling
     scrolling({

@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import { DOC_LANG_COOKIE, DOC_LANG } from './constant'
 
 /*
