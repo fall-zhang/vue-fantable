@@ -55,7 +55,11 @@ export default {
     },
   },
   render() {
-    const defaultSlot = this.$slots.default ? this.$slots.default() : ''
-    return <div class="ve-checkbox-group">{defaultSlot}</div>
+    console.log('🚀 ~ render ~ $slots:', this.$slots)
+    const defaultSlot = this.$slots.default
+      ? this.$slots.default()
+      : '这是默认添加的内容？'
+    return <div class="ve-checkbox-group"><defaultSlot onCheckedChange={this.updd}></defaultSlot></div>
+    // return <div class="ve-checkbox-group">    </div>
   },
 }

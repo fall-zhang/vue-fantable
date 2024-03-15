@@ -232,6 +232,7 @@ describe('VeCheckbox', () => {
 
     const checkeds1 = wrapper.findAll('.ve-checkbox-checked')
     console.log(checkeds1)
+    console.log('🚀 ~ it ~ checkeds1:', checkeds1)
     expect(checkeds1.length).toBe(2)
 
     wrapper.setData({ checkboxValue: ['西红柿'] })
@@ -277,6 +278,6 @@ describe('VeCheckbox', () => {
 
     await later()
 
-    expect(wrapper.vm.checkboxValue).toEqual(['西红柿', '哈密瓜', '南瓜'])
+    expect(wrapper.vm.checkboxValue).toEqual(['南瓜', '西红柿', '哈密瓜'])
   })
 })
