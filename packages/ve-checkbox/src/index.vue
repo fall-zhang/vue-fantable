@@ -90,6 +90,7 @@ watch(() => props.modelValue, () => {
     model.value = props.modelValue
   }
 })
+
 // is checkbox group
 function isCheckBoxGroup() {
   return typeof fatherGroup === 'function'
@@ -113,15 +114,6 @@ function onCheckboxChange(event) {
     fatherGroup(props.label, isChecked)
   }
 }
-
-// 通过单选更新 model
-// function updateModelBySingle() {
-//   if (!props.disabled) {
-//     model.value = props.modelValue
-//   }
-// }
-
-// 父组件调用更新 model
 </script>
 <script>
 export default {
