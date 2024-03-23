@@ -1,4 +1,4 @@
-import VeCheckboxGroup from './src/index.jsx'
+import VeCheckboxGroup from './src/index.vue'
 
 VeCheckboxGroup.install = function (Vue) {
   Vue.component('FanCheckboxGroup', VeCheckboxGroup)

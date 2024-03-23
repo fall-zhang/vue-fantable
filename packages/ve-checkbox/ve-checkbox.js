@@ -1,4 +1,4 @@
-import VeCheckbox from './src/index.jsx'
+import VeCheckbox from './src/index.vue'
 
 VeCheckbox.install = function (Vue) {
   Vue.component('FanCheckbox', VeCheckbox)
