@@ -16,6 +16,22 @@ export default {
     },
   },
   emits: ['update:modelValue', 'checkedChange'],
+  // render() {
+  //   console.log('🚀 ~ render ~ $slots:', this.$slots)
+  //   const defaultSlot = this.$slots.default
+  //     ? this.$slots.default()
+  //     : ''
+  //   return <div class="ve-checkbox-group">{defaultSlot}</div>
+  //   // return <div class="ve-checkbox-group">    </div>
+  // },
+  setup(props, { slots }) {
+    const defaultSlot = slots.default
+      ? slots.default()
+      : ''
+    return () => (
+      <div class="ve-checkbox-group">{defaultSlot}</div>
+    )
+  },
   data() {
     return {
       model: []
@@ -53,9 +69,5 @@ export default {
       // this.$emit(EMIT_EVENTS.ON_CHECKED_CHANGE, this.modelValue)
       this.$emit('checkedChange', this.modelValue)
     },
-  },
-  render() {
-    const defaultSlot = this.$slots.default ? this.$slots.default() : ''
-    return <div class="ve-checkbox-group">{defaultSlot}</div>
-  },
+  }
 }

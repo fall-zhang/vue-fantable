@@ -12,3 +12,6 @@ export const COMPS_NAME = {
   VE_CHECKBOX: 'VeCheckbox',
   VE_CHECKBOX_GROUP: 'VeCheckboxGroup',
 }
+
+export const GROUP_SYMBOL = Symbol('groupSymbol')
+export const GROUP_MODEL_VALUE = Symbol('groupModelValue')

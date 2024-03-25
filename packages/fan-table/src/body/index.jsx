@@ -779,12 +779,11 @@ export default {
                     internalCheckboxSelectedRowKeysTemp
       }
 
-      selectedAllChange &&
-                selectedAllChange({
-                  isSelected,
-                  selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
-                  // changeRowKeys:
-                })
+      selectedAllChange && selectedAllChange({
+        isSelected,
+        selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
+        // changeRowKeys:
+      })
     },
 
     /*
@@ -902,10 +901,7 @@ export default {
             internalCheckboxSelectedRowKeys,
             internalRadioSelectedRowKey,
             isVirtualScroll,
-            isExpandRow: isExpandRow({
-              rowData,
-              rowIndex,
-            }),
+            isExpandRow: isExpandRow({ rowData, rowIndex }),
             cellStyleOption,
             cellSpanOption: this.cellSpanOption,
             highlightRowKey: this.highlightRowKey,

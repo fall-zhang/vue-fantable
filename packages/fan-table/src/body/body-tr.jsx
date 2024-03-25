@@ -154,6 +154,8 @@ radio
       const { rowKeyFieldName } = this
       return rowKeyFieldName ? this.rowData[rowKeyFieldName] : null
     },
+  },
+  methods: {
     // tr class
     trClass() {
       let result = null
@@ -175,9 +177,6 @@ radio
 
       return result
     },
-  },
-
-  methods: {
     // click
     rowClick(e, fn) {
       fn && fn(e)
@@ -245,8 +244,7 @@ radio
 
     // get td content
     const getTdContent = () => {
-      // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
-      const onExpandRowChange = 'onExpandRowChange'
+      // const onExpandRowChange = 'onExpandRowChange'
       return colgroups.map((column) => {
         const tdProps = {
           key: column.key,
@@ -271,8 +269,8 @@ radio
           cellSelectionRangeData: this.cellSelectionRangeData,
           bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
           editOption: this.editOption,
-          [onExpandRowChange]: () =>
-            expandRowChange(rowData, rowIndex),
+          // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
+          onExpandRowChange: () => expandRowChange(rowData, rowIndex),
         }
         return <BodyTd {...tdProps} />
       })
@@ -284,9 +282,7 @@ radio
     let customEvents = {}
     if (eventCustomOption) {
       const { bodyRowEvents } = eventCustomOption
-      customEvents = bodyRowEvents
-        ? bodyRowEvents({ row: rowData, rowIndex })
-        : {}
+      customEvents = bodyRowEvents ? bodyRowEvents({ row: rowData, rowIndex }) : {}
     }
 
     const {
@@ -302,38 +298,20 @@ radio
     } = customEvents
 
     const events = {
-      onClick: (e) => {
-        this.rowClick(e, click)
-      },
-      onDblclick: (e) => {
-        this.rowDblclick(e, dblclick)
-      },
-      onContextmenu: (e) => {
-        this.rowContextmenu(e, contextmenu)
-      },
-      onMouseenter: (e) => {
-        this.rowMouseenter(e, mouseenter)
-      },
-      onMouseleave: (e) => {
-        this.rowMouseleave(e, mouseleave)
-      },
-      onMousemove: (e) => {
-        this.rowMousemove(e, mousemove)
-      },
-      onMouseover: (e) => {
-        this.rowMouseover(e, mouseover)
-      },
-      onMousedown: (e) => {
-        this.rowMousedown(e, mousedown)
-      },
-      onMouseup: (e) => {
-        this.rowMouseup(e, mouseup)
-      },
+      onClick: (e) => this.rowClick(e, click),
+      onDblclick: (e) => this.rowDblclick(e, dblclick),
+      onContextmenu: (e) => this.rowContextmenu(e, contextmenu),
+      onMouseenter: (e) => this.rowMouseenter(e, mouseenter),
+      onMouseleave: (e) => this.rowMouseleave(e, mouseleave),
+      onMousemove: (e) => this.rowMousemove(e, mousemove),
+      onMouseover: (e) => this.rowMouseover(e, mouseover),
+      onMousedown: (e) => this.rowMousedown(e, mousedown),
+      onMouseup: (e) => this.rowMouseup(e, mouseup)
     }
-
+    const trClass = this.trClass()
     if (this.isVirtualScroll) {
       const props = {
-        class: this.trClass,
+        class: trClass,
         tagName: 'tr',
         id: this.currentRowKey,
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
@@ -355,7 +333,7 @@ radio
       )
     } else {
       const props = {
-        class: this.trClass,
+        class: trClass,
         [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
         ...events,
       }
