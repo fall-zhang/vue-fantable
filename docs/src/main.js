@@ -5,11 +5,10 @@ import Router from '@/router/index'
 
 import { getDocTheme } from '@/utils/cookies'
 
-import '@/css/index.less'
-import './css/App.less'
+import '@/assets/css/index.less'
+import 'prismjs/themes/prism.min.css'
 // import 'prismjs/themes/prism-coy.min.css'
 // import 'prismjs/themes/prism-okaidia.min.css'
-import 'prismjs/themes/prism.min.css'
 
 import DemoBlock from '@/comp/demo-block.vue'
 import Anchor from '@/comp/anchor.vue'

@@ -333,30 +333,17 @@ export default {
 
 ## 开发计划
 
-- [x] 保证项目可以打包构建
-  - [x] 更新项目依赖
-  - [x] 并且转移到 ESM，且 Vue2 调用时不会出错
-  - [x] 可以打包 CSS、less 内容
-  - [x] 移除其它包依赖，只依赖 vue
-  - [x] 保证项目示例（文档）可以运行
-  - [x] 更新示例为 vite，且使用 vue3，与此同时，更新 fan-table，保证 Vue3 可以使用
-  - [x] 添加页面或者能运行该组件的内容
-  - [x] 更新文档中使用 Vue 的方式，Vue3 没有默认导出，不能使用 import Vue from 'vue'
-  - [x] 使用 google font 替代 iconfont，避免版权风险
-  - [x] 修复 I18N 的语言打包问题
-  - [x] 尝试 unplugin-vue 替代 rollup-plugin-vue
-  - [x] 移除 emitter，dispatch 和 broadcast
+开发计划详情可看：https://flowus.cn/share/7fea404b-8e1f-4eaa-8ccf-cacb79a929f6
+
+- [x] 保证项目的打包构建
 - [x] 修复升级到 Vue3 后的问题
-  - [x] （修复）多个实例之间事件没有进行隔离
-  - [x] 排序完成后没有立即刷新表格
-  - [x] 筛选功能无法使用
-  - [x] 各个组件使用 v-model
 - [x] 发布文档，并解决文档中遇到的问题，详情查看 [文档](./docs/README.md)
 - [ ] 测试
   - [x] 舍弃 jest 全局 API 使用 vitest api
   - [ ] 调整适配原测试内容
   - [ ] 添加新的测试
 - [ ] 关注性能和优化
+  - [ ] 减少 DOM，使用 transform 代替 position:absolute
   - [ ] 加上防抖和节流
   - [ ] 减少更新渲染卡顿问题（单次渲染时长超过 100ms）
   - [ ] 移除过时以及兼容性 API（使用新的 web 标准）

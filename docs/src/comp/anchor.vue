@@ -7,7 +7,7 @@
       <div class="anchor-label">
         <h3>
           {{ label }}
-          <i v-show="isEdit" :title="eidtDemoTitle" class="iconfont icon-edit" @click.stop="onDditOnline"></i>
+          <i v-show="isEdit" :title="editDemoTitle" class="iconfont icon-edit" @click.stop="onDditOnline"></i>
         </h3>
       </div>
       <slot></slot>
@@ -46,8 +46,8 @@ export default {
     }
   },
   computed: {
-    eidtDemoTitle() {
-      return locale[this.currentDocLang].eidtDemoTitle
+    editDemoTitle() {
+      return locale[this.currentDocLang].editDemoTitle
     },
   },
   created() {

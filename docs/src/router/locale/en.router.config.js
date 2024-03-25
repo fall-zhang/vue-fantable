@@ -73,11 +73,11 @@ const config = [
     component: emptyLayout,
     children: [
       /* {
-                path: "test",
-                component: () => import("@/docs/en/fan-table/test/main.vue"),
-                name: "性能测试",
-                meta: { keepAlive: true }
-            }, */
+          path: "test",
+          component: () => import("@/docs/en/fan-table/test/main.vue"),
+          name: "性能测试",
+          meta: { keepAlive: true }
+      }, */
       {
         path: 'usage',
         component: () => import('@/docs/en/fan-table/usage/main.md'),
