@@ -2,9 +2,6 @@
   // Change this to match your project
   "extends": "./tsconfig.base.json",
   "include": [
-    "packages/**/*.jsx",
-    "packages/**/*.js",
-    "packages/**/*.vue",
     "tests/**/*.js",
     "tests/**/*.jsx",
   ],

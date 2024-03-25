@@ -24,6 +24,6 @@ export const CONTEXTMENU_NODE_TYPES = {
 }
 
 // instance methods
-export const INSTANCE_METHODS = {
-  HIDE_CONTEXTMENU: 'hideContextmenu',
-}
+// export const INSTANCE_METHODS = {
+//   HIDE_CONTEXTMENU: 'hideContextmenu',
+// }
