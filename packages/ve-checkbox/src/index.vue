@@ -44,7 +44,7 @@ const props = defineProps({
     default: false,
   },
 })
-const emit = defineEmits(['input', 'checkedChange', 'update:modelValue'])
+const emit = defineEmits(['checkedChange', 'update:modelValue'])
 const model = ref(false)
 
 initModel()
@@ -102,9 +102,9 @@ function onCheckboxChange(event) {
   }
   const isChecked = event.target.checked
 
-  if (!props.isControlled) {
-    emit('input', isChecked)
-  }
+  // if (!props.isControlled) {
+  //   emit('input', isChecked)
+  // }
   // emit(EMIT_EVENTS.ON_CHECKED_CHANGE, isChecked)
   emit('checkedChange', isChecked)
   emit('update:modelValue', isChecked)
