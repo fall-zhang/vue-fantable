@@ -351,10 +351,11 @@ export default {
   - [x] 使用 CSS 变量
   - [x] 重写 Loading 组件
   - [ ] 异步加载模式，拆分为三步进行加载
-- [ ] 使用 TS 重构应用
+- [ ] 使用 TS 重构应用（V1.0）
+  - [x] 将组件改写为 vue setup 形式
   - [x] 添加 TS 类型支持
   - [ ] TS 重写组件
-- [ ] 最后支持原生（无框架依赖）
+- [ ] 最后支持原生（V2.0无框架依赖）
   - [ ] 使用 shadow dom 替代
 
 如果没有你想要的的功能，请告诉[我](https://github.com/fall-zhang/vue-fantable/issues)
