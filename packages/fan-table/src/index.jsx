@@ -79,7 +79,7 @@ import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index.jsx'
 // import eventCenter from '@P/events/event-center'
 import mitt from 'mitt'
-const t = createLocale(LOCALE_COMP_NAME)
+const $t = createLocale(LOCALE_COMP_NAME)
 export default {
   name: COMPS_NAME.FAN_TABLE,
   directives: {
@@ -2639,7 +2639,7 @@ export default {
           allRowKeys: this.allRowKeys,
           headerIndicatorColKeys: this.headerIndicatorColKeys,
           enableHeaderContextmenu: this.enableHeaderContextmenu,
-          t,
+          $t,
         })
       } else { // body contextmenu
         // set body contextmenu options before contextmen show
@@ -2650,7 +2650,7 @@ export default {
           colgroups: this.colgroups,
           allRowKeys: this.allRowKeys,
           bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
-          t,
+          $t,
         })
       }
     },

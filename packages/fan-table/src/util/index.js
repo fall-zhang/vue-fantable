@@ -305,94 +305,94 @@ export function initGroupColumns(cloneColumns) {
 }
 
 // get header contextmenu option collection
-export function getHeaderContextmenuOptionCollection(t) {
+export function getHeaderContextmenuOptionCollection($t) {
   return [
     {
       type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
     },
     {
-      label: t('cut'),
+      label: $t('cut'),
       type: CONTEXTMENU_NODE_TYPES.CUT,
     },
     {
-      label: t('copy'),
+      label: $t('copy'),
       type: CONTEXTMENU_NODE_TYPES.COPY,
     },
     // {
-    //     label: t("paste"),
+    //     label: $t("paste"),
     //     type: CONTEXTMENU_NODE_TYPES.PASTE,
     // },
     {
-      label: t('removeColumn'),
+      label: $t('removeColumn'),
       type: CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN,
     },
     {
-      label: t('emptyColumn'),
+      label: $t('emptyColumn'),
       type: CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN,
     },
     {
-      label: t('hideColumn'),
+      label: $t('hideColumn'),
       type: CONTEXTMENU_NODE_TYPES.HIDE_COLUMN,
     },
     {
-      label: t('leftFixedColumnTo'),
+      label: $t('leftFixedColumnTo'),
       type: CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO,
     },
     {
-      label: t('cancelLeftFixedColumnTo'),
+      label: $t('cancelLeftFixedColumnTo'),
       type: CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO,
     },
     {
-      label: t('rightFixedColumnTo'),
+      label: $t('rightFixedColumnTo'),
       type: CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO,
     },
     {
-      label: t('cancelRightFixedColumnTo'),
+      label: $t('cancelRightFixedColumnTo'),
       type: CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO,
     },
   ]
 }
 
 // get body contextmenu option collection
-export function getBodyContextmenuOptionCollection(t) {
+export function getBodyContextmenuOptionCollection($t) {
   return [
     {
       type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
     },
     {
-      label: t('cut'),
+      label: $t('cut'),
       type: CONTEXTMENU_NODE_TYPES.CUT,
     },
     {
-      label: t('copy'),
+      label: $t('copy'),
       type: CONTEXTMENU_NODE_TYPES.COPY,
     },
     // {
-    //     label: t("paste"),
+    //     label: $t("paste"),
     //     type: CONTEXTMENU_NODE_TYPES.PASTE,
     // },
     {
-      label: t('insertRowAbove'),
+      label: $t('insertRowAbove'),
       type: CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE,
     },
     {
-      label: t('insertRowBelow'),
+      label: $t('insertRowBelow'),
       type: CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW,
     },
     {
-      label: t('removeRow'),
+      label: $t('removeRow'),
       type: CONTEXTMENU_NODE_TYPES.REMOVE_ROW,
     },
     {
-      label: t('emptyRow'),
+      label: $t('emptyRow'),
       type: CONTEXTMENU_NODE_TYPES.EMPTY_ROW,
     },
     {
-      label: t('removeColumn'),
+      label: $t('removeColumn'),
       type: CONTEXTMENU_NODE_TYPES.REMOVE_COLUMN,
     },
     {
-      label: t('emptyCell'),
+      label: $t('emptyCell'),
       type: CONTEXTMENU_NODE_TYPES.EMPTY_CELL,
     },
   ]
@@ -553,7 +553,7 @@ export function setBodyContextmenuOptions({
   colgroups,
   allRowKeys,
   bodyIndicatorRowKeys,
-  t,
+  $t,
 }) {
   const result = []
   if (enableBodyContextmenu) {
@@ -590,7 +590,7 @@ export function setBodyContextmenuOptions({
     }
 
     const bodyContextmenuOptionCollection =
-            getBodyContextmenuOptionCollection(t)
+            getBodyContextmenuOptionCollection($t)
 
     contextmenus.forEach((contextmenu) => {
       const contentmenuCollectionItem =
