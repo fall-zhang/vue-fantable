@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
-    "allowJs": true,
+    "allowJs": false,
     "jsx": "preserve",
     "jsxImportSource": "vue",
     // Generate d.ts files

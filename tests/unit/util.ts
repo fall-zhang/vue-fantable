@@ -1,18 +1,18 @@
 import { nextTick } from 'vue'
 
-export function later(delay = 0) {
-  return new Promise((resolve) => {
-    if (typeof delay === 'number') {
-      setTimeout(() => {
-        resolve()
-      }, delay)
-    } else {
-      nextTick(() => {
-        resolve()
-      })
-    }
-  })
-}
+// export function later(delay = 0) {
+//   return new Promise((resolve) => {
+//     if (typeof delay === 'number') {
+//       setTimeout(() => {
+//         resolve()
+//       }, delay)
+//     } else {
+//       nextTick(() => {
+//         resolve()
+//       })
+//     }
+//   })
+// }
 
 /*
  * @mockScrollTo

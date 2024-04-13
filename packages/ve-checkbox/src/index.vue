@@ -11,7 +11,7 @@
     </span>
   </label>
 </template>
-<script setup>
+<script setup lang="ts">
 import { hasValue } from '@P/src/utils/index'
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
