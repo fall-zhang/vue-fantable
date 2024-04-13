@@ -14,14 +14,16 @@ module.exports = {
   //   reactive: true
   // },
   // 后面的配置会覆盖前者
-  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended'],
+  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-recommended'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     ecmaFeatures: {
       jsx: true
-    }
+    },
+    sourceType: 'module'
   },
-  plugins: ['vue'],
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
     // js 处理
     'no-unused-vars': 1, // 未使用的变量
@@ -55,6 +57,10 @@ module.exports = {
     'vue/html-indent': 0,
     'vue/no-multiple-template-root': 0,
     'vue/html-self-closing': 0,
-    'vue/max-attributes-per-line': 0
+    'vue/max-attributes-per-line': 0,
+    // typescript
+    '@typescript-eslint/no-this-alias': 1, // 是否禁止 this 的别名
+    '@typescript-eslint/no-unused-vars': 1, // 未使用的代码进行警告
+    '@typescript-eslint/no-explicit-any': 1 // 使用 any 时进行警告
   }
 }
