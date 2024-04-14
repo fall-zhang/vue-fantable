@@ -115,7 +115,7 @@ function onCheckboxChange(event) {
   }
 }
 </script>
-<script>
+<script lang="ts">
 export default {
   name: COMPS_NAME.VE_CHECKBOX,
 }
