@@ -3,7 +3,7 @@ export default {
     goto: 'Gaan na',
     page: '',
     itemsPerPage: ' / bladsy',
-    total: (total) => `Totaall ${total}`,
+    total: (total:string) => `Totaall ${total}`,
     prev5: 'Vorige 5 Bladsye',
     next5: 'Volgende 5 Bladsye',
   },

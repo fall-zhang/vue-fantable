@@ -1,13 +1,14 @@
 import { useLocal, getLocal } from '@P/hooks/useLocal'
+import type { LocalInfo } from './local'
 
 export default {
   getMessage() {
     return getLocal()
   },
-  use(lang) {
+  use(lang: LocalInfo) {
     useLocal(lang)
   },
-  update(lang = {}) {
+  update(lang: LocalInfo = {}) {
     useLocal(lang)
     // defaultLang.value = merge(defaultLang.value, lang)
   },

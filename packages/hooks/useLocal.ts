@@ -1,11 +1,11 @@
 import { shallowRef, triggerRef } from 'vue'
 import { cloneDeep } from '@P/src/utils/index'
 import LangEN from '@P/src/locale/lang/en-US'
+import type { LocalInfo } from '@P/ve-locale/local'
+
 const defaultLang = shallowRef(cloneDeep(LangEN))
-type LocalInfo = {
-  
-}
-export const useLocal = (local) => {
+
+export const useLocal = (local: LocalInfo) => {
   console.log('🚀 ~ useLocal ~ local:', local)
   triggerRef(defaultLang)
   if (local.pagination) {
