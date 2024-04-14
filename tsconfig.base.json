@@ -14,8 +14,8 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     // Generate d.ts files
-    "declaration": true,
-    "emitDeclarationOnly": true,
+    "declaration": false,
+    "emitDeclarationOnly": false,
     "declarationMap": false,
     "isolatedModules": true,
     "useDefineForClassFields": true,
