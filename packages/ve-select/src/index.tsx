@@ -1,4 +1,4 @@
-// import VeDropdown from '../../ve-dropdown/ve-dropdown'
+import VeDropdown from '../../ve-dropdown/ve-dropdown'
 import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
 // import VeIcon from '../../ve-icon/ve-icon'
@@ -35,7 +35,7 @@ export default {
     placeholder: {
       type: String,
       default: '请选择',
-      validator: function (value) {
+      validator: function (value:string) {
         return value.length > 0
       },
     },
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     // icon class
-    iconClass() {
+    iconClass():Record<string, boolean> {
       const toggleIcon = clsName('toggle-icon')
       return {
         [clsName('show')]: this.dropdownVisible,
@@ -97,7 +97,7 @@ export default {
       }
     },
     // 显示选中的信息
-    showSelectInfo() {
+    showSelectInfo():string {
       let result
 
       const labels = this.selectedLabels()
@@ -111,7 +111,7 @@ export default {
     },
 
     // 当前选中项的label
-    selectedLabels() {
+    selectedLabels():string {
       return this.internalOptions
         .filter((x) => x.selected)
         .map((x) => {
@@ -150,7 +150,7 @@ export default {
       },
       // change: this.dropdownChange,
       // v-model
-      onInput: (val) => {
+      onInput: (val:Event) => {
         this.internalOptions = val
         this.dropdownChange()
       },
@@ -160,7 +160,7 @@ export default {
       },
     }
 
-    let content = ''
+    let content = <></>
     // this.placeholder = '63416464'
     if (isInput) {
       content = (
