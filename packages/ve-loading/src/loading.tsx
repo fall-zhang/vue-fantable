@@ -20,7 +20,7 @@ export default {
     name: {
       require: true,
       type: String,
-      validate(val) {
+      validate(val:string) {
         return Object.values(SPIN_NAMES).includes(val)
       },
       default: 'Grid'
@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: {
-    loadingClass() {
+    loadingClass():Record<string, boolean> {
       const { fullscreen } = this.$attrs
       const { loading } = this
       const clsFixed = clsName('fixed')
@@ -46,14 +46,14 @@ export default {
     },
 
     // loading style
-    loadingStyle() {
+    loadingStyle():Record<string, boolean> {
       const { overlayBackgroundColor } = this.$attrs
 
       return {
         'background-color': overlayBackgroundColor,
       }
     },
-    loadIcon() {
+    loadIcon():string {
       const name = this.name
       const map = { Plane, Bounce, Wave, Pulse, Flow, Grid }
       const result = name.at(0).toUpperCase() + name.slice(1)
@@ -72,16 +72,16 @@ export default {
     close() {
       nextTick(() => {
         if (this.lock) {
-          removeClass(this.parent__, PARENT_LOCK_CLASS)
+          removeClass(this.parentElement, PARENT_LOCK_CLASS)
         }
         this.loading = false
       })
     },
     unmounted () {
-      removeClass(this.parent__, PARENT_RELATIVE_CLASS)
-      removeClass(this.parent__, PARENT_LOCK_CLASS)
+      removeClass(this.parentElement, PARENT_RELATIVE_CLASS)
+      removeClass(this.parentElement, PARENT_LOCK_CLASS)
 
-      if (this.$el && this.$attrs.parent__) {
+      if (this.$el && this.$attrs.parentElement) {
         this.$el.remove()
       }
       this.loading = false
