@@ -15,12 +15,12 @@ import { clsName } from './util/index'
 import { Component, VueElement, computed, nextTick, ref } from 'vue'
 import { COMPS_NAME, SPIN_NAMES } from './util/constant'
 import { addClass, removeClass } from '../../src/utils/dom'
-import Plane from './components/plane.jsx'
-import Bounce from './components/bounce.jsx'
-import Wave from './components/wave.jsx'
-import Pulse from './components/pulse.jsx'
-import Flow from './components/flow.jsx'
-import Grid from './components/grid.jsx'
+import Plane from './components/plane'
+import Bounce from './components/bounce'
+import Wave from './components/wave'
+import Pulse from './components/pulse'
+import Flow from './components/flow'
+import Grid from './components/grid'
 const PARENT_LOCK_CLASS = clsName('parent-lock')
 const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 

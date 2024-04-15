@@ -1,4 +1,4 @@
-import VeRadio from './src/index.jsx'
+import VeRadio from './src/index'
 
 VeRadio.install = function (Vue) {
   Vue.component('FanRadio', VeRadio)

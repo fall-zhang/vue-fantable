@@ -1,5 +1,5 @@
 import { clsName } from '../util/index'
-import FooterTr from './footer-tr.jsx'
+import FooterTr from './footer-tr'
 import { COMPS_NAME } from '../util/constant'
 export default {
   name: COMPS_NAME.FAN_TABLE_FOOTER,

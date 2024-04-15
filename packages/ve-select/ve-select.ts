@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import VeSelect from './src/index.jsx'
+import VeSelect from './src/index'
 
 export default {
   install(Vue: App) {

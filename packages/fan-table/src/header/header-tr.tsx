@@ -1,4 +1,4 @@
-import HeaderTh from './header-th.jsx'
+import HeaderTh from './header-th'
 import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
 import { COMPS_NAME } from '../util/constant'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'

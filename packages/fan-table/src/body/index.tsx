@@ -11,9 +11,9 @@ import {
 } from '../util/constant'
 // import eventCenter from '@P/events/event-center'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
-import BodyTr from './body-tr.jsx'
-import ExpandTr from './expand-tr.jsx'
-import BodyTrScrolling from './body-tr-scrolling.jsx'
+import BodyTr from './body-tr'
+import ExpandTr from './expand-tr'
+import BodyTrScrolling from './body-tr-scrolling'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 export default {
   name: COMPS_NAME.FAN_TABLE_BODY,

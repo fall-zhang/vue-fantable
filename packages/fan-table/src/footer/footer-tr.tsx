@@ -1,4 +1,4 @@
-import FooterTd from './footer-td.jsx'
+import FooterTd from './footer-td'
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'

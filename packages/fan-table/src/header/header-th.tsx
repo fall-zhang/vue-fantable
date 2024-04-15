@@ -1,6 +1,6 @@
-import HeaderCheckboxContent from './header-checkbox-content.jsx'
-import HeaderFilterContent from './header-filter-content.jsx'
-import HeaderFilterCustomContent from './header-filter-custom-content.jsx'
+import HeaderCheckboxContent from './header-checkbox-content'
+import HeaderFilterContent from './header-filter-content'
+import HeaderFilterCustomContent from './header-filter-custom-content'
 import {
   getFixedTotalWidthByColumnKey,
   clsName,

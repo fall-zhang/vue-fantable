@@ -67,16 +67,16 @@ import {
   CURRENT_CELL_SELECTION_TYPES,
   COLUMN_FIXED_TYPE
 } from './util/constant'
-import ColGroup from './colgroup/index.jsx'
-import TableHeader from './header/index.jsx'
-import TableBody from './body/index.jsx'
-import TableFooter from './footer/index.jsx'
-import EditInput from './editor/index.jsx'
-import Selection from './selection/index.jsx'
+import ColGroup from './colgroup/index'
+import TableHeader from './header/index'
+import TableBody from './body/index'
+import TableFooter from './footer/index'
+import EditInput from './editor/index'
+import Selection from './selection/index'
 import clickoutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
-import ColumnResizer from './column-resizer/index.jsx'
+import ColumnResizer from './column-resizer/index'
 // import eventCenter from '@P/events/event-center'
 import mitt from 'mitt'
 const $t = createLocale(LOCALE_COMP_NAME)

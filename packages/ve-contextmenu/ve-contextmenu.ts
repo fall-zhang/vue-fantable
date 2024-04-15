@@ -1,4 +1,4 @@
-import VeContextmenu from './src/index.jsx'
+import VeContextmenu from './src/index'
 
 VeContextmenu.install = function (Vue) {
   Vue.component('FanContextmenu', VeContextmenu)

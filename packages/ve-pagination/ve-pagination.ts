@@ -1,4 +1,4 @@
-import VePagination from './src/index.jsx'
+import VePagination from './src/index'
 
 VePagination.install = function (Vue) {
   Vue.component('FanPagination', VePagination)

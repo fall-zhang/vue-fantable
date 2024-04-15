@@ -8,9 +8,9 @@ import {
   EMIT_EVENTS,
   COMPS_CUSTOM_ATTRS,
 } from '../util/constant'
-import ExpandTrIcon from './expand-tr-icon.jsx'
-import BodyCheckboxContent from './body-checkbox-content.jsx'
-import BodyRadioContent from './body-radio-content.jsx'
+import ExpandTrIcon from './expand-tr-icon'
+import BodyCheckboxContent from './body-checkbox-content'
+import BodyRadioContent from './body-radio-content'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 // import eventCenter from '@P/events/event-center.js'
 

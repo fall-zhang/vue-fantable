@@ -4,18 +4,18 @@
 // https://github.com/tabler/tabler-icons
 // https://fonts.google.com/icons?hl=zh-cn
 
-import ArrowUp from './arrow-up.jsx'
-import ArrowDown from './arrow-down.jsx'
-import ArrowLeft from './arrow-left.jsx'
-import ArrowRight from './arrow-right.jsx'
-import CaretDownFill from './caret-down-fill.jsx'
-import CaretUpFill from './caret-up-fill.jsx'
-import DoubleArrowDown from './double-arrow-down.jsx'
-import DoubleArrowLeft from './double-arrow-left.jsx'
-import DoubleArrowRight from './double-arrow-right.jsx'
-import DoubleArrowUp from './double-arrow-up.jsx'
-import FilterVue from './filter.jsx'
-import SearchVue from './search.jsx'
+import ArrowUp from './arrow-up'
+import ArrowDown from './arrow-down'
+import ArrowLeft from './arrow-left'
+import ArrowRight from './arrow-right'
+import CaretDownFill from './caret-down-fill'
+import CaretUpFill from './caret-up-fill'
+import DoubleArrowDown from './double-arrow-down'
+import DoubleArrowLeft from './double-arrow-left'
+import DoubleArrowRight from './double-arrow-right'
+import DoubleArrowUp from './double-arrow-up'
+import FilterVue from './filter'
+import SearchVue from './search'
 export {
   ArrowUp,
   ArrowDown,

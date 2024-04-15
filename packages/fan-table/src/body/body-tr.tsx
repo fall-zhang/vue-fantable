@@ -1,7 +1,7 @@
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import { isEmptyValue } from '../../../src/utils/index.js'
-import BodyTd from './body-td.jsx'
+import BodyTd from './body-td'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 // import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'

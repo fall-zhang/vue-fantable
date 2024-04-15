@@ -1,4 +1,4 @@
-import VeDropdown from './src/index.jsx'
+import VeDropdown from './src/index'
 
 VeDropdown.install = function (Vue) {
   Vue.component('FanDropdown', VeDropdown)
