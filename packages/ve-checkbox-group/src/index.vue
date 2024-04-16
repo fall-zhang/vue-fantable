@@ -3,13 +3,13 @@
     <slot></slot>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 // import { getChildCompsByName } from '@P/src/utils/index'
 import { GROUP_SYMBOL, COMPS_NAME, GROUP_MODEL_VALUE } from './util/constant'
 
 import { provide } from 'vue'
 const emit = defineEmits(['update:modelValue', 'change'])
-const updateValueInject = (label, value) => {
+const updateValueInject = (label:string, value:boolean) => {
   if (value) {
     if (!props.modelValue.includes(label)) {
       const newValue = props.modelValue.slice()
@@ -55,7 +55,7 @@ provide(GROUP_MODEL_VALUE, props)
 
 </script>
 
-<script>
+<script lang="ts">
 export default {
   name: COMPS_NAME.VE_CHECKBOX_GROUP
 }

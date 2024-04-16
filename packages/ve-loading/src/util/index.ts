@@ -5,6 +5,6 @@ import { PREFIX_CLS } from './constant'
 * @desc  get class name
 * @param {string} cls - class
 */
-export function clsName(cls: string) {
+export function clsName(cls: string): string {
   return PREFIX_CLS + cls
 }

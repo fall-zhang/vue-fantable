@@ -96,7 +96,7 @@ export function isFalse(val) {
  * @desc  get value by unit
  * @param {number|string} width - 宽度
  */
-export function getValByUnit(width) {
+export function getValByUnit(width: string | number) {
   return typeof width === 'number' ? width + 'px' : width
 }
 
@@ -150,7 +150,7 @@ export function getChildCompsByName(context, name) {
  * @param {element} el - element
  * @param {object} option - scroll option
  */
-export function scrollTo(el, option) {
+export function scrollTo(el: Element, option: any) {
   if (isFunction(el.scrollTo)) {
     el.scrollTo(option)
   } else {

@@ -16,14 +16,14 @@ if (typeof window !== 'undefined') {
 // requestAnimationFrame() shim by Paul Irish
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 const request = win.requestAnimationFrame ||
-    function (callback) {
-      return win.setTimeout(callback, 1000 / 60)
-    }
+  function (callback) {
+    return win.setTimeout(callback, 1000 / 60)
+  }
 
 const cancel = win.cancelAnimationFrame ||
-    function (id) {
-      win.clearTimeout(id)
-    }
+  function (id) {
+    win.clearTimeout(id)
+  }
 
 export const raf = request
 export const caf = cancel
