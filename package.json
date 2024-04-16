@@ -35,7 +35,7 @@
     "lint": "eslint packages/ --ext .js,.jsx",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "type": "vue-tsc -p tsconfig.base.json",
+    "type": "vue-tsc -p tsconfig.json",
     "lint:fix": "eslint packages/ --fix --ext .js,.jsx",
     "build": "npm run build:remove && npm run build:js && npm run build:css ",
     "build:remove": "rimraf libs",

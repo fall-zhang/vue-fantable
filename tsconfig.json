@@ -9,6 +9,7 @@
     "tests/**/*.jsx",
   ],
   "compilerOptions": {
+    "noEmit": true,
     "paths": {
       "@P/*": [
         "packages/*"
