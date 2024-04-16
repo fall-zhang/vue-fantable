@@ -1,5 +1,5 @@
 import { App, createApp } from 'vue'
-import VeLoadingJsx from './src/loading'
+import VeLoadingJsx from './src/loading.vue'
 import { addClass, removeClass } from '../src/utils/dom.js'
 import { clsName } from './src/util/index'
 import { SPIN_NAMES, COMPS_NAME } from './src/util/constant'
@@ -19,7 +19,7 @@ const defaultOptions: Record<string, any> = {
 }
 
 // parent relative class
-const PARENT_RELATIVE_CLASS = clsName('parent-relative  ')
+const PARENT_RELATIVE_CLASS = clsName('parent-relative')
 // parent lock class
 
 // create instance
@@ -29,6 +29,7 @@ function createInstance(options = {}) {
     app = createApp(VeLoadingJsx, options).mount(
       document.createElement('div'),
     )
+    // console.log(121, app)
   } catch (err) {
     console.error(err)
   }
@@ -48,15 +49,20 @@ function VeLoading(options = {}) {
   let targetDOM
   if (typeof loadingOptions.target === 'string' && loadingOptions.target.length > 0) {
     targetDOM = document.querySelector(loadingOptions.target)
+  } else if (loadingOptions.target instanceof Element) {
+    targetDOM = loadingOptions.target
+  } else {
+    // console.log(loadingOptions.target)
+    targetDOM = document.body
+    // throw new TypeError('please using correct DOM type')
   }
 
-  targetDOM = targetDOM || document.body
-
+  // loadingOptions.target = targetDOM
   checkSpinName(loadingOptions.name)
 
   if (targetDOM !== document.body) {
     loadingOptions.fullscreen = false
-    loadingOptions.parentElement = loadingOptions.target
+    loadingOptions.parentElement = targetDOM
   } else {
     loadingOptions.fullscreen = true
     loadingOptions.parentElement = document.body
@@ -65,7 +71,9 @@ function VeLoading(options = {}) {
   addClass(loadingOptions.parentElement, PARENT_RELATIVE_CLASS)
 
   const loadingInstance = createInstance(loadingOptions)
+  // console.log("🚀 ~ VeLoading ~ loadingInstance:", loadingInstance)
   loadingOptions.parentElement.appendChild(loadingInstance?.$el)
+  // console.log("🚀 ~ VeLoading ~ loadingOptions.parentElement:", loadingOptions.parentElement)
   return loadingInstance
 }
 
