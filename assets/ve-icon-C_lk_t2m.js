@@ -1,0 +1,1 @@
+import{_ as r,r as n,o as c,a as t,b as o}from"./index-CvE8Fbe-.js";const a={};function s(_,l){const e=n("ve-icon",!0);return c(),t("div",null,[o(e,{name:"double-right-arrow"}),o(e,{name:"double-right-arrow",color:"red"}),o(e,{name:"double-right-arrow",size:40})])}const d=r(a,[["render",s]]);export{d as default};

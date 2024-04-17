@@ -1,0 +1,10 @@
+import{b as d,_ as c,r as i,o as r,c as s}from"./index-CvE8Fbe-.js";const b={name:"ChildTableComp",template:`
+        <div class="child-table-comp">
+            <span style="font-weight:bold;">Table Name:{{row.name}}</span>
+            <fan-table
+              style="width:100%"
+              :columns="columns"
+              :table-data="tableData"
+            />
+        </div>
+    `,props:{row:Object},data(){return{columns:[{field:"col1",key:"a",title:"Col1"},{field:"col2",key:"b",title:"Col2"},{field:"col3",key:"c",title:"Col3"},{field:"col4",key:"d",title:"Col4"},{field:"col5",key:"e",title:"Col5"}],tableData:[{col1:"1",col2:"2",col3:"3",col4:"4",col5:"5"},{col1:"1",col2:"2",col3:"3",col4:"4",col5:"5"},{col1:"1",col2:"2",col3:"3",col4:"4",col5:"5"}]}}},p={data(){return{expandOption:{defaultExpandedRowKeys:[1001],render:({row:o,column:a,rowIndex:n},t)=>d(b,{row:o},null)},columns:[{field:"",key:"a",type:"expand",title:"",width:50,align:"center"},{field:"name",key:"b",title:"Name",width:200,align:"center"},{field:"hobby",key:"c",title:"Hobby",width:300,align:"left"},{field:"address",key:"d",title:"Address",width:"",align:"left"}],tableData:[{rowKey:1001,name:"John",date:"1900-05-20",hobby:"coding",address:"No.1 Century Avenue, Shanghai"},{rowKey:1002,name:"Dickerson",date:"1910-06-20",hobby:"coding",address:"No.1 Century Avenue, Beijing"},{rowKey:1003,name:"Larsen",date:"2000-07-20",hobby:"coding and coding repeat",address:"No.1 Century Avenue, Chongqing"},{rowKey:1004,name:"Geneva",date:"2010-08-20",hobby:"coding and coding repeat",address:"No.1 Century Avenue, Xiamen"},{rowKey:1005,name:"Jami",date:"2020-09-20",hobby:"coding and coding repeat",address:"No.1 Century Avenue, Shenzhen"}]}}};function y(o,a,n,t,e,m){const l=i("fan-table");return r(),s(l,{style:{width:"100%"},columns:e.columns,"table-data":e.tableData,"expand-option":e.expandOption,"row-key-field-name":"rowKey"},null,8,["columns","table-data","expand-option"])}const h=c(p,[["render",y]]);export{h as default};
