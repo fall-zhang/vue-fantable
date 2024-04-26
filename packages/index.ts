@@ -12,6 +12,7 @@ import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
 import FanTable from './fan-table/fan-table.js'
 import { version } from '../package.json'
+import { App } from 'vue'
 // const app = createApp({})
 const VeTable = FanTable
 const components = {
@@ -28,7 +29,7 @@ const components = {
   Table: FanTable
 }
 
-function install (app) {
+function install(app: App) {
   Object.entries(components).forEach(([key, value]) => {
     app.component('Ve' + key, value)
     app.component('Fan' + key, value)
