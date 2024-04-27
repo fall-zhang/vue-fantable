@@ -6,8 +6,9 @@ import { clsName } from './util/index'
 import { isFunction, isBoolean } from '../../src/utils/index'
 import { getRandomId } from '../../src/utils/random'
 import { getViewportOffset, getViewportOffsetWithinContainer } from '../../src/utils/dom'
-import { h } from 'vue'
-export default {
+import { defineComponent, h } from 'vue'
+
+export default defineComponent({
   name: COMPS_NAME.VE_DROPDOWN,
   directives: {
     'click-outside': clickOutside,
@@ -33,6 +34,7 @@ export default {
       type: Number,
       default: 0,
     },
+
     // max height
     maxHeight: {
       type: Number,
@@ -108,6 +110,10 @@ export default {
       default: function () {
         return document.body
       },
+    },
+    items: {
+      type: Array,
+      default: () => ([]),
     },
     /*
     before visible change
@@ -714,3 +720,4 @@ export default {
     )
   },
 }
+)

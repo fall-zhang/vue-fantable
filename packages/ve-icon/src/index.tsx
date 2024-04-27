@@ -1,6 +1,6 @@
 import { COMPS_NAME, ICON_NAMES } from './util/constant'
 
-import { getValByUnit } from '../../src/utils/index.js'
+import { getValByUnit } from '../../src/utils/index'
 import {
   ArrowUp,
   ArrowDown,
@@ -14,10 +14,10 @@ import {
   DoubleArrowUp,
   SearchVue,
   FilterVue
-} from '@P/src/components/icon/index.js'
-export default {
+} from '@P/src/components/icon/index'
+import { Component, VueElement, computed, defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.VE_ICON,
-
   props: {
     // icon name
     name: {
@@ -33,23 +33,21 @@ export default {
       default: '',
     },
   },
-
-  computed: {
-
+  setup(props:any) {
     // icon style
-    iconStyle() {
-      const { color, size } = this
+    const iconStyle = computed(() => {
+      const { color, size } = props
 
       const result = {
         color,
         'font-size': getValByUnit(size),
       }
       return result
-    },
-    iconNameVue() {
+    })
+    const iconNameVue = computed(() => {
       const { name } = this
       // from @P/src/utils/constant ICON_NAMES
-      const map = {
+      const map:Record<string, Component> = {
         filter: FilterVue,
 
         'double-right-arrow': DoubleArrowRight,
@@ -66,12 +64,7 @@ export default {
         search: SearchVue,
       }
       return map[name]
-    },
+    })
+    return (<span style={iconStyle.value}>{iconNameVue}</span>)
   },
-  methods: {
-  },
-  render() {
-    const { iconStyle } = this
-    return (<span style={iconStyle}><this.iconNameVue /></span>)
-  },
-}
+})
