@@ -1,5 +1,5 @@
 import { clsName } from './util/index'
-import VeIcon from '@P/ve-icon/ve-icon'
+import {VeIcon} from '@P/ve-icon/ve-icon'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { getMousePosition, getViewportOffset } from '@P/src/utils/dom'
 import {
@@ -268,7 +268,7 @@ export default {
     },
 
     // show contextmenu panel
-    showContextmenuPanel({ event, contextmenuId, isRootContextmenu }) {
+    showContextmenuPanel({ event, contextmenuId, isRootContextmenu }:any) {
       const { getParentContextmenuPanelEl } = this
 
       const contextmenuPanelEl = document.querySelector(`#${contextmenuId}`)
@@ -425,7 +425,7 @@ export default {
       }
     },
 
-    // register contextmenu event
+    // 注册菜单事件
     registerContextmenuEvent() {
       const { eventTarget } = this
 
@@ -486,14 +486,14 @@ export default {
                 this.isChildrenPanelsClicked = true
               }
             },
-            onContextmenu: (e) => {
+            onContextmenu: (e:Event) => {
               e.preventDefault()
             },
           }
           return (
             <div {...contextmenuPanelProps} v-events-outside={{
               events: ['click'],
-              callback: (e) => {
+              callback: (e:Event) => {
                 // only for root panel
                 if (panelIndex === 0) {
                   emptyContextmenuPanels()
