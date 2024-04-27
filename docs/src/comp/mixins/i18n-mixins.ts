@@ -1,4 +1,4 @@
-import { DOC_LANG } from '@/utils/constant.js'
+import { DOC_LANG } from '@/utils/constant'
 export default {
   computed: {
     // current doc lang
