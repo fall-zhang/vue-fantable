@@ -1,3 +1,4 @@
+// 适配 TS 暂时保留
 import VeDropdown from '../../ve-dropdown/ve-dropdown'
 import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'

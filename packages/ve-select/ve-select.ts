@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import VeSelect from './src/index.jsx'
+import VeSelect from './src/select'
 
 VeSelect.install = function (Vue:App) {
   Vue.component('FanSelect', VeSelect)
