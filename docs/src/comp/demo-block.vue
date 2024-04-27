@@ -46,15 +46,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { stripScript, stripStyle, stripTemplate } from '@/utils/index'
 // 最外层
 import { version } from '../../../package.json'
 
 import locale from './locale'
 import I18nMixins from './mixins/i18n-mixins'
-import CodeSandBoxOnline from '@/comp/online-edit/code-sand-box/index.jsx'
-import { defineAsyncComponent } from 'vue'
+import CodeSandBoxOnline from '@/comp/online-edit/code-sand-box/index'
+import { App, Component, defineAsyncComponent } from 'vue'
 const allSource = import.meta.glob('@/docs/example/**/*.vue')
 // for (const path in allSource) {
 //   allSource[path]().then((mod) => {
@@ -102,7 +102,7 @@ export default {
 
   computed: {
     currentComponent() {
-      let result = null
+      let result: Component | null = null
       console.log()
       const key = '/src/docs/example/' + this.filePath + '.vue'
       if (allSource[key]) {
@@ -156,8 +156,7 @@ export default {
       let result = '100%'
 
       if (this.fixedControl) {
-        result =
-          document.querySelector('.demo-block').clientWidth + 'px'
+        result = document.querySelector('.demo-block').clientWidth + 'px'
       }
 
       return result

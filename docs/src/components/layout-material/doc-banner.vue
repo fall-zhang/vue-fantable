@@ -102,11 +102,11 @@
 import { getDocTheme, setDocTheme } from '@/utils/cookies'
 import locale from '@/comp/locale'
 import I18nMixins from '@/comp/mixins/i18n-mixins'
-import ThemeSwitchMixins from '@/comp/mixins/theme-switch-mixins.js'
-import clickoutside from '@/comp/directives/clickoutside.js'
-import { version as latestVersion } from '../../../package.json'
+import ThemeSwitchMixins from '@/comp/mixins/theme-switch-mixins'
+import clickoutside from '@/comp/directives/clickoutside'
+import { version as latestVersion } from '@P/index'
 
-import { getVersions } from '@/api/index.js'
+import { getVersions } from '@/api/index'
 import FoldingFan from '@/components/icons/folding-fan.vue'
 
 export default {
