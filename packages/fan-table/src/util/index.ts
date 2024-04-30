@@ -9,7 +9,7 @@ import {
   isEmptyValue,
   isEmptyArray,
   isFunction,
-} from '../../../src/utils/index'
+} from '@P/src/utils/index'
 import { getRandomId } from '../../../src/utils/random'
 
 /**
@@ -17,7 +17,7 @@ import { getRandomId } from '../../../src/utils/random'
  * @desc  get class name
  * @param {string} cls - class
  */
-export function clsName(cls) {
+export function clsName(cls:string) {
   return PREFIX_CLS + cls
 }
 

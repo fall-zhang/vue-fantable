@@ -3,21 +3,20 @@ hook system
 
 */
 export default class Hooks {
+  hooks
   constructor() {
     // ...
-
     this.hooks = {
       /*
-            table-scroll1:[
-                function(){},
-                function(){}
-            ],
-            table-scroll2:[
-                function(){},
-                function(){}
-            ]
-
-            */
+        table-scroll1:[
+            function(){},
+            function(){}
+        ],
+        table-scroll2:[
+            function(){},
+            function(){}
+        ]
+      */
     }
   }
 

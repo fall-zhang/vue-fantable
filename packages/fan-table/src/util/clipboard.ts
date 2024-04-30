@@ -8,7 +8,7 @@ const regNextEmptyCell = /^\t/
  * @param {string} str The string to parse.
  * @returns {array}
  */
-export function decodeSpreadsheetStr(str) {
+export function decodeSpreadsheetStr(str:string) {
   let arr = [['']]
 
   if (str.length === 0) {
@@ -57,8 +57,7 @@ export function decodeSpreadsheetStr(str) {
           str = str.slice(1)
 
           if (
-            str.length === 0 ||
-                        (str.match(/^[\t\r\n]/) && quoteNo % 2 === 0)
+            str.length === 0 || (str.match(/^[\t\r\n]/) && quoteNo % 2 === 0)
           ) {
             isStillCell = false
           }
