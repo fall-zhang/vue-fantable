@@ -10,16 +10,8 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  components: {},
-  data() {
-    return {
-    }
-  },
-  methods: {
-  },
-}
+<script lang="ts" setup>
+// provide('groupData', 'groupData')
 </script>
 
 <style lang="less">
