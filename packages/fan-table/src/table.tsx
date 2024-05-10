@@ -81,7 +81,7 @@ import ColumnResizer from './column-resizer/index'
 import mitt from 'mitt'
 import { tableProps } from './tableProps'
 import { tableInject } from './tableInject'
-import { computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
+import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
 import eventCenter from '@P/events/event-center'
 const $t = createLocale(LOCALE_COMP_NAME)
 type CommonRowItem = {
@@ -128,73 +128,66 @@ export default defineComponent({
  const columnsOptionResetTime = ref(0)
  const tableRootRef =  ref()
  const tableContainerWrapperRef = ref()
-  tableContainerRef: 'tableContainerRef',
-  tableRef: 'tableRef',
-  tableContentWrapperRef: 'tableContentWrapperRef',
-  virtualPhantomRef: 'virtualPhantomRef',
-  editInputRef: 'editInputRef',
-  cellSelectionRef: 'cellSelectionRef',
-  contextmenuRef: 'contextmenuRef',
-  cloneColumns: [],
-
-  /*
-  footer rows created by footerData
-  */
-
-
-
-  // virtual scroll visible data
-  virtualScrollVisibleData: [],
+ const tableContainerRef = ref<VueElement>()
+  const tableRef = ref()
+ const tableContentWrapperRef= ref()
+ const  virtualPhantomRef = ref()
+ const editInputRef=ref()
+ const cellSelectionRef=ref()
+ const contextmenuRef=ref()
+ const cloneColumns = ref([])
+  const virtualScrollVisibleData = ref()
   // virtual scroll visible indexs
-  virtualScrollVisibleIndexs: {
+  const virtualScrollVisibleIndexs = ref({
     start: -1,
     end: -1,
-  },
-  // default virtual scroll buffer scale
-  defaultVirtualScrollBufferScale: 1,
+  })
+
+ const defaultVirtualScrollBufferScale = ref(1)
   // default virtual scroll min row height
-  defaultVirtualScrollMinRowHeight: 40,
+ const defaultVirtualScrollMinRowHeight = ref(40)
   // default placeholder per scrolling row count
-  defaultPlaceholderPerScrollingRowCount: 8,
+const  defaultPlaceholderPerScrollingRowCount = ref(8)
   // 起始索引
-  virtualScrollStartIndex: 0,
+const  virtualScrollStartIndex = ref(0)
   // preview virtual scroll start index
-  previewVirtualScrollStartIndex: 0,
+  const previewVirtualScrollStartIndex = ref(0)
   // 结束索引
-  virtualScrollEndIndex: 0,
+const virtualScrollEndIndex = ref(0)
   // is scrolling
-  showVirtualScrollingPlaceholder: false,
+  const showVirtualScrollingPlaceholder = ref(false)
   // disable pointer events timeout id
-  disablePointerEventsTimeoutId: null,
+ const disablePointerEventsTimeoutId =  ref<any>(null)
+
   // is scrolling left
-  isLeftScrolling: false,
+  const isLeftScrolling = ref(false)
   // is scrolling right
-  isRightScrolling: false,
+ const  isRightScrolling =ref(false)
   // is scrolling vertically
-  isVerticalScrolling: false,
+ const  isVerticalScrolling =ref( false)
   // has horizontal scroll bar
-  hasXScrollBar: false,
+const   hasXScrollBar = ref(false)
   // has vertical scroll bar
-  hasYScrollBar: false,
+ const  hasYScrollBar= ref(false)
 
   // preview table container scrollLeft （处理左列或右列固定效果）
-  previewTableContainerScrollLeft: null,
+ const  previewTableContainerScrollLeft =ref( null)
   // header cell selection colKeys
-  headerIndicatorColKeys: {
+  const headerIndicatorColKeys = ref({
     startColKey: '',
     startColKeyIndex: -1,
     endColKey: '',
     endColKeyIndex: -1,
-  },
+  })
   // body indicator rowKeys
-  bodyIndicatorRowKeys: {
+ const  bodyIndicatorRowKeys =ref({
     startRowKey: '',
     startRowKeyIndex: -1,
     endRowKey: '',
     endRowKeyIndex: -1,
-  },
+  })
   // cell selection data
-  cellSelectionData: {
+ const  cellSelectionData =ref( {
     currentCell: {
       rowKey: '',
       colKey: '',
@@ -209,56 +202,57 @@ export default defineComponent({
       rowKey: '',
       colKey: '',
     },
-  },
+  }),
   // cell selection range data
-  cellSelectionRangeData: {
+ const  cellSelectionRangeData =ref( {
     leftColKey: '',
     rightColKey: '',
     topRowKey: '',
     bottomRowKey: '',
-  },
+  })
   // is header cell mousedown
-  isHeaderCellMousedown: false,
-  // is body cell mousedown
-  isBodyCellMousedown: false,
+ const  isHeaderCellMousedown=ref(false)
+ // is body cell mousedown
+const  isBodyCellMousedown=ref(false)
+
+
   // is body operation column mousedown
-  isBodyOperationColumnMousedown: false,
+ const  isBodyOperationColumnMousedown=ref(false)
   // is cell selection corner mousedown
-  isAutofillStarting: false,
+ const  isAutofillStarting=ref(false)
   // autofilling direction
-  autofillingDirection: null,
+  const autofillingDirection=ref(null)
   // current cell selection type
-  currentCellSelectionType: '',
+ const  currentCellSelectionType=ref('')
   /*
         table offest height（开启虚拟滚动时使用）
         1、当 :max-height="500" 时使用 max-height
         2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
         */
-  tableOffestHeight: 0,
-  // table height
-  tableHeight: 0,
+ const tableOffestHeight = ref(0)
+ const tableHeight = ref(0)
   // highlight row key
-  highlightRowKey: '',
+ const highlightRowKey = ref('')
 
 
   // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
   // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
   // like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
-  enableStopEditing: true,
+ const enableStopEditing = ref(true)
   // contextmenu event target
-  contextmenuEventTarget: '',
+ const contextmenuEventTarget = ref('')
   // contextmenu options
-  contextmenuOptions: [],
+ const contextmenuOptions = ref<any>([])
   // column resize cursor
-  isColumnResizerHover: false,
+ const isColumnResizerHover = ref(false)
   // is column resizing
-  isColumnResizing: false,
+ const isColumnResizing = ref(false)
 
 // data end
 
 
 
-
+const virtualScrollPositions = shallowRef<any[]>([])
     // virtual scroll positions（非响应式）
     // virtualScrollPositions = [
     //     {
@@ -268,7 +262,6 @@ export default defineComponent({
     //         height: 100 // 自身高度
     //     }
     // ]
-    const virtualScrollPositions = shallowRef<any[]>([])
     const editingCell = ref<{rowKey:string,colKey:string,row:any,column:any}>({
       rowKey: '',
       colKey: '',
@@ -282,13 +275,7 @@ export default defineComponent({
       virtualScrollOption,
       sortOption,
       cellStyleOption,
-      showVirtualScrollingPlaceholder,
-      cellSelectionData,
       editOption,
-      contextmenuOptions,
-      cellSelectionRangeData,
-      headerIndicatorColKeys,
-      bodyIndicatorRowKeys,
     } = this
     const scrollBarWidth = ref(0)
 
@@ -297,7 +284,7 @@ export default defineComponent({
     /* computed start */
     const actualRenderTableData = computed(() => {
       return isVirtualScroll.value
-        ? this.virtualScrollVisibleData
+        ? virtualScrollVisibleData.value
         : this.tableData
     })
     // return row keys
@@ -319,7 +306,6 @@ export default defineComponent({
 
       const {
         virtualScrollOption,
-        defaultVirtualScrollBufferScale,
         virtualScrollVisibleCount,
       } = this
 
@@ -329,7 +315,7 @@ export default defineComponent({
         const realBufferScale =
           isNumber(bufferScale) && bufferScale > 0
             ? bufferScale
-            : defaultVirtualScrollBufferScale
+            : defaultVirtualScrollBufferScale.value
 
         result = realBufferScale * virtualScrollVisibleCount
       }
@@ -342,21 +328,19 @@ export default defineComponent({
 
       const {
         virtualScrollOption,
-        defaultVirtualScrollMinRowHeight,
         maxHeight,
-        tableOffestHeight,
       } = this
 
       if (isVirtualScroll.value && maxHeight) {
         const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
           ? virtualScrollOption.minRowHeight
-          : defaultVirtualScrollMinRowHeight
+          : defaultVirtualScrollMinRowHeight.value
 
         if (isNumber(maxHeight)) {
           result = Math.ceil(maxHeight / minRowHeight)
-        } else if (tableOffestHeight) {
+        } else if (tableOffestHeight.value) {
           // 修复当动态高度 当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时无法计算的问题
-          result = Math.ceil(tableOffestHeight / minRowHeight)
+          result = Math.ceil(tableOffestHeight.value / minRowHeight)
         }
       }
       return result
@@ -379,13 +363,12 @@ export default defineComponent({
                 fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
                 fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
                 */
-        const { tableHeight, hasXScrollBar } = this
-        tableContainerHeight = tableHeight
+        tableContainerHeight = tableHeight.value
         /*
                     有横向滚动条时，表格高度需要加上滚动条的宽度
                     When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
                     */
-        if (hasXScrollBar) {
+        if (hasXScrollBar.value) {
           tableContainerHeight += this.getScrollBarWidth()
         }
 
@@ -415,11 +398,7 @@ export default defineComponent({
     // table container class
     const tableContainerClass = computed(() => {
       const {
-        isLeftScrolling,
-        isRightScrolling,
-        isVerticalScrolling,
         isCellEditing,
-        isAutofillStarting,
         enableCellSelection,
       } = this
       const virtualScroll = clsName('virtual-scroll')
@@ -432,11 +411,11 @@ export default defineComponent({
       const result = {
         [clsName('container')]: true,
         [virtualScroll]: isVirtualScroll.value,
-        [leftScrolling]: isLeftScrolling,
-        [rightScrolling]: isRightScrolling,
-        [verticalScroll]: isVerticalScrolling,
+        [leftScrolling]: isLeftScrolling.value,
+        [rightScrolling]: isRightScrolling.value,
+        [verticalScroll]: isVerticalScrolling.value,
         [cellEditing]: isCellEditing,
-        [autofilling]: isAutofillStarting,
+        [autofilling]: isAutofillStarting.value,
         // 如果开启单元格选择，则关闭 user-select
         [cellSelection]: enableCellSelection,
       }
@@ -533,7 +512,7 @@ export default defineComponent({
     },)
     // contextmenu type
     const contextMenuType = computed(() => {
-      if (this.headerIndicatorColKeys.startColKeyIndex > -1) {
+      if (headerIndicatorColKeys.value.startColKeyIndex > -1) {
         return CONTEXTMENU_TYPES.HEADER_CONTEXTMENU
       } else {
         return CONTEXTMENU_TYPES.BODY_CONTEXTMENU
@@ -654,10 +633,9 @@ export default defineComponent({
 
     // init column width by column resize
     function initColumnWidthByColumnResize() {
-      const { enableColumnResize } = this
 
       const columnDefaultWidth = 50
-      if (enableColumnResize) {
+      if (enableColumnResize.value) {
         colgroups.value = colgroups.value.map((item) => {
           let columnWidth = columnDefaultWidth
           if (isNumber(item.width)) {
@@ -684,9 +662,9 @@ export default defineComponent({
     }
 
     function showOrHideColumns() {
-      let cloneColumns = cloneDeep(props.columns)
+      let tempCloneColumns = cloneDeep(props.columns)
 
-      cloneColumns = cloneColumns.map((col) => {
+      tempCloneColumns = tempCloneColumns.map((col) => {
         // 操作列默认左固定
         if (col.operationColumn) {
           col.fixed = COLUMN_FIXED_TYPE.LEFT
@@ -697,19 +675,19 @@ export default defineComponent({
       if (!isEmptyArray(hiddenColumns.value)) {
         //  recursive remove column key
         hiddenColumns.value.forEach((key) => {
-          cloneColumns = recursiveRemoveColumnByKey(
-            cloneColumns,
+          tempCloneColumns = recursiveRemoveColumnByKey(
+            tempCloneColumns,
             key,
           )
         })
       }
 
-      this.cloneColumns = cloneColumns
+      cloneColumns.value = tempCloneColumns
     }
 
     // 初始化分组表头
-    function initGroupColumns() {
-      const result = initGroupColumns(this.cloneColumns)
+    function initTableGroupColumns() {
+      const result = initGroupColumns(cloneColumns.value)
 
       // set is group header
       isGroupHeader.value = result.isGroupHeader
@@ -761,24 +739,24 @@ export default defineComponent({
 
     // cell selection current cell change
     function cellSelectionCurrentCellChange({ rowKey, colKey }) {
-      this.cellSelectionData.currentCell.colKey = colKey
-      this.cellSelectionData.currentCell.rowKey = rowKey
-      this.cellSelectionData.currentCell.rowIndex =
+      cellSelectionData.value.currentCell.colKey = colKey
+      cellSelectionData.value.currentCell.rowKey = rowKey
+      cellSelectionData.value.currentCell.rowIndex =
         this.allRowKeys.indexOf(rowKey)
     }
 
     // cell selection end cell change
     function cellSelectionNormalEndCellChange({ rowKey, colKey }) {
-      this.cellSelectionData.normalEndCell.colKey = colKey
-      this.cellSelectionData.normalEndCell.rowKey = rowKey
-      this.cellSelectionData.normalEndCell.rowIndex =
+      cellSelectionData.value.normalEndCell.colKey = colKey
+      cellSelectionData.value.normalEndCell.rowKey = rowKey
+      cellSelectionData.value.normalEndCell.rowIndex =
         this.allRowKeys.indexOf(rowKey)
     }
 
     // cell selection auto fill cell change
     function cellSelectionAutofillCellChange({ rowKey, colKey }) {
-      this.cellSelectionData.autoFillEndCell.colKey = colKey
-      this.cellSelectionData.autoFillEndCell.rowKey = rowKey
+      cellSelectionData.value.autoFillEndCell.colKey = colKey
+      cellSelectionData.value.autoFillEndCell.rowKey = rowKey
     }
 
     // clear cell selection current cell
@@ -806,54 +784,51 @@ export default defineComponent({
 
     // header indicator colKeys change
     function headerIndicatorColKeysChange({ startColKey, endColKey }) {
-      this.headerIndicatorColKeys.startColKey = startColKey
-      this.headerIndicatorColKeys.startColKeyIndex = colgroups.value.findIndex(
+      headerIndicatorColKeys.value.startColKey = startColKey
+      headerIndicatorColKeys.value.startColKeyIndex = colgroups.value.findIndex(
         (x) => x.key === startColKey,
       )
-      this.headerIndicatorColKeys.endColKey = endColKey
-      this.headerIndicatorColKeys.endColKeyIndex = colgroups.value.findIndex(
+      headerIndicatorColKeys.value.endColKey = endColKey
+      headerIndicatorColKeys.value.endColKeyIndex = colgroups.value.findIndex(
         (x) => x.key === endColKey,
       )
     }
 
     // clear header indicator colKeys
     function clearHeaderIndicatorColKeys() {
-      this.headerIndicatorColKeys.startColKey = ''
-      this.headerIndicatorColKeys.startColKeyIndex = -1
-      this.headerIndicatorColKeys.endColKey = ''
-      this.headerIndicatorColKeys.endColKeyIndex = -1
+      headerIndicatorColKeys.value.startColKey = ''
+      headerIndicatorColKeys.value.startColKeyIndex = -1
+      headerIndicatorColKeys.value.endColKey = ''
+      headerIndicatorColKeys.value.endColKeyIndex = -1
     }
 
     // body indicator rowKeys change
     function bodyIndicatorRowKeysChange({ startRowKey, endRowKey }) {
       const { allRowKeys } = this
-      this.bodyIndicatorRowKeys.startRowKey = startRowKey
-      this.bodyIndicatorRowKeys.startRowKeyIndex =
+      bodyIndicatorRowKeys.value.startRowKey = startRowKey
+      bodyIndicatorRowKeys.value.startRowKeyIndex =
         allRowKeys.indexOf(startRowKey)
-      this.bodyIndicatorRowKeys.endRowKey = endRowKey
-      this.bodyIndicatorRowKeys.endRowKeyIndex =
+      bodyIndicatorRowKeys.value.endRowKey = endRowKey
+      bodyIndicatorRowKeys.value.endRowKeyIndex =
         allRowKeys.indexOf(endRowKey)
     }
 
     // clear body indicator RowKeys
     function clearBodyIndicatorRowKeys() {
-      this.bodyIndicatorRowKeys.startRowKey = ''
-      this.bodyIndicatorRowKeys.startRowKeyIndex = -1
-      this.bodyIndicatorRowKeys.endRowKey = ''
-      this.bodyIndicatorRowKeys.endRowKeyIndex = -1
+      bodyIndicatorRowKeys.value.startRowKey = ''
+      bodyIndicatorRowKeys.value.startRowKeyIndex = -1
+      bodyIndicatorRowKeys.value.endRowKey = ''
+      bodyIndicatorRowKeys.value.endRowKeyIndex = -1
     }
 
     // set cell selection by autofill
     function setCellSelectionByAutofill() {
       const {
         cellAutofillOption,
-        cellSelectionRangeData,
         colgroups,
         allRowKeys,
-        autofillingDirection,
-        currentCellSelectionType,
       } = this
-      const { autoFillEndCell, currentCell } = this.cellSelectionData
+      const { autoFillEndCell, currentCell } = cellSelectionData.value
 
       const { rowKey, colKey } = autoFillEndCell
 
@@ -865,28 +840,28 @@ export default defineComponent({
       let normalEndCellData = {}
 
       const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-        cellSelectionRangeData
+        cellSelectionRangeData.value
 
       // cell selection range auto fill
       if (
-        currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.RANGE
+        currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.RANGE
       ) {
         if (
           !isCellInSelectionRange({
             cellData: autoFillEndCell,
-            cellSelectionRangeData,
+            cellSelectionRangeData:cellSelectionRangeData.value,
             colgroups,
             allRowKeys,
           })
         ) {
-          if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+          if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
             currentCellData = {
               rowKey: topRowKey,
               colKey: leftColKey,
             }
             normalEndCellData = { rowKey: bottomRowKey, colKey }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+            autofillingDirection.value === AUTOFILLING_DIRECTION.DOWN
           ) {
             currentCellData = {
               rowKey: topRowKey,
@@ -894,7 +869,7 @@ export default defineComponent({
             }
             normalEndCellData = { rowKey, colKey: rightColKey }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.UP
+            autofillingDirection.value === AUTOFILLING_DIRECTION.UP
           ) {
             currentCellData = {
               rowKey,
@@ -905,7 +880,7 @@ export default defineComponent({
               colKey: rightColKey,
             }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+            autofillingDirection.value === AUTOFILLING_DIRECTION.LEFT
           ) {
             currentCellData = { rowKey: topRowKey, colKey }
             normalEndCellData = {
@@ -918,13 +893,13 @@ export default defineComponent({
           return false
         }
       } else if ( // cell selection single auto fill
-        currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE
+        currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.SINGLE
       ) {
         if (
           currentCell.rowKey !== rowKey ||
           currentCell.colKey !== colKey
         ) {
-          if (autofillingDirection === AUTOFILLING_DIRECTION.RIGHT) {
+          if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
             currentCellData = {
               rowKey,
               colKey: leftColKey,
@@ -934,7 +909,7 @@ export default defineComponent({
               colKey,
             }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+            autofillingDirection.value === AUTOFILLING_DIRECTION.DOWN
           ) {
             currentCellData = {
               rowKey: topRowKey,
@@ -945,7 +920,7 @@ export default defineComponent({
               colKey: leftColKey,
             }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.UP
+            autofillingDirection.value === AUTOFILLING_DIRECTION.UP
           ) {
             currentCellData = {
               rowKey,
@@ -956,7 +931,7 @@ export default defineComponent({
               colKey: leftColKey,
             }
           } else if (
-            autofillingDirection === AUTOFILLING_DIRECTION.LEFT
+            autofillingDirection.value === AUTOFILLING_DIRECTION.LEFT
           ) {
             currentCellData = {
               rowKey,
@@ -978,9 +953,9 @@ export default defineComponent({
         allRowKeys: this.allRowKeys,
         colgroups: colgroups.value,
         rowKeyFieldName: this.rowKeyFieldName,
-        direction: autofillingDirection,
-        currentCellSelectionType,
-        cellSelectionRangeData,
+        direction: autofillingDirection.value,
+        currentCellSelectionType:currentCellSelectionType.value,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         nextCurrentCell: currentCellData,
         nextNormalEndCell: normalEndCellData,
       }
@@ -1027,20 +1002,20 @@ export default defineComponent({
 
     // cell selection range data change
     function cellSelectionRangeDataChange(newData) {
-      this.cellSelectionRangeData = Object.assign(
-        this.cellSelectionRangeData,
+      cellSelectionRangeData.value = Object.assign(
+        cellSelectionRangeData.value,
         newData,
       )
     }
 
     // autofilling direction change
     function autofillingDirectionChange(direction) {
-      this.autofillingDirection = direction
+      autofillingDirection.value = direction
     }
 
     // set current cell selection type
     function setCurrentCellSelectionType() {
-      const { currentCell, normalEndCell } = this.cellSelectionData
+      const { currentCell, normalEndCell } = cellSelectionData.value
 
       let result
 
@@ -1060,20 +1035,18 @@ export default defineComponent({
         }
       }
 
-      this.currentCellSelectionType = result
+      currentCellSelectionType.value = result
     }
 
     // deal keydown event
     function dealKeydownEvent(event) {
       const {
-        cellSelectionData,
-        enableStopEditing,
         isCellEditing,
       } = this
 
       const { keyCode, ctrlKey, shiftKey, altKey } = event
 
-      const { rowKey, colKey } = cellSelectionData.currentCell
+      const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       const currentColumn = colgroups.value.find((x) => x.key === colKey)
 
@@ -1099,7 +1072,7 @@ export default defineComponent({
           }
           case KEY_CODES.ARROW_LEFT: {
             const direction = CELL_SELECTION_DIRECTION.LEFT
-            if (enableStopEditing) {
+            if (enableStopEditing.value) {
               selectCellByDirection({
                 direction,
               })
@@ -1115,7 +1088,7 @@ export default defineComponent({
           case KEY_CODES.ARROW_RIGHT: {
             const direction = CELL_SELECTION_DIRECTION.RIGHT
 
-            if (enableStopEditing) {
+            if (enableStopEditing.value) {
               selectCellByDirection({
                 direction,
               })
@@ -1130,7 +1103,7 @@ export default defineComponent({
           case KEY_CODES.ARROW_UP: {
             const direction = CELL_SELECTION_DIRECTION.UP
 
-            if (enableStopEditing) {
+            if (enableStopEditing.value) {
               selectCellByDirection({ direction, })
 
               this.clearCellSelectionNormalEndCell()
@@ -1143,7 +1116,7 @@ export default defineComponent({
           case KEY_CODES.ARROW_DOWN: {
             const direction = CELL_SELECTION_DIRECTION.DOWN
 
-            if (enableStopEditing) {
+            if (enableStopEditing.value) {
               selectCellByDirection({
                 direction,
               })
@@ -1159,8 +1132,7 @@ export default defineComponent({
             let direction
             // add new line
             if (altKey) {
-              const editInputEditor =
-                this.$refs[this.editInputRef]
+              const editInputEditor = editInputRef.value
 
               editInputEditor.textareaAddNewLine()
             } else if (shiftKey) { // direction up
@@ -1221,7 +1193,7 @@ export default defineComponent({
             if (!isCellEditing) {
               if (currentColumn.edit) {
                 // start editing cell and don't allow stop eidting by direction key
-                this.enableStopEditing = false
+                enableStopEditing.value = false
                 startEditingCell({
                   rowKey,
                   colKey,
@@ -1249,9 +1221,9 @@ export default defineComponent({
 
     // select cell by direction
     function selectCellByDirection({ direction }) {
-      const { allRowKeys, cellSelectionData } = this
+      const { allRowKeys } = this
 
-      const { rowKey, colKey } = cellSelectionData.currentCell
+      const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       const columnIndex = colgroups.value.findIndex((x) => x.key === colKey)
       const rowIndex = allRowKeys.indexOf(rowKey)
@@ -1259,14 +1231,14 @@ export default defineComponent({
       if (direction === CELL_SELECTION_DIRECTION.LEFT) {
         if (columnIndex > 0) {
           const nextColumn = colgroups.value[columnIndex - 1]
-          this.cellSelectionData.currentCell.colKey = nextColumn.key
-          this.columnToVisible(nextColumn)
+          cellSelectionData.value.currentCell.colKey = nextColumn.key
+          columnToVisible(nextColumn)
         }
       } else if (direction === CELL_SELECTION_DIRECTION.RIGHT) {
         if (columnIndex < colgroups.value.length - 1) {
           const nextColumn = colgroups.value[columnIndex + 1]
-          this.cellSelectionData.currentCell.colKey = nextColumn.key
-          this.columnToVisible(nextColumn)
+          cellSelectionData.value.currentCell.colKey = nextColumn.key
+          columnToVisible(nextColumn)
         }
       } else if (direction === CELL_SELECTION_DIRECTION.UP) {
         if (rowIndex > 0) {
@@ -1287,15 +1259,12 @@ export default defineComponent({
     * @param {object} nextColumn - next column
     */
     function columnToVisible(nextColumn) {
-      const { hasXScrollBar } = this
       if (!nextColumn || nextColumn) return
-      if (!hasXScrollBar) {
+      if (!hasXScrollBar.value) {
         return false
       }
 
-      const tableContainerRef = this.$refs[this.tableContainerRef]
-
-      const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
+      const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef.value
 
       if (!nextColumn.fixed) {
         const leftTotalWidth = getNotFixedTotalWidthByColumnKey({
@@ -1334,16 +1303,11 @@ export default defineComponent({
          * @param {any} nextRowKey - next row key
          */
     function rowToVisible(keyCode, nextRowKey) {
-      const tableContainerRef = this.$refs[this.tableContainerRef]
-      const tableContentWrapperRef =
-        this.$refs[this.tableContentWrapperRef].$el
-
-      const { headerTotalHeight, footerTotalHeight } = this
 
       const {
         clientHeight: containerClientHeight,
         scrollTop: containerScrollTop,
-      } = tableContainerRef
+      } =  tableContainerRef.value
 
       const nextRowEl = this.$el.querySelector(
         `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`,
@@ -1353,20 +1317,20 @@ export default defineComponent({
         const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
           nextRowEl
 
-        const parentOffsetTop = tableContentWrapperRef.offsetTop
+        const parentOffsetTop = tableContentWrapperRef.value.$el.offsetTop
 
         // arrow up
         if (keyCode === KEY_CODES.ARROW_UP) {
           let diff = 0
           if (isVirtualScroll.value) {
             diff =
-              headerTotalHeight -
+              headerTotalHeight.value -
               (trOffsetTop -
                 (containerScrollTop - parentOffsetTop))
           } else {
             diff =
               containerScrollTop +
-              headerTotalHeight -
+              headerTotalHeight.value -
               trOffsetTop
           }
 
@@ -1380,13 +1344,13 @@ export default defineComponent({
               trOffsetTop -
               (containerScrollTop - parentOffsetTop) +
               trClientHeight +
-              footerTotalHeight -
+              footerTotalHeight.value -
               containerClientHeight
           } else {
             diff =
               trOffsetTop +
               trClientHeight +
-              footerTotalHeight -
+              footerTotalHeight.value -
               (containerClientHeight + containerScrollTop)
           }
 
@@ -1406,8 +1370,8 @@ export default defineComponent({
     function setVirtualScrollVisibleData() {
       const { tableData } = this
 
-      const startIndex = this.virtualScrollStartIndex
-      const endIndex = this.virtualScrollEndIndex
+      const startIndex = virtualScrollStartIndex.value
+      const endIndex = virtualScrollEndIndex.value
 
       const aboveCount = this.getVirtualScrollAboveCount()
       const belowCount = this.getVirtualScrollBelowCount()
@@ -1415,10 +1379,10 @@ export default defineComponent({
       const start = startIndex - aboveCount
       const end = endIndex + belowCount
 
-      this.virtualScrollVisibleIndexs.start = start
-      this.virtualScrollVisibleIndexs.end = end - 1
+      virtualScrollVisibleIndexs.value.start = start
+      virtualScrollVisibleIndexs.value.end = end - 1
 
-      this.virtualScrollVisibleData = this.tableData.slice(start, end)
+      virtualScrollVisibleData.value = this.tableData.slice(start, end)
     }
 
     // get virtual scroll above count
@@ -1426,11 +1390,10 @@ export default defineComponent({
       let result = 0
       const { virtualScrollBufferCount } = this
 
-      const virtualScrollStartIndex = this.virtualScrollStartIndex
 
       if (isVirtualScroll.value) {
         result = Math.min(
-          virtualScrollStartIndex,
+          virtualScrollStartIndex.value,
           virtualScrollBufferCount,
         )
       }
@@ -1443,11 +1406,9 @@ export default defineComponent({
 
       const { tableData, virtualScrollBufferCount } = this
 
-      const virtualScrollEndIndex = this.virtualScrollEndIndex
-
       if (isVirtualScroll.value) {
         result = Math.min(
-          tableData.length - virtualScrollEndIndex,
+          tableData.length - virtualScrollEndIndex.value,
           virtualScrollBufferCount,
         )
       }
@@ -1459,12 +1420,8 @@ export default defineComponent({
     function getVirtualViewPhantom() {
       let content = null
 
-      /*
-            1、is virtualScroll
-            or
-            2、
-            has left fixed column and expand option（resolve expand row content sticky）
-            */
+      // 1、is virtualScroll
+      // 2、has left fixed column and expand option（resolve expand row content sticky）
 
       if (isVirtualScroll.value || (hasLeftFixedColumn.value && props.expandOption)) {
         const props = {
@@ -1479,7 +1436,7 @@ export default defineComponent({
 
         content = (
           <div
-            ref={this.virtualPhantomRef}
+            ref={virtualPhantomRef}
             class={[
               clsName('virtual-phantom'),
               isVirtualScroll.value ? clsName('virtual-scroll') : '',
@@ -1500,14 +1457,13 @@ export default defineComponent({
           virtualScrollOption,
           rowKeyFieldName,
           tableData,
-          defaultVirtualScrollMinRowHeight,
         } = this
 
         const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
           ? virtualScrollOption.minRowHeight
-          : defaultVirtualScrollMinRowHeight
+          : defaultVirtualScrollMinRowHeight.value
 
-        this.virtualScrollPositions = tableData.map((item, index) => ({
+        virtualScrollPositions.value = tableData.map((item, index) => ({
           rowKey: item[rowKeyFieldName],
           height: minRowHeight,
           top: index * minRowHeight,
@@ -1519,26 +1475,26 @@ export default defineComponent({
     // list item height change
     function bodyRowHeightChange({ rowKey, height }) {
       // 获取真实元素大小，修改对应的尺寸缓存
-      const index = this.virtualScrollPositions.findIndex(
+      const index = virtualScrollPositions.value.findIndex(
         (x) => x.rowKey === rowKey,
       )
 
-      const oldHeight = this.virtualScrollPositions[index].height
+      const oldHeight = virtualScrollPositions.value[index].height
       const dValue = oldHeight - height
       // 存在差值
       if (dValue) {
-        this.virtualScrollPositions[index].bottom =
-          this.virtualScrollPositions[index].bottom - dValue
-        this.virtualScrollPositions[index].height = height
+        virtualScrollPositions.value[index].bottom =
+          virtualScrollPositions.value[index].bottom - dValue
+        virtualScrollPositions.value[index].height = height
         for (
           let k = index + 1;
-          k < this.virtualScrollPositions.length;
+          k < virtualScrollPositions.value.length;
           k++
         ) {
-          this.virtualScrollPositions[k].top =
-            this.virtualScrollPositions[k - 1].bottom
-          this.virtualScrollPositions[k].bottom =
-            this.virtualScrollPositions[k].bottom - dValue
+          virtualScrollPositions.value[k].top =
+            virtualScrollPositions.value[k - 1].bottom
+          virtualScrollPositions.value[k].bottom =
+            virtualScrollPositions.value[k].bottom - dValue
         }
 
         // 更新 virtual phantom 列表总高度
@@ -1551,20 +1507,18 @@ export default defineComponent({
     // update virtual phantom list height
     function setVirtualPhantomHeight() {
       let totalHeight = 0
-      if (this.virtualScrollPositions.length) {
-        totalHeight =
-          this.virtualScrollPositions[
-            this.virtualScrollPositions.length - 1
-          ].bottom
+      if (virtualScrollPositions.value.length) {
+        const scrollIndex = virtualScrollPositions.value.length - 1
+        totalHeight =          virtualScrollPositions.value[scrollIndex].bottom
       }
-      if (this.$refs[this.virtualPhantomRef]) {
-        this.$refs[this.virtualPhantomRef].style.height =
+      if (virtualPhantomRef.value) {
+        virtualPhantomRef.value.style.height =
           totalHeight + 'px'
       }
     }
     // set virtual scroll start offset
     function setVirtualScrollStartOffset() {
-      const start = this.virtualScrollStartIndex
+      const start = virtualScrollStartIndex.value
 
       const aboveCount = this.getVirtualScrollAboveCount()
 
@@ -1572,21 +1526,20 @@ export default defineComponent({
 
       if (start >= 1) {
         const size =
-          this.virtualScrollPositions[start].top -
-          (this.virtualScrollPositions[start - aboveCount]
-            ? this.virtualScrollPositions[start - aboveCount].top
+          virtualScrollPositions.value[start].top -
+          (virtualScrollPositions.value[start - aboveCount]
+            ? virtualScrollPositions.value[start - aboveCount].top
             : 0)
         startOffset =
-          this.virtualScrollPositions[start - 1].bottom - size
+          virtualScrollPositions.value[start - 1].bottom - size
       }
 
       this.setTableContentTopValue({ top: startOffset })
     }
     // set table content top value
     function setTableContentTopValue({ top }) {
-      // this.$refs[this.tableContentWrapperRef].style.transform = `translate3d(0,${startOffset}px,0)`;
       window.requestAnimationFrame(() => {
-        const ele = this.$refs[this.tableContentWrapperRef]
+        const ele = tableContentWrapperRef.value
         if (ele) {
           ele.$el.style.top = `${top}px`
         }
@@ -1595,7 +1548,7 @@ export default defineComponent({
     // get virtual scroll start index
     function getVirtualScrollStartIndex(scrollTop = 0) {
       return this.virtualScrollBinarySearch(
-        this.virtualScrollPositions,
+        virtualScrollPositions.value,
         scrollTop,
       )
     }
@@ -1633,11 +1586,11 @@ export default defineComponent({
 
       // 此时的开始索引
       const visibleStartIndex = this.getVirtualScrollStartIndex(scrollTop)
-      this.virtualScrollStartIndex = visibleStartIndex
+      virtualScrollStartIndex.value = visibleStartIndex
 
       // 此时的结束索引
       const visibleEndIndex = visibleStartIndex + visibleCount
-      this.virtualScrollEndIndex = visibleEndIndex
+      virtualScrollEndIndex.value = visibleEndIndex
 
       const visibleAboveCount = this.getVirtualScrollAboveCount()
       const visibleBelowCount = this.getVirtualScrollBelowCount()
@@ -1645,7 +1598,7 @@ export default defineComponent({
       // 此时的偏移量
       this.setVirtualScrollStartOffset()
 
-      if (!this.showVirtualScrollingPlaceholder) {
+      if (!showVirtualScrollingPlaceholder.value) {
         const bodyElement = tableBodyRef.value
 
         if (bodyElement) {
@@ -1680,35 +1633,33 @@ export default defineComponent({
     function debounceScrollEnded() {
       const scrollingResetTimeInterval = 150
 
-      const { disablePointerEventsTimeoutId } = this
-
-      if (disablePointerEventsTimeoutId) {
-        cancelAnimationTimeout(disablePointerEventsTimeoutId)
+      if (disablePointerEventsTimeoutId.value) {
+        cancelAnimationTimeout(disablePointerEventsTimeoutId.value)
       }
 
-      this.disablePointerEventsTimeoutId = requestAnimationTimeout(
+      disablePointerEventsTimeoutId.value = requestAnimationTimeout(
         this.debounceScrollEndedCallback,
         scrollingResetTimeInterval,
       )
     }
     // debounce scroll callback
     function debounceScrollEndedCallback() {
-      this.disablePointerEventsTimeoutId = null
-      this.showVirtualScrollingPlaceholder = false
+      disablePointerEventsTimeoutId.value = null
+      showVirtualScrollingPlaceholder.value = false
     }
     // init virtual scroll
     function initVirtualScroll() {
       if (isVirtualScroll.value) {
         const startIndex = 0
 
-        this.virtualScrollStartIndex = startIndex
-        this.virtualScrollEndIndex =
+        virtualScrollStartIndex.value = startIndex
+        virtualScrollEndIndex.value =
           startIndex + this.virtualScrollVisibleCount
 
         // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
         nextTick(() => {
           const tableContainerRef = this.$refs[this.tableContainerRef]
-          this.tableContainerVirtualScrollHandler(tableContainerRef)
+          tableContainerVirtualScrollHandler(tableContainerRef)
           this.setVirtualPhantomHeight()
         })
       }
@@ -1718,28 +1669,25 @@ export default defineComponent({
     function setScrolling(tableContainerRef) {
       if (hasFixedColumn.value) {
         const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
-
-        const { previewTableContainerScrollLeft: previewScrollLeft } =
-          this
+const previewScrollLeft = previewTableContainerScrollLeft.value
 
         // 仅横向滚动需要处理
         if (
           previewScrollLeft === 0 ||
           previewScrollLeft !== scrollLeft
         ) {
-          this.previewTableContainerScrollLeft = scrollLeft
+          previewTableContainerScrollLeft.value = scrollLeft
 
-          this.isLeftScrolling = scrollLeft > 0
-          this.isRightScrolling =
-            scrollWidth - clientWidth > scrollLeft
+          isLeftScrolling.value = scrollLeft > 0
+          isRightScrolling.value =            scrollWidth - clientWidth > scrollLeft
         }
-        this.isLeftScrolling = scrollLeft > 0
-        this.isRightScrolling = scrollWidth - clientWidth > scrollLeft
+        isLeftScrolling.value = scrollLeft > 0
+        isRightScrolling.value = scrollWidth - clientWidth > scrollLeft
       }
 
       if (props.fixedHeader) {
         const { scrollTop } = tableContainerRef
-        this.isVerticalScrolling = scrollTop > 0
+        isVerticalScrolling.value = scrollTop > 0
       }
     }
 
@@ -1751,13 +1699,11 @@ export default defineComponent({
           tableContainerRef
 
         if (scrollWidth && clientWidth) {
-          this.hasXScrollBar =
-            !!(scrollWidth - clientWidth)
+          hasXScrollBar.value =            !!(scrollWidth - clientWidth)
         }
 
         if (scrollHeight && clientHeight) {
-          this.hasYScrollBar =
-            !!(scrollHeight - clientHeight)
+          hasYScrollBar.value =             !!(scrollHeight - clientHeight)
         }
       }
     }
@@ -1774,10 +1720,10 @@ export default defineComponent({
         return false
       }
 
-      this.isHeaderCellMousedown = false
-      this.isBodyCellMousedown = false
-      this.isBodyOperationColumnMousedown = false
-      this.isAutofillStarting = false
+      isHeaderCellMousedown.value = false
+      isBodyCellMousedown.value = false
+      isBodyOperationColumnMousedown.value = false
+      isAutofillStarting.value = false
       this.setIsColumnResizing(false)
 
       // clear cell selection
@@ -1855,7 +1801,7 @@ export default defineComponent({
         }
 
         // reset status
-        this.enableStopEditing = true
+        enableStopEditing.value = true
       }
     }
 
@@ -1954,7 +1900,6 @@ export default defineComponent({
         editOption,
         rowKeyFieldName,
         cellSelectionData,
-        cellSelectionRangeData,
         allRowKeys,
       } = this
 
@@ -1969,15 +1914,14 @@ export default defineComponent({
         // clear header indicator colKeys
         this.clearHeaderIndicatorColKeys()
 
-        const { bodyIndicatorRowKeys } = this
-        this.isBodyOperationColumnMousedown = true
+        isBodyOperationColumnMousedown.value = true
 
         const {
           startRowKey,
           endRowKey,
           startRowKeyIndex,
           endRowKeyIndex,
-        } = bodyIndicatorRowKeys
+        } = bodyIndicatorRowKeys.value
         let newStartRowKey = startRowKey
         let newEndRowKey = endRowKey
 
@@ -2010,7 +1954,7 @@ export default defineComponent({
         })
       } else {
         // body cell mousedown
-        this.isBodyCellMousedown = true
+        isBodyCellMousedown.value = true
 
         const isClearByRightClick = isClearSelectionByBodyCellRightClick({
           mouseEventClickType,
@@ -2019,7 +1963,7 @@ export default defineComponent({
             colKey,
           },
           cellSelectionData,
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys,
         })
@@ -2061,16 +2005,12 @@ export default defineComponent({
     function bodyCellMouseover({ event, rowData, column }) {
       const {
         rowKeyFieldName,
-        isBodyCellMousedown,
-        isAutofillStarting,
-        isHeaderCellMousedown,
-        isBodyOperationColumnMousedown,
       } = this
 
       const rowKey = getRowKey(rowData, rowKeyFieldName)
       const colKey = column.key
 
-      if (isBodyCellMousedown) {
+      if (isBodyCellMousedown.value) {
         // 操作列不能单元格选中
         if (isOperationColumn(colKey, colgroups.value)) {
           return false
@@ -2081,22 +2021,22 @@ export default defineComponent({
         })
       }
 
-      if (isBodyOperationColumnMousedown) {
+      if (isBodyOperationColumnMousedown.value) {
         this.bodyIndicatorRowKeysChange({
-          startRowKey: this.bodyIndicatorRowKeys.startRowKey,
+          startRowKey: bodyIndicatorRowKeys.value.startRowKey,
           endRowKey: rowKey,
         })
       }
 
       // 允许在body cell mouseover 里补充 header indicator 信息
-      if (isHeaderCellMousedown) {
+      if (isHeaderCellMousedown.value) {
         this.headerIndicatorColKeysChange({
-          startColKey: this.headerIndicatorColKeys.startColKey,
+          startColKey: headerIndicatorColKeys.value.startColKey,
           endColKey: colKey,
         })
       }
 
-      if (isAutofillStarting) {
+      if (isAutofillStarting.value) {
         // 操作列不能autofilling 效果
         if (isOperationColumn(colKey, colgroups.value)) {
           return false
@@ -2148,25 +2088,25 @@ export default defineComponent({
       // header contextmenu
       if (contextMenuType === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         // set header contextmenu options before contextmen show
-        this.contextmenuOptions = setHeaderContextmenuOptions({
+        contextmenuOptions.value = setHeaderContextmenuOptions({
           column,
           contextmenuHeaderOption: this.contextmenuHeaderOption,
-          cellSelectionRangeData: this.cellSelectionRangeData,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys: this.allRowKeys,
-          headerIndicatorColKeys: this.headerIndicatorColKeys,
+          headerIndicatorColKeys: headerIndicatorColKeys.value,
           enableHeaderContextmenu: this.enableHeaderContextmenu,
           $t,
         })
       } else { // body contextmenu
         // set body contextmenu options before contextmen show
-        this.contextmenuOptions = setBodyContextmenuOptions({
+        contextmenuOptions.value = setBodyContextmenuOptions({
           enableBodyContextmenu: this.enableBodyContextmenu,
           contextmenuBodyOption: this.contextmenuBodyOption,
-          cellSelectionRangeData: this.cellSelectionRangeData,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys: this.allRowKeys,
-          bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
+          bodyIndicatorRowKeys: bodyIndicatorRowKeys.value,
           $t,
         })
       }
@@ -2178,12 +2118,11 @@ export default defineComponent({
         return false
       }
 
-      this.isHeaderCellMousedown = true
+      isHeaderCellMousedown.value = true
 
       const { shiftKey } = event
 
       const {
-        headerIndicatorColKeys,
         cellSelectionData,
       } = this
 
@@ -2216,19 +2155,18 @@ export default defineComponent({
       }
 
       // 需要先将之前选中单元格元素清空
-      if (isEmptyValue(headerIndicatorColKeys.startColKey)) {
+      if (isEmptyValue(headerIndicatorColKeys.value.startColKey)) {
         // 值的比较（currentCell.colKey 会变化）
         if (
           JSON.stringify(colKeys) !==
           JSON.stringify([currentCell.colKey])
         ) {
-          this.$refs[this.cellSelectionRef].clearCurrentCellRect()
+          cellSelectionRef.value.clearCurrentCellRect()
         }
-        this.$refs[this.cellSelectionRef].clearNormalEndCellRect()
+        cellSelectionRef.value.clearNormalEndCellRect()
       }
 
-      const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } =
-        headerIndicatorColKeys
+      const { startColKey, endColKey, startColKeyIndex, endColKeyIndex } = headerIndicatorColKeys.value
 
       let newStartColKey = startColKey
       let newEndColKey = endColKey
@@ -2292,13 +2230,9 @@ export default defineComponent({
 
     // header cell mouseover
     function headerCellMouseover({ event, column }) {
-      const {
-        isHeaderCellMousedown,
-        headerIndicatorColKeys,
-      } = this
 
       if (
-        isHeaderCellMousedown &&
+        isHeaderCellMousedown.value &&
         !isOperationColumn(column.key, colgroups.value)
       ) {
         let colKeys
@@ -2313,18 +2247,18 @@ export default defineComponent({
         const leftColKey = getLeftmostColKey({
           colgroups: colgroups.value,
           colKeys: colKeys.concat([
-            headerIndicatorColKeys.startColKey,
+            headerIndicatorColKeys.value.startColKey,
           ]),
         })
 
         let endColKey
-        if (leftColKey === headerIndicatorColKeys.startColKey) {
+        if (leftColKey === headerIndicatorColKeys.value.startColKey) {
           endColKey = colKeys[colKeys.length - 1]
         } else {
           endColKey = colKeys[0]
         }
         this.headerIndicatorColKeysChange({
-          startColKey: this.headerIndicatorColKeys.startColKey,
+          startColKey: headerIndicatorColKeys.value.startColKey,
           endColKey,
         })
       }
@@ -2350,10 +2284,10 @@ export default defineComponent({
 
     // table container mouseup
     function tableContainerMouseup() {
-      this.isHeaderCellMousedown = false
-      this.isBodyCellMousedown = false
-      this.isBodyOperationColumnMousedown = false
-      this.isAutofillStarting = false
+      isHeaderCellMousedown.value = false
+      isBodyCellMousedown.value = false
+      isBodyOperationColumnMousedown.value = false
+      isAutofillStarting.value = false
     }
 
     /*
@@ -2361,7 +2295,7 @@ export default defineComponent({
          * @desc  recieve cell selection corner mousedown
          */
     function cellSelectionCornerMousedown({ event }) {
-      this.isAutofillStarting = true
+      isAutofillStarting.value = true
     }
 
     /*
@@ -2369,7 +2303,7 @@ export default defineComponent({
          * @desc  recieve cell selection corner mouseup
          */
     function cellSelectionCornerMouseup({ event }) {
-      this.isAutofillStarting = false
+      isAutofillStarting.value = false
     }
 
     // is edit column
@@ -2406,14 +2340,14 @@ export default defineComponent({
       }
 
       if (isDblclick && isEditColumn(colKey)) {
-        this.enableStopEditing = false
+        enableStopEditing.value = false
 
         startEditingCell({
           rowKey,
           colKey,
         })
       } else {
-        this.enableStopEditing = true
+        enableStopEditing.value= true
       }
     }
 
@@ -2468,9 +2402,7 @@ export default defineComponent({
       const {
         contextmenuHeaderOption,
         cellSelectionData,
-        cellSelectionRangeData,
         allRowKeys,
-        enableColumnResize,
       } = this
 
       const { rowKey, colKey } = cellSelectionData.currentCell
@@ -2478,11 +2410,11 @@ export default defineComponent({
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys,
         })
@@ -2497,7 +2429,7 @@ export default defineComponent({
             return false
           }
         }
-        const editInputEditor = this.$refs[this.editInputRef]
+        const editInputEditor =editInputRef.value
 
         // cut
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
@@ -2509,40 +2441,40 @@ export default defineComponent({
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN === type) { // empty column
           this.deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO === type) { // left fixed column to
-          this.cloneColumns = setColumnFixed({
-            cloneColumns: this.cloneColumns,
-            cellSelectionRangeData,
+          cloneColumns.value = setColumnFixed({
+            cloneColumns: cloneColumns.value,
+            cellSelectionRangeData:          cellSelectionRangeData.value,
             fixedType: COLUMN_FIXED_TYPE.LEFT,
             colgroups: colgroups.value,
-            enableColumnResize,
+            enableColumnResize:enableColumnResize.value,
           })
         } else if ( // cancel left fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
         ) {
-          this.cloneColumns = cancelColumnFixed({
-            cloneColumns: this.cloneColumns,
+          cloneColumns.value = cancelColumnFixed({
+            cloneColumns: cloneColumns.value,
             colgroups: colgroups.value,
             fixedType: COLUMN_FIXED_TYPE.LEFT,
-            enableColumnResize,
+            enableColumnResize:enableColumnResize.value,
           })
         } else if ( // right fixed column to
           CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO === type
         ) {
-          this.cloneColumns = setColumnFixed({
-            cloneColumns: this.cloneColumns,
-            cellSelectionRangeData,
+          cloneColumns.value = setColumnFixed({
+            cloneColumns: cloneColumns.value,
+            cellSelectionRangeData:cellSelectionRangeData.value,
             fixedType: COLUMN_FIXED_TYPE.RIGHT,
             colgroups: colgroups.value,
-            enableColumnResize,
+            enableColumnResize:enableColumnResize.value,
           })
         } else if ( // cancel right fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO === type
         ) {
-          this.cloneColumns = cancelColumnFixed({
-            cloneColumns: this.cloneColumns,
+          cloneColumns.value = cancelColumnFixed({
+            cloneColumns: cloneColumns.value,
             colgroups: colgroups.value,
             fixedType: COLUMN_FIXED_TYPE.RIGHT,
-            enableColumnResize,
+            enableColumnResize:enableColumnResize.value,
           })
         }
       }
@@ -2553,7 +2485,6 @@ export default defineComponent({
       const {
         contextmenuBodyOption,
         cellSelectionData,
-        cellSelectionRangeData,
         tableData,
         allRowKeys,
         rowKeyFieldName,
@@ -2564,11 +2495,11 @@ export default defineComponent({
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys,
         })
@@ -2590,7 +2521,7 @@ export default defineComponent({
           (x) => x === rowKey,
         )
 
-        const editInputEditor = this.$refs[this.editInputRef]
+        const editInputEditor =editInputRef.value
 
         // cut
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
@@ -2636,7 +2567,6 @@ export default defineComponent({
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        cellSelectionRangeData,
         tableData,
         allRowKeys,
       } = this
@@ -2663,7 +2593,7 @@ export default defineComponent({
       event.preventDefault()
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         resultType: 'flat',
         tableData,
         colgroups: colgroups.value,
@@ -2671,7 +2601,7 @@ export default defineComponent({
       })
 
       const response = onBeforeCopy({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
         allRowKeys,
@@ -2718,7 +2648,7 @@ export default defineComponent({
 
       const response = onBeforePaste({
         event,
-        cellSelectionRangeData: this.cellSelectionRangeData,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         colgroups: colgroups.value,
         allRowKeys: this.allRowKeys,
         rowKeyFieldName: this.rowKeyFieldName,
@@ -2769,7 +2699,6 @@ export default defineComponent({
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        cellSelectionRangeData,
         tableData,
         allRowKeys,
       } = this
@@ -2796,7 +2725,7 @@ export default defineComponent({
       event.preventDefault()
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         resultType: 'flat',
         tableData,
         colgroups: colgroups.value,
@@ -2804,7 +2733,7 @@ export default defineComponent({
       })
 
       const response = onBeforeCut({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
         allRowKeys,
@@ -2836,7 +2765,6 @@ export default defineComponent({
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        cellSelectionRangeData,
         tableData,
         allRowKeys,
       } = this
@@ -2862,7 +2790,7 @@ export default defineComponent({
       }
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         resultType: 'flat',
         tableData,
         colgroups: colgroups.value,
@@ -2870,7 +2798,7 @@ export default defineComponent({
       })
 
       const response = onBeforeDelete({
-        cellSelectionRangeData,
+        cellSelectionRangeData:cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
         allRowKeys,
@@ -2896,8 +2824,8 @@ export default defineComponent({
 
     // set range cell selection by header indicator
     function setRangeCellSelectionByHeaderIndicator() {
-      const { headerIndicatorColKeys, allRowKeys } = this
-      const { startColKey, endColKey } = headerIndicatorColKeys
+      const { allRowKeys } = this
+      const { startColKey, endColKey } = headerIndicatorColKeys.value
 
       if (isEmptyValue(startColKey) || isEmptyValue(endColKey)) {
         return false
@@ -2916,8 +2844,7 @@ export default defineComponent({
 
     // set range cell selection by body indicator
     function setRangeCellSelectionByBodyIndicator() {
-      const { bodyIndicatorRowKeys } = this
-      const { startRowKey, endRowKey } = bodyIndicatorRowKeys
+      const { startRowKey, endRowKey } = bodyIndicatorRowKeys.value
 
       if (isEmptyValue(startRowKey) || isEmptyValue(endRowKey)) {
         return false
@@ -2938,12 +2865,12 @@ export default defineComponent({
 
     // set isColumnResizerHover
     function setIsColumnResizerHover(val) {
-      this.isColumnResizerHover = val
+      isColumnResizerHover.value = val
     }
 
     // set isColumnResizing
     function setIsColumnResizing(val) {
-      this.isColumnResizing = val
+      isColumnResizing.value = val
     }
 
     /*
@@ -2972,7 +2899,7 @@ export default defineComponent({
 
         const column = getColumnByColkey(colKey, colgroups.value)
         // column to visible
-        this.columnToVisible(column)
+        columnToVisible(column)
         // row to visible
         if (isScrollToRow) {
           this.scrollToRowKey({ rowKey })
@@ -3024,7 +2951,7 @@ export default defineComponent({
       if (isScrollToStartCell) {
         const column = getColumnByColkey(startColKey, colgroups.value)
         // column to visible
-        this.columnToVisible(column)
+        columnToVisible(column)
         this.scrollToRowKey({
           rowKey: startRowKey,
         })
@@ -3035,7 +2962,6 @@ export default defineComponent({
     function getRangeCellSelection() {
       const {
         cellSelectionData,
-        cellSelectionRangeData,
         allRowKeys,
         colgroups,
       } = this
@@ -3044,11 +2970,11 @@ export default defineComponent({
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData,
+          cellSelectionRangeData:cellSelectionRangeData.value,
           colgroups,
           allRowKeys,
         })
@@ -3133,12 +3059,10 @@ export default defineComponent({
 
       let scrollTop = 0
 
-      const { headerTotalHeight } = this
-
       const tableContainerRef = this.$refs[this.tableContainerRef]
 
       if (isVirtualScroll.value) {
-        const position = this.virtualScrollPositions.find(
+        const position = virtualScrollPositions.value.find(
           (x) => x.rowKey === rowKey,
         )
 
@@ -3158,7 +3082,7 @@ export default defineComponent({
           `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
         )
 
-        scrollTop = rowEl.offsetTop - headerTotalHeight
+        scrollTop = rowEl.offsetTop - headerTotalHeight.value
       }
 
       scrollTo(tableContainerRef, {
@@ -3170,7 +3094,7 @@ export default defineComponent({
     function scrollToColKey({ colKey }) {
       const column = getColumnByColkey(colKey, colgroups.value)
       if (column) {
-        this.columnToVisible(column)
+        columnToVisible(column)
       }
     }
     // start editing cell
@@ -3269,7 +3193,7 @@ export default defineComponent({
     }
     // set highlight row
     function setHighlightRow({ rowKey }) {
-      this.highlightRowKey = rowKey
+      highlightRowKey.value = rowKey
     }
 
     onUnmounted(() => {
@@ -3304,9 +3228,9 @@ export default defineComponent({
     }, { handler, immediate: false, })
 
     watch(() => props.columns, (newVal, oldVal) => {
-      this.initColumns()
-      this.initGroupColumns()
-      this.initColumnWidthByColumnResize()
+      initColumns()
+      initTableGroupColumns()
+      initColumnWidthByColumnResize()
 
       // 排除首次
       if (newVal !== oldVal && oldVal) {
@@ -3317,9 +3241,9 @@ export default defineComponent({
     }, { immediate: true })
 
     watch(cloneColumns, () => {
-      this.initGroupColumns()
+      initTableGroupColumns()
       // 右键（取消）固定列会操作 cloneColumns
-      this.initColumnWidthByColumnResize()
+      initColumnWidthByColumnResize()
 
       columnsOptionResetTime.value +=1 
       // 需要等待 initColumns 和 initGroupColumns 先执行
@@ -3389,7 +3313,7 @@ export default defineComponent({
       class: clsName('header'),
       style: {
         cursor:
-          this.isColumnResizerHover || this.isColumnResizing
+          isColumnResizerHover.value || isColumnResizing.value
             ? 'col-resize'
             : '',
       },
@@ -3405,8 +3329,8 @@ export default defineComponent({
       eventCustomOption: this.eventCustomOption,
       headerRows: headerRows.value,
       cellSelectionData,
-      cellSelectionRangeData,
-      headerIndicatorColKeys,
+      cellSelectionRangeData:cellSelectionRangeData.value,
+      headerIndicatorColKeys:headerIndicatorColKeys.value,
       onClick: () => {
         this.stopEditingCell()
       },
@@ -3437,12 +3361,12 @@ export default defineComponent({
       cellSelectionOption: this.cellSelectionOption,
       hasFixedColumn: this.hasFixedColumn,
       cellSelectionData,
-      cellSelectionRangeData,
+      cellSelectionRangeData:cellSelectionRangeData.value,
       allRowKeys,
       editOption,
-      highlightRowKey: this.highlightRowKey,
-      showVirtualScrollingPlaceholder,
-      bodyIndicatorRowKeys,
+      highlightRowKey: highlightRowKey.value,
+      showVirtualScrollingPlaceholder:showVirtualScrollingPlaceholder.value,
+      bodyIndicatorRowKeys:bodyIndicatorRowKeys.value,
       [widthChange]: debounce(this.bodyCellWidthChange, 0,),
       [heightRowChange]: this.setHighlightRow,
     }
@@ -3484,7 +3408,7 @@ export default defineComponent({
       },
       tagName: 'div',
       onDomResizeChange: ({ height }) => {
-        this.tableOffestHeight = height
+        tableOffestHeight.value = height
         this.initVirtualScroll()
         // fixed #404
         initScrolling()
@@ -3506,39 +3430,32 @@ export default defineComponent({
 
     // table container props
     const tableContainerProps = {
-      ref: this.tableContainerRef,
+    
       class: this.tableContainerClass,
       style: tableContainerStyle,
       onScroll: () => {
-        const tableContainerRef = this.$refs[this.tableContainerRef]
+
 
         hooks.value.triggerHook(
           HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-          tableContainerRef,
+          tableContainerRef.value,
         )
-        this.setScrolling(tableContainerRef)
+        this.setScrolling(tableContainerRef.value)
 
         if (isVirtualScroll.value) {
-          this.tableContainerVirtualScrollHandler(
-            tableContainerRef,
-          )
-
-          const {
-            virtualScrollStartIndex: startIndex,
-            previewVirtualScrollStartIndex: previewStartIndex,
-          } = this
+          tableContainerVirtualScrollHandler(            tableContainerRef.value          )
+          const startIndex = virtualScrollStartIndex.value
+          const previewStartIndex = previewVirtualScrollStartIndex.value
 
           const differ = Math.abs(startIndex - previewStartIndex)
 
-          this.previewVirtualScrollStartIndex = startIndex
+          previewVirtualScrollStartIndex.value = startIndex
 
           // default placeholder per scrolling row count
-          if (
-            differ > this.defaultPlaceholderPerScrollingRowCount
-          ) {
-            this.showVirtualScrollingPlaceholder = true
+          if (differ > defaultPlaceholderPerScrollingRowCount.value ) {
+            showVirtualScrollingPlaceholder.value = true
           } else {
-            this.showVirtualScrollingPlaceholder = false
+            showVirtualScrollingPlaceholder.value = false
           }
 
           this.debounceScrollEnded()
@@ -3555,17 +3472,15 @@ export default defineComponent({
 
     // table wrapper props
     const tableWrapperProps = {
-      ref: this.tableContentWrapperRef,
       class: [clsName('content-wrapper')],
       tagName: 'div',
       onDomResizeChange: ({ height }) => {
-        this.tableHeight = height
+        tableHeight.value = height
       },
     }
 
     // tale props
     const tableProps = {
-      ref: this.tableRef,
       class: [clsName('content'), tableClass],
       style: tableStyle,
     }
@@ -3573,19 +3488,18 @@ export default defineComponent({
     const cellSelectionRangeChange = 'onCellSelectionRangeDataChange'
     // selection props
     const selectionProps = {
-      ref: this.cellSelectionRef,
-      tableEl: this.$refs[this.tableRef],
+      tableEl: tableRef.value,
       allRowKeys,
       colgroups,
       parentRendered: parentRendered.value,
       hooks: hooks.value,
       cellSelectionData,
-      isAutofillStarting: this.isAutofillStarting,
-      cellSelectionRangeData,
-      currentCellSelectionType: this.currentCellSelectionType,
+      isAutofillStarting: isAutofillStarting.value,
+      cellSelectionRangeData:cellSelectionRangeData.value,
+      currentCellSelectionType: currentCellSelectionType.value,
       showVirtualScrollingPlaceholder,
       isVirtualScroll: isVirtualScroll.value,
-      virtualScrollVisibleIndexs: this.virtualScrollVisibleIndexs,
+      virtualScrollVisibleIndexs: virtualScrollVisibleIndexs.value,
       isCellEditing: this.isCellEditing,
       cellAutofillOption: this.cellAutofillOption,
       [cellSelectionRangeChange]: (newData) => {
@@ -3605,7 +3519,7 @@ export default defineComponent({
     const inputPaste = 'onEditInputPaste'
     const inputCut = 'onEditInputCut'
     const editInputProps = {
-      ref: this.editInputRef,
+     
       hooks: hooks.value,
       parentRendered: parentRendered.value,
       inputStartValue: editorInputStartValue.value,
@@ -3616,13 +3530,13 @@ export default defineComponent({
       editingCell: editingCell.value,
       isCellEditing: this.isCellEditing,
       allRowKeys,
-      hasXScrollBar: this.hasXScrollBar,
-      hasYScrollBar: this.hasYScrollBar,
+      hasXScrollBar: hasXScrollBar.value,
+      hasYScrollBar: hasYScrollBar.value,
       hasRightFixedColumn: this.hasRightFixedColumn,
       scrollBarWidth: this.getScrollBarWidth(),
       // edit input click
       onEditInputClick: () => {
-        this.enableStopEditing = false
+        enableStopEditing.value = false
       },
       // edit input value change
       [inputValueChange]: (value) => {
@@ -3644,9 +3558,8 @@ export default defineComponent({
 
     // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
     const contextmenuProps = {
-      ref: this.contextmenuRef,
-      eventTarget: this.contextmenuEventTarget,
-      options: contextmenuOptions,
+      eventTarget: contextmenuEventTarget.value,
+      options: contextmenuOptions.value,
       onNodeClick: (type) => {
         this.contextmenuItemClick(type)
       },
@@ -3655,11 +3568,11 @@ export default defineComponent({
     // column resizer props
     const columnResizerProps = {
       parentRendered: parentRendered.value,
-      tableContainerEl: this.$refs[this.tableContainerRef],
+      tableContainerEl: tableContainerRef.value,
       hooks: hooks.value,
       colgroups,
-      isColumnResizerHover: this.isColumnResizerHover,
-      isColumnResizing: this.isColumnResizing,
+      isColumnResizerHover: isColumnResizerHover.value,
+      isColumnResizing: isColumnResizing.value,
       setIsColumnResizerHover: this.setIsColumnResizerHover,
       setIsColumnResizing: this.setIsColumnResizing,
       setColumnWidth: this.setColumnWidth,
@@ -3669,7 +3582,7 @@ export default defineComponent({
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
-      this.contextmenuEventTarget = this.$el.querySelector(
+      contextmenuEventTarget.value = this.$el.querySelector(
         `.${clsName('content')}`,
       )
 
@@ -3797,16 +3710,16 @@ export default defineComponent({
     return () => (
       <div   ref={tableRootRef} {...tableRootProps}>
         <VueDomResizeObserver ref={tableContainerWrapperRef}  {...tableContainerWrapperProps} v-click-outside={this.tableClickOutside}>
-          <div {...tableContainerProps}>
+          <div ref={tableContainerRef} {...tableContainerProps}>
             {/* virtual view phantom */}
             {this.getVirtualViewPhantom()}
             {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
-            <VueDomResizeObserver {...tableWrapperProps}>
-              <table {...tableProps}>
+            <VueDomResizeObserver ref={tableContentWrapperRef} {...tableWrapperProps}>
+              <table ref={tableRef} {...tableProps}>
                 {/* colgroup */}
                 <ColGroup
                   colgroups={colgroups}
-                  enableColumnResize={enableColumnResize}
+                  enableColumnResize={enableColumnResize.value}
                 />
                 {/* table header */}
                 {showHeader && <TableHeader {...headerProps} />}
@@ -3817,20 +3730,19 @@ export default defineComponent({
               </table>
               {/* cell selection */}
               {enableCellSelection && (
-                <Selection {...selectionProps} />
+      <Selection ref={cellSelectionRef}  {...selectionProps} />
               )}
             </VueDomResizeObserver>
           </div>
           {/* edit input */}
-          {enableCellSelection && <EditInput {...editInputProps} />}
+          {enableCellSelection && <EditInput ref={ editInputRef} {...editInputProps} />}
           {/* contextmenu */}
           {(this.enableHeaderContextmenu ||
             this.enableBodyContextmenu) && (
-              <VeContextmenu {...contextmenuProps} />
+      <VeContextmenu ref={contextmenuRef} {...contextmenuProps} />
             )}
           {/* column resizer */}
-          {enableColumnResize && (
-            <ColumnResizer {...columnResizerProps} />
+          {enableColumnResize.value && (<ColumnResizer {...columnResizerProps} />
           )}
         </VueDomResizeObserver>
       </div>
