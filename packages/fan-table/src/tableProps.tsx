@@ -3,6 +3,7 @@ export function tableProps() {
     tableData: {
       required: true,
       type: Array,
+      default: () => ([])
     },
     footerData: {
       type: Array,

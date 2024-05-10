@@ -79,7 +79,7 @@ import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index'
 // import eventCenter from '@P/events/event-center'
 import mitt from 'mitt'
-import { tableProps } from './tableProps'
+import { tableProps as fanTableProps } from './tableProps'
 import { tableInject } from './tableInject'
 import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
 import eventCenter from '@P/events/event-center'
@@ -96,7 +96,7 @@ export default defineComponent({
   components: {
     VueDomResizeObserver, ColumnResizer, ColGroup, TableHeader, TableBody, TableFooter, EditInput, Selection, VeContextmenu
   },
-  props: tableProps(),
+  props: fanTableProps(),
   setup(props, { expose }) {
     const { showHeader } = props
     const tableViewportWidth = ref(0)
@@ -116,143 +116,143 @@ export default defineComponent({
     const isGroupHeader = ref(false)
     const editorInputStartValue = ref('')
 
-// data start
+    // data start
 
-  // is parent rendered
-  const parentRendered = ref(false)
-  // table viewport width except scroll bar width
-  /*
-        列配置变化次数
-        依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
-        */
- const columnsOptionResetTime = ref(0)
- const tableRootRef =  ref()
- const tableContainerWrapperRef = ref()
- const tableContainerRef = ref<VueElement>()
-  const tableRef = ref()
- const tableContentWrapperRef= ref()
- const  virtualPhantomRef = ref()
- const editInputRef=ref()
- const cellSelectionRef=ref()
- const contextmenuRef=ref()
- const cloneColumns = ref([])
-  const virtualScrollVisibleData = ref()
-  // virtual scroll visible indexs
-  const virtualScrollVisibleIndexs = ref({
-    start: -1,
-    end: -1,
-  })
+    // is parent rendered
+    const parentRendered = ref(false)
+    // table viewport width except scroll bar width
+    /*
+          列配置变化次数
+          依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
+          */
+    const columnsOptionResetTime = ref(0)
+    const tableRootRef = ref()
+    const tableContainerWrapperRef = ref()
+    const tableContainerRef = ref<VueElement>()
+    const tableRef = ref()
+    const tableContentWrapperRef = ref()
+    const virtualPhantomRef = ref()
+    const editInputRef = ref()
+    const cellSelectionRef = ref()
+    const contextmenuRef = ref()
+    const cloneColumns = ref([])
+    const virtualScrollVisibleData = ref()
+    // virtual scroll visible indexs
+    const virtualScrollVisibleIndexs = ref({
+      start: -1,
+      end: -1,
+    })
 
- const defaultVirtualScrollBufferScale = ref(1)
-  // default virtual scroll min row height
- const defaultVirtualScrollMinRowHeight = ref(40)
-  // default placeholder per scrolling row count
-const  defaultPlaceholderPerScrollingRowCount = ref(8)
-  // 起始索引
-const  virtualScrollStartIndex = ref(0)
-  // preview virtual scroll start index
-  const previewVirtualScrollStartIndex = ref(0)
-  // 结束索引
-const virtualScrollEndIndex = ref(0)
-  // is scrolling
-  const showVirtualScrollingPlaceholder = ref(false)
-  // disable pointer events timeout id
- const disablePointerEventsTimeoutId =  ref<any>(null)
+    const defaultVirtualScrollBufferScale = ref(1)
+    // default virtual scroll min row height
+    const defaultVirtualScrollMinRowHeight = ref(40)
+    // default placeholder per scrolling row count
+    const defaultPlaceholderPerScrollingRowCount = ref(8)
+    // 起始索引
+    const virtualScrollStartIndex = ref(0)
+    // preview virtual scroll start index
+    const previewVirtualScrollStartIndex = ref(0)
+    // 结束索引
+    const virtualScrollEndIndex = ref(0)
+    // is scrolling
+    const showVirtualScrollingPlaceholder = ref(false)
+    // disable pointer events timeout id
+    const disablePointerEventsTimeoutId = ref<any>(null)
 
-  // is scrolling left
-  const isLeftScrolling = ref(false)
-  // is scrolling right
- const  isRightScrolling =ref(false)
-  // is scrolling vertically
- const  isVerticalScrolling =ref( false)
-  // has horizontal scroll bar
-const   hasXScrollBar = ref(false)
-  // has vertical scroll bar
- const  hasYScrollBar= ref(false)
+    // is scrolling left
+    const isLeftScrolling = ref(false)
+    // is scrolling right
+    const isRightScrolling = ref(false)
+    // is scrolling vertically
+    const isVerticalScrolling = ref(false)
+    // has horizontal scroll bar
+    const hasXScrollBar = ref(false)
+    // has vertical scroll bar
+    const hasYScrollBar = ref(false)
 
-  // preview table container scrollLeft （处理左列或右列固定效果）
- const  previewTableContainerScrollLeft =ref( null)
-  // header cell selection colKeys
-  const headerIndicatorColKeys = ref({
-    startColKey: '',
-    startColKeyIndex: -1,
-    endColKey: '',
-    endColKeyIndex: -1,
-  })
-  // body indicator rowKeys
- const  bodyIndicatorRowKeys =ref({
-    startRowKey: '',
-    startRowKeyIndex: -1,
-    endRowKey: '',
-    endRowKeyIndex: -1,
-  })
-  // cell selection data
- const  cellSelectionData =ref( {
-    currentCell: {
-      rowKey: '',
-      colKey: '',
-      rowIndex: -1,
-    },
-    normalEndCell: {
-      rowKey: '',
-      colKey: '',
-      rowIndex: -1,
-    },
-    autoFillEndCell: {
-      rowKey: '',
-      colKey: '',
-    },
-  }),
-  // cell selection range data
- const  cellSelectionRangeData =ref( {
-    leftColKey: '',
-    rightColKey: '',
-    topRowKey: '',
-    bottomRowKey: '',
-  })
-  // is header cell mousedown
- const  isHeaderCellMousedown=ref(false)
- // is body cell mousedown
-const  isBodyCellMousedown=ref(false)
-
-
-  // is body operation column mousedown
- const  isBodyOperationColumnMousedown=ref(false)
-  // is cell selection corner mousedown
- const  isAutofillStarting=ref(false)
-  // autofilling direction
-  const autofillingDirection=ref(null)
-  // current cell selection type
- const  currentCellSelectionType=ref('')
-  /*
-        table offest height（开启虚拟滚动时使用）
-        1、当 :max-height="500" 时使用 max-height
-        2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
-        */
- const tableOffestHeight = ref(0)
- const tableHeight = ref(0)
-  // highlight row key
- const highlightRowKey = ref('')
+    // preview table container scrollLeft （处理左列或右列固定效果）
+    const previewTableContainerScrollLeft = ref(null)
+    // header cell selection colKeys
+    const headerIndicatorColKeys = ref({
+      startColKey: '',
+      startColKeyIndex: -1,
+      endColKey: '',
+      endColKeyIndex: -1,
+    })
+    // body indicator rowKeys
+    const bodyIndicatorRowKeys = ref({
+      startRowKey: '',
+      startRowKeyIndex: -1,
+      endRowKey: '',
+      endRowKeyIndex: -1,
+    })
+    // cell selection data
+    const cellSelectionData = ref({
+      currentCell: {
+        rowKey: '',
+        colKey: '',
+        rowIndex: -1,
+      },
+      normalEndCell: {
+        rowKey: '',
+        colKey: '',
+        rowIndex: -1,
+      },
+      autoFillEndCell: {
+        rowKey: '',
+        colKey: '',
+      },
+    }),
+    // cell selection range data
+    const cellSelectionRangeData = ref({
+      leftColKey: '',
+      rightColKey: '',
+      topRowKey: '',
+      bottomRowKey: '',
+    })
+    // is header cell mousedown
+    const isHeaderCellMousedown = ref(false)
+    // is body cell mousedown
+    const isBodyCellMousedown = ref(false)
 
 
-  // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
-  // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
-  // like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
- const enableStopEditing = ref(true)
-  // contextmenu event target
- const contextmenuEventTarget = ref('')
-  // contextmenu options
- const contextmenuOptions = ref<any>([])
-  // column resize cursor
- const isColumnResizerHover = ref(false)
-  // is column resizing
- const isColumnResizing = ref(false)
+    // is body operation column mousedown
+    const isBodyOperationColumnMousedown = ref(false)
+    // is cell selection corner mousedown
+    const isAutofillStarting = ref(false)
+    // autofilling direction
+    const autofillingDirection = ref(null)
+    // current cell selection type
+    const currentCellSelectionType = ref('')
+    /*
+          table offest height（开启虚拟滚动时使用）
+          1、当 :max-height="500" 时使用 max-height
+          2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
+          */
+    const tableOffestHeight = ref(0)
+    const tableHeight = ref(0)
+    // highlight row key
+    const highlightRowKey = ref('')
 
-// data end
+
+    // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
+    // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
+    // like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
+    const enableStopEditing = ref(true)
+    // contextmenu event target
+    const contextmenuEventTarget = ref('')
+    // contextmenu options
+    const contextmenuOptions = ref<any>([])
+    // column resize cursor
+    const isColumnResizerHover = ref(false)
+    // is column resizing
+    const isColumnResizing = ref(false)
+
+    // data end
 
 
 
-const virtualScrollPositions = shallowRef<any[]>([])
+    const virtualScrollPositions = shallowRef<any[]>([])
     // virtual scroll positions（非响应式）
     // virtualScrollPositions = [
     //     {
@@ -262,14 +262,13 @@ const virtualScrollPositions = shallowRef<any[]>([])
     //         height: 100 // 自身高度
     //     }
     // ]
-    const editingCell = ref<{rowKey:string,colKey:string,row:any,column:any}>({
+    const editingCell = ref<{ rowKey: string, colKey: string, row: any, column: any }>({
       rowKey: '',
       colKey: '',
       row: null,
       column: null,
     })
     const {
-      checkboxOption,
       radioOption,
       rowKeyFieldName,
       virtualScrollOption,
@@ -285,16 +284,16 @@ const virtualScrollPositions = shallowRef<any[]>([])
     const actualRenderTableData = computed(() => {
       return isVirtualScroll.value
         ? virtualScrollVisibleData.value
-        : this.tableData
+        : props.tableData
     })
     // return row keys
     const allRowKeys = computed(() => {
       let result = []
 
-      const { tableData, rowKeyFieldName } = this
+      const { rowKeyFieldName } = this
 
       if (rowKeyFieldName) {
-        result = tableData.map((x) => {
+        result = props.tableData.map((x) => {
           return x[rowKeyFieldName]
         })
       }
@@ -306,7 +305,6 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
       const {
         virtualScrollOption,
-        virtualScrollVisibleCount,
       } = this
 
       if (virtualScrollOption) {
@@ -317,7 +315,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
             ? bufferScale
             : defaultVirtualScrollBufferScale.value
 
-        result = realBufferScale * virtualScrollVisibleCount
+        result = realBufferScale * virtualScrollVisibleCount.value
       }
 
       return result
@@ -742,7 +740,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       cellSelectionData.value.currentCell.colKey = colKey
       cellSelectionData.value.currentCell.rowKey = rowKey
       cellSelectionData.value.currentCell.rowIndex =
-        this.allRowKeys.indexOf(rowKey)
+        allRowKeys.value.indexOf(rowKey)
     }
 
     // cell selection end cell change
@@ -750,7 +748,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       cellSelectionData.value.normalEndCell.colKey = colKey
       cellSelectionData.value.normalEndCell.rowKey = rowKey
       cellSelectionData.value.normalEndCell.rowIndex =
-        this.allRowKeys.indexOf(rowKey)
+        allRowKeys.value.indexOf(rowKey)
     }
 
     // cell selection auto fill cell change
@@ -804,13 +802,12 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
     // body indicator rowKeys change
     function bodyIndicatorRowKeysChange({ startRowKey, endRowKey }) {
-      const { allRowKeys } = this
       bodyIndicatorRowKeys.value.startRowKey = startRowKey
       bodyIndicatorRowKeys.value.startRowKeyIndex =
-        allRowKeys.indexOf(startRowKey)
+        allRowKeys.value.indexOf(startRowKey)
       bodyIndicatorRowKeys.value.endRowKey = endRowKey
       bodyIndicatorRowKeys.value.endRowKeyIndex =
-        allRowKeys.indexOf(endRowKey)
+        allRowKeys.value.indexOf(endRowKey)
     }
 
     // clear body indicator RowKeys
@@ -826,7 +823,6 @@ const virtualScrollPositions = shallowRef<any[]>([])
       const {
         cellAutofillOption,
         colgroups,
-        allRowKeys,
       } = this
       const { autoFillEndCell, currentCell } = cellSelectionData.value
 
@@ -849,9 +845,9 @@ const virtualScrollPositions = shallowRef<any[]>([])
         if (
           !isCellInSelectionRange({
             cellData: autoFillEndCell,
-            cellSelectionRangeData:cellSelectionRangeData.value,
+            cellSelectionRangeData: cellSelectionRangeData.value,
             colgroups,
-            allRowKeys,
+            allRowKeys:allRowKeys.value,
           })
         ) {
           if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
@@ -949,13 +945,13 @@ const virtualScrollPositions = shallowRef<any[]>([])
       }
 
       const cellAutofillParams = {
-        tableData: this.tableData,
-        allRowKeys: this.allRowKeys,
+        tableData: props.tableData,
+        allRowKeys: allRowKeys.value,
         colgroups: colgroups.value,
         rowKeyFieldName: this.rowKeyFieldName,
         direction: autofillingDirection.value,
-        currentCellSelectionType:currentCellSelectionType.value,
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        currentCellSelectionType: currentCellSelectionType.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         nextCurrentCell: currentCellData,
         nextNormalEndCell: normalEndCellData,
       }
@@ -1221,12 +1217,10 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
     // select cell by direction
     function selectCellByDirection({ direction }) {
-      const { allRowKeys } = this
-
       const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       const columnIndex = colgroups.value.findIndex((x) => x.key === colKey)
-      const rowIndex = allRowKeys.indexOf(rowKey)
+      const rowIndex = allRowKeys.value.indexOf(rowKey)
 
       if (direction === CELL_SELECTION_DIRECTION.LEFT) {
         if (columnIndex > 0) {
@@ -1242,12 +1236,12 @@ const virtualScrollPositions = shallowRef<any[]>([])
         }
       } else if (direction === CELL_SELECTION_DIRECTION.UP) {
         if (rowIndex > 0) {
-          const nextRowKey = allRowKeys[rowIndex - 1]
+          const nextRowKey = allRowKeys.value[rowIndex - 1]
           this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey)
         }
       } else if (direction === CELL_SELECTION_DIRECTION.DOWN) {
-        if (rowIndex < allRowKeys.length - 1) {
-          const nextRowKey = allRowKeys[rowIndex + 1]
+        if (rowIndex < allRowKeys.value.length - 1) {
+          const nextRowKey = allRowKeys.value[rowIndex + 1]
           this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey)
         }
       }
@@ -1307,7 +1301,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       const {
         clientHeight: containerClientHeight,
         scrollTop: containerScrollTop,
-      } =  tableContainerRef.value
+      } = tableContainerRef.value
 
       const nextRowEl = this.$el.querySelector(
         `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`,
@@ -1368,13 +1362,12 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
     // set virtual scroll visible data
     function setVirtualScrollVisibleData() {
-      const { tableData } = this
 
       const startIndex = virtualScrollStartIndex.value
       const endIndex = virtualScrollEndIndex.value
 
-      const aboveCount = this.getVirtualScrollAboveCount()
-      const belowCount = this.getVirtualScrollBelowCount()
+      const aboveCount = getVirtualScrollAboveCount()
+      const belowCount = getVirtualScrollBelowCount()
 
       const start = startIndex - aboveCount
       const end = endIndex + belowCount
@@ -1382,7 +1375,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       virtualScrollVisibleIndexs.value.start = start
       virtualScrollVisibleIndexs.value.end = end - 1
 
-      virtualScrollVisibleData.value = this.tableData.slice(start, end)
+      virtualScrollVisibleData.value = props.tableData.slice(start, end)
     }
 
     // get virtual scroll above count
@@ -1404,11 +1397,11 @@ const virtualScrollPositions = shallowRef<any[]>([])
     function getVirtualScrollBelowCount() {
       let result = 0
 
-      const { tableData, virtualScrollBufferCount } = this
+      const { virtualScrollBufferCount } = this
 
       if (isVirtualScroll.value) {
         result = Math.min(
-          tableData.length - virtualScrollEndIndex.value,
+          props.tableData.length - virtualScrollEndIndex.value,
           virtualScrollBufferCount,
         )
       }
@@ -1456,14 +1449,13 @@ const virtualScrollPositions = shallowRef<any[]>([])
         const {
           virtualScrollOption,
           rowKeyFieldName,
-          tableData,
         } = this
 
         const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
           ? virtualScrollOption.minRowHeight
           : defaultVirtualScrollMinRowHeight.value
 
-        virtualScrollPositions.value = tableData.map((item, index) => ({
+        virtualScrollPositions.value = props.tableData.map((item, index) => ({
           rowKey: item[rowKeyFieldName],
           height: minRowHeight,
           top: index * minRowHeight,
@@ -1498,7 +1490,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
         }
 
         // 更新 virtual phantom 列表总高度
-        this.setVirtualPhantomHeight()
+        setVirtualPhantomHeight()
 
         // 更新真实偏移量
         this.setVirtualScrollStartOffset()
@@ -1509,7 +1501,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       let totalHeight = 0
       if (virtualScrollPositions.value.length) {
         const scrollIndex = virtualScrollPositions.value.length - 1
-        totalHeight =          virtualScrollPositions.value[scrollIndex].bottom
+        totalHeight = virtualScrollPositions.value[scrollIndex].bottom
       }
       if (virtualPhantomRef.value) {
         virtualPhantomRef.value.style.height =
@@ -1520,7 +1512,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
     function setVirtualScrollStartOffset() {
       const start = virtualScrollStartIndex.value
 
-      const aboveCount = this.getVirtualScrollAboveCount()
+      const aboveCount = getVirtualScrollAboveCount()
 
       let startOffset = 0
 
@@ -1534,7 +1526,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
           virtualScrollPositions.value[start - 1].bottom - size
       }
 
-      this.setTableContentTopValue({ top: startOffset })
+      setTableContentTopValue({ top: startOffset })
     }
     // set table content top value
     function setTableContentTopValue({ top }) {
@@ -1576,8 +1568,9 @@ const virtualScrollPositions = shallowRef<any[]>([])
     }
     // table container virtual scroll handler
     function tableContainerVirtualScrollHandler(tableContainerRef) {
+      const visibleCount = virtualScrollVisibleCount.value
+
       const {
-        virtualScrollVisibleCount: visibleCount,
         virtualScrollOption,
       } = this
 
@@ -1592,8 +1585,8 @@ const virtualScrollPositions = shallowRef<any[]>([])
       const visibleEndIndex = visibleStartIndex + visibleCount
       virtualScrollEndIndex.value = visibleEndIndex
 
-      const visibleAboveCount = this.getVirtualScrollAboveCount()
-      const visibleBelowCount = this.getVirtualScrollBelowCount()
+      const visibleAboveCount = getVirtualScrollAboveCount()
+      const visibleBelowCount = getVirtualScrollBelowCount()
 
       // 此时的偏移量
       this.setVirtualScrollStartOffset()
@@ -1603,7 +1596,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
         if (bodyElement) {
           bodyElement.renderingRowKeys(
-            this.allRowKeys.slice(
+            allRowKeys.value.slice(
               visibleStartIndex - visibleAboveCount,
               visibleEndIndex + visibleBelowCount,
             ),
@@ -1613,8 +1606,8 @@ const virtualScrollPositions = shallowRef<any[]>([])
 
       const { scrolling } = virtualScrollOption
       if (isFunction(scrolling)) {
-        const visibleAboveCount = this.getVirtualScrollAboveCount()
-        const visibleBelowCount = this.getVirtualScrollBelowCount()
+        const visibleAboveCount = getVirtualScrollAboveCount()
+        const visibleBelowCount = getVirtualScrollBelowCount()
 
         const startRowIndex = visibleStartIndex - visibleAboveCount
 
@@ -1627,7 +1620,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
         })
       }
 
-      this.setVirtualScrollVisibleData()
+      setVirtualScrollVisibleData()
     }
     // debounce scroll ended
     function debounceScrollEnded() {
@@ -1638,7 +1631,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
       }
 
       disablePointerEventsTimeoutId.value = requestAnimationTimeout(
-        this.debounceScrollEndedCallback,
+        debounceScrollEndedCallback,
         scrollingResetTimeInterval,
       )
     }
@@ -1653,14 +1646,12 @@ const virtualScrollPositions = shallowRef<any[]>([])
         const startIndex = 0
 
         virtualScrollStartIndex.value = startIndex
-        virtualScrollEndIndex.value =
-          startIndex + this.virtualScrollVisibleCount
+        virtualScrollEndIndex.value = startIndex + virtualScrollVisibleCount.value
 
         // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
         nextTick(() => {
-          const tableContainerRef = this.$refs[this.tableContainerRef]
-          tableContainerVirtualScrollHandler(tableContainerRef)
-          this.setVirtualPhantomHeight()
+          tableContainerVirtualScrollHandler(tableContainerRef.value)
+          setVirtualPhantomHeight()
         })
       }
     }
@@ -1669,7 +1660,7 @@ const virtualScrollPositions = shallowRef<any[]>([])
     function setScrolling(tableContainerRef) {
       if (hasFixedColumn.value) {
         const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
-const previewScrollLeft = previewTableContainerScrollLeft.value
+        const previewScrollLeft = previewTableContainerScrollLeft.value
 
         // 仅横向滚动需要处理
         if (
@@ -1679,7 +1670,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           previewTableContainerScrollLeft.value = scrollLeft
 
           isLeftScrolling.value = scrollLeft > 0
-          isRightScrolling.value =            scrollWidth - clientWidth > scrollLeft
+          isRightScrolling.value = scrollWidth - clientWidth > scrollLeft
         }
         isLeftScrolling.value = scrollLeft > 0
         isRightScrolling.value = scrollWidth - clientWidth > scrollLeft
@@ -1699,18 +1690,18 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           tableContainerRef
 
         if (scrollWidth && clientWidth) {
-          hasXScrollBar.value =            !!(scrollWidth - clientWidth)
+          hasXScrollBar.value = !!(scrollWidth - clientWidth)
         }
 
         if (scrollHeight && clientHeight) {
-          hasYScrollBar.value =             !!(scrollHeight - clientHeight)
+          hasYScrollBar.value = !!(scrollHeight - clientHeight)
         }
       }
     }
 
     // init scrolling
     function initScrolling() {
-      this.setScrolling(this.$refs[this.tableContainerRef])
+      setScrolling(this.$refs[this.tableContainerRef])
     }
 
     // table click outside
@@ -1727,7 +1718,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       this.setIsColumnResizing(false)
 
       // clear cell selection
-      this.clearCellSelectionCurrentCell()
+      clearCellSelectionCurrentCell()
       this.clearCellSelectionNormalEndCell()
 
       // clear indicators
@@ -1755,7 +1746,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       if (isCellEditing) {
         const { rowKey, colKey } = editingCell.value
 
-        const currentRow = this.tableData.find(
+        const currentRow = props.tableData.find(
           (x) => x[rowKeyFieldName] === rowKey,
         )
 
@@ -1855,7 +1846,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
-        this.clearCellSelectionCurrentCell()
+        clearCellSelectionCurrentCell()
         this.clearCellSelectionNormalEndCell()
 
         // stop editing cell
@@ -1900,7 +1891,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         editOption,
         rowKeyFieldName,
         cellSelectionData,
-        allRowKeys,
       } = this
 
       const rowKey = getRowKey(rowData, rowKeyFieldName)
@@ -1934,7 +1924,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
             : currentCell.rowKey
           newEndRowKey = rowKey
         } else {
-          const currentRowIndex = allRowKeys.indexOf(rowKey)
+          const currentRowIndex = allRowKeys.value.indexOf(rowKey)
 
           // 左键点击 || 不在当前选择行内
           if (
@@ -1948,7 +1938,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           }
         }
 
-        this.bodyIndicatorRowKeysChange({
+        bodyIndicatorRowKeysChange({
           startRowKey: newStartRowKey,
           endRowKey: newEndRowKey,
         })
@@ -1963,9 +1953,9 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
             colKey,
           },
           cellSelectionData,
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys,
+          allRowKeys:allRowKeys.value,
         })
 
         if (isClearByRightClick) {
@@ -2022,7 +2012,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       }
 
       if (isBodyOperationColumnMousedown.value) {
-        this.bodyIndicatorRowKeysChange({
+        bodyIndicatorRowKeysChange({
           startRowKey: bodyIndicatorRowKeys.value.startRowKey,
           endRowKey: rowKey,
         })
@@ -2093,7 +2083,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           contextmenuHeaderOption: this.contextmenuHeaderOption,
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys: this.allRowKeys,
+          allRowKeys: allRowKeys.value,
           headerIndicatorColKeys: headerIndicatorColKeys.value,
           enableHeaderContextmenu: this.enableHeaderContextmenu,
           $t,
@@ -2105,7 +2095,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           contextmenuBodyOption: this.contextmenuBodyOption,
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys: this.allRowKeys,
+          allRowKeys: allRowKeys.value,
           bodyIndicatorRowKeys: bodyIndicatorRowKeys.value,
           $t,
         })
@@ -2145,7 +2135,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
-        this.clearCellSelectionCurrentCell()
+        clearCellSelectionCurrentCell()
         this.clearCellSelectionNormalEndCell()
         nextTick(() => {
           // select all cell
@@ -2347,7 +2337,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           colKey,
         })
       } else {
-        enableStopEditing.value= true
+        enableStopEditing.value = true
       }
     }
 
@@ -2402,7 +2392,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       const {
         contextmenuHeaderOption,
         cellSelectionData,
-        allRowKeys,
       } = this
 
       const { rowKey, colKey } = cellSelectionData.currentCell
@@ -2410,13 +2399,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys,
+          allRowKeys:allRowKeys.value,
         })
 
         if (isFunction(afterMenuClick)) {
@@ -2429,7 +2418,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
             return false
           }
         }
-        const editInputEditor =editInputRef.value
+        const editInputEditor = editInputRef.value
 
         // cut
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
@@ -2443,10 +2432,10 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         } else if (CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO === type) { // left fixed column to
           cloneColumns.value = setColumnFixed({
             cloneColumns: cloneColumns.value,
-            cellSelectionRangeData:          cellSelectionRangeData.value,
+            cellSelectionRangeData: cellSelectionRangeData.value,
             fixedType: COLUMN_FIXED_TYPE.LEFT,
             colgroups: colgroups.value,
-            enableColumnResize:enableColumnResize.value,
+            enableColumnResize: enableColumnResize.value,
           })
         } else if ( // cancel left fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_LEFT_FIXED_COLUMN_TO === type
@@ -2455,17 +2444,17 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
             cloneColumns: cloneColumns.value,
             colgroups: colgroups.value,
             fixedType: COLUMN_FIXED_TYPE.LEFT,
-            enableColumnResize:enableColumnResize.value,
+            enableColumnResize: enableColumnResize.value,
           })
         } else if ( // right fixed column to
           CONTEXTMENU_NODE_TYPES.RIGHT_FIXED_COLUMN_TO === type
         ) {
           cloneColumns.value = setColumnFixed({
             cloneColumns: cloneColumns.value,
-            cellSelectionRangeData:cellSelectionRangeData.value,
+            cellSelectionRangeData: cellSelectionRangeData.value,
             fixedType: COLUMN_FIXED_TYPE.RIGHT,
             colgroups: colgroups.value,
-            enableColumnResize:enableColumnResize.value,
+            enableColumnResize: enableColumnResize.value,
           })
         } else if ( // cancel right fixed column to
           CONTEXTMENU_NODE_TYPES.CANCEL_RIGHT_FIXED_COLUMN_TO === type
@@ -2474,7 +2463,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
             cloneColumns: cloneColumns.value,
             colgroups: colgroups.value,
             fixedType: COLUMN_FIXED_TYPE.RIGHT,
-            enableColumnResize:enableColumnResize.value,
+            enableColumnResize: enableColumnResize.value,
           })
         }
       }
@@ -2485,8 +2474,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       const {
         contextmenuBodyOption,
         cellSelectionData,
-        tableData,
-        allRowKeys,
         rowKeyFieldName,
       } = this
 
@@ -2495,13 +2482,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys,
+          allRowKeys:allRowKeys.value,
         })
 
         if (isFunction(afterMenuClick)) {
@@ -2517,11 +2504,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
         const { startRowIndex, endRowIndex } = selectionRangeIndexes
 
-        const currentRowIndex = allRowKeys.findIndex(
+        const currentRowIndex = allRowKeys.value.findIndex(
           (x) => x === rowKey,
         )
 
-        const editInputEditor =editInputRef.value
+        const editInputEditor = editInputRef.value
 
         // cut
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
@@ -2537,7 +2524,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           //     document.execCommand("paste", null, null);
           // }
           // remove rows
-          tableData.splice(
+          props.tableData.splice(
             startRowIndex,
             endRowIndex - startRowIndex + 1,
           )
@@ -2546,13 +2533,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_CELL === type) { // empty rows
           this.deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE === type) { // insert row above
-          tableData.splice(
+          props.tableData.splice(
             currentRowIndex,
             0,
             createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName }),
           )
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) { // insert row below
-          tableData.splice(
+          props.tableData.splice(
             currentRowIndex + 1,
             0,
             createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName }),
@@ -2567,8 +2554,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        tableData,
-        allRowKeys,
       } = this
 
       if (!enableClipboard) {
@@ -2593,18 +2578,18 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       event.preventDefault()
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         resultType: 'flat',
-        tableData,
+        tableData: props.tableData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       const response = onBeforeCopy({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       if (isFunction(beforeCopyCallback)) {
@@ -2650,7 +2635,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         event,
         cellSelectionRangeData: cellSelectionRangeData.value,
         colgroups: colgroups.value,
-        allRowKeys: this.allRowKeys,
+        allRowKeys: allRowKeys.value,
         rowKeyFieldName: this.rowKeyFieldName,
       })
 
@@ -2667,7 +2652,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         }
         // change table cell data
         onAfterPaste({
-          tableData: this.tableData,
+          tableData: props.tableData,
           beforePasteResponse: response,
         })
 
@@ -2699,8 +2684,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        tableData,
-        allRowKeys,
       } = this
 
       if (!enableClipboard) {
@@ -2725,18 +2708,18 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       event.preventDefault()
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         resultType: 'flat',
-        tableData,
+        tableData: props.tableData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       const response = onBeforeCut({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       if (isFunction(beforeCutCallback)) {
@@ -2748,7 +2731,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       onAfterCut({
         event,
-        tableData,
+        tableData: props.tableData,
         colgroups: colgroups.value,
         selectionRangeData,
         selectionRangeIndexes: response.selectionRangeIndexes,
@@ -2765,8 +2748,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         isCellEditing,
         enableClipboard,
         clipboardOption,
-        tableData,
-        allRowKeys,
       } = this
 
       if (!enableClipboard) {
@@ -2790,18 +2771,18 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       }
 
       const selectionRangeData = getSelectionRangeData({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         resultType: 'flat',
-        tableData,
+        tableData: props.tableData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       const response = onBeforeDelete({
-        cellSelectionRangeData:cellSelectionRangeData.value,
+        cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-        allRowKeys,
+          allRowKeys:allRowKeys.value,
       })
 
       if (isFunction(beforeDeleteCallback)) {
@@ -2812,7 +2793,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       }
 
       onAfterDelete({
-        tableData,
+        tableData: props.tableData,
         colgroups: colgroups.value,
         selectionRangeIndexes: response.selectionRangeIndexes,
       })
@@ -2824,7 +2805,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
     // set range cell selection by header indicator
     function setRangeCellSelectionByHeaderIndicator() {
-      const { allRowKeys } = this
       const { startColKey, endColKey } = headerIndicatorColKeys.value
 
       if (isEmptyValue(startColKey) || isEmptyValue(endColKey)) {
@@ -2832,12 +2812,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       }
 
       this.cellSelectionCurrentCellChange({
-        rowKey: allRowKeys[0],
+        rowKey: allRowKeys.value[0],
         colKey: startColKey,
       })
 
       cellSelectionNormalEndCellChange({
-        rowKey: allRowKeys[allRowKeys.length - 1],
+        // rowKey: allRowKeys.value[allRowKeys.value.length - 1],
+        rowKey: allRowKeys.value.at(-1),
         colKey: endColKey,
       })
     }
@@ -2962,7 +2943,6 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     function getRangeCellSelection() {
       const {
         cellSelectionData,
-        allRowKeys,
         colgroups,
       } = this
 
@@ -2970,13 +2950,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
         })
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
-          cellSelectionRangeData:cellSelectionRangeData.value,
+          cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups,
-          allRowKeys,
+          allRowKeys:allRowKeys.value,
         })
 
         return {
@@ -2996,7 +2976,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         return false
       }
 
-      const { colgroups, allRowKeys } = this
+      const { colgroups } = this
 
       if (colgroups.length) {
         const colKeys = colgroups
@@ -3011,10 +2991,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         }
       }
 
-      if (allRowKeys.length) {
-        this.bodyIndicatorRowKeysChange({
-          startRowKey: allRowKeys[0],
-          endRowKey: allRowKeys[allRowKeys.length - 1],
+      if (allRowKeys.value.length) {
+        bodyIndicatorRowKeysChange({
+          startRowKey: allRowKeys.value[0],
+          // endRowKey: allRowKeys.value[allRowKeys.value.length - 1],
+          endRowKey: allRowKeys.value.at(-1), 
         })
       }
     }
@@ -3114,7 +3095,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         return false
       }
 
-      let currentRow = this.tableData.find(
+      let currentRow = props.tableData.find(
         (x) => x[rowKeyFieldName] === rowKey,
       )
 
@@ -3164,14 +3145,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         cellSelectionData.currentCell.colKey !== colKey ||
         cellSelectionData.currentCell.rowKey !== rowKey
       ) {
-        this.cellSelectionCurrentCellChange({
-          rowKey,
-          colKey,
-        })
+        cellSelectionCurrentCellChange({          rowKey,          colKey,        })
       }
 
       // set editing cell
-      this.setEditingCell({
+      setEditingCell({
         rowKey,
         colKey,
         column: currentColumn,
@@ -3188,7 +3166,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       // clear editor input start value
       editorInputStartValue.value = ''
       if (isCellEditing) {
-        this.saveCellWhenStopEditing()
+        saveCellWhenStopEditing()
       }
     }
     // set highlight row
@@ -3203,11 +3181,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
     // watch start
     // watch clone table data
-    watch(tableData, (newVal, oldVal) => {
-      this.initVirtualScrollPositions()
+    watch(() => props.tableData, (newVal, oldVal) => {
+      initVirtualScrollPositions()
       // 第一次不需要触发，仅数据变更触发
       if (oldVal) {
-        this.initVirtualScroll()
+        initVirtualScroll()
       }
     }, {
       deep: true,
@@ -3221,11 +3199,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
         // 行被移除，清空单元格选中
         if (currentCell.rowIndex > -1) {
           if (newVal.indexOf(currentCell.rowKey) === -1) {
-            this.clearCellSelectionCurrentCell()
+            clearCellSelectionCurrentCell()
           }
         }
       }
-    }, { handler, immediate: false, })
+    }, {  immediate: false, })
 
     watch(() => props.columns, (newVal, oldVal) => {
       initColumns()
@@ -3234,7 +3212,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
       // 排除首次
       if (newVal !== oldVal && oldVal) {
-        columnsOptionResetTime.value +=1 
+        columnsOptionResetTime.value += 1
         // 需要等待 initColumns 和 initGroupColumns 先执行
         initScrolling()
       }
@@ -3245,7 +3223,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       // 右键（取消）固定列会操作 cloneColumns
       initColumnWidthByColumnResize()
 
-      columnsOptionResetTime.value +=1 
+      columnsOptionResetTime.value += 1
       // 需要等待 initColumns 和 initGroupColumns 先执行
       initScrolling()
     }, { immediate: false, })
@@ -3268,11 +3246,11 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     watch(() => virtualScrollOption.enable, (newVal) => {
       // enable virtual scroll
       if (newVal) {
-        this.initVirtualScrollPositions()
-        this.initVirtualScroll()
+        initVirtualScrollPositions()
+        initVirtualScroll()
       } else { // disable virtual scroll
         // clear table content top value
-        this.setTableContentTopValue({ top: 0 })
+        setTableContentTopValue({ top: 0 })
       }
     }, { immediate: false, })
 
@@ -3299,7 +3277,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     })
     // watch header indicator colKeys
     watch(headerIndicatorColKeys, () => {
-      this.setRangeCellSelectionByHeaderIndicator()
+      setRangeCellSelectionByHeaderIndicator()
     }, { deep: true, })
     // watch body indicator rowKeys
     watch(bodyIndicatorRowKeys, () => {
@@ -3323,14 +3301,14 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       colgroups,
       isGroupHeader: isGroupHeader.value,
       fixedHeader: props.fixedHeader,
-      checkboxOption,
+      checkboxOption: props.checkboxOption,
       sortOption,
       cellStyleOption,
       eventCustomOption: this.eventCustomOption,
       headerRows: headerRows.value,
       cellSelectionData,
-      cellSelectionRangeData:cellSelectionRangeData.value,
-      headerIndicatorColKeys:headerIndicatorColKeys.value,
+      cellSelectionRangeData: cellSelectionRangeData.value,
+      headerIndicatorColKeys: headerIndicatorColKeys.value,
       onClick: () => {
         this.stopEditingCell()
       },
@@ -3348,8 +3326,8 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       tableViewportWidth,
       columnsOptionResetTime: columnsOptionResetTime.value,
       colgroups,
-      expandOption:props.expandOption,
-      checkboxOption,
+      expandOption: props.expandOption,
+      checkboxOption: props.checkboxOption,
       actualRenderTableData,
       rowKeyFieldName,
       radioOption,
@@ -3361,12 +3339,12 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       cellSelectionOption: this.cellSelectionOption,
       hasFixedColumn: this.hasFixedColumn,
       cellSelectionData,
-      cellSelectionRangeData:cellSelectionRangeData.value,
-      allRowKeys,
+      cellSelectionRangeData: cellSelectionRangeData.value,
+      allRowKeys:allRowKeys.value,
       editOption,
       highlightRowKey: highlightRowKey.value,
-      showVirtualScrollingPlaceholder:showVirtualScrollingPlaceholder.value,
-      bodyIndicatorRowKeys:bodyIndicatorRowKeys.value,
+      showVirtualScrollingPlaceholder: showVirtualScrollingPlaceholder.value,
+      bodyIndicatorRowKeys: bodyIndicatorRowKeys.value,
       [widthChange]: debounce(this.bodyCellWidthChange, 0,),
       [heightRowChange]: this.setHighlightRow,
     }
@@ -3382,7 +3360,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       cellSpanOption: this.cellSpanOption,
       eventCustomOption: this.eventCustomOption,
       hasFixedColumn: this.hasFixedColumn,
-      allRowKeys,
+      allRowKeys:allRowKeys.value,
       footerRows: footerRows.value,
       click: () => {
         this.stopEditingCell()
@@ -3391,7 +3369,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
     // table root props
     const tableRootProps = {
-    
+
       class: {
         'vue-table-root': true,
       },
@@ -3409,7 +3387,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
       tagName: 'div',
       onDomResizeChange: ({ height }) => {
         tableOffestHeight.value = height
-        this.initVirtualScroll()
+        initVirtualScroll()
         // fixed #404
         initScrolling()
         setScrollBarStatus()
@@ -3430,7 +3408,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
 
     // table container props
     const tableContainerProps = {
-    
+
       class: this.tableContainerClass,
       style: tableContainerStyle,
       onScroll: () => {
@@ -3440,10 +3418,10 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           HOOKS_NAME.TABLE_CONTAINER_SCROLL,
           tableContainerRef.value,
         )
-        this.setScrolling(tableContainerRef.value)
+        setScrolling(tableContainerRef.value)
 
         if (isVirtualScroll.value) {
-          tableContainerVirtualScrollHandler(            tableContainerRef.value          )
+          tableContainerVirtualScrollHandler(tableContainerRef.value)
           const startIndex = virtualScrollStartIndex.value
           const previewStartIndex = previewVirtualScrollStartIndex.value
 
@@ -3452,7 +3430,7 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
           previewVirtualScrollStartIndex.value = startIndex
 
           // default placeholder per scrolling row count
-          if (differ > defaultPlaceholderPerScrollingRowCount.value ) {
+          if (differ > defaultPlaceholderPerScrollingRowCount.value) {
             showVirtualScrollingPlaceholder.value = true
           } else {
             showVirtualScrollingPlaceholder.value = false
@@ -3489,13 +3467,13 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     // selection props
     const selectionProps = {
       tableEl: tableRef.value,
-      allRowKeys,
+      allRowKeys:allRowKeys.value,
       colgroups,
       parentRendered: parentRendered.value,
       hooks: hooks.value,
       cellSelectionData,
       isAutofillStarting: isAutofillStarting.value,
-      cellSelectionRangeData:cellSelectionRangeData.value,
+      cellSelectionRangeData: cellSelectionRangeData.value,
       currentCellSelectionType: currentCellSelectionType.value,
       showVirtualScrollingPlaceholder,
       isVirtualScroll: isVirtualScroll.value,
@@ -3519,12 +3497,12 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     const inputPaste = 'onEditInputPaste'
     const inputCut = 'onEditInputCut'
     const editInputProps = {
-     
+
       hooks: hooks.value,
       parentRendered: parentRendered.value,
       inputStartValue: editorInputStartValue.value,
       rowKeyFieldName,
-      tableData: this.tableData,
+      tableData: props.tableData,
       cellSelectionData,
       colgroups,
       editingCell: editingCell.value,
@@ -3708,8 +3686,8 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
     })
 
     return () => (
-      <div   ref={tableRootRef} {...tableRootProps}>
-        <VueDomResizeObserver ref={tableContainerWrapperRef}  {...tableContainerWrapperProps} v-click-outside={this.tableClickOutside}>
+      <div ref={tableRootRef} {...tableRootProps}>
+        <VueDomResizeObserver ref={tableContainerWrapperRef}  {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
           <div ref={tableContainerRef} {...tableContainerProps}>
             {/* virtual view phantom */}
             {this.getVirtualViewPhantom()}
@@ -3730,16 +3708,16 @@ const previewScrollLeft = previewTableContainerScrollLeft.value
               </table>
               {/* cell selection */}
               {enableCellSelection && (
-      <Selection ref={cellSelectionRef}  {...selectionProps} />
+                <Selection ref={cellSelectionRef}  {...selectionProps} />
               )}
             </VueDomResizeObserver>
           </div>
           {/* edit input */}
-          {enableCellSelection && <EditInput ref={ editInputRef} {...editInputProps} />}
+          {enableCellSelection && <EditInput ref={editInputRef} {...editInputProps} />}
           {/* contextmenu */}
           {(this.enableHeaderContextmenu ||
             this.enableBodyContextmenu) && (
-      <VeContextmenu ref={contextmenuRef} {...contextmenuProps} />
+              <VeContextmenu ref={contextmenuRef} {...contextmenuProps} />
             )}
           {/* column resizer */}
           {enableColumnResize.value && (<ColumnResizer {...columnResizerProps} />

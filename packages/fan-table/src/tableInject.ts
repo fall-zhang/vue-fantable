@@ -7,4 +7,6 @@ export function tableInject() {
   provide('fan-parentRendered', false)
   provide('fan-cellSelectionData', false)
   provide('fan-parentRendered', false)
+  provide('fan-checkboxOption', false)
+  provide('allRowKeys', false)
 }

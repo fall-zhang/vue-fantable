@@ -2,7 +2,8 @@ import {
   addResizeListener,
   removeResizeListener,
 } from '@P/src/utils/resize-event'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'VueDomResizeObserver',
   props: {
     tagName: {
@@ -52,3 +53,4 @@ export default {
   //   return () => (<prop.tagName>{slot.default}</prop.tagName>)
   // },
 }
+)
