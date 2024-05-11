@@ -58,7 +58,6 @@ import {
   COMPS_NAME,
   HOOKS_NAME,
   COMPS_CUSTOM_ATTRS,
-  INSTANCE_METHODS,
   CELL_SELECTION_DIRECTION,
   LOCALE_COMP_NAME,
   CONTEXTMENU_TYPES,
@@ -77,12 +76,10 @@ import clickoutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index'
-// import eventCenter from '@P/events/event-center'
 import mitt from 'mitt'
 import { tableProps as fanTableProps } from './tableProps'
 import { tableInject } from './tableInject'
 import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
-import eventCenter from '@P/events/event-center'
 const $t = createLocale(LOCALE_COMP_NAME)
 type CommonRowItem = {
   rowHeight: number
@@ -132,7 +129,7 @@ export default defineComponent({
     const tableRef = ref()
     const tableContentWrapperRef = ref()
     const virtualPhantomRef = ref()
-    const editInputRef = ref()
+    const editInputRef = ref<any>()
     const cellSelectionRef = ref()
     const contextmenuRef = ref()
     const cloneColumns = ref([])
@@ -268,9 +265,6 @@ export default defineComponent({
       row: null,
       column: null,
     })
-    const {
-      editOption,
-    } = this
     const scrollBarWidth = ref(0)
 
     // DOM refs
@@ -283,7 +277,7 @@ export default defineComponent({
     })
     // return row keys
     const allRowKeys = computed(() => {
-      let result:any[] = []
+      let result: any[] = []
 
       const rowKeyFieldName = props.rowKeyFieldName
 
@@ -316,7 +310,7 @@ export default defineComponent({
     // virtual scroll visible count
     const virtualScrollVisibleCount = computed(() => {
       let result = 0
-const virtualScrollOption = props.virtualScrollOption
+      const virtualScrollOption = props.virtualScrollOption
       const maxHeight = Number(props.maxHeight)
 
       if (isVirtualScroll.value && maxHeight) {
@@ -337,25 +331,25 @@ const virtualScrollOption = props.virtualScrollOption
     const tableContainerStyle = computed(() => {
       const maxHeight = getValByUnit(props.maxHeight)
 
-      let tableContainerHeight = null
+      let tableContainerHeight:string |number = ''
       if (isVirtualScroll.value) {
         if (maxHeight) {
           tableContainerHeight = maxHeight
         } else {
-          console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'"          )
+          console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'")
         }
       } else {
         /*
-                fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
-                fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
-                */
+        fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
+        fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
+        */
         tableContainerHeight = tableHeight.value
         /*
-                    有横向滚动条时，表格高度需要加上滚动条的宽度
-                    When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
-                    */
+        有横向滚动条时，表格高度需要加上滚动条的宽度
+        When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
+        */
         if (hasXScrollBar.value) {
-          tableContainerHeight += this.getScrollBarWidth()
+          tableContainerHeight += getTableScrollBarWidth()
         }
 
         tableContainerHeight = getValByUnit(tableContainerHeight)
@@ -370,15 +364,14 @@ const virtualScrollOption = props.virtualScrollOption
     // table style
     const tableStyle = computed(() => {
       return {
-        width: getValByUnit(this.scrollWidth),
+        width: getValByUnit(props.scrollWidth),
       }
     },)
     // table class
-    const tableClass = computed(() {
-      const borderY = clsName('border-y')
+    const tableClass = computed(() => {
       return {
-        [clsName('border-x')]: this.borderX,
-        [borderY]: this.borderY,
+        [clsName('border-x')]: props.borderX,
+        [clsName('border-y')]: props.borderY,
       }
     },)
     // table container class
@@ -467,8 +460,7 @@ const virtualScrollOption = props.virtualScrollOption
     // enable header contextmenu
     const enableHeaderContextmenu = computed(() => {
       let result = false
-
-      const { contextmenuHeaderOption } = this
+      const contextmenuHeaderOption = props.contextmenuHeaderOption
       if (contextmenuHeaderOption) {
         const { contextmenus } = contextmenuHeaderOption
 
@@ -481,10 +473,8 @@ const virtualScrollOption = props.virtualScrollOption
     // enable body contextmenu
     const enableBodyContextmenu = computed(() => {
       let result = false
-
-      const { contextmenuBodyOption } = this
-      if (contextmenuBodyOption) {
-        const { contextmenus } = contextmenuBodyOption
+      if (props.contextmenuBodyOption) {
+        const { contextmenus } = props.contextmenuBodyOption
 
         if (Array.isArray(contextmenus) && contextmenus.length) {
           result = true
@@ -523,9 +513,8 @@ const virtualScrollOption = props.virtualScrollOption
     // eanble width resize
     const enableColumnResize = computed(() => {
       let result = false
-      const { columnWidthResizeOption } = this
-      if (columnWidthResizeOption) {
-        const { enable } = columnWidthResizeOption
+      if (props.columnWidthResizeOption) {
+        const { enable } = props.columnWidthResizeOption
         if (isBoolean(enable)) {
           result = enable
         }
@@ -677,7 +666,7 @@ const virtualScrollOption = props.virtualScrollOption
     }
 
     // scroll bar width
-    function getScrollBarWidth() {
+    function getTableScrollBarWidth() {
       let result = 0
 
       if (scrollBarWidth.value) {
@@ -829,7 +818,7 @@ const virtualScrollOption = props.virtualScrollOption
             cellData: autoFillEndCell,
             cellSelectionRangeData: cellSelectionRangeData.value,
             colgroups,
-            allRowKeys:allRowKeys.value,
+            allRowKeys: allRowKeys.value,
           })
         ) {
           if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
@@ -1157,7 +1146,7 @@ const virtualScrollOption = props.virtualScrollOption
           case KEY_CODES.DELETE: {
             if (!isCellEditing.value) {
               // delete cell selection range value
-              this.deleteCellSelectionRangeValue()
+              deleteCellSelectionRangeValue()
               event.preventDefault()
             }
 
@@ -1168,10 +1157,7 @@ const virtualScrollOption = props.virtualScrollOption
               if (currentColumn.edit) {
                 // start editing cell and don't allow stop eidting by direction key
                 enableStopEditing.value = false
-                startEditingCell({
-                  rowKey,
-                  colKey,
-                })
+                startEditingCell({ rowKey, colKey })
               }
               event.preventDefault()
             }
@@ -1215,12 +1201,12 @@ const virtualScrollOption = props.virtualScrollOption
       } else if (direction === CELL_SELECTION_DIRECTION.UP) {
         if (rowIndex > 0) {
           const nextRowKey = allRowKeys.value[rowIndex - 1]
-          this.rowToVisible(KEY_CODES.ARROW_UP, nextRowKey)
+          rowToVisible(KEY_CODES.ARROW_UP, nextRowKey)
         }
       } else if (direction === CELL_SELECTION_DIRECTION.DOWN) {
         if (rowIndex < allRowKeys.value.length - 1) {
           const nextRowKey = allRowKeys.value[rowIndex + 1]
-          this.rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey)
+          rowToVisible(KEY_CODES.ARROW_DOWN, nextRowKey)
         }
       }
     }
@@ -1254,7 +1240,7 @@ const virtualScrollOption = props.virtualScrollOption
         if (scrollLeft) {
           const diff = scrollLeft - leftTotalWidth
           if (diff > 0) {
-            tableContainerRef.scrollLeft = scrollLeft - diff
+            tableContainerRef.value.scrollLeft = scrollLeft - diff
           }
         }
 
@@ -1262,7 +1248,7 @@ const virtualScrollOption = props.virtualScrollOption
         if (scrollRight) {
           const diff = scrollRight - rightTotalWidth
           if (diff > 0) {
-            tableContainerRef.scrollLeft = scrollLeft + diff
+            tableContainerRef.value.scrollLeft = scrollLeft + diff
           }
         }
       }
@@ -1281,7 +1267,7 @@ const virtualScrollOption = props.virtualScrollOption
         scrollTop: containerScrollTop,
       } = tableContainerRef.value
 
-      const nextRowEl = this.$el.querySelector(
+      const nextRowEl = tableRootRef.value.$el.querySelector(
         `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`,
       )
 
@@ -1330,7 +1316,7 @@ const virtualScrollOption = props.virtualScrollOption
             tableContainerRef.scrollTop = containerScrollTop + diff
           }
         }
-        const { currentCell } = this.cellSelectionData
+        const { currentCell } = cellSelectionData.value
         cellSelectionCurrentCellChange({
           rowKey: nextRowKey,
           colKey: currentCell.colKey,
@@ -1694,8 +1680,8 @@ const virtualScrollOption = props.virtualScrollOption
       clearCellSelectionNormalEndCell()
 
       // clear indicators
-      this.clearHeaderIndicatorColKeys()
-      this.clearBodyIndicatorRowKeys()
+      clearHeaderIndicatorColKeys()
+      clearBodyIndicatorRowKeys()
 
       // stop editing cell
       stopEditingCell()
@@ -1704,13 +1690,12 @@ const virtualScrollOption = props.virtualScrollOption
     // save cell when stop editing
     function saveCellWhenStopEditing() {
       const rowKeyFieldName = props.rowKeyFieldName
-      const {        editOption      } = this
 
       const {
         cellValueChange,
         beforeCellValueChange,
         afterCellValueChange,
-      } = editOption
+      } = props.editOption
 
       if (isCellEditing.value) {
         const { rowKey, colKey } = editingCell.value
@@ -1769,17 +1754,15 @@ const virtualScrollOption = props.virtualScrollOption
     function cellSelectionByClick({ rowData, column }) {
 
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
-
       // set cell selection and column to visible
-      // const setCellSelection = INSTANCE_METHODS.SET_CELL_SELECTION
-      this.setCellSelection({
+      setCellSelection({
         rowKey,
         colKey: column.key,
         isScrollToRow: false,
       })
       // row to visible
-      this.rowToVisible(KEY_CODES.ARROW_UP, rowKey)
-      this.rowToVisible(KEY_CODES.ARROW_DOWN, rowKey)
+      rowToVisible(KEY_CODES.ARROW_UP, rowKey)
+      rowToVisible(KEY_CODES.ARROW_DOWN, rowKey)
     }
 
     /*
@@ -1789,18 +1772,16 @@ const virtualScrollOption = props.virtualScrollOption
          * @param {object} column - column data
          */
     function bodyCellContextmenu({ event, rowData, column }) {
-      const { editOption } = this
-
-      if (editOption) {
+      if (props.editOption) {
         const rowKey = getRowKey(rowData, props.rowKeyFieldName)
-        this.editCellByClick({
+        editCellByClick({
           isDblclick: false,
           rowKey,
           colKey: column.key,
         })
       }
 
-      this.setContextmenuOptions(column)
+      setContextmenuOptions(column)
     }
 
     /*
@@ -1810,8 +1791,6 @@ const virtualScrollOption = props.virtualScrollOption
          * @param {object} column - column data
          */
     function bodyCellDoubleClick({ event, rowData, column }) {
-      const { editOption } = this
-
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
         clearCellSelectionCurrentCell()
@@ -1822,9 +1801,9 @@ const virtualScrollOption = props.virtualScrollOption
         return false
       }
 
-      if (editOption) {
+      if (props.editOption) {
         const rowKey = getRowKey(rowData, props.rowKeyFieldName)
-        this.editCellByClick({
+        editCellByClick({
           isDblclick: true,
           rowKey,
           colKey: column.key,
@@ -1852,24 +1831,18 @@ const virtualScrollOption = props.virtualScrollOption
       if (!enableCellSelection.value) {
         return false
       }
-
       const { shiftKey } = event
-
-      const {
-        editOption,
-        cellSelectionData,
-      } = this
 
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
-      const { currentCell } = cellSelectionData
+      const { currentCell } = cellSelectionData.value
 
       const mouseEventClickType = getMouseEventClickType(event)
 
       if (isOperationColumn(colKey, colgroups.value)) {
         // clear header indicator colKeys
-        this.clearHeaderIndicatorColKeys()
+        clearHeaderIndicatorColKeys()
 
         isBodyOperationColumnMousedown.value = true
 
@@ -1922,14 +1895,14 @@ const virtualScrollOption = props.virtualScrollOption
           cellSelectionData,
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+          allRowKeys: allRowKeys.value,
         })
 
         if (isClearByRightClick) {
           // clear header indicator colKeys
-          this.clearHeaderIndicatorColKeys()
+          clearHeaderIndicatorColKeys()
           // clear body indicator colKeys
-          this.clearBodyIndicatorRowKeys()
+          clearBodyIndicatorRowKeys()
 
           if (shiftKey && currentCell.rowIndex > -1) {
             cellSelectionNormalEndCellChange({
@@ -1938,14 +1911,14 @@ const virtualScrollOption = props.virtualScrollOption
             })
           } else {
             // cell selection by click
-            this.cellSelectionByClick({ rowData, column })
+            cellSelectionByClick({ rowData, column })
             clearCellSelectionNormalEndCell()
           }
         }
       }
 
-      if (editOption) {
-        this.editCellByClick({
+      if (props.editOption) {
+        editCellByClick({
           isDblclick: false,
           rowKey,
           colKey,
@@ -2032,31 +2005,29 @@ const virtualScrollOption = props.virtualScrollOption
 
     // header cell contextmenu
     function headerCellContextmenu({ event, column }) {
-      this.setContextmenuOptions(column)
+      setContextmenuOptions(column)
     }
 
     // set contextmenu options
     function setContextmenuOptions(column) {
-      const { contextMenuType } = this
-
       // header contextmenu
-      if (contextMenuType === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
+      if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         // set header contextmenu options before contextmen show
         contextmenuOptions.value = setHeaderContextmenuOptions({
           column,
-          contextmenuHeaderOption: this.contextmenuHeaderOption,
+          contextmenuHeaderOption: props.contextmenuHeaderOption,
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys: allRowKeys.value,
           headerIndicatorColKeys: headerIndicatorColKeys.value,
-          enableHeaderContextmenu: this.enableHeaderContextmenu,
+          enableHeaderContextmenu: enableHeaderContextmenu.value,
           $t,
         })
       } else { // body contextmenu
         // set body contextmenu options before contextmen show
         contextmenuOptions.value = setBodyContextmenuOptions({
-          enableBodyContextmenu: this.enableBodyContextmenu,
-          contextmenuBodyOption: this.contextmenuBodyOption,
+          enableBodyContextmenu: enableBodyContextmenu.value,
+          contextmenuBodyOption: props.contextmenuBodyOption,
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
           allRowKeys: allRowKeys.value,
@@ -2075,13 +2046,8 @@ const virtualScrollOption = props.virtualScrollOption
       isHeaderCellMousedown.value = true
 
       const { shiftKey } = event
-
-      const {
-        cellSelectionData,
-      } = this
-
       // clear body indicator colKeys
-      this.clearBodyIndicatorRowKeys()
+      clearBodyIndicatorRowKeys()
 
       let colKeys
       if (isGroupHeader.value) {
@@ -2095,7 +2061,7 @@ const virtualScrollOption = props.virtualScrollOption
       const currentCellStartColKey = colKeys[0]
       const currentCellEndColKey = colKeys[colKeys.length - 1]
 
-      const { currentCell } = cellSelectionData
+      const { currentCell } = cellSelectionData.value
 
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
@@ -2103,7 +2069,7 @@ const virtualScrollOption = props.virtualScrollOption
         clearCellSelectionNormalEndCell()
         nextTick(() => {
           // select all cell
-          this.setAllCellSelection()
+          setAllCellSelection()
         })
         return false
       }
@@ -2252,37 +2218,22 @@ const virtualScrollOption = props.virtualScrollOption
       isAutofillStarting.value = true
     }
 
-    /*
-         * @cellSelectionCornerMouseup
-         * @desc  recieve cell selection corner mouseup
-         */
-    function cellSelectionCornerMouseup({ event }) {
-      isAutofillStarting.value = false
-    }
-
+    
     // is edit column
     function isEditColumn(colKey) {
       return colgroups.value.some((x) => x.key === colKey && x.edit)
     }
 
     /*
-         * @editCellByClick
-         * @desc  recieve td click event
-         * @param {boolean} isDblclick - is dblclick
-         */
+     * @editCellByClick
+     * @desc  recieve td click event
+     * @param {boolean} isDblclick - is dblclick
+     */
     function editCellByClick({ isDblclick, rowKey, colKey }) {
-      const {
-        editOption,
-        hasEditColumn,
-        isEditColumn,
-      } = this
-
-      if (!editOption) return false
-
+      if (!props.editOption) return false
 
       // has edit column
-      if (!hasEditColumn) return false
-
+      if (!hasEditColumn.value) return false
 
       if (isEmptyValue(rowKey) || isEmptyValue(colKey)) return false
 
@@ -2295,10 +2246,7 @@ const virtualScrollOption = props.virtualScrollOption
       if (isDblclick && isEditColumn(colKey)) {
         enableStopEditing.value = false
 
-        startEditingCell({
-          rowKey,
-          colKey,
-        })
+        startEditingCell({ rowKey, colKey })
       } else {
         enableStopEditing.value = true
       }
@@ -2343,22 +2291,17 @@ const virtualScrollOption = props.virtualScrollOption
     // contextmenu item click
     function contextmenuItemClick(type) {
       // header contextmenu
-      if (this.contextMenuType === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
-        this.headerContextmenuItemClick(type)
+      if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
+        headerContextmenuItemClick(type)
       } else { // body contextmenu
-        this.bodyContextmenuItemClick(type)
+        bodyContextmenuItemClick(type)
       }
     }
 
     // header contextmenu item click
     function headerContextmenuItemClick(type) {
-      const {
-        contextmenuHeaderOption,
-        cellSelectionData,
-      } = this
-
-      const { rowKey, colKey } = cellSelectionData.currentCell
-      const { afterMenuClick } = contextmenuHeaderOption
+      const { rowKey, colKey } = cellSelectionData.value.currentCell
+      const { afterMenuClick } = props.contextmenuHeaderOption
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
@@ -2368,7 +2311,7 @@ const virtualScrollOption = props.virtualScrollOption
         const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+          allRowKeys: allRowKeys.value,
         })
 
         if (isFunction(afterMenuClick)) {
@@ -2391,7 +2334,7 @@ const virtualScrollOption = props.virtualScrollOption
           editInputEditor.textareaSelect()
           document.execCommand('copy')
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN === type) { // empty column
-          this.deleteCellSelectionRangeValue()
+          deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.LEFT_FIXED_COLUMN_TO === type) { // left fixed column to
           cloneColumns.value = setColumnFixed({
             cloneColumns: cloneColumns.value,
@@ -2434,13 +2377,8 @@ const virtualScrollOption = props.virtualScrollOption
 
     // body contextmenu item click
     function bodyContextmenuItemClick(type) {
-      const {
-        contextmenuBodyOption,
-        cellSelectionData,
-      } = this
-
-      const { rowKey, colKey } = cellSelectionData.currentCell
-      const { afterMenuClick } = contextmenuBodyOption
+      const { rowKey, colKey } = cellSelectionData.value.currentCell
+      const { afterMenuClick } = props.contextmenuBodyOption
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
@@ -2450,7 +2388,7 @@ const virtualScrollOption = props.virtualScrollOption
         const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData: cellSelectionRangeData.value,
           colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+          allRowKeys: allRowKeys.value,
         })
 
         if (isFunction(afterMenuClick)) {
@@ -2491,9 +2429,9 @@ const virtualScrollOption = props.virtualScrollOption
             endRowIndex - startRowIndex + 1,
           )
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_ROW === type) { // empty rows
-          this.deleteCellSelectionRangeValue()
+          deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_CELL === type) { // empty rows
-          this.deleteCellSelectionRangeValue()
+          deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE === type) { // insert row above
           props.tableData.splice(
             currentRowIndex,
@@ -2512,11 +2450,6 @@ const virtualScrollOption = props.virtualScrollOption
 
     // editor copy
     function editorCopy(event) {
-      const {
-        
-        clipboardOption,
-      } = this
-
       if (!enableClipboard.value) {
         return false
       }
@@ -2530,7 +2463,7 @@ const virtualScrollOption = props.virtualScrollOption
         copy,
         beforeCopy: beforeCopyCallback,
         afterCopy: afterCopyCallback,
-      } = clipboardOption || {}
+      } = props.clipboardOption || {}
 
       if (isBoolean(copy) && !copy) {
         return false
@@ -2543,14 +2476,14 @@ const virtualScrollOption = props.virtualScrollOption
         resultType: 'flat',
         tableData: props.tableData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       const response = onBeforeCopy({
         cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       if (isFunction(beforeCopyCallback)) {
@@ -2569,8 +2502,6 @@ const virtualScrollOption = props.virtualScrollOption
 
     // editor paste
     function editorPaste(event) {
-      const {  clipboardOption } = this
-
       if (!enableClipboard.value) {
         return false
       }
@@ -2584,7 +2515,7 @@ const virtualScrollOption = props.virtualScrollOption
         paste,
         beforePaste: beforePasteCallback,
         afterPaste: afterPasteCallback,
-      } = clipboardOption || {}
+      } = props.clipboardOption || {}
 
       if (isBoolean(paste) && !paste) {
         return false
@@ -2641,10 +2572,6 @@ const virtualScrollOption = props.virtualScrollOption
 
     // editor cut
     function editorCut(event) {
-      const {
-        clipboardOption,
-      } = this
-
       if (!enableClipboard.value) {
         return false
       }
@@ -2658,7 +2585,7 @@ const virtualScrollOption = props.virtualScrollOption
         cut,
         beforeCut: beforeCutCallback,
         afterCut: afterCutCallback,
-      } = clipboardOption || {}
+      } = props.clipboardOption || {}
 
       if (isBoolean(cut) && !cut) {
         return false
@@ -2671,14 +2598,14 @@ const virtualScrollOption = props.virtualScrollOption
         resultType: 'flat',
         tableData: props.tableData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       const response = onBeforeCut({
         cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       if (isFunction(beforeCutCallback)) {
@@ -2703,10 +2630,6 @@ const virtualScrollOption = props.virtualScrollOption
 
     // delete selection cell value
     function deleteCellSelectionRangeValue() {
-      const {
-        clipboardOption,
-      } = this
-
       if (!enableClipboard.value) {
         return false
       }
@@ -2721,7 +2644,7 @@ const virtualScrollOption = props.virtualScrollOption
         delete: delete2,
         beforeDelete: beforeDeleteCallback,
         afterDelete: afterDeleteCallback,
-      } = clipboardOption || {}
+      } = props.clipboardOption || {}
 
       if (isBoolean(delete2) && !delete2) {
         return false
@@ -2732,14 +2655,14 @@ const virtualScrollOption = props.virtualScrollOption
         resultType: 'flat',
         tableData: props.tableData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       const response = onBeforeDelete({
         cellSelectionRangeData: cellSelectionRangeData.value,
         selectionRangeData,
         colgroups: colgroups.value,
-          allRowKeys:allRowKeys.value,
+        allRowKeys: allRowKeys.value,
       })
 
       if (isFunction(beforeDeleteCallback)) {
@@ -2811,10 +2734,7 @@ const virtualScrollOption = props.virtualScrollOption
       isColumnResizing.value = val
     }
 
-    /*
-        set cell selection and column to visible
-        */
-    // [INSTANCE_METHODS.SET_CELL_SELECTION](receive) {
+    // set cell selection and column to visible
     function setCellSelection(receive) {
       let {
         rowKey,
@@ -2839,7 +2759,7 @@ const virtualScrollOption = props.virtualScrollOption
         columnToVisible(column)
         // row to visible
         if (isScrollToRow) {
-          this.scrollToRowKey({ rowKey })
+          scrollToRowKey({ rowKey })
         }
       }
     }
@@ -2887,7 +2807,7 @@ const virtualScrollOption = props.virtualScrollOption
         const column = getColumnByColkey(startColKey, colgroups.value)
         // column to visible
         columnToVisible(column)
-        this.scrollToRowKey({
+        scrollToRowKey({
           rowKey: startRowKey,
         })
       }
@@ -2897,10 +2817,9 @@ const virtualScrollOption = props.virtualScrollOption
     function getRangeCellSelection() {
       const {
         cellSelectionData,
-        colgroups,
       } = this
 
-      const { rowKey, colKey } = cellSelectionData.currentCell
+      const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         const selectionRangeKeys = getSelectionRangeKeys({
@@ -2909,8 +2828,8 @@ const virtualScrollOption = props.virtualScrollOption
 
         const selectionRangeIndexes = getSelectionRangeIndexes({
           cellSelectionRangeData: cellSelectionRangeData.value,
-          colgroups,
-          allRowKeys:allRowKeys.value,
+          colgroups: colgroups.value,
+          allRowKeys: allRowKeys.value,
         })
 
         return {
@@ -2920,18 +2839,14 @@ const virtualScrollOption = props.virtualScrollOption
       }
     }
 
-    /*
-      set all cell selection and column to visible
-    */
+    // set all cell selection and column to visible
     function setAllCellSelection() {
       if (!enableCellSelection.value) {
         return false
       }
 
-      const { colgroups } = this
-
-      if (colgroups.length) {
-        const colKeys = colgroups
+      if (colgroups.value.length) {
+        const colKeys = colgroups.value
           .filter((x) => !x.operationColumn)
           .map((x) => x.key)
 
@@ -2947,7 +2862,7 @@ const virtualScrollOption = props.virtualScrollOption
         bodyIndicatorRowKeysChange({
           startRowKey: allRowKeys.value[0],
           // endRowKey: allRowKeys.value[allRowKeys.value.length - 1],
-          endRowKey: allRowKeys.value.at(-1), 
+          endRowKey: allRowKeys.value.at(-1),
         })
       }
     }
@@ -2978,11 +2893,6 @@ const virtualScrollOption = props.virtualScrollOption
         showOrHideColumns()
       }
     }
-
-    // table scrollTo
-    // function [INSTANCE_METHODS.SCROLL_TO](option) {
-    //   scrollTo(this.$refs[this.tableContainerRef], option)
-    // }
     // table scroll to rowKey position
     function scrollToRowKey({ rowKey }) {
       if (isEmptyValue(rowKey)) {
@@ -2991,9 +2901,6 @@ const virtualScrollOption = props.virtualScrollOption
       }
 
       let scrollTop = 0
-
-      const tableContainerRef = this.$refs[this.tableContainerRef]
-
       if (isVirtualScroll.value) {
         const position = virtualScrollPositions.value.find(
           (x) => x.rowKey === rowKey,
@@ -3005,20 +2912,20 @@ const virtualScrollOption = props.virtualScrollOption
 
         // fix bug #470
         setTimeout(() => {
-          scrollTo(tableContainerRef, {
+          scrollTo(tableContainerRef.value, {
             top: scrollTop,
             behavior: 'auto',
           })
         }, 200)
       } else {
-        const rowEl = this.$el.querySelector(
+        const rowEl = tableRootRef.value.$el.querySelector(
           `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
         )
 
         scrollTop = rowEl.offsetTop - headerTotalHeight.value
       }
 
-      scrollTo(tableContainerRef, {
+      scrollTo(tableContainerRef.value, {
         top: scrollTop,
         behavior: isVirtualScroll.value ? 'auto' : 'smooth',
       })
@@ -3036,13 +2943,7 @@ const virtualScrollOption = props.virtualScrollOption
       colKey,
       defaultValue,
     }) {
-      const {
-        editOption,
-        colgroups,
-        cellSelectionData,
-      } = this
-
-      if (!editOption) {
+      if (!props.editOption) {
         return false
       }
 
@@ -3062,13 +2963,13 @@ const virtualScrollOption = props.virtualScrollOption
         return false
       }
 
-      const currentColumn = colgroups.find((x) => x.key === colKey)
+      const currentColumn = colgroups.value.find((x) => x.key === colKey)
       // 当前列是否可编辑
       if (!currentColumn.edit) {
         return false
       }
 
-      const { beforeStartCellEditing } = editOption
+      const { beforeStartCellEditing } = props.editOption
 
       if (isFunction(beforeStartCellEditing)) {
         const allowContinue = beforeStartCellEditing({
@@ -3093,10 +2994,10 @@ const virtualScrollOption = props.virtualScrollOption
       }
 
       if (
-        cellSelectionData.currentCell.colKey !== colKey ||
-        cellSelectionData.currentCell.rowKey !== rowKey
+        cellSelectionData.value.currentCell.colKey !== colKey ||
+        cellSelectionData.value.currentCell.rowKey !== rowKey
       ) {
-        cellSelectionCurrentCellChange({          rowKey,          colKey,        })
+        cellSelectionCurrentCellChange({ rowKey, colKey, })
       }
 
       // set editing cell
@@ -3109,8 +3010,7 @@ const virtualScrollOption = props.virtualScrollOption
     }
     // stop editing cell
     function stopEditingCell() {
-      const { editOption} = this
-      if (!editOption) {
+      if (!props.editOption) {
         return false
       }
       // 编辑单元格每次开始编辑前的初始值
@@ -3146,7 +3046,7 @@ const virtualScrollOption = props.virtualScrollOption
     // return row keys
     watch(allRowKeys, (newVal) => {
       if (Array.isArray(newVal)) {
-        const { currentCell } = this.cellSelectionData
+        const { currentCell } = cellSelectionData.value
         // 行被移除，清空单元格选中
         if (currentCell.rowIndex > -1) {
           if (newVal.indexOf(currentCell.rowKey) === -1) {
@@ -3154,7 +3054,7 @@ const virtualScrollOption = props.virtualScrollOption
           }
         }
       }
-    }, {  immediate: false, })
+    }, { immediate: false, })
 
     watch(() => props.columns, (newVal, oldVal) => {
       initColumns()
@@ -3181,14 +3081,14 @@ const virtualScrollOption = props.virtualScrollOption
     // group columns change watch
     watch(groupColumns, (newVal) => {
       if (!isEmptyArray(newVal)) {
-        this.initHeaderRows()
+        initHeaderRows()
       }
     }, { immediate: true, })
 
     // footer data
-    watch(footerData, (val) => {
+    watch(()=>props.footerData, (val) => {
       if (!isEmptyArray(val)) {
-        this.initFooterRows()
+        initFooterRows()
       }
     }, { immediate: true, })
 
@@ -3213,14 +3113,14 @@ const virtualScrollOption = props.virtualScrollOption
       }
     })
     // watch current cell
-    watch(() => cellSelectionData.currentCell, () => {
+    watch(() => cellSelectionData.value.currentCell, () => {
       setCurrentCellSelectionType()
     }, {
       deep: true,
       immediate: true,
     })
     // watch normal end cell
-    watch(() => cellSelectionData.normalEndCell, () => {
+    watch(() => cellSelectionData.value.normalEndCell, () => {
       setCurrentCellSelectionType()
     }, {
       deep: true,
@@ -3232,10 +3132,21 @@ const virtualScrollOption = props.virtualScrollOption
     }, { deep: true, })
     // watch body indicator rowKeys
     watch(bodyIndicatorRowKeys, () => {
-      this.setRangeCellSelectionByBodyIndicator()
+      setRangeCellSelectionByBodyIndicator()
     }, { deep: true, })
 
     // watch end
+
+    // expose start 
+    expose({
+      setRangeCellSelection,
+      getRangeCellSelection,
+      hideColumnsByKeys,
+      showColumnsByKeys,
+      scrollToRowKey,
+      scrollToColKey
+    })
+
 
     // header props
     const headerProps = {
@@ -3249,15 +3160,15 @@ const virtualScrollOption = props.virtualScrollOption
       columnsOptionResetTime: columnsOptionResetTime.value,
       tableViewportWidth,
       groupColumns,
-      colgroups,
+      colgroups: colgroups.value,
       isGroupHeader: isGroupHeader.value,
       fixedHeader: props.fixedHeader,
       checkboxOption: props.checkboxOption,
-      sortOption:props.sortOption,
-      cellStyleOption:props.cellStyleOption,
+      sortOption: props.sortOption,
+      cellStyleOption: props.cellStyleOption,
       eventCustomOption: props.eventCustomOption,
       headerRows: headerRows.value,
-      cellSelectionData,
+      cellSelectionData: cellSelectionData.value,
       cellSelectionRangeData: cellSelectionRangeData.value,
       headerIndicatorColKeys: headerIndicatorColKeys.value,
       onClick: () => {
@@ -3276,23 +3187,23 @@ const virtualScrollOption = props.virtualScrollOption
       class: [clsName('body'), tableBodyClass.value],
       tableViewportWidth,
       columnsOptionResetTime: columnsOptionResetTime.value,
-      colgroups,
+      colgroups: colgroups.value,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
       actualRenderTableData,
-      rowKeyFieldName:props.rowKeyFieldName,
-      radioOption:props.radioOption,
-      virtualScrollOption:props.virtualScrollOption,
+      rowKeyFieldName: props.rowKeyFieldName,
+      radioOption: props.radioOption,
+      virtualScrollOption: props.virtualScrollOption,
       isVirtualScroll: isVirtualScroll.value,
-      cellStyleOption:props.cellStyleOption,
+      cellStyleOption: props.cellStyleOption,
       cellSpanOption: props.cellSpanOption,
       eventCustomOption: props.eventCustomOption,
       cellSelectionOption: props.cellSelectionOption,
-      hasFixedColumn: this.hasFixedColumn,
-      cellSelectionData,
+      hasFixedColumn: hasFixedColumn.value,
+      cellSelectionData: cellSelectionData.value,
       cellSelectionRangeData: cellSelectionRangeData.value,
-      allRowKeys:allRowKeys.value,
-      editOption,
+      allRowKeys: allRowKeys.value,
+      editOption: props.editOption,
       highlightRowKey: highlightRowKey.value,
       showVirtualScrollingPlaceholder: showVirtualScrollingPlaceholder.value,
       bodyIndicatorRowKeys: bodyIndicatorRowKeys.value,
@@ -3303,15 +3214,15 @@ const virtualScrollOption = props.virtualScrollOption
     // footer props
     const footerProps = {
       class: [clsName('footer')],
-      colgroups,
+      colgroups: colgroups.value,
       footerData: props.footerData,
-      rowKeyFieldName:props.rowKeyFieldName,
-      cellStyleOption:props.cellStyleOption,
+      rowKeyFieldName: props.rowKeyFieldName,
+      cellStyleOption: props.cellStyleOption,
       fixedFooter: props.fixedFooter,
       cellSpanOption: props.cellSpanOption,
       eventCustomOption: props.eventCustomOption,
-      hasFixedColumn: this.hasFixedColumn,
-      allRowKeys:allRowKeys.value,
+      hasFixedColumn: hasFixedColumn.value,
+      allRowKeys: allRowKeys.value,
       footerRows: footerRows.value,
       click: () => {
         stopEditingCell()
@@ -3320,7 +3231,6 @@ const virtualScrollOption = props.virtualScrollOption
 
     // table root props
     const tableRootProps = {
-
       class: {
         'vue-table-root': true,
       },
@@ -3359,12 +3269,9 @@ const virtualScrollOption = props.virtualScrollOption
 
     // table container props
     const tableContainerProps = {
-
-      class: this.tableContainerClass,
-      style: tableContainerStyle,
+      class: tableContainerClass.value,
+      style: tableContainerStyle.value,
       onScroll: () => {
-
-
         hooks.value.triggerHook(
           HOOKS_NAME.TABLE_CONTAINER_SCROLL,
           tableContainerRef.value,
@@ -3387,14 +3294,14 @@ const virtualScrollOption = props.virtualScrollOption
             showVirtualScrollingPlaceholder.value = false
           }
 
-          this.debounceScrollEnded()
+          debounceScrollEnded()
         }
       },
       onMouseup: () => {
         // 事件的先后顺序 containerMouseup > bodyCellMousedown > bodyCellMouseup > bodyCellClick
-        this.tableContainerMouseup()
+        tableContainerMouseup()
       },
-      onMousemove: (event) => {
+      onMousemove: () => {
         // todo
       },
     }
@@ -3410,19 +3317,19 @@ const virtualScrollOption = props.virtualScrollOption
 
     // tale props
     const tableProps = {
-      class: [clsName('content'), tableClass],
-      style: tableStyle,
+      class: [clsName('content'), tableClass.value],
+      style: tableStyle.value,
     }
     // const cellSelectionRangeChange = EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE
     const cellSelectionRangeChange = 'onCellSelectionRangeDataChange'
     // selection props
     const selectionProps = {
       tableEl: tableRef.value,
-      allRowKeys:allRowKeys.value,
-      colgroups,
+      allRowKeys: allRowKeys.value,
+      colgroups: colgroups.value,
       parentRendered: parentRendered.value,
       hooks: hooks.value,
-      cellSelectionData,
+      cellSelectionData: cellSelectionData.value,
       isAutofillStarting: isAutofillStarting.value,
       cellSelectionRangeData: cellSelectionRangeData.value,
       currentCellSelectionType: currentCellSelectionType.value,
@@ -3435,52 +3342,40 @@ const virtualScrollOption = props.virtualScrollOption
         cellSelectionRangeDataChange(newData)
       },
     }
-
     // edit input props
-    // const inputClick = EMIT_EVENTS.EDIT_INPUT_CLICK
-    // const inputValueChange = EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE
-    // const inputCopy = EMIT_EVENTS.EDIT_INPUT_COPY
-    // const inputPaste = EMIT_EVENTS.EDIT_INPUT_PASTE
-    // const inputCut = EMIT_EVENTS.EDIT_INPUT_CUT
-    const inputClick = 'onEditInputClick'
-    const inputValueChange = 'onEditInputValueChange'
-    const inputCopy = 'onEditInputCopy'
-    const inputPaste = 'onEditInputPaste'
-    const inputCut = 'onEditInputCut'
     const editInputProps = {
-
       hooks: hooks.value,
       parentRendered: parentRendered.value,
       inputStartValue: editorInputStartValue.value,
-      rowKeyFieldName:props.rowKeyFieldName,
+      rowKeyFieldName: props.rowKeyFieldName,
       tableData: props.tableData,
-      cellSelectionData,
-      colgroups,
+      cellSelectionData: cellSelectionData.value,
+      colgroups: colgroups.value,
       editingCell: editingCell.value,
       isCellEditing: isCellEditing.value,
       allRowKeys,
       hasXScrollBar: hasXScrollBar.value,
       hasYScrollBar: hasYScrollBar.value,
-      hasRightFixedColumn: this.hasRightFixedColumn,
-      scrollBarWidth: this.getScrollBarWidth(),
+      hasRightFixedColumn: hasRightFixedColumn.value,
+      scrollBarWidth: getTableScrollBarWidth(),
       // edit input click
       onEditInputClick: () => {
         enableStopEditing.value = false
       },
       // edit input value change
-      [inputValueChange]: (value) => {
-        this.updateEditingCellValue(value)
+      onEditInputValueChange: (value) => {
+        updateEditingCellValue(value)
       },
       // copy
-      [inputCopy]: (e) => {
-        this.editorCopy(e)
+      onEditInputCopy: (e) => {
+        editorCopy(e)
       },
       // paste
-      [inputPaste]: (e) => {
+      onEditInputPaste: (e) => {
         this.editorPaste(e)
       },
       // cut
-      [inputCut]: (e) => {
+      onEditInputCut: (e) => {
         this.editorCut(e)
       },
     }
@@ -3499,19 +3394,19 @@ const virtualScrollOption = props.virtualScrollOption
       parentRendered: parentRendered.value,
       tableContainerEl: tableContainerRef.value,
       hooks: hooks.value,
-      colgroups,
+      colgroups: colgroups.value,
       isColumnResizerHover: isColumnResizerHover.value,
       isColumnResizing: isColumnResizing.value,
       setIsColumnResizerHover: setIsColumnResizerHover,
       setIsColumnResizing: setIsColumnResizing,
-      setColumnWidth: this.setColumnWidth,
-      columnWidthResizeOption: this.columnWidthResizeOption,
+      setColumnWidth: setColumnWidth,
+      columnWidthResizeOption: props.columnWidthResizeOption,
     }
 
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
-      contextmenuEventTarget.value = this.$el.querySelector(
+      contextmenuEventTarget.value = tableRootRef.value.$el.querySelector(
         `.${clsName('content')}`,
       )
 
@@ -3581,7 +3476,8 @@ const virtualScrollOption = props.virtualScrollOption
 
       // receive selection corner mouseup
       eventCenter.value.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
-        cellSelectionCornerMouseup(params)
+        // recieve cell selection corner mouseup
+        isAutofillStarting.value = false
       })
 
       // autofilling direction change
@@ -3601,32 +3497,32 @@ const virtualScrollOption = props.virtualScrollOption
 
       // receive header cell contextmenu(right click)
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_CLICK, (params) => {
-        this.headerCellClick(params)
+        headerCellClick(params)
       })
 
       // receive header cell contextmenu(right click)
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_CONTEXTMENU, (params) => {
-        this.headerCellContextmenu(params)
+        headerCellContextmenu(params)
       })
 
       // receive header cell mousedown
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_MOUSEDOWN, (params) => {
-        this.headerCellMousedown(params)
+        headerCellMousedown(params)
       })
 
       // receive header cell mouseover
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_MOUSEOVER, (params) => {
-        this.headerCellMouseover(params)
+        headerCellMouseover(params)
       })
 
       // receive header cell mousemove
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_MOUSEMOVE, (params) => {
-        this.headerCellMousemove(params)
+        headerCellMousemove(params)
       })
 
       // receive header cell mouseleave
       eventCenter.value.on(GLOBAL_EVENT.HEADER_CELL_MOUSELEAVE, (params) => {
-        this.headerCellMouseleave(params)
+        headerCellMouseleave(params)
       })
 
       // add key down event listener
@@ -3641,13 +3537,13 @@ const virtualScrollOption = props.virtualScrollOption
         <VueDomResizeObserver ref={tableContainerWrapperRef}  {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
           <div ref={tableContainerRef} {...tableContainerProps}>
             {/* virtual view phantom */}
-            {this.getVirtualViewPhantom()}
+            {getVirtualViewPhantom()}
             {/* vue 实例类型，访问dom时需要通过$el属性访问 */}
             <VueDomResizeObserver ref={tableContentWrapperRef} {...tableWrapperProps}>
               <table ref={tableRef} {...tableProps}>
                 {/* colgroup */}
                 <ColGroup
-                  colgroups={colgroups}
+                  colgroups={colgroups.value}
                   enableColumnResize={enableColumnResize.value}
                 />
                 {/* table header */}
@@ -3666,10 +3562,9 @@ const virtualScrollOption = props.virtualScrollOption
           {/* edit input */}
           {enableCellSelection.value && <EditInput ref={editInputRef} {...editInputProps} />}
           {/* contextmenu */}
-          {(this.enableHeaderContextmenu ||
-            this.enableBodyContextmenu) && (
-              <VeContextmenu ref={contextmenuRef} {...contextmenuProps} />
-            )}
+          {(enableHeaderContextmenu.value || enableBodyContextmenu.value) && (
+            <VeContextmenu ref={contextmenuRef} {...contextmenuProps} />
+          )}
           {/* column resizer */}
           {enableColumnResize.value && (<ColumnResizer {...columnResizerProps} />
           )}

@@ -13,4 +13,7 @@ export function tableInject() {
   provide('cellStyleOption', false)
   provide('cellSpanOption', false)
   provide('eventCustomOption', false)
+  provide('cellSelectionData', false)
+  provide('hasFixedColumn', false)
+  provide('colgroups', false)
 }
