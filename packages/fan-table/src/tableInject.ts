@@ -9,4 +9,8 @@ export function tableInject() {
   provide('fan-parentRendered', false)
   provide('fan-checkboxOption', false)
   provide('allRowKeys', false)
+  provide('rowKeyFieldName', false)
+  provide('cellStyleOption', false)
+  provide('cellSpanOption', false)
+  provide('eventCustomOption', false)
 }

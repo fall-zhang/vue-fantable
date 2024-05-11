@@ -269,11 +269,6 @@ export default defineComponent({
       column: null,
     })
     const {
-      radioOption,
-      rowKeyFieldName,
-      virtualScrollOption,
-      sortOption,
-      cellStyleOption,
       editOption,
     } = this
     const scrollBarWidth = ref(0)
@@ -288,9 +283,9 @@ export default defineComponent({
     })
     // return row keys
     const allRowKeys = computed(() => {
-      let result = []
+      let result:any[] = []
 
-      const { rowKeyFieldName } = this
+      const rowKeyFieldName = props.rowKeyFieldName
 
       if (rowKeyFieldName) {
         result = props.tableData.map((x) => {
@@ -303,9 +298,7 @@ export default defineComponent({
     const virtualScrollBufferCount = computed(() => {
       let result = 0
 
-      const {
-        virtualScrollOption,
-      } = this
+      const virtualScrollOption = props.virtualScrollOption
 
       if (virtualScrollOption) {
         const { bufferScale } = virtualScrollOption
@@ -323,11 +316,8 @@ export default defineComponent({
     // virtual scroll visible count
     const virtualScrollVisibleCount = computed(() => {
       let result = 0
-
-      const {
-        virtualScrollOption,
-        maxHeight,
-      } = this
+const virtualScrollOption = props.virtualScrollOption
+      const maxHeight = Number(props.maxHeight)
 
       if (isVirtualScroll.value && maxHeight) {
         const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
@@ -345,16 +335,14 @@ export default defineComponent({
     },)
     // table container style
     const tableContainerStyle = computed(() => {
-      const maxHeight = getValByUnit(this.maxHeight)
+      const maxHeight = getValByUnit(props.maxHeight)
 
       let tableContainerHeight = null
       if (isVirtualScroll.value) {
         if (maxHeight) {
           tableContainerHeight = maxHeight
         } else {
-          console.error(
-            "maxHeight prop is required when 'virtualScrollOption.enable = true'",
-          )
+          console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'"          )
         }
       } else {
         /*
@@ -395,10 +383,6 @@ export default defineComponent({
     },)
     // table container class
     const tableContainerClass = computed(() => {
-      const {
-        isCellEditing,
-        enableCellSelection,
-      } = this
       const virtualScroll = clsName('virtual-scroll')
       const leftScrolling = clsName('container-left-scrolling')
       const rightScrolling = clsName('container-right-scrolling')
@@ -412,10 +396,10 @@ export default defineComponent({
         [leftScrolling]: isLeftScrolling.value,
         [rightScrolling]: isRightScrolling.value,
         [verticalScroll]: isVerticalScrolling.value,
-        [cellEditing]: isCellEditing,
+        [cellEditing]: isCellEditing.value,
         [autofilling]: isAutofillStarting.value,
         // 如果开启单元格选择，则关闭 user-select
-        [cellSelection]: enableCellSelection,
+        [cellSelection]: enableCellSelection.value,
       }
       return result
     },)
@@ -423,7 +407,7 @@ export default defineComponent({
     const tableBodyClass = computed(() => {
       let result = null
 
-      const { rowStyleOption } = this
+      const rowStyleOption = props.rowStyleOption
 
       let hoverHighlight = true
       let clickHighlight = true
@@ -446,7 +430,7 @@ export default defineComponent({
     },)
     // is virtual scroll
     const isVirtualScroll = computed(() => {
-      const { virtualScrollOption } = this
+      const virtualScrollOption = props.virtualScrollOption
       return virtualScrollOption && virtualScrollOption.enable
     },)
     // has fixed column
@@ -520,10 +504,8 @@ export default defineComponent({
     // 单元格编辑、剪贴板都依赖单元格选择
     const enableCellSelection = computed(() => {
       let result = true
-
-      const { cellSelectionOption, rowKeyFieldName } = this
-
-      if (isEmptyValue(rowKeyFieldName)) {
+      const cellSelectionOption = props.cellSelectionOption
+      if (isEmptyValue(props.rowKeyFieldName)) {
         result = false
       } else if (
         cellSelectionOption &&
@@ -536,7 +518,7 @@ export default defineComponent({
     },)
     // enable clipboard
     const enableClipboard = computed(() => {
-      return this.rowKeyFieldName
+      return props.rowKeyFieldName
     },)
     // eanble width resize
     const enableColumnResize = computed(() => {
@@ -759,7 +741,7 @@ export default defineComponent({
 
     // clear cell selection current cell
     function clearCellSelectionCurrentCell() {
-      this.cellSelectionCurrentCellChange({
+      cellSelectionCurrentCellChange({
         rowKey: '',
         colKey: '',
         rowIndex: -1,
@@ -777,7 +759,7 @@ export default defineComponent({
 
     // clear cell selection autofill end cell
     function clearCellSelectionAutofillEndCell() {
-      this.cellSelectionAutofillCellChange({ rowKey: '', colKey: '' })
+      cellSelectionAutofillCellChange({ rowKey: '', colKey: '' })
     }
 
     // header indicator colKeys change
@@ -948,7 +930,7 @@ export default defineComponent({
         tableData: props.tableData,
         allRowKeys: allRowKeys.value,
         colgroups: colgroups.value,
-        rowKeyFieldName: this.rowKeyFieldName,
+        rowKeyFieldName: props.rowKeyFieldName,
         direction: autofillingDirection.value,
         currentCellSelectionType: currentCellSelectionType.value,
         cellSelectionRangeData: cellSelectionRangeData.value,
@@ -982,7 +964,7 @@ export default defineComponent({
       }
 
       if (!isEmptyValue(currentCellData.rowKey)) {
-        this.cellSelectionCurrentCellChange({
+        cellSelectionCurrentCellChange({
           rowKey: currentCellData.rowKey,
           colKey: currentCellData.colKey,
         })
@@ -1036,10 +1018,6 @@ export default defineComponent({
 
     // deal keydown event
     function dealKeydownEvent(event) {
-      const {
-        isCellEditing,
-      } = this
-
       const { keyCode, ctrlKey, shiftKey, altKey } = event
 
       const { rowKey, colKey } = cellSelectionData.value.currentCell
@@ -1060,9 +1038,9 @@ export default defineComponent({
               direction,
             })
 
-            this.clearCellSelectionNormalEndCell()
+            clearCellSelectionNormalEndCell()
 
-            this.stopEditingCell()
+            stopEditingCell()
             event.preventDefault()
             break
           }
@@ -1073,9 +1051,9 @@ export default defineComponent({
                 direction,
               })
 
-              this.clearCellSelectionNormalEndCell()
+              clearCellSelectionNormalEndCell()
 
-              this.stopEditingCell()
+              stopEditingCell()
               event.preventDefault()
             }
 
@@ -1089,9 +1067,9 @@ export default defineComponent({
                 direction,
               })
 
-              this.clearCellSelectionNormalEndCell()
+              clearCellSelectionNormalEndCell()
 
-              this.stopEditingCell()
+              stopEditingCell()
               event.preventDefault()
             }
             break
@@ -1102,9 +1080,9 @@ export default defineComponent({
             if (enableStopEditing.value) {
               selectCellByDirection({ direction, })
 
-              this.clearCellSelectionNormalEndCell()
+              clearCellSelectionNormalEndCell()
 
-              this.stopEditingCell()
+              stopEditingCell()
               event.preventDefault()
             }
             break
@@ -1117,9 +1095,9 @@ export default defineComponent({
                 direction,
               })
 
-              this.clearCellSelectionNormalEndCell()
+              clearCellSelectionNormalEndCell()
 
-              this.stopEditingCell()
+              stopEditingCell()
               event.preventDefault()
             }
             break
@@ -1133,16 +1111,16 @@ export default defineComponent({
               editInputEditor.textareaAddNewLine()
             } else if (shiftKey) { // direction up
               direction = CELL_SELECTION_DIRECTION.UP
-              this.stopEditingCell()
+              stopEditingCell()
             } else if (ctrlKey) { // stop editing and stay in current cell
-              this.stopEditingCell()
+              stopEditingCell()
             } else { // direction down
               direction = CELL_SELECTION_DIRECTION.DOWN
-              this.stopEditingCell()
+              stopEditingCell()
             }
 
             if (direction) {
-              this.clearCellSelectionNormalEndCell()
+              clearCellSelectionNormalEndCell()
               selectCellByDirection({
                 direction,
               })
@@ -1151,7 +1129,7 @@ export default defineComponent({
             break
           }
           case KEY_CODES.SPACE: {
-            if (!isCellEditing) {
+            if (!isCellEditing.value) {
               // start editing and enter a space
               startEditingCell({
                 rowKey,
@@ -1164,7 +1142,7 @@ export default defineComponent({
             break
           }
           case KEY_CODES.BACK_SPACE: {
-            if (!isCellEditing) {
+            if (!isCellEditing.value) {
               // start editing and clear value
               startEditingCell({
                 rowKey,
@@ -1177,7 +1155,7 @@ export default defineComponent({
             break
           }
           case KEY_CODES.DELETE: {
-            if (!isCellEditing) {
+            if (!isCellEditing.value) {
               // delete cell selection range value
               this.deleteCellSelectionRangeValue()
               event.preventDefault()
@@ -1186,7 +1164,7 @@ export default defineComponent({
             break
           }
           case KEY_CODES.F2: {
-            if (!isCellEditing) {
+            if (!isCellEditing.value) {
               if (currentColumn.edit) {
                 // start editing cell and don't allow stop eidting by direction key
                 enableStopEditing.value = false
@@ -1353,7 +1331,7 @@ export default defineComponent({
           }
         }
         const { currentCell } = this.cellSelectionData
-        this.cellSelectionCurrentCellChange({
+        cellSelectionCurrentCellChange({
           rowKey: nextRowKey,
           colKey: currentCell.colKey,
         })
@@ -1446,17 +1424,13 @@ export default defineComponent({
     // init virtual scroll positions
     function initVirtualScrollPositions() {
       if (isVirtualScroll.value) {
-        const {
-          virtualScrollOption,
-          rowKeyFieldName,
-        } = this
-
+        const virtualScrollOption = props.virtualScrollOption
         const minRowHeight = isNumber(virtualScrollOption.minRowHeight)
           ? virtualScrollOption.minRowHeight
           : defaultVirtualScrollMinRowHeight.value
 
         virtualScrollPositions.value = props.tableData.map((item, index) => ({
-          rowKey: item[rowKeyFieldName],
+          rowKey: item[props.rowKeyFieldName],
           height: minRowHeight,
           top: index * minRowHeight,
           bottom: (index + 1) * minRowHeight,
@@ -1570,9 +1544,7 @@ export default defineComponent({
     function tableContainerVirtualScrollHandler(tableContainerRef) {
       const visibleCount = virtualScrollVisibleCount.value
 
-      const {
-        virtualScrollOption,
-      } = this
+      const virtualScrollOption = props.virtualScrollOption
 
       // 当前滚动位置
       const scrollTop = tableContainerRef.scrollTop
@@ -1715,27 +1687,24 @@ export default defineComponent({
       isBodyCellMousedown.value = false
       isBodyOperationColumnMousedown.value = false
       isAutofillStarting.value = false
-      this.setIsColumnResizing(false)
+      setIsColumnResizing(false)
 
       // clear cell selection
       clearCellSelectionCurrentCell()
-      this.clearCellSelectionNormalEndCell()
+      clearCellSelectionNormalEndCell()
 
       // clear indicators
       this.clearHeaderIndicatorColKeys()
       this.clearBodyIndicatorRowKeys()
 
       // stop editing cell
-      this.stopEditingCell()
+      stopEditingCell()
     }
 
     // save cell when stop editing
     function saveCellWhenStopEditing() {
-      const {
-        rowKeyFieldName,
-        editOption,
-        isCellEditing,
-      } = this
+      const rowKeyFieldName = props.rowKeyFieldName
+      const {        editOption      } = this
 
       const {
         cellValueChange,
@@ -1743,7 +1712,7 @@ export default defineComponent({
         afterCellValueChange,
       } = editOption
 
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         const { rowKey, colKey } = editingCell.value
 
         const currentRow = props.tableData.find(
@@ -1798,9 +1767,8 @@ export default defineComponent({
 
     // cell selection by click
     function cellSelectionByClick({ rowData, column }) {
-      const { rowKeyFieldName } = this
 
-      const rowKey = getRowKey(rowData, rowKeyFieldName)
+      const rowKey = getRowKey(rowData, props.rowKeyFieldName)
 
       // set cell selection and column to visible
       // const setCellSelection = INSTANCE_METHODS.SET_CELL_SELECTION
@@ -1821,10 +1789,10 @@ export default defineComponent({
          * @param {object} column - column data
          */
     function bodyCellContextmenu({ event, rowData, column }) {
-      const { editOption, rowKeyFieldName } = this
+      const { editOption } = this
 
       if (editOption) {
-        const rowKey = getRowKey(rowData, rowKeyFieldName)
+        const rowKey = getRowKey(rowData, props.rowKeyFieldName)
         this.editCellByClick({
           isDblclick: false,
           rowKey,
@@ -1836,26 +1804,26 @@ export default defineComponent({
     }
 
     /*
-         * @bodyCellDoubleClick
+         * @ 双击 body Cell
          * @desc  recieve td double click event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
     function bodyCellDoubleClick({ event, rowData, column }) {
-      const { editOption, rowKeyFieldName } = this
+      const { editOption } = this
 
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
         clearCellSelectionCurrentCell()
-        this.clearCellSelectionNormalEndCell()
+        clearCellSelectionNormalEndCell()
 
         // stop editing cell
-        this.stopEditingCell()
+        stopEditingCell()
         return false
       }
 
       if (editOption) {
-        const rowKey = getRowKey(rowData, rowKeyFieldName)
+        const rowKey = getRowKey(rowData, props.rowKeyFieldName)
         this.editCellByClick({
           isDblclick: true,
           rowKey,
@@ -1881,7 +1849,7 @@ export default defineComponent({
     * @param {object} column - column data
     */
     function bodyCellMousedown({ event, rowData, column }) {
-      if (!this.enableCellSelection) {
+      if (!enableCellSelection.value) {
         return false
       }
 
@@ -1889,11 +1857,10 @@ export default defineComponent({
 
       const {
         editOption,
-        rowKeyFieldName,
         cellSelectionData,
       } = this
 
-      const rowKey = getRowKey(rowData, rowKeyFieldName)
+      const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
       const { currentCell } = cellSelectionData
@@ -1972,7 +1939,7 @@ export default defineComponent({
           } else {
             // cell selection by click
             this.cellSelectionByClick({ rowData, column })
-            this.clearCellSelectionNormalEndCell()
+            clearCellSelectionNormalEndCell()
           }
         }
       }
@@ -1993,11 +1960,8 @@ export default defineComponent({
     * @param {object} column - column data
     */
     function bodyCellMouseover({ event, rowData, column }) {
-      const {
-        rowKeyFieldName,
-      } = this
 
-      const rowKey = getRowKey(rowData, rowKeyFieldName)
+      const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
       if (isBodyCellMousedown.value) {
@@ -2020,7 +1984,7 @@ export default defineComponent({
 
       // 允许在body cell mouseover 里补充 header indicator 信息
       if (isHeaderCellMousedown.value) {
-        this.headerIndicatorColKeysChange({
+        headerIndicatorColKeysChange({
           startColKey: headerIndicatorColKeys.value.startColKey,
           endColKey: colKey,
         })
@@ -2031,7 +1995,7 @@ export default defineComponent({
         if (isOperationColumn(colKey, colgroups.value)) {
           return false
         }
-        this.cellSelectionAutofillCellChange({
+        cellSelectionAutofillCellChange({
           rowKey,
           colKey,
         })
@@ -2104,7 +2068,7 @@ export default defineComponent({
 
     // header cell mousedown
     function headerCellMousedown({ event, column }) {
-      if (!this.enableCellSelection) {
+      if (!enableCellSelection.value) {
         return false
       }
 
@@ -2136,7 +2100,7 @@ export default defineComponent({
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
         clearCellSelectionCurrentCell()
-        this.clearCellSelectionNormalEndCell()
+        clearCellSelectionNormalEndCell()
         nextTick(() => {
           // select all cell
           this.setAllCellSelection()
@@ -2212,7 +2176,7 @@ export default defineComponent({
         }
       }
 
-      this.headerIndicatorColKeysChange({
+      headerIndicatorColKeysChange({
         startColKey: newStartColKey,
         endColKey: newEndColKey,
       })
@@ -2247,7 +2211,7 @@ export default defineComponent({
         } else {
           endColKey = colKeys[0]
         }
-        this.headerIndicatorColKeysChange({
+        headerIndicatorColKeysChange({
           startColKey: headerIndicatorColKeys.value.startColKey,
           endColKey,
         })
@@ -2269,7 +2233,7 @@ export default defineComponent({
 
     // header mouseleave
     function headerMouseleave(event) {
-      this.setIsColumnResizerHover(false)
+      setIsColumnResizerHover(false)
     }
 
     // table container mouseup
@@ -2309,7 +2273,6 @@ export default defineComponent({
     function editCellByClick({ isDblclick, rowKey, colKey }) {
       const {
         editOption,
-        isCellEditing,
         hasEditColumn,
         isEditColumn,
       } = this
@@ -2325,8 +2288,8 @@ export default defineComponent({
 
       if (editingCell.value && editingCell.value.rowKey === rowKey && editingCell.value.colKey === colKey) return false
 
-      if (isCellEditing) {
-        this.stopEditingCell()
+      if (isCellEditing.value) {
+        stopEditingCell()
       }
 
       if (isDblclick && isEditColumn(colKey)) {
@@ -2474,7 +2437,6 @@ export default defineComponent({
       const {
         contextmenuBodyOption,
         cellSelectionData,
-        rowKeyFieldName,
       } = this
 
       const { rowKey, colKey } = cellSelectionData.currentCell
@@ -2536,13 +2498,13 @@ export default defineComponent({
           props.tableData.splice(
             currentRowIndex,
             0,
-            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName }),
+            createEmptyRowData({ colgroups: colgroups.value, props.rowKeyFieldName }),
           )
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) { // insert row below
           props.tableData.splice(
             currentRowIndex + 1,
             0,
-            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName }),
+            createEmptyRowData({ colgroups: colgroups.value, props.rowKeyFieldName }),
           )
         }
       }
@@ -2551,17 +2513,16 @@ export default defineComponent({
     // editor copy
     function editorCopy(event) {
       const {
-        isCellEditing,
-        enableClipboard,
+        
         clipboardOption,
       } = this
 
-      if (!enableClipboard) {
+      if (!enableClipboard.value) {
         return false
       }
 
       // 正在编辑的单元格不进行自定义复制功能
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         return false
       }
 
@@ -2608,14 +2569,14 @@ export default defineComponent({
 
     // editor paste
     function editorPaste(event) {
-      const { isCellEditing, enableClipboard, clipboardOption } = this
+      const {  clipboardOption } = this
 
-      if (!enableClipboard) {
+      if (!enableClipboard.value) {
         return false
       }
 
       // 正在编辑的单元格不进行自定义粘贴功能
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         return false
       }
 
@@ -2636,7 +2597,7 @@ export default defineComponent({
         cellSelectionRangeData: cellSelectionRangeData.value,
         colgroups: colgroups.value,
         allRowKeys: allRowKeys.value,
-        rowKeyFieldName: this.rowKeyFieldName,
+        rowKeyFieldName: props.rowKeyFieldName,
       })
 
       if (
@@ -2663,7 +2624,7 @@ export default defineComponent({
         const { startColKey, endColKey, startRowKey, endRowKey } =
           response.selectionRangeKeys
 
-        this.cellSelectionCurrentCellChange({
+        cellSelectionCurrentCellChange({
           rowKey: startRowKey,
           colKey: startColKey,
         })
@@ -2681,17 +2642,15 @@ export default defineComponent({
     // editor cut
     function editorCut(event) {
       const {
-        isCellEditing,
-        enableClipboard,
         clipboardOption,
       } = this
 
-      if (!enableClipboard) {
+      if (!enableClipboard.value) {
         return false
       }
 
       // 正在编辑的单元格不进行自定义剪切功能
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         return false
       }
 
@@ -2745,17 +2704,15 @@ export default defineComponent({
     // delete selection cell value
     function deleteCellSelectionRangeValue() {
       const {
-        isCellEditing,
-        enableClipboard,
         clipboardOption,
       } = this
 
-      if (!enableClipboard) {
+      if (!enableClipboard.value) {
         return false
       }
 
       // 正在编辑的单元格不进行删除区域单元格功能
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         return false
       }
 
@@ -2811,7 +2768,7 @@ export default defineComponent({
         return false
       }
 
-      this.cellSelectionCurrentCellChange({
+      cellSelectionCurrentCellChange({
         rowKey: allRowKeys.value[0],
         colKey: startColKey,
       })
@@ -2832,7 +2789,7 @@ export default defineComponent({
       }
 
       if (colgroups.value.length > 1) {
-        this.cellSelectionCurrentCellChange({
+        cellSelectionCurrentCellChange({
           rowKey: startRowKey,
           colKey: colgroups.value[1].key,
         })
@@ -2867,13 +2824,12 @@ export default defineComponent({
       if (isScrollToRow === undefined) {
         isScrollToRow = true
       }
-      const { enableCellSelection } = this
 
-      if (!enableCellSelection) {
+      if (!enableCellSelection.value) {
         return false
       }
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-        this.cellSelectionCurrentCellChange({
+        cellSelectionCurrentCellChange({
           rowKey,
           colKey,
         })
@@ -2903,9 +2859,7 @@ export default defineComponent({
       // }
       // 现
       isScrollToStartCell = false
-      const { enableCellSelection } = this
-
-      if (!enableCellSelection) {
+      if (!enableCellSelection.value) {
         return false
       }
 
@@ -2918,7 +2872,7 @@ export default defineComponent({
         return false
       }
 
-      this.cellSelectionCurrentCellChange({
+      cellSelectionCurrentCellChange({
         rowKey: startRowKey,
         colKey: startColKey,
       })
@@ -2970,9 +2924,7 @@ export default defineComponent({
       set all cell selection and column to visible
     */
     function setAllCellSelection() {
-      const { enableCellSelection } = this
-
-      if (!enableCellSelection) {
+      if (!enableCellSelection.value) {
         return false
       }
 
@@ -2984,7 +2936,7 @@ export default defineComponent({
           .map((x) => x.key)
 
         if (colKeys.length) {
-          this.headerIndicatorColKeysChange({
+          headerIndicatorColKeysChange({
             startColKey: colKeys[0],
             endColKey: colKeys[colKeys.length - 1],
           })
@@ -3087,7 +3039,6 @@ export default defineComponent({
       const {
         editOption,
         colgroups,
-        rowKeyFieldName,
         cellSelectionData,
       } = this
 
@@ -3096,7 +3047,7 @@ export default defineComponent({
       }
 
       let currentRow = props.tableData.find(
-        (x) => x[rowKeyFieldName] === rowKey,
+        (x) => x[props.rowKeyFieldName] === rowKey,
       )
 
       currentRow = cloneDeep(currentRow)
@@ -3158,14 +3109,14 @@ export default defineComponent({
     }
     // stop editing cell
     function stopEditingCell() {
-      const { editOption, isCellEditing } = this
+      const { editOption} = this
       if (!editOption) {
         return false
       }
       // 编辑单元格每次开始编辑前的初始值
       // clear editor input start value
       editorInputStartValue.value = ''
-      if (isCellEditing) {
+      if (isCellEditing.value) {
         saveCellWhenStopEditing()
       }
     }
@@ -3243,7 +3194,7 @@ export default defineComponent({
 
     //  watch virtualScrollOption enable
     //  允许按需开启虚拟滚动
-    watch(() => virtualScrollOption.enable, (newVal) => {
+    watch(() => props.virtualScrollOption.enable, (newVal) => {
       // enable virtual scroll
       if (newVal) {
         initVirtualScrollPositions()
@@ -3302,18 +3253,18 @@ export default defineComponent({
       isGroupHeader: isGroupHeader.value,
       fixedHeader: props.fixedHeader,
       checkboxOption: props.checkboxOption,
-      sortOption,
-      cellStyleOption,
-      eventCustomOption: this.eventCustomOption,
+      sortOption:props.sortOption,
+      cellStyleOption:props.cellStyleOption,
+      eventCustomOption: props.eventCustomOption,
       headerRows: headerRows.value,
       cellSelectionData,
       cellSelectionRangeData: cellSelectionRangeData.value,
       headerIndicatorColKeys: headerIndicatorColKeys.value,
       onClick: () => {
-        this.stopEditingCell()
+        stopEditingCell()
       },
       onMouseleave: (event) => {
-        this.headerMouseleave(event)
+        headerMouseleave(event)
       },
     }
     // const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
@@ -3322,21 +3273,21 @@ export default defineComponent({
     const heightRowChange = 'onHighlightRowChange'
     // body props
     const bodyProps = {
-      class: [clsName('body'), this.tableBodyClass],
+      class: [clsName('body'), tableBodyClass.value],
       tableViewportWidth,
       columnsOptionResetTime: columnsOptionResetTime.value,
       colgroups,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
       actualRenderTableData,
-      rowKeyFieldName,
-      radioOption,
-      virtualScrollOption,
+      rowKeyFieldName:props.rowKeyFieldName,
+      radioOption:props.radioOption,
+      virtualScrollOption:props.virtualScrollOption,
       isVirtualScroll: isVirtualScroll.value,
-      cellStyleOption,
-      cellSpanOption: this.cellSpanOption,
-      eventCustomOption: this.eventCustomOption,
-      cellSelectionOption: this.cellSelectionOption,
+      cellStyleOption:props.cellStyleOption,
+      cellSpanOption: props.cellSpanOption,
+      eventCustomOption: props.eventCustomOption,
+      cellSelectionOption: props.cellSelectionOption,
       hasFixedColumn: this.hasFixedColumn,
       cellSelectionData,
       cellSelectionRangeData: cellSelectionRangeData.value,
@@ -3354,16 +3305,16 @@ export default defineComponent({
       class: [clsName('footer')],
       colgroups,
       footerData: props.footerData,
-      rowKeyFieldName,
-      cellStyleOption,
+      rowKeyFieldName:props.rowKeyFieldName,
+      cellStyleOption:props.cellStyleOption,
       fixedFooter: props.fixedFooter,
-      cellSpanOption: this.cellSpanOption,
-      eventCustomOption: this.eventCustomOption,
+      cellSpanOption: props.cellSpanOption,
+      eventCustomOption: props.eventCustomOption,
       hasFixedColumn: this.hasFixedColumn,
       allRowKeys:allRowKeys.value,
       footerRows: footerRows.value,
       click: () => {
-        this.stopEditingCell()
+        stopEditingCell()
       },
     }
 
@@ -3478,10 +3429,10 @@ export default defineComponent({
       showVirtualScrollingPlaceholder,
       isVirtualScroll: isVirtualScroll.value,
       virtualScrollVisibleIndexs: virtualScrollVisibleIndexs.value,
-      isCellEditing: this.isCellEditing,
+      isCellEditing: isCellEditing.value,
       cellAutofillOption: this.cellAutofillOption,
       [cellSelectionRangeChange]: (newData) => {
-        this.cellSelectionRangeDataChange(newData)
+        cellSelectionRangeDataChange(newData)
       },
     }
 
@@ -3501,12 +3452,12 @@ export default defineComponent({
       hooks: hooks.value,
       parentRendered: parentRendered.value,
       inputStartValue: editorInputStartValue.value,
-      rowKeyFieldName,
+      rowKeyFieldName:props.rowKeyFieldName,
       tableData: props.tableData,
       cellSelectionData,
       colgroups,
       editingCell: editingCell.value,
-      isCellEditing: this.isCellEditing,
+      isCellEditing: isCellEditing.value,
       allRowKeys,
       hasXScrollBar: hasXScrollBar.value,
       hasYScrollBar: hasYScrollBar.value,
@@ -3551,8 +3502,8 @@ export default defineComponent({
       colgroups,
       isColumnResizerHover: isColumnResizerHover.value,
       isColumnResizing: isColumnResizing.value,
-      setIsColumnResizerHover: this.setIsColumnResizerHover,
-      setIsColumnResizing: this.setIsColumnResizing,
+      setIsColumnResizerHover: setIsColumnResizerHover,
+      setIsColumnResizing: setIsColumnResizing,
       setColumnWidth: this.setColumnWidth,
       columnWidthResizeOption: this.columnWidthResizeOption,
     }
@@ -3566,86 +3517,86 @@ export default defineComponent({
 
       // receive sort change
       eventCenter.value.on(GLOBAL_EVENT.SORT_CHANGE_AFTER, (params) => {
-        this.updateColgroupsBySortChange(params)
+        updateColgroupsBySortChange(params)
       })
 
       // receive row selected change
       eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
-        this.selectedAllChange(params)
+        selectedAllChange(params)
       })
 
       // receive selected all info
       eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
-        this.setSelectedAllInfo(params)
+        setSelectedAllInfo(params)
       })
 
       // receive multiple header row height change
       eventCenter.value.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
         ({ rowIndex, height }) => {
-          this.headerRowHeightChange({ rowIndex, height })
+          headerRowHeightChange({ rowIndex, height })
         },
       )
 
       // receive virtual scroll row height change
       eventCenter.value.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
-        this.bodyRowHeightChange({ rowKey, height })
+        bodyRowHeightChange({ rowKey, height })
       })
 
       // receive footer row height change
       eventCenter.value.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
         ({ rowIndex, height }) => {
-          this.footRowHeightChange({ rowIndex, height })
+          footRowHeightChange({ rowIndex, height })
         },
       )
 
       // receive body cell click
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_CLICK, (params) => {
-        this.bodyCellClick(params)
+        bodyCellClick(params)
       })
 
       // receive body cell mouseover
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_MOUSEOVER, (params) => {
-        this.bodyCellMouseover(params)
+        bodyCellMouseover(params)
       })
 
       // receive body cell mousedown
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, (params) => {
-        this.bodyCellMousedown(params)
+        bodyCellMousedown(params)
       })
 
       // receive body cell mousemove
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_MOUSEMOVE, (params) => {
-        this.bodyCellMousemove(params)
+        bodyCellMousemove(params)
       })
 
       // receive body cell mouseup
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_MOUSEUP, (params) => {
-        this.bodyCellMouseup(params)
+        bodyCellMouseup(params)
       })
 
       // receive selection corner mousedown
       eventCenter.value.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN, (params) => {
-        this.cellSelectionCornerMousedown(params)
+        cellSelectionCornerMousedown(params)
       })
 
       // receive selection corner mouseup
       eventCenter.value.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
-        this.cellSelectionCornerMouseup(params)
+        cellSelectionCornerMouseup(params)
       })
 
       // autofilling direction change
       eventCenter.value.on(GLOBAL_EVENT.AUTOFILLING_DIRECTION_CHANGE, (params) => {
-        this.autofillingDirectionChange(params)
+        autofillingDirectionChange(params)
       })
 
       // receive body cell contextmenu(right click)
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_CONTEXTMENU, (params) => {
-        this.bodyCellContextmenu(params)
+        bodyCellContextmenu(params)
       })
 
       // receive body cell double click
       eventCenter.value.on(GLOBAL_EVENT.BODY_CELL_DOUBLE_CLICK, (params) => {
-        this.bodyCellDoubleClick(params)
+        bodyCellDoubleClick(params)
       })
 
       // receive header cell contextmenu(right click)
@@ -3707,13 +3658,13 @@ export default defineComponent({
                 <TableFooter {...footerProps} />
               </table>
               {/* cell selection */}
-              {enableCellSelection && (
+              {enableCellSelection.value && (
                 <Selection ref={cellSelectionRef}  {...selectionProps} />
               )}
             </VueDomResizeObserver>
           </div>
           {/* edit input */}
-          {enableCellSelection && <EditInput ref={editInputRef} {...editInputProps} />}
+          {enableCellSelection.value && <EditInput ref={editInputRef} {...editInputProps} />}
           {/* contextmenu */}
           {(this.enableHeaderContextmenu ||
             this.enableBodyContextmenu) && (

@@ -1,8 +1,9 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME, HOOKS_NAME } from '../util/constant'
 import { isNumber } from '../../../src/utils/index.js'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_COLUMN_RESISZER,
   props: {
     parentRendered: {
@@ -313,4 +314,4 @@ export default {
       </div>
     )
   },
-}
+})
