@@ -1,6 +1,7 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME } from '../util/constant'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TR_SCROLLING,
   props: {
     colgroups: {
@@ -36,3 +37,4 @@ export default {
     )
   },
 }
+)

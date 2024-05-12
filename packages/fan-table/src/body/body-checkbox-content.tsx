@@ -3,7 +3,8 @@ import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_CHECKBOX_CONTENT,
   inject: ['eventCenter'],
   props: {
@@ -89,7 +90,7 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
     },
 
     // selected change
-    selectedChange(isSelected) {
+    selectedChange(isSelected:boolean) {
       const { isControlledProp } = this
 
       // 非受控
@@ -113,9 +114,10 @@ internalCheckboxSelectedRowKeys.includes(rowKey)
       isControlled: true,
       isSelected,
       disabled,
-      onCheckedChange: (isSelected) => selectedChange(isSelected),
+      onCheckedChange: (isSelected:boolean) => selectedChange(isSelected),
     }
 
     return <VeCheckbox {...checkboxProps} />
   },
 }
+)

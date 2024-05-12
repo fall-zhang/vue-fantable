@@ -15,7 +15,8 @@ import BodyTr from './body-tr'
 import ExpandTr from './expand-tr'
 import BodyTrScrolling from './body-tr-scrolling'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY,
   components: {
     BodyTr
@@ -943,4 +944,4 @@ export default {
       </tbody>
     )
   },
-}
+})

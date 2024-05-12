@@ -1,7 +1,8 @@
 import { clsName } from '../util/index'
 import { COMPS_NAME } from '../util/constant'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_EXPAND_TR,
   props: {
     tableViewportWidth: {
@@ -140,3 +141,4 @@ export default {
     return result
   },
 }
+)

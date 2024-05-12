@@ -3,7 +3,8 @@ import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_RADIO_CONTENT,
   inject: ['eventCenter'],
   props: {
@@ -107,4 +108,4 @@ export default {
     }
     return <VeRadio {...radioProps} />
   },
-}
+})

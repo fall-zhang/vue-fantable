@@ -12,9 +12,10 @@ import ExpandTrIcon from './expand-tr-icon'
 import BodyCheckboxContent from './body-checkbox-content'
 import BodyRadioContent from './body-radio-content'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import { defineComponent } from 'vue'
 // import eventCenter from '@P/events/event-center.js'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TD,
   components: {
     BodyCheckboxContent, ExpandTrIcon
@@ -653,3 +654,4 @@ export default {
     )
   },
 }
+)

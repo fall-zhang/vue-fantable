@@ -5,7 +5,8 @@ import BodyTd from './body-td'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 // import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TR,
   components: { BodyTd },
   inject: ['eventCenter'],
@@ -343,4 +344,4 @@ radio
 
     return result
   },
-}
+})

@@ -2,8 +2,9 @@ import { clsName } from '../util/index'
 import { COMPS_NAME, COLUMN_TYPES } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_EXPAND_TR_ICON,
   props: {
     column: {
@@ -77,4 +78,4 @@ export default {
     }
     return content
   },
-}
+})
