@@ -5,10 +5,11 @@ import { isFunction } from '@P/src/utils/index'
 import { createLocale } from '@P/src/locale/index'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
+import { defineComponent } from 'vue'
 
 const t = createLocale(LOCALE_COMP_NAME)
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_HEADER_FILTER_CONTENT,
   components: {
     VeDropdown
@@ -98,3 +99,4 @@ export default {
     )
   },
 }
+)

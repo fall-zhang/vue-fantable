@@ -4,8 +4,9 @@ import { clsName } from '../util/index'
 import { isFunction, isBoolean } from '../../../src/utils/index'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_HEADER_FILTER_CUSTOM_CONTENT,
   props: {
     column: {
@@ -103,3 +104,4 @@ export default {
     )
   },
 }
+)

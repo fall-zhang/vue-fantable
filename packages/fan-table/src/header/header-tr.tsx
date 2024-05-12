@@ -4,7 +4,8 @@ import { COMPS_NAME } from '../util/constant'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 // import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_THADER_TR,
   components: {
     VueDomResizeObserver,
@@ -242,3 +243,4 @@ export default {
     )
   },
 }
+)

@@ -12,9 +12,10 @@ import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import { defineComponent } from 'vue'
 // import eventCenter from '@P/events/event-center.js'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_THADER_Th,
   inject: ['eventCenter'],
   props: {
@@ -630,3 +631,4 @@ export default {
     )
   },
 }
+)
