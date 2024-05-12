@@ -3,7 +3,8 @@ import HeaderTr from './header-tr'
 import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_THADER,
   components: {
     HeaderTr
@@ -201,3 +202,4 @@ export default {
     )
   },
 }
+)

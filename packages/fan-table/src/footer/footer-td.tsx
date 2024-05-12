@@ -2,8 +2,9 @@ import { getFixedTotalWidthByColumnKey, clsName } from '../util/index'
 import { getValByUnit } from '@P/src/utils/index.js'
 
 import { COMPS_NAME } from '../util/constant'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TD,
   props: {
     rowData: {
@@ -385,4 +386,4 @@ export default {
       </td>
     )
   },
-}
+})

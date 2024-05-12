@@ -5,7 +5,8 @@ import focus from '@P/src/directives/focus.js'
 import { autoResize } from '@P/src/utils/auto-resize'
 import { isEmptyValue, debounce } from '@P/src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '@P/src/utils/dom'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_EDIT_INPUT,
   directives: {
     focus,
@@ -522,4 +523,4 @@ export default {
       </div>
     )
   },
-}
+})

@@ -1,7 +1,8 @@
 import { clsName } from '../util/index'
 import FooterTr from './footer-tr'
 import { COMPS_NAME } from '../util/constant'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_FOOTER,
   props: {
     colgroups: {
@@ -68,7 +69,7 @@ export default {
   },
   methods: {
     // get tr key
-    getTrKey({ rowData, rowIndex }) {
+    getTrKey({ rowData, rowIndex }:Record<'rowData'|'rowIndex', any>) {
       let result = rowIndex
 
       const { rowKeyFieldName } = this
@@ -102,4 +103,4 @@ export default {
       </tfoot>
     )
   },
-}
+})

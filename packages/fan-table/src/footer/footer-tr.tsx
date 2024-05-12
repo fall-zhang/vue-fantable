@@ -3,8 +3,9 @@ import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
+import { defineComponent } from 'vue'
 // import eventCenter from '@P/events/event-center.js'
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TR,
   inject: ['eventCenter'],
   props: {
@@ -224,3 +225,4 @@ export default {
     )
   },
 }
+)

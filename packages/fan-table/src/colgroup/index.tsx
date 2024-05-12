@@ -1,6 +1,7 @@
+import { defineComponent } from 'vue'
 import { getValByUnit } from '../../../src/utils/index.js'
 import { COMPS_NAME } from '../util/constant'
-export default {
+export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_COLGROUP,
   props: {
     colgroups: {
@@ -45,4 +46,4 @@ export default {
       </colgroup>
     )
   },
-}
+})
