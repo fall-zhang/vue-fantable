@@ -14,6 +14,7 @@
     "module": "ESNext",
     "lib": [
       "ESNext",
+      "DOM.Iterable",
       "DOM"
     ],
     "declaration": true,
