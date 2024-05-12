@@ -1,9 +1,6 @@
-/*
-hook system
-
-*/
+// hook system
 export default class Hooks {
-  hooks
+  hooks:Record<string, any>
   constructor() {
     // ...
     this.hooks = {
@@ -21,12 +18,11 @@ export default class Hooks {
   }
 
   /**
-     * Add listener to plugin hooks system.
-     *
-     * @param {string} hookName The hook name.
-     * @param {Function} callback The listener function to add.
-     */
-  addHook(hookName, callback) {
+   * Add listener to plugin hooks system.
+   * @param {string} hookName The hook name.
+   * @param {Function} callback The listener function to add.
+   */
+  addHook(hookName:string, callback:any) {
     if (!this.hooks[hookName]) {
       this.hooks[hookName] = []
     }
@@ -50,18 +46,17 @@ export default class Hooks {
   }
 
   /**
-     * Trigger hook.
-     *
-     * @param {string} hookName The hook name.
-     * @param {Argument} args
-     */
-  triggerHook(hookName) {
+   * Trigger hook.
+   * @param {string} hookName The hook name.
+   * @param {Argument} args
+   */
+  triggerHook(hookName:string) {
     const hooks = this.hooks[hookName]
 
     if (hooks && hooks.length) {
       const args = Array.prototype.slice.call(arguments)
 
-      hooks.forEach((hook) => {
+      hooks.forEach((hook:any) => {
         // exclude hookName param
         hook.apply(null, args.slice(1))
       })

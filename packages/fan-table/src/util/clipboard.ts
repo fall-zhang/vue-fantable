@@ -97,7 +97,7 @@ export function decodeSpreadsheetStr(str:string) {
  * @param {array} str The string to parse.
  * @returns {string}
  */
-export function encodeToSpreadsheetStr(arr) {
+export function encodeToSpreadsheetStr(arr:any[]) {
   let r
   let rLen
   let c

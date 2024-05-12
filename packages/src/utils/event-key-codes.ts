@@ -1,5 +1,5 @@
 // is input key code
-export function isInputKeyCode(event) {
+export function isInputKeyCode(event:KeyboardEvent) {
   let result = false
 
   const { keyCode, altKey, ctrlKey, shiftKey, metaKey } = event

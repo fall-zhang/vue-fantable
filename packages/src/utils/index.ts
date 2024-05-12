@@ -6,7 +6,7 @@ import cloneDeep from './cloneDeep.js'
  * @desc has value
  * @param {array} arr
  */
-export function hasValue(rec) {
+export function hasValue(rec:any):boolean {
   return rec !== null && rec !== undefined
 }
 
@@ -15,7 +15,7 @@ export function hasValue(rec) {
  * @desc  is empty array
  * @param {array} arr
  */
-export function isEmptyArray(arr) {
+export function isEmptyArray(arr:any):boolean {
   return !(Array.isArray(arr) && arr.length > 0)
 }
 
@@ -24,7 +24,7 @@ export function isEmptyArray(arr) {
  * @desc  is empty value
  * @param {array} arr
  */
-export function isEmptyValue(value) {
+export function isEmptyValue(value:any):boolean {
   return !(value !== '' && value !== undefined && value !== null)
 }
 
@@ -33,7 +33,7 @@ export function isEmptyValue(value) {
  * @desc is defined
  * @param {any} val
  */
-export function isDefined(val) {
+export function isDefined(val:any):boolean {
   return val !== undefined && val !== null
 }
 
@@ -42,7 +42,7 @@ export function isDefined(val) {
  * @desc is object
  * @param {any} val
  */
-export function isObject(val) {
+export function isObject(val:any):boolean {
   return val !== null && typeof val === 'object'
 }
 
@@ -51,7 +51,7 @@ export function isObject(val) {
  * @desc is function
  * @param {any} val
  */
-export function isFunction(val) {
+export function isFunction(val:any) {
   return typeof val === 'function'
 }
 
@@ -60,7 +60,7 @@ export function isFunction(val) {
  * @desc is boolean
  * @param {any} val
  */
-export function isBoolean(val) {
+export function isBoolean(val:any) {
   return typeof val === 'boolean'
 }
 
@@ -69,7 +69,7 @@ export function isBoolean(val) {
  * @desc is number
  * @param {any} val
  */
-export function isNumber(val) {
+export function isNumber(val:any) {
   return typeof val === 'number'
 }
 
@@ -78,7 +78,7 @@ export function isNumber(val) {
  * @desc is equal true
  * @param {any} val
  */
-export function isTrue(val) {
+export function isTrue(val:any):boolean {
   return isBoolean(val) && val
 }
 
@@ -87,7 +87,7 @@ export function isTrue(val) {
  * @desc is equal false
  * @param {any} val
  */
-export function isFalse(val) {
+export function isFalse(val:any):boolean {
   return isBoolean(val) && !val
 }
 
@@ -96,7 +96,7 @@ export function isFalse(val) {
  * @desc  get value by unit
  * @param {number|string} width - 宽度
  */
-export function getValByUnit(width: string | number) {
+export function getValByUnit(width: string | number):string {
   return typeof width === 'number' ? width + 'px' : width
 }
 

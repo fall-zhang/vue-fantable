@@ -418,7 +418,7 @@ export function setHeaderContextmenuOptions({
   allRowKeys,
   headerIndicatorColKeys,
   enableHeaderContextmenu,
-  t,
+  $t,
 }) {
   const result = []
 
@@ -466,8 +466,7 @@ export function setHeaderContextmenuOptions({
       })
     }
 
-    const headerContextmenuOptionCollection =
-            getHeaderContextmenuOptionCollection(t)
+    const headerContextmenuOptionCollection = getHeaderContextmenuOptionCollection($t)
 
     contextmenus.forEach((contextmenu) => {
       const contentmenuCollectionItem =
@@ -482,11 +481,10 @@ export function setHeaderContextmenuOptions({
                     CONTEXTMENU_NODE_TYPES.EMPTY_COLUMN
         ) {
           if (isWholeColSelection) {
-            contentmenuCollectionItem.label =
-                            contentmenuCollectionItem.label.replace(
-                              '$1',
-                              colCount,
-                            )
+            contentmenuCollectionItem.label = contentmenuCollectionItem.label.replace(
+              '$1',
+              colCount,
+            )
           } else {
             isContinue = false
           }
@@ -537,10 +535,10 @@ export function setHeaderContextmenuOptions({
 /***
  * @setHeaderContextmenuOptions
  * @desc set header contextmenu options
- * @param {array<object>} column
- * @param {array<object>} contextmenuBodyOption
+ * @param {Array<object>} column
+ * @param {Array<object>} contextmenuBodyOption
  * @param {object} cellSelectionRangeData
- * @param {array<object>} colgroups
+ * @param {Array<object>} colgroups
  * @param {object} bodyIndicatorRowKeys
  * @param {boolean} enableHeaderContextmenu
  * @param {boolean} t locale
