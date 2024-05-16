@@ -16,11 +16,11 @@ module.exports = {
   // 后面的配置会覆盖前者
   extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended'],
   parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaVersion: 'latest',
     ecmaFeatures: {
       jsx: true
     },
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 'latest',
     sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
