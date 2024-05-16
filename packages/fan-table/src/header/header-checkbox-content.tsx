@@ -3,9 +3,12 @@ import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-import { defineComponent } from 'vue'
+import { defineComponent, inject, onMounted, onUnmounted, ref } from 'vue'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_HEADER_CHECKBOX_CONTENT,
+  components: {
+    VeCheckbox
+  },
   inject: ['eventCenter'],
   props: {
     // checkbox option
@@ -16,54 +19,44 @@ export default defineComponent({
       },
     },
   },
-  data() {
-    return {
-      // is selected
-      isSelected: false,
-      isIndeterminate: false,
-    }
-  },
-  mounted() {
-    // receive selected all info
-    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
-      this.setSelectedAllInfo(params)
-    })
-  },
-  unmounted() {
-    this.eventCenter.off(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params) => {
-      this.setSelectedAllInfo(params)
-    })
-  },
-  methods: {
-    // selected change
-    selectedChange(isSelected) {
-      this.isSelected = isSelected
+  setup() {
+    const isSelected = ref(false)
+    const isIndeterminate = ref(false)
 
-      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE,
-        {
-          isSelected,
-        },
+    const eventCenter:any = inject('eventCenter')
+
+    function selectedChange(state:boolean) {
+      isSelected.value = state
+
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, {
+        isSelected: state,
+      },
       )
-    },
-
+    }
     // set selected all info
-    setSelectedAllInfo({ isSelected, isIndeterminate }) {
-      this.isSelected = isSelected
-      this.isIndeterminate = isIndeterminate
-    },
-  },
-  render() {
-    const { isSelected, isIndeterminate, selectedChange } = this
-
+    function setSelectedAllInfo({ isSelected: newState, isIndeterminate }:any) {
+      isSelected.value = newState
+      isIndeterminate.value = isIndeterminate
+    }
     const checkboxProps = {
       class: clsName('checkbox-wrapper'),
       isControlled: true,
       isSelected,
       indeterminate: isIndeterminate,
-      onCheckedChange: (isSelectedParam) =>
-        selectedChange(isSelectedParam),
+      onCheckedChange: (isSelectedParam:boolean) => selectedChange(isSelectedParam),
     }
+    onMounted(() => {
+      // receive selected all info
+      eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params:boolean) => {
+        setSelectedAllInfo(params)
+      })
+    })
+    onUnmounted(() => {
+      eventCenter.off(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params:boolean) => {
+        setSelectedAllInfo(params)
+      })
+    })
 
-    return <VeCheckbox {...checkboxProps} />
+    return () => <VeCheckbox {...checkboxProps} />
   },
 })
