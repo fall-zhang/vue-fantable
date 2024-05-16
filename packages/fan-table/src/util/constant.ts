@@ -110,9 +110,9 @@ export const HOOKS_NAME = {
 export const COMPS_NAME = {
   FAN_TABLE: 'FanTable',
 
-  FAN_TABLE_THADER: 'FanTableHeader',
-  FAN_TABLE_THADER_TR: 'FanTableHeaderTr',
-  FAN_TABLE_THADER_Th: 'FanTableHeaderTh',
+  FAN_TABLE_HEADER: 'FanTableHeader',
+  FAN_TABLE_HEADER_TR: 'FanTableHeaderTr',
+  FAN_TABLE_HEADER_TH: 'FanTableHeaderTh',
   FAN_TABLE_HEADER_CHECKBOX_CONTENT: 'FanTableHeaderCheckboxContent',
   FAN_TABLE_HEADER_FILTER_CONTENT: 'FanTableHeaderFilterContent',
   FAN_TABLE_HEADER_FILTER_CUSTOM_CONTENT: 'FanTableHeaderFilterCustomContent',

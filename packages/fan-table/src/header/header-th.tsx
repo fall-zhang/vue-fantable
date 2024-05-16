@@ -16,7 +16,7 @@ import { defineComponent } from 'vue'
 // import eventCenter from '@P/events/event-center.js'
 
 export default defineComponent({
-  name: COMPS_NAME.FAN_TABLE_THADER_Th,
+  name: COMPS_NAME.FAN_TABLE_HEADER_TH,
   inject: ['eventCenter'],
   props: {
     // group columns item

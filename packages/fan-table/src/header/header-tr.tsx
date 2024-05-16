@@ -6,7 +6,7 @@ import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: COMPS_NAME.FAN_TABLE_THADER_TR,
+  name: COMPS_NAME.FAN_TABLE_HEADER_TR,
   components: {
     VueDomResizeObserver,
     HeaderTh

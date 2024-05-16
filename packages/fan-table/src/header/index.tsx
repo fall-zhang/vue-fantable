@@ -5,7 +5,7 @@ import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: COMPS_NAME.FAN_TABLE_THADER,
+  name: COMPS_NAME.FAN_TABLE_HEADER,
   components: {
     HeaderTr
   },
