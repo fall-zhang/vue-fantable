@@ -23,8 +23,9 @@ import { isEmptyValue, isBoolean } from '../../../src/utils/index.js'
 import { debounce } from '@P/src/utils/index.js'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   // name: COMPS_NAME.FAN_TABLE_SELECTION,
   name: 'FanTableSelection',
   inject: ['eventCenter'],
@@ -1411,10 +1412,7 @@ export default {
       )
     },
 
-    /*
-        get table first row cell by col key
-        用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
-        */
+    //  用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
     getTableFirstRowCellByColKey(colKey) {
       let result = null
 
@@ -1427,11 +1425,7 @@ export default {
       }
       return result
     },
-
-    /*
-        get table last row cell by col key
-        用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
-        */
+    // 用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
     getTableLastRowCellByColKey(colKey) {
       let result = null
 
@@ -1585,10 +1579,11 @@ export default {
             fixedRightSelectionCurrent.autoFillArea ||
             fixedRightSelectionArea.autoFillArea
 
+    const containerStyle:Record<string, string> = { visibility: this.isCellEditing ? 'hidden' : '' }
     return (
       <div
         class={clsName('selection-wrapper')}
-        style={{ visibility: this.isCellEditing ? 'hidden' : '' }}
+        style={containerStyle}
       >
         <div class={clsName('selection-fixed-left')}>
           {/* current */}
@@ -1624,3 +1619,4 @@ export default {
     )
   },
 }
+)

@@ -5,7 +5,6 @@ import {
   COMPS_NAME,
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
-  EMIT_EVENTS,
   COMPS_CUSTOM_ATTRS,
 } from '../util/constant'
 import ExpandTrIcon from './expand-tr-icon'
@@ -160,10 +159,8 @@ export default defineComponent({
     }
   },
   computed: {
-    /*
-        current column collection item
-        1、Cache the style、class of each column
-        */
+    // current column collection item
+    // 1、Cache the style、class of each column
     currentColumnCollectionItem() {
       const { columnCollection, column } = this
       return columnCollection.find((x) => x.colKey === column.key)
@@ -611,31 +608,31 @@ export default defineComponent({
       rowspan,
       colspan,
       [COMPS_CUSTOM_ATTRS.BODY_COLUMN_KEY]: column.key,
-      onClick: (e) => {
+      onClick: (e:MouseEvent) => {
         this.cellClick(e, click)
       },
-      onDblclick: (e) => {
+      onDblclick: (e:MouseEvent) => {
         this.cellDblclick(e, dblclick)
       },
-      onContextmenu: (e) => {
+      onContextmenu: (e:MouseEvent) => {
         this.cellContextmenu(e, contextmenu)
       },
-      onMouseenter: (e) => {
+      onMouseenter: (e:MouseEvent) => {
         this.cellMouseenter(e, mouseenter)
       },
-      onMouseleave: (e) => {
+      onMouseleave: (e:MouseEvent) => {
         this.cellMouseleave(e, mouseleave)
       },
-      onMousemove: (e) => {
+      onMousemove: (e:MouseEvent) => {
         this.cellMousemove(e, mousemove)
       },
-      onMouseover: (e) => {
+      onMouseover: (e:MouseEvent) => {
         this.cellMouseover(e, mouseover)
       },
-      onMousedown: (e) => {
+      onMousedown: (e:MouseEvent) => {
         this.cellMousedown(e, mousedown)
       },
-      onMouseup: (e) => {
+      onMouseup: (e:MouseEvent) => {
         this.cellMouseup(e, mouseup)
       },
     }
