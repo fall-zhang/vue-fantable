@@ -96,7 +96,7 @@ export default defineComponent({
   props: fanTableProps(),
   setup(props, { expose }) {
     const tableViewportWidth = ref(0)
-    const groupColumns = ref([])
+    const groupColumns = ref<any[]>([])
     // header rows created by groupColumns
     const headerRows = ref<CommonRowItem[]>([])
     // footer rows created by footerData
@@ -107,8 +107,8 @@ export default defineComponent({
     // 存储当前隐藏列信息
     //   hidden columns
     const hiddenColumns = ref([])
-// inject
-       inject('eventCenter', mitt())
+    // inject
+    inject('eventCenter', mitt())
     // is group header
     const isGroupHeader = ref(false)
     const editorInputStartValue = ref('')
@@ -118,7 +118,7 @@ export default defineComponent({
     // is parent rendered
     const parentRendered = ref(false)
     // table viewport width except scroll bar width
-    /*
+    /**
           列配置变化次数
           依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
           */
@@ -221,7 +221,7 @@ export default defineComponent({
     const autofillingDirection = ref(null)
     // current cell selection type
     const currentCellSelectionType = ref('')
-    /*
+    /**
           table offest height（开启虚拟滚动时使用）
           1、当 :max-height="500" 时使用 max-height
           2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
@@ -282,7 +282,7 @@ export default defineComponent({
       const rowKeyFieldName = props.rowKeyFieldName
 
       if (rowKeyFieldName) {
-        result = props.tableData.map((x:any) => {
+        result = props.tableData.map((x: any) => {
           return x[rowKeyFieldName]
         })
       }
@@ -331,7 +331,7 @@ export default defineComponent({
     const tableContainerStyle = computed(() => {
       const maxHeight = getValByUnit(props.maxHeight)
 
-      let tableContainerHeight:string |number = ''
+      let tableContainerHeight: string | number = ''
       if (isVirtualScroll.value) {
         if (maxHeight) {
           tableContainerHeight = maxHeight
@@ -339,12 +339,12 @@ export default defineComponent({
           console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'")
         }
       } else {
-        /*
+        /**
         fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
         fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
         */
         tableContainerHeight = tableHeight.value
-        /*
+        /**
         有横向滚动条时，表格高度需要加上滚动条的宽度
         When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
         */
@@ -556,17 +556,17 @@ export default defineComponent({
     }
 
     // header tr height resize
-    function headerRowHeightChange({ rowIndex, height }) {
+    function headerRowHeightChange({ rowIndex, height }: Record<'height' | 'rowIndex', any>) {
       headerRows.value.splice(rowIndex, 1, { rowHeight: height })
     }
 
     // footer row height resize
-    function footRowHeightChange({ rowIndex, height }) {
+    function footRowHeightChange({ rowIndex, height }: Record<'height' | 'rowIndex', any>) {
       footerRows.value.splice(rowIndex, 1, { rowHeight: height })
     }
 
     // body cell width change
-    function bodyCellWidthChange(colWidths) {
+    function bodyCellWidthChange(colWidths:any) {
       colgroups.value = colgroups.value.map((item) => {
         item._realTimeWidth = colWidths.get(item.key)
         return item
@@ -576,7 +576,7 @@ export default defineComponent({
     }
 
     // set column width for column resize
-    function setColumnWidth({ colKey, width }) {
+    function setColumnWidth({ colKey, width }:any) {
       colgroups.value = colgroups.value.map((item) => {
         if (item.key === colKey) {
           item._columnResizeWidth = width
@@ -590,7 +590,7 @@ export default defineComponent({
     }
 
     // update colgroups by sort change
-    function updateColgroupsBySortChange(sortColumns) {
+    function updateColgroupsBySortChange(sortColumns:any) {
       colgroups.value = colgroups.value.map((item) => {
         // update colgroups by sort columns
         if (Object.keys(sortColumns).indexOf(item.field) > -1) {
@@ -633,7 +633,7 @@ export default defineComponent({
     function showOrHideColumns() {
       let tempCloneColumns = cloneDeep(props.columns)
 
-      tempCloneColumns = tempCloneColumns.map((col) => {
+      tempCloneColumns = tempCloneColumns.map((col:any) => {
         // 操作列默认左固定
         if (col.operationColumn) {
           col.fixed = COLUMN_FIXED_TYPE.LEFT
@@ -679,12 +679,12 @@ export default defineComponent({
       return result
     }
 
-    /*
+    /**
       * @selectedAllChange
       * @desc  selected all change
-      * @param {bool} isSelected - is selected
+      * @param {boolean} isSelected - is selected
       */
-    function selectedAllChange({ isSelected }) {
+    function selectedAllChange({ isSelected }:Record<"isSelected",boolean>) {
       eventCenter.value.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, {
         isSelected,
       },
@@ -811,7 +811,7 @@ export default defineComponent({
           !isCellInSelectionRange({
             cellData: autoFillEndCell,
             cellSelectionRangeData: cellSelectionRangeData.value,
-            colgroups:colgroups.value,
+            colgroups: colgroups.value,
             allRowKeys: allRowKeys.value,
           })
         ) {
@@ -980,10 +980,7 @@ export default defineComponent({
 
       let result
 
-      if (
-        isEmptyValue(currentCell.rowKey) ||
-        isEmptyValue(currentCell.colKey)
-      ) {
+      if (isEmptyValue(currentCell.rowKey) || isEmptyValue(currentCell.colKey)) {
         result = ''
       } else {
         if (
@@ -1205,7 +1202,7 @@ export default defineComponent({
       }
     }
 
-    /*
+    /**
     * @columnToVisible
     * @desc  column to visible
     * @param {object} nextColumn - next column
@@ -1248,7 +1245,7 @@ export default defineComponent({
       }
     }
 
-    /*
+    /**
          * @rowToVisible
          * @desc  row to visible
          * @param {number} keyCode - current keyCode
@@ -1628,7 +1625,7 @@ export default defineComponent({
     // set scroll bar status
     function setScrollBarStatus() {
       if (tableContainerRef.value) {
-        const { scrollWidth, clientWidth, scrollHeight, clientHeight } =        tableContainerRef.value
+        const { scrollWidth, clientWidth, scrollHeight, clientHeight } = tableContainerRef.value
 
         if (scrollWidth && clientWidth) {
           hasXScrollBar.value = !!(scrollWidth - clientWidth)
@@ -1748,7 +1745,7 @@ export default defineComponent({
       rowToVisible(KEY_CODES.ARROW_DOWN, rowKey)
     }
 
-    /*
+    /**
          * @bodyCellContextmenu
          * @desc  recieve td right click\contextmenu event
          * @param {object} rowData - row data
@@ -1767,7 +1764,7 @@ export default defineComponent({
       setContextmenuOptions(column)
     }
 
-    /*
+    /**
          * @ 双击 body Cell
          * @desc  recieve td double click event
          * @param {object} rowData - row data
@@ -1794,7 +1791,7 @@ export default defineComponent({
       }
     }
 
-    /*
+    /**
     * @bodyCellClick
     * @desc  recieve td click event
     * @param {object} rowData - row data
@@ -1804,7 +1801,7 @@ export default defineComponent({
       // feature...
     }
 
-    /*
+    /**
     * @bodyCellMousedown
     * @desc  recieve td mousedown event
     * @param {object} rowData - row data
@@ -1909,7 +1906,7 @@ export default defineComponent({
       }
     }
 
-    /*
+    /**
     * @bodyCellMouseover
     * @desc  recieve td mouseover event
     * @param {object} rowData - row data
@@ -1958,20 +1955,17 @@ export default defineComponent({
       }
     }
 
-    /*
+    /**
     * @bodyCellMousemove
     * @desc  recieve td mousemove event
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMousemove({ event, rowData, column }) {
-      hooks.value.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, {
-        event,
-        column,
-      })
+    function bodyCellMousemove({ event, column }) {
+      hooks.value.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, { event, column, })
     }
 
-    /*
+    /**
     * @bodyCellMouseup
     * @desc  recieve td mouseup event
     * @param {object} rowData - row data
@@ -2133,7 +2127,6 @@ export default defineComponent({
 
     // header cell mouseover
     function headerCellMouseover({ event, column }) {
-
       if (
         isHeaderCellMousedown.value &&
         !isOperationColumn(column.key, colgroups.value)
@@ -2181,7 +2174,7 @@ export default defineComponent({
     }
 
     // header mouseleave
-    function headerMouseleave(event) {
+    function headerMouseleave() {
       setIsColumnResizerHover(false)
     }
 
@@ -2193,21 +2186,21 @@ export default defineComponent({
       isAutofillStarting.value = false
     }
 
-    /*
-         * @cellSelectionCornerMousedown
-         * @desc  recieve cell selection corner mousedown
-         */
-    function cellSelectionCornerMousedown({ event }) {
+    /**
+     * @cellSelectionCornerMousedown
+     * @desc  recieve cell selection corner mousedown
+     */
+    function cellSelectionCornerMousedown() {
       isAutofillStarting.value = true
     }
 
-    
+
     // is edit column
     function isEditColumn(colKey) {
       return colgroups.value.some((x) => x.key === colKey && x.edit)
     }
 
-    /*
+    /**
      * @editCellByClick
      * @desc  recieve td click event
      * @param {boolean} isDblclick - is dblclick
@@ -2432,7 +2425,7 @@ export default defineComponent({
     }
 
     // editor copy
-    function editorCopy(event) {
+    function onEditInputCopy(event) {
       if (!enableClipboard.value) {
         return false
       }
@@ -2796,7 +2789,6 @@ export default defineComponent({
       }
     }
 
-    /* get range cell selection  */
     function getRangeCellSelection() {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
 
@@ -2932,9 +2924,7 @@ export default defineComponent({
 
       currentRow = cloneDeep(currentRow)
 
-      /*
-        调用API编辑的情况，需要关闭之前编辑的单元格
-      */
+      // 调用API编辑的情况，需要关闭之前编辑的单元格
       if (
         editingCell.value.rowKey === rowKey &&
         editingCell.value.colKey === colKey
@@ -3065,7 +3055,7 @@ export default defineComponent({
     }, { immediate: true, })
 
     // footer data
-    watch(()=>props.footerData, (val) => {
+    watch(() => props.footerData, (val) => {
       if (!isEmptyArray(val)) {
         initFooterRows()
       }
@@ -3137,8 +3127,8 @@ export default defineComponent({
             : '',
       },
       columnsOptionResetTime: columnsOptionResetTime.value,
-      tableViewportWidth,
-      groupColumns:groupColumns.value,
+      tableViewportWidth: tableViewportWidth.value,
+      groupColumns: groupColumns.value,
       colgroups: colgroups.value,
       isGroupHeader: isGroupHeader.value,
       fixedHeader: props.fixedHeader,
@@ -3153,8 +3143,8 @@ export default defineComponent({
       onClick: () => {
         stopEditingCell()
       },
-      onMouseleave: (event) => {
-        headerMouseleave(event)
+      onMouseleave: () => {
+        headerMouseleave()
       },
     }
     // const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
@@ -3164,12 +3154,12 @@ export default defineComponent({
     // body props
     const bodyProps = {
       class: [clsName('body'), tableBodyClass.value],
-      tableViewportWidth,
+      tableViewportWidth: tableViewportWidth.value,
       columnsOptionResetTime: columnsOptionResetTime.value,
       colgroups: colgroups.value,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
-      actualRenderTableData,
+      actualRenderTableData: actualRenderTableData.value,
       rowKeyFieldName: props.rowKeyFieldName,
       radioOption: props.radioOption,
       virtualScrollOption: props.virtualScrollOption,
@@ -3288,8 +3278,6 @@ export default defineComponent({
       class: [clsName('content'), tableClass.value],
       style: tableStyle.value,
     }
-    // const cellSelectionRangeChange = EMIT_EVENTS.CELL_SELECTION_RANGE_DATA_CHANGE
-    const cellSelectionRangeChange = 'onCellSelectionRangeDataChange'
     // selection props
     const selectionProps = {
       tableEl: tableRef.value,
@@ -3301,12 +3289,12 @@ export default defineComponent({
       isAutofillStarting: isAutofillStarting.value,
       cellSelectionRangeData: cellSelectionRangeData.value,
       currentCellSelectionType: currentCellSelectionType.value,
-      showVirtualScrollingPlaceholder,
+      showVirtualScrollingPlaceholder: showVirtualScrollingPlaceholder.value,
       isVirtualScroll: isVirtualScroll.value,
       virtualScrollVisibleIndexs: virtualScrollVisibleIndexs.value,
       isCellEditing: isCellEditing.value,
       cellAutofillOption: props.cellAutofillOption,
-      [cellSelectionRangeChange]: (newData) => {
+      onCellSelectionRangeDataChange: (newData) => {
         cellSelectionRangeDataChange(newData)
       },
     }
@@ -3335,9 +3323,7 @@ export default defineComponent({
         updateEditingCellValue(value)
       },
       // copy
-      onEditInputCopy: (e) => {
-        editorCopy(e)
-      },
+      onEditInputCopy,
       // paste
       onEditInputPaste: (e) => {
         editorPaste(e)
@@ -3384,7 +3370,7 @@ export default defineComponent({
       })
 
       // receive row selected change
-      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
+      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params:boolean) => {
         selectedAllChange(params)
       })
 
@@ -3439,7 +3425,7 @@ export default defineComponent({
 
       // receive selection corner mousedown
       eventCenter.value.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN, (params) => {
-        cellSelectionCornerMousedown(params)
+        cellSelectionCornerMousedown()
       })
 
       // receive selection corner mouseup
