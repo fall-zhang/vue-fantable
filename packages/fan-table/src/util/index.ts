@@ -27,7 +27,7 @@ export function clsName(cls:string) {
  * @param {Object} rowData - rowData
  * @param {string} rowKeyFieldName - row key field name
  */
-export function getRowKey(rowData, rowKeyFieldName) {
+export function getRowKey(rowData:any, rowKeyFieldName:any) {
   let result = null
 
   if (rowData && rowKeyFieldName) {
@@ -37,13 +37,13 @@ export function getRowKey(rowData, rowKeyFieldName) {
 }
 
 /**
- * @getColumnByColkey
+ * @getColumnByColKey
  * @desc  get column by col key
  * @param {string} colKey - column key
  */
-export function getColumnByColkey(colKey, colgroups) {
+export function getColumnByColKey(colKey:any, colgroups:any) {
   if (colKey) {
-    return colgroups.find((x) => x.key === colKey)
+    return colgroups.find((x:any) => x.key === colKey)
   }
   return null
 }
@@ -53,7 +53,7 @@ export function getColumnByColkey(colKey, colgroups) {
  * @desc is last column by column key
  * @param {string} colKey - column key
  */
-export function isLastColumnByColKey(colKey, colgroups) {
+export function isLastColumnByColKey(colKey:any, colgroups:any) {
   if (!isEmptyValue(colKey) && !isEmptyArray(colgroups)) {
     return colgroups[colgroups.length - 1].key === colKey
   }
@@ -66,7 +66,7 @@ export function isLastColumnByColKey(colKey, colgroups) {
  * @param {string} colKey - column key
  * @param {arrat<object>} colgroups - column key
  */
-export function isOperationColumn(colKey, colgroups) {
+export function isOperationColumn(colKey:any, colgroups:any) {
   if (!isEmptyValue(colKey) && !isEmptyArray(colgroups)) {
     const firstCol = colgroups[0]
     if (firstCol.key === colKey && firstCol.operationColumn) {
@@ -81,7 +81,7 @@ export function isOperationColumn(colKey, colgroups) {
  * @desc is last row by row key
  * @param {string} rowKey - row key
  */
-export function isLastRowByRowKey(rowKey, allRowKeys) {
+export function isLastRowByRowKey(rowKey:any, allRowKeys:any) {
   if (!isEmptyValue(rowKey) && !isEmptyArray(allRowKeys)) {
     return allRowKeys[allRowKeys.length - 1] === rowKey
   }
@@ -94,10 +94,7 @@ export function isLastRowByRowKey(rowKey, allRowKeys) {
  * @param {Any} originalKey - original key
  * @param {Number} columnsOptionResetTime - columns option change time
  */
-export function getDomResizeObserverCompKey(
-  originalKey,
-  columnsOptionResetTime,
-) {
+export function getDomResizeObserverCompKey(originalKey:any, columnsOptionResetTime:any) {
   let result = originalKey
 
   if (result || result === 0) {
@@ -113,8 +110,8 @@ export function getDomResizeObserverCompKey(
  * @param {object} columns - deep clone column
  * @param {any} key - column key
  */
-export function recursiveRemoveColumnByKey(columns, key) {
-  return columns.filter((item) => {
+export function recursiveRemoveColumnByKey(columns:any, key:any) {
+  return columns.filter((item:any) => {
     if ('children' in item) {
       item.children = recursiveRemoveColumnByKey(item.children, key)
     }
@@ -129,14 +126,14 @@ export function recursiveRemoveColumnByKey(columns, key) {
  * @param {any} colKey - column key
  * @param {string} fixed - left|right
  */
-export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
-  const currentIndex = colgroups.findIndex((x) => x.key === colKey)
+export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }:any) {
+  const currentIndex = colgroups.findIndex((x:any) => x.key === colKey)
 
   let result = 0
 
   if (fixed === COLUMN_FIXED_TYPE.LEFT) {
     // 只计算左列固定的
-    result = colgroups.reduce((total, currentVal, index) => {
+    result = colgroups.reduce((total:any, currentVal:any, index:number) => {
       return index < currentIndex &&
                 currentVal.fixed === COLUMN_FIXED_TYPE.LEFT
         ? currentVal._realTimeWidth + total
@@ -144,7 +141,7 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
     }, 0)
   } else if (fixed === COLUMN_FIXED_TYPE.RIGHT) {
     // 只计算右列固定的
-    result = colgroups.reduce((total, currentVal, index) => {
+    result = colgroups.reduce((total:any, currentVal:any, index:number) => {
       return index > currentIndex &&
                 currentVal.fixed === COLUMN_FIXED_TYPE.RIGHT
         ? currentVal._realTimeWidth + total
@@ -162,21 +159,21 @@ export function getFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
  * @param {any} colKey - column key
  * @param {string} direction - left|right
  */
-export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
-  const currentIndex = colgroups.findIndex((x) => x.key === colKey)
+export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }:any) {
+  const currentIndex = colgroups.findIndex((x:any) => x.key === colKey)
 
   let result = 0
 
   if (fixed === COLUMN_FIXED_TYPE.LEFT) {
     // 只计算左侧非固定列
-    result = colgroups.reduce((total, currentVal, index) => {
+    result = colgroups.reduce((total:any, currentVal:any, index:any) => {
       return index < currentIndex && !currentVal.fixed
         ? currentVal._realTimeWidth + total
         : total
     }, 0)
   } else if (fixed === COLUMN_FIXED_TYPE.RIGHT) {
     // 只计算右侧非固定列
-    result = colgroups.reduce((total, currentVal, index) => {
+    result = colgroups.reduce((total:any, currentVal:any, index:any) => {
       return index > currentIndex && !currentVal.fixed
         ? currentVal._realTimeWidth + total
         : total
@@ -193,8 +190,8 @@ export function getNotFixedTotalWidthByColumnKey({ colgroups, colKey, fixed }) {
  * @param {array<object>} colgroups
  * @return {number} width
  */
-export function getTotalWidthByColKeys({ colKeys, colgroups }) {
-  const result = colgroups.reduce((total, currentVal, index) => {
+export function getTotalWidthByColKeys({ colKeys, colgroups }:any) {
+  const result = colgroups.reduce((total:any, currentVal:any, index:number) => {
     return colKeys.indexOf(currentVal.key) > -1
       ? currentVal._realTimeWidth + total
       : total
@@ -213,13 +210,13 @@ export function getTotalWidthByColKeys({ colKeys, colgroups }) {
    groupColumns
 }
  */
-export function initGroupColumns(cloneColumns) {
-  const colgroups = []
-  const groupColumns = []
+export function initGroupColumns(cloneColumns:any) {
+  const colgroups:any[] = []
+  const groupColumns:any[] = []
 
   // set column level
   let maxLevel = 1
-  const setColumnLevel = (column, parent) => {
+  const setColumnLevel = (column:any, parent:any) => {
     if (parent) {
       column._level = parent._level + 1
       if (maxLevel < column._level) {
@@ -227,23 +224,23 @@ export function initGroupColumns(cloneColumns) {
       }
     }
     if (column.children) {
-      column.children.forEach((item) => {
+      column.children.forEach((item:any) => {
         item.fixed = column.fixed
         setColumnLevel(item, column)
       })
     }
   }
-  cloneColumns.forEach((column) => {
+  cloneColumns.forEach((column:any) => {
     column._level = 1
-    setColumnLevel(column)
+    setColumnLevel(column, null)
   })
 
   // set colspan and rowspan and keys
-  const setColspanAndRowspanAndKeys = (column) => {
+  const setColspanAndRowspanAndKeys = (column:any) => {
     if (column.children) {
       let keys = ''
       let colspan = 0
-      column.children.forEach((item) => {
+      column.children.forEach((item:any) => {
         setColspanAndRowspanAndKeys(item)
 
         colspan += item._colspan
@@ -261,7 +258,7 @@ export function initGroupColumns(cloneColumns) {
     }
   }
 
-  cloneColumns.forEach((column) => {
+  cloneColumns.forEach((column:any) => {
     setColspanAndRowspanAndKeys(column)
   })
 
@@ -270,7 +267,7 @@ export function initGroupColumns(cloneColumns) {
     groupColumns.push([])
   }
   // set colgroups and groupColumns
-  const setColgroupsAndGroupColumns = (column) => {
+  const setColgroupsAndGroupColumns = (column:any) => {
     // column has children || column key is not empty
     if (!isEmptyArray(column.children) || !isEmptyValue(column.key)) {
       // set groupColumns
@@ -278,7 +275,7 @@ export function initGroupColumns(cloneColumns) {
       groupColumns[column._level - 1].push(groupColumn)
 
       if (column.children) {
-        column.children.forEach((item) => {
+        column.children.forEach((item:any) => {
           setColgroupsAndGroupColumns(item)
         })
       } else {
@@ -290,7 +287,7 @@ export function initGroupColumns(cloneColumns) {
     }
   }
 
-  cloneColumns.forEach((column) => {
+  cloneColumns.forEach((column:any) => {
     setColgroupsAndGroupColumns(column)
   })
 
@@ -304,8 +301,11 @@ export function initGroupColumns(cloneColumns) {
   }
 }
 
+interface TransFun {
+  (arg:string):string
+}
 // get header contextmenu option collection
-export function getHeaderContextmenuOptionCollection($t) {
+export function getHeaderContextmenuOptionCollection($t:TransFun) {
   return [
     {
       type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
@@ -419,8 +419,8 @@ export function setHeaderContextmenuOptions({
   headerIndicatorColKeys,
   enableHeaderContextmenu,
   $t,
-}) {
-  const result = []
+}:any) {
+  const result:any[] = []
 
   if (enableHeaderContextmenu) {
     const selectionRangeKeys = getSelectionRangeKeys({
@@ -553,7 +553,7 @@ export function setBodyContextmenuOptions({
   bodyIndicatorRowKeys,
   $t,
 }) {
-  const result = []
+  const result:any[] = []
   if (enableBodyContextmenu) {
     const selectionRangeKeys = getSelectionRangeKeys({
       cellSelectionRangeData,
