@@ -19,7 +19,7 @@ import {
   isContextmenuPanelClicked,
   getRowKey,
   getColKeysByHeaderColumn,
-  getColumnByColkey,
+  getColumnByColKey,
   getLeftmostColKey,
   isCellInSelectionRange,
   isClearSelectionByBodyCellRightClick,
@@ -339,14 +339,14 @@ export default defineComponent({
           console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'")
         }
       } else {
-        /**
-        fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
-        fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
+        /*
+          fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
+          fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
         */
         tableContainerHeight = tableHeight.value
-        /**
-        有横向滚动条时，表格高度需要加上滚动条的宽度
-        When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
+        /*
+          有横向滚动条时，表格高度需要加上滚动条的宽度
+          When there is a horizontal scroll bar, the table height needs to be added with the width of the scroll bar
         */
         if (hasXScrollBar.value) {
           tableContainerHeight += getTableScrollBarWidth()
@@ -566,7 +566,7 @@ export default defineComponent({
     }
 
     // body cell width change
-    function bodyCellWidthChange(colWidths:any) {
+    function bodyCellWidthChange(colWidths: any) {
       colgroups.value = colgroups.value.map((item) => {
         item._realTimeWidth = colWidths.get(item.key)
         return item
@@ -576,7 +576,7 @@ export default defineComponent({
     }
 
     // set column width for column resize
-    function setColumnWidth({ colKey, width }:any) {
+    function setColumnWidth({ colKey, width }: any) {
       colgroups.value = colgroups.value.map((item) => {
         if (item.key === colKey) {
           item._columnResizeWidth = width
@@ -590,7 +590,7 @@ export default defineComponent({
     }
 
     // update colgroups by sort change
-    function updateColgroupsBySortChange(sortColumns:any) {
+    function updateColgroupsBySortChange(sortColumns: any) {
       colgroups.value = colgroups.value.map((item) => {
         // update colgroups by sort columns
         if (Object.keys(sortColumns).indexOf(item.field) > -1) {
@@ -633,7 +633,7 @@ export default defineComponent({
     function showOrHideColumns() {
       let tempCloneColumns = cloneDeep(props.columns)
 
-      tempCloneColumns = tempCloneColumns.map((col:any) => {
+      tempCloneColumns = tempCloneColumns.map((col: any) => {
         // 操作列默认左固定
         if (col.operationColumn) {
           col.fixed = COLUMN_FIXED_TYPE.LEFT
@@ -684,7 +684,7 @@ export default defineComponent({
       * @desc  selected all change
       * @param {boolean} isSelected - is selected
       */
-    function selectedAllChange({ isSelected }:Record<"isSelected",boolean>) {
+    function selectedAllChange({ isSelected }: Record<"isSelected", boolean>) {
       eventCenter.value.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, {
         isSelected,
       },
@@ -697,7 +697,7 @@ export default defineComponent({
      * @param {bool} isSelected - is selected
      * @param {bool} isIndeterminate - is indeterminate
      */
-    function setSelectedAllInfo({ isSelected, isIndeterminate }) {
+    function setSelectedAllInfo({ isSelected, isIndeterminate }: any) {
       eventCenter.value.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO_CHECKBOX,
         {
           isSelected,
@@ -707,7 +707,7 @@ export default defineComponent({
     }
 
     // cell selection current cell change
-    function cellSelectionCurrentCellChange({ rowKey, colKey }) {
+    function cellSelectionCurrentCellChange({ rowKey, colKey }: any) {
       cellSelectionData.value.currentCell.colKey = colKey
       cellSelectionData.value.currentCell.rowKey = rowKey
       cellSelectionData.value.currentCell.rowIndex =
@@ -715,7 +715,7 @@ export default defineComponent({
     }
 
     // cell selection end cell change
-    function cellSelectionNormalEndCellChange({ rowKey, colKey }) {
+    function cellSelectionNormalEndCellChange({ rowKey, colKey }: any) {
       cellSelectionData.value.normalEndCell.colKey = colKey
       cellSelectionData.value.normalEndCell.rowKey = rowKey
       cellSelectionData.value.normalEndCell.rowIndex =
@@ -723,7 +723,7 @@ export default defineComponent({
     }
 
     // cell selection auto fill cell change
-    function cellSelectionAutofillCellChange({ rowKey, colKey }) {
+    function cellSelectionAutofillCellChange({ rowKey, colKey }: any) {
       cellSelectionData.value.autoFillEndCell.colKey = colKey
       cellSelectionData.value.autoFillEndCell.rowKey = rowKey
     }
@@ -750,7 +750,7 @@ export default defineComponent({
     }
 
     // header indicator colKeys change
-    function headerIndicatorColKeysChange({ startColKey, endColKey }) {
+    function headerIndicatorColKeysChange({ startColKey, endColKey }: any) {
       headerIndicatorColKeys.value.startColKey = startColKey
       headerIndicatorColKeys.value.startColKeyIndex = colgroups.value.findIndex(
         (x) => x.key === startColKey,
@@ -770,7 +770,7 @@ export default defineComponent({
     }
 
     // body indicator rowKeys change
-    function bodyIndicatorRowKeysChange({ startRowKey, endRowKey }) {
+    function bodyIndicatorRowKeysChange({ startRowKey, endRowKey }: any) {
       bodyIndicatorRowKeys.value.startRowKey = startRowKey
       bodyIndicatorRowKeys.value.startRowKeyIndex =
         allRowKeys.value.indexOf(startRowKey)
@@ -797,8 +797,14 @@ export default defineComponent({
         return false
       }
 
-      let currentCellData = {}
-      let normalEndCellData = {}
+      let currentCellData: Record<'rowKey' | 'colKey', any> = {
+        rowKey: undefined,
+        colKey: undefined
+      }
+      let normalEndCellData: Record<'rowKey' | 'colKey', any> = {
+        rowKey: undefined,
+        colKey: undefined
+      }
 
       const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
         cellSelectionRangeData.value
@@ -921,7 +927,7 @@ export default defineComponent({
         nextNormalEndCell: normalEndCellData,
       }
 
-      if (props.cellAutofillOption) {
+      if (props.cellAutofillOption && typeof props.cellAutofillOption !== 'boolean') {
         const { beforeAutofill, afterAutofill } = props.cellAutofillOption
 
         if (isFunction(beforeAutofill)) {
@@ -962,7 +968,7 @@ export default defineComponent({
     }
 
     // cell selection range data change
-    function cellSelectionRangeDataChange(newData) {
+    function cellSelectionRangeDataChange(newData: any) {
       cellSelectionRangeData.value = Object.assign(
         cellSelectionRangeData.value,
         newData,
@@ -970,7 +976,7 @@ export default defineComponent({
     }
 
     // autofilling direction change
-    function autofillingDirectionChange(direction) {
+    function autofillingDirectionChange(direction: any) {
       autofillingDirection.value = direction
     }
 
@@ -997,7 +1003,7 @@ export default defineComponent({
     }
 
     // deal keydown event
-    function dealKeydownEvent(event) {
+    function dealKeydownEvent(event: any) {
       const { keyCode, ctrlKey, shiftKey, altKey } = event
 
       const { rowKey, colKey } = cellSelectionData.value.currentCell
@@ -1014,9 +1020,7 @@ export default defineComponent({
               direction = CELL_SELECTION_DIRECTION.RIGHT
             }
 
-            selectCellByDirection({
-              direction,
-            })
+            selectCellByDirection({ direction, })
 
             clearCellSelectionNormalEndCell()
 
@@ -1148,7 +1152,7 @@ export default defineComponent({
               if (currentColumn.edit) {
                 // start editing cell and don't allow stop eidting by direction key
                 enableStopEditing.value = false
-                startEditingCell({ rowKey, colKey })
+                startEditingCell({ rowKey, colKey, defaultValue: undefined })
               }
               event.preventDefault()
             }
@@ -1171,7 +1175,7 @@ export default defineComponent({
     }
 
     // select cell by direction
-    function selectCellByDirection({ direction }) {
+    function selectCellByDirection({ direction }: Record<'direction', any>) {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       const columnIndex = colgroups.value.findIndex((x) => x.key === colKey)
@@ -1203,14 +1207,15 @@ export default defineComponent({
     }
 
     /**
-    * @columnToVisible
-    * @desc  column to visible
-    * @param {object} nextColumn - next column
-    */
-    function columnToVisible(nextColumn) {
+      * @columnToVisible
+      * @desc  column to visible
+      * @param {object} nextColumn - next column
+      */
+    function columnToVisible(nextColumn: any) {
       if (!nextColumn || nextColumn) return
-      if (!hasXScrollBar.value) {
-        return false
+      if (!hasXScrollBar.value) return false
+      if (!tableContainerRef.value) {
+        throw new Error("can't not find tableContainerRef")
       }
 
       const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef.value
@@ -1246,13 +1251,15 @@ export default defineComponent({
     }
 
     /**
-         * @rowToVisible
-         * @desc  row to visible
-         * @param {number} keyCode - current keyCode
-         * @param {any} nextRowKey - next row key
-         */
-    function rowToVisible(keyCode, nextRowKey) {
-
+     * @rowToVisible
+     * @desc  row to visible
+     * @param {number} keyCode - current keyCode
+     * @param {any} nextRowKey - next row key
+     */
+    function rowToVisible(keyCode:number, nextRowKey:any) {
+      if(!tableContainerRef.value) {
+        throw new Error("can't not find tableContainerRef")
+      }
       const {
         clientHeight: containerClientHeight,
         scrollTop: containerScrollTop,
@@ -1371,7 +1378,7 @@ export default defineComponent({
           style: {
             width: '100%',
           },
-          onDomResizeChange: ({ width }) => {
+          onDomResizeChange: ({ width }:Record<'width',number>) => {
             tableViewportWidth.value = width
           },
         }
@@ -1400,7 +1407,7 @@ export default defineComponent({
           ? virtualScrollOption.minRowHeight
           : defaultVirtualScrollMinRowHeight.value
 
-        virtualScrollPositions.value = props.tableData.map((item, index) => ({
+        virtualScrollPositions.value = props.tableData.map((item:any, index) => ({
           rowKey: item[props.rowKeyFieldName],
           height: minRowHeight,
           top: index * minRowHeight,
@@ -1410,7 +1417,7 @@ export default defineComponent({
     }
 
     // list item height change
-    function bodyRowHeightChange({ rowKey, height }) {
+    function bodyRowHeightChange({ rowKey, height }:any) {
       // 获取真实元素大小，修改对应的尺寸缓存
       const index = virtualScrollPositions.value.findIndex(
         (x) => x.rowKey === rowKey,
@@ -1474,7 +1481,7 @@ export default defineComponent({
       setTableContentTopValue({ top: startOffset })
     }
     // set table content top value
-    function setTableContentTopValue({ top }) {
+    function setTableContentTopValue({ top }:Record<'top',number>) {
       window.requestAnimationFrame(() => {
         const ele = tableContentWrapperRef.value
         if (ele) {
@@ -1483,7 +1490,7 @@ export default defineComponent({
       })
     }
     // virtual scroll binary search
-    function virtualScrollBinarySearch(list, value) {
+    function virtualScrollBinarySearch(list:any, value:any) {
       let start = 0
       let end = list.length - 1
       let tempIndex = null
@@ -2547,7 +2554,7 @@ export default defineComponent({
     }
 
     // editor cut
-    function editorCut(event) {
+    function editorCut(event: any) {
       if (!enableClipboard.value) {
         return false
       }
@@ -2730,7 +2737,7 @@ export default defineComponent({
           colKey,
         })
 
-        const column = getColumnByColkey(colKey, colgroups.value)
+        const column = getColumnByColKey(colKey, colgroups.value)
         // column to visible
         columnToVisible(column)
         // row to visible
@@ -2780,7 +2787,7 @@ export default defineComponent({
 
       // row to visible
       if (isScrollToStartCell) {
-        const column = getColumnByColkey(startColKey, colgroups.value)
+        const column = getColumnByColKey(startColKey, colgroups.value)
         // column to visible
         columnToVisible(column)
         scrollToRowKey({
@@ -2903,7 +2910,7 @@ export default defineComponent({
     }
     // scroll to col key position
     function scrollToColKey({ colKey }) {
-      const column = getColumnByColkey(colKey, colgroups.value)
+      const column = getColumnByColKey(colKey, colgroups.value)
       if (column) {
         columnToVisible(column)
       }
@@ -2913,14 +2920,10 @@ export default defineComponent({
       rowKey,
       colKey,
       defaultValue,
-    }) {
-      if (!props.editOption) {
-        return false
-      }
+    }: any) {
+      if (!props.editOption) return false
 
-      let currentRow = props.tableData.find(
-        (x) => x[props.rowKeyFieldName] === rowKey,
-      )
+      let currentRow = props.tableData.find((x: any) => x[props.rowKeyFieldName] === rowKey)
 
       currentRow = cloneDeep(currentRow)
 
@@ -3294,7 +3297,7 @@ export default defineComponent({
       virtualScrollVisibleIndexs: virtualScrollVisibleIndexs.value,
       isCellEditing: isCellEditing.value,
       cellAutofillOption: props.cellAutofillOption,
-      onCellSelectionRangeDataChange: (newData) => {
+      onCellSelectionRangeDataChange: (newData: any) => {
         cellSelectionRangeDataChange(newData)
       },
     }
@@ -3370,7 +3373,7 @@ export default defineComponent({
       })
 
       // receive row selected change
-      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params:boolean) => {
+      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params: boolean) => {
         selectedAllChange(params)
       })
 
