@@ -15,7 +15,7 @@ import {
   SearchVue,
   FilterVue
 } from '@P/src/components/icon/index'
-import { Component, VueElement, computed, defineComponent } from 'vue'
+import { Component, DefineComponent, computed, defineComponent } from 'vue'
 export default defineComponent({
   name: COMPS_NAME.VE_ICON,
   props: {
@@ -44,10 +44,10 @@ export default defineComponent({
       }
       return result
     })
-    const iconNameVue = computed(() => {
-      const { name } = this
+    const iconNameVue = computed<DefineComponent>(() => {
+      const name = props.name
       // from @P/src/utils/constant ICON_NAMES
-      const map:Record<string, Component> = {
+      const map:Record<string, any> = {
         filter: FilterVue,
 
         'double-right-arrow': DoubleArrowRight,
@@ -63,8 +63,9 @@ export default defineComponent({
 
         search: SearchVue,
       }
+      // console.log('🚀 ~ iconNameVue ~ map[name]:', map[name])
       return map[name]
     })
-    return (<span style={iconStyle.value}>{iconNameVue}</span>)
+    return () => (<span style={iconStyle.value}>{<iconNameVue.value></iconNameVue.value>}</span>)
   },
 })
