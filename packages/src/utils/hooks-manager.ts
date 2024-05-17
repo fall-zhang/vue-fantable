@@ -2,18 +2,15 @@
 export default class Hooks {
   hooks:Record<string, any>
   constructor() {
-    // ...
     this.hooks = {
-      /*
-        table-scroll1:[
-            function(){},
-            function(){}
-        ],
-        table-scroll2:[
-            function(){},
-            function(){}
-        ]
-      */
+      // table-scroll1:[
+      //     function(){},
+      //     function(){}
+      // ],
+      // table-scroll2:[
+      //     function(){},
+      //     function(){}
+      // ]
     }
   }
 
@@ -50,15 +47,16 @@ export default class Hooks {
    * @param {string} hookName The hook name.
    * @param {Argument} args
    */
-  triggerHook(hookName:string) {
+  triggerHook(hookName:string, ...args:any[]) {
     const hooks = this.hooks[hookName]
 
     if (hooks && hooks.length) {
-      const args = Array.prototype.slice.call(arguments)
+      // 移除 argument 的使用
+      // const args = Array.prototype.slice.call(arguments)
 
       hooks.forEach((hook:any) => {
         // exclude hookName param
-        hook.apply(null, args.slice(1))
+        hook.apply(null, args)
       })
     }
     // else {
