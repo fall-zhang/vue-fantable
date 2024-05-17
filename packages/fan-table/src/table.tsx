@@ -80,6 +80,7 @@ import mitt from 'mitt'
 import { tableProps as fanTableProps } from './tableProps'
 import { tableInject } from './tableInject'
 import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
+import { error } from 'console'
 const $t = createLocale(LOCALE_COMP_NAME)
 type CommonRowItem = {
   rowHeight: number
@@ -106,34 +107,23 @@ export default defineComponent({
     const eventCenter = shallowRef(mitt())
     // 存储当前隐藏列信息
     //   hidden columns
-    const hiddenColumns = ref([])
+    const hiddenColumns = ref<any[]>([])
     // inject
-    inject('eventCenter', mitt())
+    provide('eventCenter', mitt())
     // is group header
     const isGroupHeader = ref(false)
     const editorInputStartValue = ref('')
 
-    // data start
-
+    /* data start */
     // is parent rendered
     const parentRendered = ref(false)
     // table viewport width except scroll bar width
-    /**
-          列配置变化次数
-          依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
-          */
+    // 列配置变化次数
+    // 依赖columns 配置渲染，都需要重新计算：粘性布局时，重新触发 on-dom-resize-change 事件
     const columnsOptionResetTime = ref(0)
-    const tableRootRef = ref()
-    const tableContainerWrapperRef = ref()
-    const tableContainerRef = ref<VueElement>()
-    const tableRef = ref()
-    const tableContentWrapperRef = ref()
-    const virtualPhantomRef = ref()
-    const editInputRef = ref<any>()
-    const cellSelectionRef = ref()
-    const contextmenuRef = ref()
-    const cloneColumns = ref([])
-    const virtualScrollVisibleData = ref()
+
+    const cloneColumns = ref<any[]>([])
+    const virtualScrollVisibleData = ref<any[]>([])
     // virtual scroll visible indexs
     const virtualScrollVisibleIndexs = ref({
       start: -1,
@@ -168,7 +158,7 @@ export default defineComponent({
     const hasYScrollBar = ref(false)
 
     // preview table container scrollLeft （处理左列或右列固定效果）
-    const previewTableContainerScrollLeft = ref(null)
+    const previewTableContainerScrollLeft = ref<null|number>(null)
     // header cell selection colKeys
     const headerIndicatorColKeys = ref({
       startColKey: '',
@@ -183,7 +173,6 @@ export default defineComponent({
       endRowKey: '',
       endRowKeyIndex: -1,
     })
-    // cell selection data
     const cellSelectionData = ref({
       currentCell: {
         rowKey: '',
@@ -199,23 +188,16 @@ export default defineComponent({
         rowKey: '',
         colKey: '',
       },
-    }),
-    // cell selection range data
+    })
     const cellSelectionRangeData = ref({
       leftColKey: '',
       rightColKey: '',
       topRowKey: '',
       bottomRowKey: '',
     })
-    // is header cell mousedown
     const isHeaderCellMousedown = ref(false)
-    // is body cell mousedown
     const isBodyCellMousedown = ref(false)
-
-
-    // is body operation column mousedown
     const isBodyOperationColumnMousedown = ref(false)
-    // is cell selection corner mousedown
     const isAutofillStarting = ref(false)
     // autofilling direction
     const autofillingDirection = ref(null)
@@ -231,7 +213,6 @@ export default defineComponent({
     // highlight row key
     const highlightRowKey = ref('')
 
-
     // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
     // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
     // like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
@@ -245,9 +226,19 @@ export default defineComponent({
     // is column resizing
     const isColumnResizing = ref(false)
 
-    // data end
+    /* data end */
 
-
+    /*  DOM refs */
+    const tableBodyRef = ref()
+    const tableRootRef = ref()
+    const tableContainerWrapperRef = ref()
+    const tableContainerRef = ref<HTMLDivElement>()
+    const tableRef = ref()
+    const tableContentWrapperRef = ref()
+    const virtualPhantomRef = ref()
+    const editInputRef = ref<any>()
+    const cellSelectionRef = ref()
+    const contextmenuRef = ref()
 
     const virtualScrollPositions = shallowRef<any[]>([])
     // virtual scroll positions（非响应式）
@@ -267,13 +258,9 @@ export default defineComponent({
     })
     const scrollBarWidth = ref(0)
 
-    // DOM refs
-    const tableBodyRef = ref()
     /* computed start */
     const actualRenderTableData = computed(() => {
-      return isVirtualScroll.value
-        ? virtualScrollVisibleData.value
-        : props.tableData
+      return isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
     })
     // return row keys
     const allRowKeys = computed(() => {
@@ -602,7 +589,6 @@ export default defineComponent({
 
     // init column width by column resize
     function initColumnWidthByColumnResize() {
-
       const columnDefaultWidth = 50
       if (enableColumnResize.value) {
         colgroups.value = colgroups.value.map((item) => {
@@ -684,7 +670,7 @@ export default defineComponent({
       * @desc  selected all change
       * @param {boolean} isSelected - is selected
       */
-    function selectedAllChange({ isSelected }: Record<"isSelected", boolean>) {
+    function selectedAllChange({ isSelected }: Record<'isSelected', boolean>) {
       eventCenter.value.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, {
         isSelected,
       },
@@ -1012,164 +998,164 @@ export default defineComponent({
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         switch (keyCode) {
-          case KEY_CODES.TAB: {
-            let direction
-            if (shiftKey) {
-              direction = CELL_SELECTION_DIRECTION.LEFT
-            } else {
-              direction = CELL_SELECTION_DIRECTION.RIGHT
-            }
+        case KEY_CODES.TAB: {
+          let direction
+          if (shiftKey) {
+            direction = CELL_SELECTION_DIRECTION.LEFT
+          } else {
+            direction = CELL_SELECTION_DIRECTION.RIGHT
+          }
 
+          selectCellByDirection({ direction, })
+
+          clearCellSelectionNormalEndCell()
+
+          stopEditingCell()
+          event.preventDefault()
+          break
+        }
+        case KEY_CODES.ARROW_LEFT: {
+          const direction = CELL_SELECTION_DIRECTION.LEFT
+          if (enableStopEditing.value) {
+            selectCellByDirection({
+              direction,
+            })
+
+            clearCellSelectionNormalEndCell()
+
+            stopEditingCell()
+            event.preventDefault()
+          }
+
+          break
+        }
+        case KEY_CODES.ARROW_RIGHT: {
+          const direction = CELL_SELECTION_DIRECTION.RIGHT
+
+          if (enableStopEditing.value) {
+            selectCellByDirection({
+              direction,
+            })
+
+            clearCellSelectionNormalEndCell()
+
+            stopEditingCell()
+            event.preventDefault()
+          }
+          break
+        }
+        case KEY_CODES.ARROW_UP: {
+          const direction = CELL_SELECTION_DIRECTION.UP
+
+          if (enableStopEditing.value) {
             selectCellByDirection({ direction, })
 
             clearCellSelectionNormalEndCell()
 
             stopEditingCell()
             event.preventDefault()
-            break
           }
-          case KEY_CODES.ARROW_LEFT: {
-            const direction = CELL_SELECTION_DIRECTION.LEFT
-            if (enableStopEditing.value) {
-              selectCellByDirection({
-                direction,
-              })
+          break
+        }
+        case KEY_CODES.ARROW_DOWN: {
+          const direction = CELL_SELECTION_DIRECTION.DOWN
 
-              clearCellSelectionNormalEndCell()
+          if (enableStopEditing.value) {
+            selectCellByDirection({
+              direction,
+            })
 
-              stopEditingCell()
-              event.preventDefault()
-            }
+            clearCellSelectionNormalEndCell()
 
-            break
+            stopEditingCell()
+            event.preventDefault()
           }
-          case KEY_CODES.ARROW_RIGHT: {
-            const direction = CELL_SELECTION_DIRECTION.RIGHT
+          break
+        }
+        case KEY_CODES.ENTER: {
+          let direction
+          // add new line
+          if (altKey) {
+            const editInputEditor = editInputRef.value
 
-            if (enableStopEditing.value) {
-              selectCellByDirection({
-                direction,
-              })
-
-              clearCellSelectionNormalEndCell()
-
-              stopEditingCell()
-              event.preventDefault()
-            }
-            break
+            editInputEditor.textareaAddNewLine()
+          } else if (shiftKey) { // direction up
+            direction = CELL_SELECTION_DIRECTION.UP
+            stopEditingCell()
+          } else if (ctrlKey) { // stop editing and stay in current cell
+            stopEditingCell()
+          } else { // direction down
+            direction = CELL_SELECTION_DIRECTION.DOWN
+            stopEditingCell()
           }
-          case KEY_CODES.ARROW_UP: {
-            const direction = CELL_SELECTION_DIRECTION.UP
 
-            if (enableStopEditing.value) {
-              selectCellByDirection({ direction, })
-
-              clearCellSelectionNormalEndCell()
-
-              stopEditingCell()
-              event.preventDefault()
-            }
-            break
+          if (direction) {
+            clearCellSelectionNormalEndCell()
+            selectCellByDirection({
+              direction,
+            })
           }
-          case KEY_CODES.ARROW_DOWN: {
-            const direction = CELL_SELECTION_DIRECTION.DOWN
-
-            if (enableStopEditing.value) {
-              selectCellByDirection({
-                direction,
-              })
-
-              clearCellSelectionNormalEndCell()
-
-              stopEditingCell()
-              event.preventDefault()
-            }
-            break
+          event.preventDefault()
+          break
+        }
+        case KEY_CODES.SPACE: {
+          if (!isCellEditing.value) {
+            // start editing and enter a space
+            startEditingCell({
+              rowKey,
+              colKey,
+              defaultValue: ' ',
+            })
+            event.preventDefault()
           }
-          case KEY_CODES.ENTER: {
-            let direction
-            // add new line
-            if (altKey) {
-              const editInputEditor = editInputRef.value
 
-              editInputEditor.textareaAddNewLine()
-            } else if (shiftKey) { // direction up
-              direction = CELL_SELECTION_DIRECTION.UP
-              stopEditingCell()
-            } else if (ctrlKey) { // stop editing and stay in current cell
-              stopEditingCell()
-            } else { // direction down
-              direction = CELL_SELECTION_DIRECTION.DOWN
-              stopEditingCell()
-            }
+          break
+        }
+        case KEY_CODES.BACK_SPACE: {
+          if (!isCellEditing.value) {
+            // start editing and clear value
+            startEditingCell({
+              rowKey,
+              colKey,
+              defaultValue: '',
+            })
+            event.preventDefault()
+          }
 
-            if (direction) {
-              clearCellSelectionNormalEndCell()
-              selectCellByDirection({
-                direction,
-              })
+          break
+        }
+        case KEY_CODES.DELETE: {
+          if (!isCellEditing.value) {
+            // delete cell selection range value
+            deleteCellSelectionRangeValue()
+            event.preventDefault()
+          }
+
+          break
+        }
+        case KEY_CODES.F2: {
+          if (!isCellEditing.value) {
+            if (currentColumn.edit) {
+              // start editing cell and don't allow stop eidting by direction key
+              enableStopEditing.value = false
+              startEditingCell({ rowKey, colKey, defaultValue: undefined })
             }
             event.preventDefault()
-            break
           }
-          case KEY_CODES.SPACE: {
-            if (!isCellEditing.value) {
-              // start editing and enter a space
-              startEditingCell({
-                rowKey,
-                colKey,
-                defaultValue: ' ',
-              })
-              event.preventDefault()
-            }
 
-            break
+          break
+        }
+        default: {
+          // enter text directly
+          if (isInputKeyCode(event)) {
+            startEditingCell({
+              rowKey,
+              colKey,
+              defaultValue: '',
+            })
           }
-          case KEY_CODES.BACK_SPACE: {
-            if (!isCellEditing.value) {
-              // start editing and clear value
-              startEditingCell({
-                rowKey,
-                colKey,
-                defaultValue: '',
-              })
-              event.preventDefault()
-            }
-
-            break
-          }
-          case KEY_CODES.DELETE: {
-            if (!isCellEditing.value) {
-              // delete cell selection range value
-              deleteCellSelectionRangeValue()
-              event.preventDefault()
-            }
-
-            break
-          }
-          case KEY_CODES.F2: {
-            if (!isCellEditing.value) {
-              if (currentColumn.edit) {
-                // start editing cell and don't allow stop eidting by direction key
-                enableStopEditing.value = false
-                startEditingCell({ rowKey, colKey, defaultValue: undefined })
-              }
-              event.preventDefault()
-            }
-
-            break
-          }
-          default: {
-            // enter text directly
-            if (isInputKeyCode(event)) {
-              startEditingCell({
-                rowKey,
-                colKey,
-                defaultValue: '',
-              })
-            }
-            break
-          }
+          break
+        }
         }
       }
     }
@@ -1257,7 +1243,7 @@ export default defineComponent({
      * @param {any} nextRowKey - next row key
      */
     function rowToVisible(keyCode:number, nextRowKey:any) {
-      if(!tableContainerRef.value) {
+      if (!tableContainerRef.value) {
         throw new Error("can't not find tableContainerRef")
       }
       const {
@@ -1324,7 +1310,6 @@ export default defineComponent({
 
     // set virtual scroll visible data
     function setVirtualScrollVisibleData() {
-
       const startIndex = virtualScrollStartIndex.value
       const endIndex = virtualScrollEndIndex.value
 
@@ -1378,7 +1363,7 @@ export default defineComponent({
           style: {
             width: '100%',
           },
-          onDomResizeChange: ({ width }:Record<'width',number>) => {
+          onDomResizeChange: ({ width }:Record<'width', number>) => {
             tableViewportWidth.value = width
           },
         }
@@ -1481,7 +1466,7 @@ export default defineComponent({
       setTableContentTopValue({ top: startOffset })
     }
     // set table content top value
-    function setTableContentTopValue({ top }:Record<'top',number>) {
+    function setTableContentTopValue({ top }:Record<'top', number>) {
       window.requestAnimationFrame(() => {
         const ele = tableContentWrapperRef.value
         if (ele) {
@@ -1490,20 +1475,20 @@ export default defineComponent({
       })
     }
     // virtual scroll binary search
-    function virtualScrollBinarySearch(list:any, value:any) {
+    function virtualScrollBinarySearch(list:any, value:any):number {
       let start = 0
       let end = list.length - 1
-      let tempIndex = null
+      let tempIndex:number = -1
 
       while (start <= end) {
-        const midIndex = parseInt((start + end) / 2)
+        const midIndex = parseInt(String((start + end) / 2))
         const midValue = list[midIndex].bottom
         if (midValue === value) {
           return midIndex + 1
         } else if (midValue < value) {
           start = midIndex + 1
         } else if (midValue > value) {
-          if (tempIndex === null || tempIndex > midIndex) {
+          if (tempIndex === -1 || tempIndex > midIndex) {
             tempIndex = midIndex
           }
           end = end - 1
@@ -1512,7 +1497,7 @@ export default defineComponent({
       return tempIndex
     }
     // table container virtual scroll handler
-    function tableContainerVirtualScrollHandler(tableContainerRef) {
+    function tableContainerVirtualScrollHandler(tableContainerRef:VueElement) {
       const visibleCount = virtualScrollVisibleCount.value
 
       const virtualScrollOption = props.virtualScrollOption
@@ -1522,10 +1507,7 @@ export default defineComponent({
 
       // 此时的开始索引
       // get virtual scroll start index
-      const visibleStartIndex = virtualScrollBinarySearch(
-        virtualScrollPositions.value,
-        scrollTop,
-      )
+      const visibleStartIndex = virtualScrollBinarySearch(virtualScrollPositions.value, scrollTop)
       virtualScrollStartIndex.value = visibleStartIndex
 
       // 此时的结束索引
@@ -1597,6 +1579,9 @@ export default defineComponent({
 
         // 修复渲染结束，同时开启虚拟滚动和设置表格数据，无法设置 virtual phantom 高度的问题
         nextTick(() => {
+          if (!tableContainerRef.value) {
+            throw new Error('can not find tableContainerRef')
+          }
           tableContainerVirtualScrollHandler(tableContainerRef.value)
           setVirtualPhantomHeight()
         })
@@ -1604,7 +1589,7 @@ export default defineComponent({
     }
 
     // set scrolling
-    function setScrolling(tableContainerRef) {
+    function setScrolling(tableContainerRef:VueElement) {
       if (hasFixedColumn.value) {
         const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
         const previewScrollLeft = previewTableContainerScrollLeft.value
@@ -1739,7 +1724,6 @@ export default defineComponent({
 
     // cell selection by click
     function cellSelectionByClick({ rowData, column }) {
-
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       // set cell selection and column to visible
       setCellSelection({
@@ -1920,7 +1904,6 @@ export default defineComponent({
     * @param {object} column - column data
     */
     function bodyCellMouseover({ event, rowData, column }) {
-
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
@@ -2201,7 +2184,6 @@ export default defineComponent({
       isAutofillStarting.value = true
     }
 
-
     // is edit column
     function isEditColumn(colKey) {
       return colgroups.value.some((x) => x.key === colKey && x.edit)
@@ -2272,7 +2254,7 @@ export default defineComponent({
     }
 
     // contextmenu item click
-    function contextmenuItemClick(type) {
+    function contextmenuItemClick(type:string) {
       // header contextmenu
       if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         headerContextmenuItemClick(type)
@@ -2396,10 +2378,16 @@ export default defineComponent({
         // cut
         if (CONTEXTMENU_NODE_TYPES.CUT === type) {
           editInputEditor.textareaSelect()
-          document.execCommand('cut')
+          const state = document.execCommand('cut')
+          if (state) {
+            throw new Error('操作不被支持：' + `document.execCommand('cut')`)
+          }
         } else if (CONTEXTMENU_NODE_TYPES.COPY === type) { // copy
           editInputEditor.textareaSelect()
-          document.execCommand('copy')
+          const state = document.execCommand('copy')
+          if (state) {
+            throw new Error('操作不被支持：' + `document.execCommand('copy')`)
+          }
         } else if (CONTEXTMENU_NODE_TYPES.REMOVE_ROW === type) {
           // paste todo
           // else if (CONTEXTMENU_NODE_TYPES.PASTE === type) {
@@ -2419,14 +2407,16 @@ export default defineComponent({
           props.tableData.splice(
             currentRowIndex,
             0,
-            createEmptyRowData({ colgroups: colgroups.value, props.rowKeyFieldName }),
+            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }),
           )
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) { // insert row below
           props.tableData.splice(
             currentRowIndex + 1,
             0,
-            createEmptyRowData({ colgroups: colgroups.value, props.rowKeyFieldName }),
+            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }),
           )
+        } else {
+          throw new Error('该功能暂未实现' + type)
         }
       }
     }
@@ -2718,7 +2708,12 @@ export default defineComponent({
     }
 
     // set cell selection and column to visible
-    function setCellSelection(receive) {
+    type CellSelectionProp = {
+      rowKey:any
+      colKey: any,
+      isScrollToRow: boolean,
+    }
+    function setCellSelection(receive:CellSelectionProp) {
       let {
         rowKey,
         colKey,
@@ -2923,7 +2918,7 @@ export default defineComponent({
     }: any) {
       if (!props.editOption) return false
 
-      let currentRow = props.tableData.find((x: any) => x[props.rowKeyFieldName] === rowKey)
+      let currentRow:any = props.tableData.find((x: any) => x[props.rowKeyFieldName] === rowKey)
 
       currentRow = cloneDeep(currentRow)
 
@@ -3109,7 +3104,7 @@ export default defineComponent({
 
     // watch end
 
-    // expose start 
+    // expose start
     expose({
       setRangeCellSelection,
       getRangeCellSelection,
@@ -3118,7 +3113,6 @@ export default defineComponent({
       scrollToRowKey,
       scrollToColKey
     })
-
 
     // header props
     const headerProps = {
@@ -3218,7 +3212,7 @@ export default defineComponent({
         [clsName('border-around')]: props.borderAround,
       },
       tagName: 'div',
-      onDomResizeChange: ({ height }) => {
+      onDomResizeChange: ({ height }:Record<'height', number>) => {
         tableOffestHeight.value = height
         initVirtualScroll()
         // fixed #404
@@ -3233,6 +3227,9 @@ export default defineComponent({
       class: tableContainerClass.value,
       style: tableContainerStyle.value,
       onScroll: () => {
+        if (!tableContainerRef.value) {
+          throw new Error('can not find tableContainerRef')
+        }
         hooks.value.triggerHook(
           HOOKS_NAME.TABLE_CONTAINER_SCROLL,
           tableContainerRef.value,
@@ -3271,7 +3268,7 @@ export default defineComponent({
     const tableWrapperProps = {
       class: [clsName('content-wrapper')],
       tagName: 'div',
-      onDomResizeChange: ({ height }) => {
+      onDomResizeChange: ({ height }:Record<'height', number>) => {
         tableHeight.value = height
       },
     }
@@ -3341,7 +3338,7 @@ export default defineComponent({
     const contextmenuProps = {
       eventTarget: contextmenuEventTarget.value,
       options: contextmenuOptions.value,
-      onNodeClick: (type) => {
+      onNodeClick: (type:string) => {
         contextmenuItemClick(type)
       },
     }
@@ -3354,16 +3351,16 @@ export default defineComponent({
       colgroups: colgroups.value,
       isColumnResizerHover: isColumnResizerHover.value,
       isColumnResizing: isColumnResizing.value,
-      setIsColumnResizerHover: setIsColumnResizerHover,
-      setIsColumnResizing: setIsColumnResizing,
-      setColumnWidth: setColumnWidth,
+      setIsColumnResizerHover,
+      setIsColumnResizing,
+      setColumnWidth,
       columnWidthResizeOption: props.columnWidthResizeOption,
     }
 
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
-      contextmenuEventTarget.value = tableRootRef.value.$el.querySelector(
+      contextmenuEventTarget.value = tableRootRef.value.querySelector(
         `.${clsName('content')}`,
       )
 
@@ -3491,7 +3488,7 @@ export default defineComponent({
 
     return () => (
       <div ref={tableRootRef} {...tableRootProps}>
-        <VueDomResizeObserver ref={tableContainerWrapperRef}  {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
+        <VueDomResizeObserver ref={tableContainerWrapperRef} {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
           <div ref={tableContainerRef} {...tableContainerProps}>
             {/* virtual view phantom */}
             {getVirtualViewPhantom()}
@@ -3512,7 +3509,7 @@ export default defineComponent({
               </table>
               {/* cell selection */}
               {enableCellSelection.value && (
-                <Selection ref={cellSelectionRef}  {...selectionProps} />
+                <Selection ref={cellSelectionRef} {...selectionProps} />
               )}
             </VueDomResizeObserver>
           </div>
