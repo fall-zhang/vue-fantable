@@ -9,19 +9,15 @@ import {
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
-// import eventCenter from '@P/events/event-center'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
 import BodyTr from './body-tr'
 import ExpandTr from './expand-tr'
 import BodyTrScrolling from './body-tr-scrolling'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, inject, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
+import { Emitter, EventType } from 'mitt'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY,
-  components: {
-    BodyTr
-  },
-  inject: ['eventCenter'],
   props: {
     tableViewportWidth: {
       type: Number,
@@ -34,11 +30,13 @@ export default defineComponent({
     colgroups: {
       type: Array,
       required: true,
+      default: () => ([])
     },
     actualRenderTableData: {
       type: Array,
       required: true,
     },
+    // 没有使用的属性
     hasFixedColumn: {
       type: Boolean,
       default: false,
@@ -149,50 +147,37 @@ export default defineComponent({
     },
   },
   emits: ['highlightRowChange', 'bodyCellWidthChange'],
-  data() {
-    return {
-      // columns widths map
-      colsWidths: new Map(),
-      /*
-            internal expand row keys
-            1、当没有设置 expandedRowKeys 时生效
-            */
-      internalExpandRowkeys: [],
-      /*
-            1、存储当前多选功能的rowkey 信息
-            */
-      internalCheckboxSelectedRowKeys: [],
-      /*
-            1、存储当前单选功能的rowkey 信息
-            */
-      internalRadioSelectedRowKey: null,
-      // virtual scroll preview rendered rowKey
-      virtualScrollPreviewRenderedRowKeys: [],
-      // virtual scroll repeat rendered rowKey
-      virtualScrollRepeatRenderedRowKeys: [],
-    }
-  },
-  computed: {
-    /*
-        column collenction info
-        1、style of each column
-        2、class of each column
-        */
-    columnCollection() {
-      const columnCollection = []
+  setup(props, { emit }) {
+    const eventCenter = inject<Record<EventType, any>>('eventCenter')!
+    /* data start */
+    // columns widths map
+    const colsWidths = shallowRef(new Map())
+    // internal expand row keys
+    // 1、当没有设置 expandedRowKeys 时生效
+    const internalExpandRowkeys = ref<any[]>([])
+    // 1、存储当前多选功能的 rowKey 信息
+    const internalCheckboxSelectedRowKeys = ref<any[]>([])
+    // 1、存储当前单选功能的rowkey 信息
+    const internalRadioSelectedRowKey = ref<any>(null)
 
-      const { colgroups } = this
+    const virtualScrollPreviewRenderedRowKeys = ref<any[]>([])
+    const virtualScrollRepeatRenderedRowKeys = ref([])
+    /* data end */
+    /* computed start */
+    // column collenction info
+    // 1、style of each column
+    // 2、class of each column
+    const columnCollection = computed(() => {
+      const result:any[] = []
 
-      colgroups.forEach((col) => {
+      props.colgroups.forEach((col:any) => {
         const colKey = col.key
 
-        const columnCollectionItem = {
+        const columnCollectionItem:any = {
           colKey,
           class: {
-            [clsName('last-left-fixed-column')]:
-                            this.isLastLeftFixedColumn(col),
-            [clsName('first-right-fixed-column')]:
-                            this.isfirstRightFixedColumn(col),
+            [clsName('last-left-fixed-column')]: isLastLeftFixedColumn(col),
+            [clsName('first-right-fixed-column')]: isFirstRightFixedColumn(col),
           },
           style: {},
         }
@@ -202,18 +187,16 @@ export default defineComponent({
         columnCollectionItem.style['text-align'] = align || 'center'
 
         if (fixed) {
-          let totalWidth = 0
+          let totalWidth:number|string = 0
           // column index
-          const columnIndex = colgroups.findIndex(
-            (x) => x.key === colKey,
+          const columnIndex = props.colgroups.findIndex(
+            (x:any) => x.key === colKey,
           )
-          if (
-            (fixed === 'left' && columnIndex > 0) ||
-                        (fixed === 'right' &&
-                            columnIndex < colgroups.length - 1)
-          ) {
+          const fixLeftAndColumnExist = fixed === 'left' && columnIndex > 0
+          const fixRightAndColumnExist = fixed === 'right' && (columnIndex < props.colgroups.length - 1)
+          if (fixLeftAndColumnExist || fixRightAndColumnExist) {
             totalWidth = getFixedTotalWidthByColumnKey({
-              colgroups,
+              colgroups: props.colgroups,
               colKey,
               fixed,
             })
@@ -221,217 +204,89 @@ export default defineComponent({
             totalWidth = getValByUnit(totalWidth)
           }
 
-          columnCollectionItem.style.left =
-                        fixed === 'left' ? totalWidth : ''
-          columnCollectionItem.style.right =
-                        fixed === 'right' ? totalWidth : ''
+          columnCollectionItem.style.left = fixed === 'left' ? totalWidth : ''
+          columnCollectionItem.style.right = fixed === 'right' ? totalWidth : ''
         }
 
-        columnCollection.push(columnCollectionItem)
+        result.push(columnCollectionItem)
       })
-      return columnCollection
-    },
+      return result
+    })
     // expand column
-    expandColumn() {
-      return this.colgroups.find((x) => x.type === COLUMN_TYPES.EXPAND)
-    },
-    /*
-        是否是可控行展开
-        1、当设置了 expandedRowKeys 属性时则为可控行展开
-        */
-    isControlledExpand() {
+    const expandColumn = computed<any>(() => {
+      return props.colgroups.find((x:any) => x.type === COLUMN_TYPES.EXPAND)
+    },)
+    // 是否是可控行展开
+    // 1、当设置了 expandedRowKeys 属性时则为可控行展开
+    const isControlledExpand = computed(() => {
       return (
-        this.expandOption &&
-                Array.isArray(this.expandOption.expandedRowKeys)
+        props.expandOption && Array.isArray(props.expandOption.expandedRowKeys)
       )
-    },
+    },)
 
     // expanded row keys
-    expandedRowkeys() {
-      return this.isControlledExpand
-        ? this.expandOption.expandedRowKeys
-        : this.internalExpandRowkeys
-    },
+    const expandedRowkeys = computed(() => {
+      return isControlledExpand.value ? props.expandOption.expandedRowKeys : internalExpandRowkeys.value
+    },)
 
     // disable row selected row keys
-    disableCheckboxSelectedRowKeys() {
-      const result = []
+    const disableCheckboxSelectedRowKeys = computed(() => {
+      const result:any[] = []
 
-      const { checkboxOption, internalCheckboxSelectedRowKeys } = this
-
-      if (!checkboxOption) {
+      if (!props.checkboxOption) {
         return result
       }
-      const { disableSelectedRowKeys } = checkboxOption
+      const { disableSelectedRowKeys } = props.checkboxOption
 
       if (
-        internalCheckboxSelectedRowKeys.length > 0 &&
-                Array.isArray(disableSelectedRowKeys) &&
-                disableSelectedRowKeys.length > 0
+        internalCheckboxSelectedRowKeys.value.length > 0 &&
+                  Array.isArray(disableSelectedRowKeys) &&
+                  disableSelectedRowKeys.length > 0
       ) {
         disableSelectedRowKeys.forEach((rowkey) => {
-          if (internalCheckboxSelectedRowKeys.includes(rowkey)) {
+          if (internalCheckboxSelectedRowKeys.value.includes(rowkey)) {
             result.push(rowkey)
           }
         })
       }
 
       return result
-    },
+    },)
 
     // disable row unselected row keys
-    disableCheckboxUnselectedRowKeys() {
-      const result = []
+    const disableCheckboxUnselectedRowKeys = computed(() => {
+      const result:any[] = []
+      if (!props.checkboxOption) return result
 
-      const { checkboxOption, internalCheckboxSelectedRowKeys } = this
-
-      if (!checkboxOption) {
-        return result
-      }
-      const { disableSelectedRowKeys } = checkboxOption
-
+      const { disableSelectedRowKeys } = props.checkboxOption
       if (
         Array.isArray(disableSelectedRowKeys) &&
-                disableSelectedRowKeys.length > 0
+                  disableSelectedRowKeys.length > 0
       ) {
         disableSelectedRowKeys.forEach((rowkey) => {
-          if (!internalCheckboxSelectedRowKeys.includes(rowkey)) {
+          if (!internalCheckboxSelectedRowKeys.value.includes(rowkey)) {
             result.push(rowkey)
           }
         })
       }
-
       return result
-    },
-
-    /*
-        is row keys selected all
-        为 true 的条件：选中数量 + 禁用选中数量 === 总量
-        */
-    isCheckboxSelectedAll() {
-      if (this.allRowKeys.length > 0) {
-        if (
-          this.internalCheckboxSelectedRowKeys.length +
-                        this.disableCheckboxUnselectedRowKeys.length ===
-                    this.allRowKeys.length
-        ) {
-          return true
-        }
-      }
-
-      return false
-    },
-    // is checkbox indeterminate
-    isCheckboxIndeterminate() {
-      const { internalCheckboxSelectedRowKeys, allRowKeys } = this
-
-      return (
-        internalCheckboxSelectedRowKeys.length > 0 &&
-                internalCheckboxSelectedRowKeys.length < allRowKeys.length
-      )
-    },
-    // 是否是受控属性（取决于selectedRowKey）
-    isControlledRadio() {
-      const { radioOption } = this
-
-      return (
-        radioOption &&
-                Object.keys(radioOption).includes('selectedRowKey')
-      )
-    },
-  },
-  watch: {
-    // watch expand Option
-    expandOption: {
-      handler: function () {
-        this.initInternalExpandRowKeys()
-      },
-      immediate: true,
-    },
-    // watch expandOption expandedRowKeys
-    'expandOption.expandedRowKeys': {
-      handler: function () {
-        this.initInternalExpandRowKeys()
-      },
-    },
-    // watch checkbox option
-    checkboxOption: {
-      handler: function () {
-        this.initInternalCheckboxSelectedRowKeys()
-      },
-      immediate: true,
-    },
-    // watch selectedRowKeys
-    'checkboxOption.selectedRowKeys': {
-      handler: function () {
-        this.resetInternalCheckboxSelectedRowKeys()
-      },
-    },
-    // watch internalCheckboxSelectedRowKeys
-    internalCheckboxSelectedRowKeys: {
-      handler: function () {
-        // send to checkbox all(in header)
-        this.sendToCheckboxAll()
-      },
-    },
-    // watch checkbox option
-    radioOption: {
-      handler: function () {
-        this.initInternalRadioSelectedRowKey()
-      },
-      immediate: true,
-    },
-    // watch selectedRowKeys
-    'radioOption.selectedRowKey': {
-      handler: function () {
-        this.initInternalRadioSelectedRowKey()
-      },
-    },
-  },
-  mounted() {
-    // receive checkbox row selected change from FAN_TABLE_BODY_CHECKBOX_CONTENT
-    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, (params) => {
-      this.checkboxSelectedRowChange(params)
     })
+    /* computed end */
 
-    // receive checkbox row selected change from FAN_TABLE_BODY_CHECKBOX_CONTENT
-    this.eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, (params) => {
-      this.checkboxSelectedAllChange(params)
-    })
-
-    // receive radio row selected change from FAN_TABLE_BODY_RADIO_CONTENT
-    this.eventCenter.on(GLOBAL_EVENT.RADIO_SELECTED_ROW_CHANGE, (params) => {
-      this.radioSelectedRowChange(params)
-    })
-
-    // recieve tr click
-    this.eventCenter.on(GLOBAL_EVENT.BODY_ROW_CLICK, (params) => {
-      this.rowClick(params)
-    })
-
-    if (this.checkboxOption) {
-      // 这里 nextTick 解决由于子组件先初始化，导致父组件无法接收消息的问题
-      this.$nextTick(() => {
-        this.sendToCheckboxAll()
-      })
-    }
-  },
-  methods: {
+    /* method start */
     // is last left fixed column
-    isLastLeftFixedColumn(column) {
+    function isLastLeftFixedColumn(column:any) {
       let result = false
-
-      const { colgroups } = this
 
       const { fixed } = column
 
       if (fixed === 'left') {
         const { field } = column
-        const leftFixedColumns = colgroups.filter(
-          (x) => x.fixed === 'left',
+        const leftFixedColumns = props.colgroups.filter(
+          (x:any) => x.fixed === 'left'
         )
         const index = leftFixedColumns.findIndex(
-          (x) => x.field === field,
+          (x:any) => x.field === field
         )
 
         if (index === leftFixedColumns.length - 1) {
@@ -439,20 +294,17 @@ export default defineComponent({
         }
       }
       return result
-    },
+    }
 
     // is first right fixed column
-    isfirstRightFixedColumn(column) {
+    function isFirstRightFixedColumn(column:any) {
       let result = false
-
-      const { colgroups } = this
-
       const { fixed } = column
 
       if (fixed === 'right') {
         const { field } = column
-        const rightFixedColumns = colgroups.filter(
-          (x) => x.fixed === 'right',
+        const rightFixedColumns:any[] = props.colgroups.filter(
+          (x:any) => x.fixed === 'right',
         )
 
         if (rightFixedColumns[0].field === field) {
@@ -460,74 +312,58 @@ export default defineComponent({
         }
       }
       return result
-    },
+    }
 
-    /*
-         * @expandRowChange
-         * @desc  row expand change
-         * @param {object} rowData - row data
-         * @param {number} rowIndex - row index
-         */
-    expandRowChange(rowData, rowIndex) {
-      const {
-        expandOption,
-        internalExpandRowkeys,
-        expandedRowkeys,
-        rowKeyFieldName,
-      } = this
-
+    /**
+     * @expandRowChange
+     * @desc  row expand change
+     * @param {object} rowData - row data
+     * @param {number} rowIndex - row index
+     */
+    function expandRowChange(rowData:any, rowIndex:any) {
       // deal before expand row method
-      if (typeof expandOption.beforeExpandRowChange === 'function') {
-        const beforeExpandRowResult =
-                    expandOption.beforeExpandRowChange({
-                      beforeExpandedRowKeys: expandedRowkeys,
-                      row: rowData,
-                      rowIndex,
-                    })
+      if (typeof props.expandOption.beforeExpandRowChange === 'function') {
+        const beforeExpandRowResult = props.expandOption.beforeExpandRowChange({
+          beforeExpandedRowKeys: expandedRowkeys.value,
+          row: rowData,
+          rowIndex,
+        })
         // interrupt execute
         if (beforeExpandRowResult === false) {
           return false
         }
       }
 
-      const rowKey = rowData[rowKeyFieldName]
+      const rowKey = rowData[props.rowKeyFieldName]
 
-      const rowKeyIndex = internalExpandRowkeys.indexOf(rowKey)
+      const rowKeyIndex = internalExpandRowkeys.value.indexOf(rowKey)
       if (rowKeyIndex > -1) {
-        internalExpandRowkeys.splice(rowKeyIndex, 1)
+        internalExpandRowkeys.value.splice(rowKeyIndex, 1)
       } else {
-        internalExpandRowkeys.push(rowKey)
+        internalExpandRowkeys.value.push(rowKey)
       }
 
       // deal after expand row method
-      if (typeof expandOption.afterExpandRowChange === 'function') {
-        expandOption.afterExpandRowChange({
-          afterExpandedRowKeys: internalExpandRowkeys,
+      if (typeof props.expandOption.afterExpandRowChange === 'function') {
+        props.expandOption.afterExpandRowChange({
+          afterExpandedRowKeys: internalExpandRowkeys.value,
           row: rowData,
           rowIndex,
         })
       }
-    },
+    }
 
-    /*
-         * @rowClick
-         * @desc  row expand click event
-         * @param {object} rowData - row data
-         * @param {number} rowIndex - row index
-         */
-    rowClick({ rowData, rowIndex }) {
-      const {
-        expandOption,
-        isExpandRow,
-        expandRowChange,
-        rowKeyFieldName,
-      } = this
-
+    /**
+     * @rowClick
+     * @desc  row expand click event
+     * @param {object} rowData - row data
+     * @param {number} rowIndex - row index
+     */
+    function rowClick({ rowData, rowIndex }:any) {
       // 行高亮功能
-      if (rowKeyFieldName) {
-        const rowKey = rowData[rowKeyFieldName]
-        // this.$emit(EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE, { rowKey })
-        this.$emit('highlightRowChange', { rowKey })
+      if (props.rowKeyFieldName) {
+        const rowKey = rowData[props.rowKeyFieldName]
+        emit('highlightRowChange', { rowKey })
       }
 
       // 行展开功能
@@ -535,32 +371,29 @@ export default defineComponent({
         return false
       }
 
-      const trigger = expandOption.trigger
+      const trigger = props.expandOption.trigger
 
       // expand row by click row
       if (trigger === EXPAND_TRIGGER_TYPES.ROW) {
         expandRowChange(rowData, rowIndex)
       }
-    },
+    }
 
-    /*
-         * @isExpandRow
-         * @desc  is expand row
-         * @param {object} rowData - row data
-         * @param {number} rowIndex - row index
-         */
-    isExpandRow({ rowData, rowIndex }) {
+    /**
+     * @isExpandRow
+     * @desc  is expand row
+     * @param {object} rowData - row data
+     * @param {number} rowIndex - row index
+     */
+    function isExpandRow({ rowData, rowIndex }:any) {
       let result = false
-
-      const { expandColumn, expandOption } = this
-
-      if (expandColumn && expandOption) {
+      if (expandColumn.value && props.expandOption) {
         // 是否允许展开
         let expandable = true
-        if (typeof expandOption.expandable === 'function') {
-          expandable = expandOption.expandable({
+        if (typeof props.expandOption.expandable === 'function') {
+          expandable = props.expandOption.expandable({
             row: rowData,
-            column: expandColumn,
+            column: expandColumn.value,
             rowIndex,
           })
         }
@@ -571,49 +404,43 @@ export default defineComponent({
       }
 
       return result
-    },
+    }
 
-    /*
-         * @tdSizeChange
-         * @desc  td size change
-         * @param {any} key - column key
-         * @param {number|string} width - column real width
-         */
-    tdSizeChange({ key, width }) {
-      const { colsWidths } = this
-      colsWidths.set(key, width)
-      // this.$emit(EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE, colsWidths)
-      this.$emit('bodyCellWidthChange', colsWidths)
-    },
+    /**
+       * @tdSizeChange
+       * @desc  td size change
+       * @param {any} key - column key
+       * @param {number|string} width - column real width
+       */
+    function tdSizeChange({ key, width }:any) {
+      colsWidths.value.set(key, width)
+      emit('bodyCellWidthChange', colsWidths.value)
+    }
 
     // init internal expand row keys
-    initInternalExpandRowKeys() {
-      const { expandOption, isControlledExpand, allRowKeys } = this
-
-      if (!expandOption) {
+    function initInternalExpandRowKeys() {
+      if (!props.expandOption) {
         return false
       }
 
-      if (isControlledExpand) {
-        this.internalExpandRowkeys =
-                    expandOption.expandedRowKeys.slice(0)
-      } else if (expandOption.defaultExpandAllRows) {
-        this.internalExpandRowkeys = allRowKeys
-      } else if (expandOption.defaultExpandedRowKeys) {
-        this.internalExpandRowkeys =
-                    expandOption.defaultExpandedRowKeys.slice(0)
+      if (isControlledExpand.value) {
+        internalExpandRowkeys.value = props.expandOption.expandedRowKeys.slice(0)
+      } else if (props.expandOption.defaultExpandAllRows) {
+        internalExpandRowkeys.value = props.allRowKeys
+      } else if (props.expandOption.defaultExpandedRowKeys) {
+        internalExpandRowkeys.value = props.expandOption.defaultExpandedRowKeys.slice(0)
       }
-    },
+    }
     // get expand row
-    getExpandRowComp({ rowData, rowIndex }) {
-      if (this.isExpandRow({ rowData, rowIndex })) {
+    function getExpandRowComp({ rowData, rowIndex }:any) {
+      if (isExpandRow({ rowData, rowIndex })) {
         const expandTrProps = {
-          tableViewportWidth: this.tableViewportWidth,
-          colgroups: this.colgroups,
-          expandOption: this.expandOption,
-          expandedRowkeys: this.expandedRowkeys,
-          expandColumn: this.expandColumn,
-          rowKeyFieldName: this.rowKeyFieldName,
+          tableViewportWidth: props.tableViewportWidth,
+          colgroups: props.colgroups,
+          expandOption: props.expandOption,
+          expandedRowkeys: expandedRowkeys.value,
+          expandColumn: expandColumn.value,
+          rowKeyFieldName: props.rowKeyFieldName,
           rowData,
           rowIndex,
         }
@@ -622,94 +449,101 @@ export default defineComponent({
       }
 
       return null
-    },
+    }
 
     // send to checkbox all
-    sendToCheckboxAll() {
-      const { isCheckboxSelectedAll, isCheckboxIndeterminate } = this
-
-      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO,
+    function sendToCheckboxAll() {
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO,
         {
-          isIndeterminate: isCheckboxIndeterminate,
-          isSelected: isCheckboxSelectedAll,
+          isIndeterminate: isCheckboxIndeterminate.value,
+          isSelected: isCheckboxSelectedAll.value,
         },
       )
-    },
+    }
 
     // init internal Radio SelectedRowKey
-    initInternalRadioSelectedRowKey() {
-      const { radioOption, isControlledRadio } = this
-
-      if (!radioOption) {
+    function initInternalRadioSelectedRowKey() {
+      if (!props.radioOption) {
         return false
       }
 
-      const { selectedRowKey, defaultSelectedRowKey } = radioOption
+      const { selectedRowKey, defaultSelectedRowKey } = props.radioOption
 
-      this.internalRadioSelectedRowKey = isControlledRadio
+      internalRadioSelectedRowKey.value = isControlledRadio.value
         ? selectedRowKey
         : defaultSelectedRowKey
-    },
+    }
 
     // init internal Checkbox SelectedRowKeys
-    initInternalCheckboxSelectedRowKeys() {
+    function initInternalCheckboxSelectedRowKeys() {
       let result = []
-      const { checkboxOption, allRowKeys } = this
-
-      if (!checkboxOption) {
-        return false
-      }
+      if (!props.checkboxOption) return false
 
       const {
         selectedRowKeys,
         defaultSelectedAllRows,
         defaultSelectedRowKeys,
-      } = checkboxOption
+      } = props.checkboxOption
 
       if (Array.isArray(selectedRowKeys)) {
         result = selectedRowKeys
       } else if (defaultSelectedAllRows) {
-        result = allRowKeys
+        result = props.allRowKeys
       } else if (Array.isArray(defaultSelectedRowKeys)) {
         result = defaultSelectedRowKeys
       }
-      this.internalCheckboxSelectedRowKeys = result
-    },
+      internalCheckboxSelectedRowKeys.value = result
+    }
     // reset internalCheckboxSelectedRowKeys by selectedRowKeys
-    resetInternalCheckboxSelectedRowKeys() {
-      this.internalCheckboxSelectedRowKeys =
-                this.checkboxOption.selectedRowKeys.slice(0)
-    },
-
-    /*
-         * @checkboxSelectedRowChange
-         * @desc  selected row change
-         * @param {number|string} rowKey - rowKey
-         * @param {bool} isSelected
-         */
-    checkboxSelectedRowChange({ rowKey, isSelected }) {
-      const {
-        checkboxOption,
-        internalCheckboxSelectedRowKeys,
-        rowKeyFieldName,
-      } = this
-
+    function resetInternalCheckboxSelectedRowKeys() {
+      internalCheckboxSelectedRowKeys.value = props.checkboxOption.selectedRowKeys.slice(0)
+    }
+    onMounted(() => {
+      // receive checkbox row selected change from FAN_TABLE_BODY_CHECKBOX_CONTENT
+      eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, (params:any) => {
+        checkboxSelectedRowChange(params)
+      })
+      // receive checkbox row selected change from FAN_TABLE_BODY_CHECKBOX_CONTENT
+      eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_BODY, (params:any) => {
+        checkboxSelectedAllChange(params)
+      })
+      // receive radio row selected change from FAN_TABLE_BODY_RADIO_CONTENT
+      eventCenter.on(GLOBAL_EVENT.RADIO_SELECTED_ROW_CHANGE, (params:any) => {
+        radioSelectedRowChange(params)
+      })
+      // recieve tr click
+      eventCenter.on(GLOBAL_EVENT.BODY_ROW_CLICK, (params:any) => {
+        rowClick(params)
+      })
+      if (props.checkboxOption) {
+        // 这里 nextTick 解决由于子组件先初始化，导致父组件无法接收消息的问题
+        nextTick(() => {
+          sendToCheckboxAll()
+        })
+      }
+    })
+    /**
+       * @checkboxSelectedRowChange
+       * @desc  selected row change
+       * @param {number|string} rowKey - rowKey
+       * @param {bool} isSelected
+       */
+    function checkboxSelectedRowChange({ rowKey, isSelected }:any) {
       let selectedRowChange = null
       let selectedRowKeys = null
-      if (!checkboxOption) return
-      if (checkboxOption.selectedRowChange) {
-        selectedRowChange = checkboxOption.selectedRowChange
+      if (!props.checkboxOption) return
+      if (props.checkboxOption.selectedRowChange) {
+        selectedRowChange = props.checkboxOption.selectedRowChange
       }
-      if (checkboxOption.selectedRowKeys) {
-        selectedRowKeys = checkboxOption.selectedRowKeys
+      if (props.checkboxOption.selectedRowKeys) {
+        selectedRowKeys = props.checkboxOption.selectedRowKeys
       }
 
-      const internalCheckboxSelectedRowKeysTemp =
-                internalCheckboxSelectedRowKeys.slice(0)
+      const internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.value.slice(0)
 
       // will selected
       const rowKeyIndex =
-                internalCheckboxSelectedRowKeysTemp.indexOf(rowKey)
+                  internalCheckboxSelectedRowKeysTemp.indexOf(rowKey)
       if (isSelected) {
         // bug fixed:通过行点击触发，导致key重复的问题
         if (rowKeyIndex === -1) {
@@ -723,61 +557,47 @@ export default defineComponent({
 
       // 非可控才改变 internalCheckboxSelectedRowKeys
       if (!Array.isArray(selectedRowKeys)) {
-        this.internalCheckboxSelectedRowKeys =
-                    internalCheckboxSelectedRowKeysTemp
+        internalCheckboxSelectedRowKeys.value = internalCheckboxSelectedRowKeysTemp
       }
 
       selectedRowChange({
-        row: this.actualRenderTableData.find(
-          (x) => x[rowKeyFieldName] === rowKey,
-        ),
+        row: props.actualRenderTableData.find((x:any) => x[props.rowKeyFieldName] === rowKey),
         isSelected,
         selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
       })
-    },
+    }
 
-    /*
-         * @checkboxSelectedAllChange
-         * @desc  selected all change
-         * @param {bool} isSelected - is selected
-         */
-    checkboxSelectedAllChange({ isSelected }) {
-      const {
-        checkboxOption,
-        internalCheckboxSelectedRowKeys,
-        allRowKeys,
-        disableCheckboxSelectedRowKeys,
-        disableCheckboxUnselectedRowKeys,
-      } = this
-      if (!checkboxOption) return
-      const { selectedAllChange, selectedRowKeys } = checkboxOption
+    /**
+     * @checkboxSelectedAllChange
+     * @desc  selected all change
+     * @param {bool} isSelected - is selected
+     */
+    function checkboxSelectedAllChange({ isSelected }:Record<'isSelected', any>) {
+      if (!props.checkboxOption) return
+      const { selectedAllChange, selectedRowKeys } = props.checkboxOption
 
-      let internalCheckboxSelectedRowKeysTemp =
-                internalCheckboxSelectedRowKeys.slice(0)
+      let internalCheckboxSelectedRowKeysTemp = internalCheckboxSelectedRowKeys.value.slice(0)
       // selected all
       if (isSelected) {
         // except disable Row Unselected keys
-        const allSelectedKeys = allRowKeys.slice(0)
-        if (disableCheckboxUnselectedRowKeys.length > 0) {
-          disableCheckboxUnselectedRowKeys.forEach((rowkey) => {
+        const allSelectedKeys = props.allRowKeys.slice(0)
+        if (disableCheckboxUnselectedRowKeys.value.length > 0) {
+          disableCheckboxUnselectedRowKeys.value.forEach((rowkey) => {
             const index = allSelectedKeys.indexOf(rowkey)
             if (index > -1) {
               allSelectedKeys.splice(index, 1)
             }
           })
         }
-
         internalCheckboxSelectedRowKeysTemp = allSelectedKeys
       } else {
         // except disable Row Selected keys
-        internalCheckboxSelectedRowKeysTemp =
-                    disableCheckboxSelectedRowKeys
+        internalCheckboxSelectedRowKeysTemp = disableCheckboxSelectedRowKeys.value
       }
 
       // 非可控才改变 internalCheckboxSelectedRowKeys
       if (!Array.isArray(selectedRowKeys)) {
-        this.internalCheckboxSelectedRowKeys =
-                    internalCheckboxSelectedRowKeysTemp
+        internalCheckboxSelectedRowKeys.value = internalCheckboxSelectedRowKeysTemp
       }
 
       selectedAllChange && selectedAllChange({
@@ -785,95 +605,124 @@ export default defineComponent({
         selectedRowKeys: internalCheckboxSelectedRowKeysTemp,
         // changeRowKeys:
       })
-    },
+    }
 
-    /*
-         * @radioSelectedRowChange
-         * @desc  selected all change
-         * @param {number|string} rowKey - rowKey
-         */
-    radioSelectedRowChange({ rowKey }) {
-      const { radioOption, rowKeyFieldName, isControlledRadio } = this
+    /**
+     * @radioSelectedRowChange
+     * @desc  selected all change
+     * @param {number|string} rowKey - rowKey
+     */
+    function radioSelectedRowChange({ rowKey }:Record<'rowKey', any>) {
       let selectedRowChange = null
-      if (!radioOption) {
+      if (!props.radioOption) {
         return
       }
-      if (radioOption.selectedRowChange) {
-        selectedRowChange = radioOption.selectedRowChange
+      if (props.radioOption.selectedRowChange) {
+        selectedRowChange = props.radioOption.selectedRowChange
       }
 
       // 非受控
-      if (!isControlledRadio) {
-        this.internalRadioSelectedRowKey = rowKey
+      if (!isControlledRadio.value) {
+        internalRadioSelectedRowKey.value = rowKey
       }
 
       selectedRowChange({
-        row: this.actualRenderTableData.find(
-          (x) => x[rowKeyFieldName] === rowKey,
+        row: props.actualRenderTableData.find(
+          (x:any) => x[props.rowKeyFieldName] === rowKey,
         ),
       })
-    },
+    }
     // get tr key
-    getTrKey({ rowData, rowIndex }) {
+    function getTrKey({ rowData, rowIndex }:any) {
       let result = rowIndex
 
-      const { rowKeyFieldName } = this
-      if (rowKeyFieldName) {
-        result = rowData[rowKeyFieldName]
+      if (props.rowKeyFieldName) {
+        result = rowData[props.rowKeyFieldName]
       }
       return result
-    },
+    }
 
-    /*
-        rendering row keys
-        virtual scrolling will invoke
-        */
-    renderingRowKeys(rowKeys) {
-      const {
-        virtualScrollPreviewRenderedRowKeys: previewRenderedRowKeys,
-      } = this
+    // rendering row keys
+    // virtual scrolling will invoke
+    function renderingRowKeys(rowKeys:any) {
+      const previewRenderedRowKeys = virtualScrollPreviewRenderedRowKeys.value
+      virtualScrollRepeatRenderedRowKeys.value = rowKeys.filter((rowKey:any) => {
+        return previewRenderedRowKeys.indexOf(rowKey) !== -1
+      })
+      virtualScrollPreviewRenderedRowKeys.value = rowKeys
+    }
+    /* method end */
 
-      this.virtualScrollRepeatRenderedRowKeys = rowKeys.filter(
-        (rowKey) => {
-          return previewRenderedRowKeys.indexOf(rowKey) !== -1
-        },
+    watch(() => props.expandOption, () => {
+      initInternalExpandRowKeys()
+    }, {
+      immediate: true,
+    })
+    // watch expandOption expandedRowKeys
+    watch(() => props.expandOption.expandedRowKeys, () => {
+      initInternalExpandRowKeys()
+    })
+    // watch checkbox option
+    watch(() => props.checkboxOption, () => {
+      initInternalCheckboxSelectedRowKeys()
+    }, {
+      immediate: true,
+    })
+    // watch selectedRowKeys
+    watch(() => props.checkboxOption.selectedRowKeys, () => {
+      resetInternalCheckboxSelectedRowKeys()
+    })
+    // watch internalCheckboxSelectedRowKeys
+    watch(internalCheckboxSelectedRowKeys, () => {
+      // send to checkbox all(in header)
+      sendToCheckboxAll()
+    })
+    // watch checkbox option
+    watch(() => props.radioOption, () => {
+      initInternalRadioSelectedRowKey()
+    }, {
+      immediate: true,
+    },)
+    // watch selectedRowKeys
+    watch(() => props.radioOption.selectedRowKey, () => {
+      initInternalRadioSelectedRowKey()
+    })
+
+    // 选中数量 + 禁用选中数量 === 总量，此时为 true
+    const isCheckboxSelectedAll = computed(() => {
+      if (props.allRowKeys.length > 0) {
+        const selectLength = internalCheckboxSelectedRowKeys.value.length
+        const disableLength = disableCheckboxUnselectedRowKeys.value.length
+        if (selectLength + disableLength === props.allRowKeys.length) {
+          return true
+        }
+      }
+      return false
+    })
+    // is checkbox indeterminate
+    const isCheckboxIndeterminate = computed(() => {
+      return (
+        internalCheckboxSelectedRowKeys.value.length > 0 &&
+                  internalCheckboxSelectedRowKeys.value.length < props.allRowKeys.length
       )
-
-      this.virtualScrollPreviewRenderedRowKeys = rowKeys
-    },
-  },
-  render() {
-    const {
-      colgroups,
-      actualRenderTableData,
-      expandOption,
-      expandRowChange,
-      isExpandRow,
-      getExpandRowComp,
-      expandedRowkeys,
-      checkboxOption,
-      radioOption,
-      rowKeyFieldName,
-      tdSizeChange,
-      internalCheckboxSelectedRowKeys,
-      internalRadioSelectedRowKey,
-      isVirtualScroll,
-      cellStyleOption,
-      showVirtualScrollingPlaceholder,
-    } = this
-
-    const { virtualScrollRepeatRenderedRowKeys } = this
-
-    return (
+    },)
+    // 是否是受控属性（取决于selectedRowKey）
+    const isControlledRadio = computed(() => {
+      return (
+        props.radioOption && Object.keys(props.radioOption).includes('selectedRowKey')
+      )
+    })
+    /* computed end */
+    defineExpose({
+      renderingRowKeys
+    })
+    return () => (
       <tbody>
         {/* Measure each column width with additional hidden col */}
         <tr style="height:0;">
-          {colgroups.map((column) => {
+          {props.colgroups.map((column:any) => {
             const measureTdProps = {
-              key: getDomResizeObserverCompKey(
-                column.key,
-                this.columnsOptionResetTime,
-              ),
+              key: getDomResizeObserverCompKey(column.key, props.columnsOptionResetTime),
               tagName: 'td',
               id: column.key,
               onDomResizeChange: tdSizeChange,
@@ -886,44 +735,42 @@ export default defineComponent({
             return <VueDomResizeObserver {...measureTdProps} />
           })}
         </tr>
-        {actualRenderTableData.map((rowData, rowIndex) => {
+        {props.actualRenderTableData.map((rowData:any, rowIndex) => {
           const trProps = {
-            key: this.getTrKey({ rowData, rowIndex }),
+            key: getTrKey({ rowData, rowIndex }),
             rowIndex,
             rowData,
-            colgroups,
-            expandOption,
-            expandedRowkeys,
-            checkboxOption,
-            radioOption,
-            rowKeyFieldName,
-            allRowKeys: this.allRowKeys,
+            colgroups: props.colgroups,
+            expandOption: props.expandOption,
+            expandedRowkeys: expandedRowkeys.value,
+            checkboxOption: props.checkboxOption,
+            radioOption: props.radioOption,
+            rowKeyFieldName: props.rowKeyFieldName,
+            allRowKeys: props.allRowKeys,
             expandRowChange,
-            internalCheckboxSelectedRowKeys,
-            internalRadioSelectedRowKey,
-            isVirtualScroll,
+            internalCheckboxSelectedRowKeys: internalCheckboxSelectedRowKeys.value,
+            internalRadioSelectedRowKey: internalRadioSelectedRowKey.value,
+            isVirtualScroll: props.isVirtualScroll,
             isExpandRow: isExpandRow({ rowData, rowIndex }),
-            cellStyleOption,
-            cellSpanOption: this.cellSpanOption,
-            highlightRowKey: this.highlightRowKey,
-            eventCustomOption: this.eventCustomOption,
-            cellSelectionData: this.cellSelectionData,
-            editOption: this.editOption,
-            columnCollection: this.columnCollection,
-            cellSelectionRangeData: this.cellSelectionRangeData,
-            bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
+            cellStyleOption: props.cellStyleOption,
+            cellSpanOption: props.cellSpanOption,
+            highlightRowKey: props.highlightRowKey,
+            eventCustomOption: props.eventCustomOption,
+            cellSelectionData: props.cellSelectionData,
+            editOption: props.editOption,
+            columnCollection: columnCollection.value,
+            cellSelectionRangeData: props.cellSelectionRangeData,
+            bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
           }
 
-          if (showVirtualScrollingPlaceholder) {
+          if (props.showVirtualScrollingPlaceholder) {
             const trPropsScrolling = {
-              key: this.getTrKey({ rowData, rowIndex }),
-              colgroups,
+              key: getTrKey({ rowData, rowIndex }),
+              colgroups: props.colgroups,
             }
 
             if (
-              virtualScrollRepeatRenderedRowKeys.indexOf(
-                rowData[this.rowKeyFieldName],
-              ) !== -1
+              virtualScrollRepeatRenderedRowKeys.value.indexOf(rowData[props.rowKeyFieldName]) !== -1
             ) {
               return [
                 // body tr
@@ -945,3 +792,4 @@ export default defineComponent({
     )
   },
 })
+// 948

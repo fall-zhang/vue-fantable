@@ -886,7 +886,7 @@ export default defineComponent({
             return <VueDomResizeObserver {...measureTdProps} />
           })}
         </tr>
-        {actualRenderTableData.value.map((rowData, rowIndex) => {
+        {actualRenderTableData.map((rowData, rowIndex) => {
           const trProps = {
             key: this.getTrKey({ rowData, rowIndex }),
             rowIndex,
