@@ -196,18 +196,22 @@ export function onAfterCopy({ event, selectionRangeData }) {
  * @param {Event} event
  * @return
  */
+type BeforePasteParams={
+  event:any
+  cellSelectionRangeData:any
+  colgroups:any
+  allRowKeys:any
+}
 export function onBeforePaste({
   event,
   cellSelectionRangeData,
   colgroups,
   allRowKeys,
-}) {
+}:BeforePasteParams) {
   let pastedData
 
   if (event.clipboardData) {
     pastedData = event.clipboardData.getData('text/plain')
-  } else if (window.clipboardData) { // IE browser
-    pastedData = window.clipboardData.getData('Text')
   }
 
   if (typeof pastedData !== 'string') {

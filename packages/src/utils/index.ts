@@ -127,7 +127,7 @@ export function getParentCompByName(context, name) {
  * @param {string} name - child comp name
  */
 export function getChildCompsByName(context, name) {
-  const result = []
+  const result:any[] = []
 
   let childrens = context.$children
 
@@ -150,7 +150,7 @@ export function getChildCompsByName(context, name) {
  * @param {element} el - element
  * @param {object} option - scroll option
  */
-export function scrollTo(el: Element, option: any) {
+export function scrollTo(el: HTMLElement, option: any) {
   if (isFunction(el.scrollTo)) {
     el.scrollTo(option)
   } else {
