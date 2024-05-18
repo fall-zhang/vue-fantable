@@ -48,8 +48,6 @@
     "commit": "czg"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.9.0",
-    "@typescript-eslint/parser": "^7.9.0",
     "vue": "^3.4.27"
   },
   "peerDependencies": {
@@ -71,6 +69,8 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/pluginutils": "^5.1.0",
     "@types/node": "20.11.4",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vitest/ui": "^1.6.0",

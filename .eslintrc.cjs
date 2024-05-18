@@ -14,7 +14,7 @@ module.exports = {
   //   reactive: true
   // },
   // 后面的配置会覆盖前者
-  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended'],
+  extends: ['eslint:recommended', 'eslint-config-standard', 'plugin:vue/vue3-recommended', 'plugin:@typescript-eslint/recommended'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
