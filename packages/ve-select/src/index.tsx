@@ -2,7 +2,7 @@
 import VeDropdown from '../../ve-dropdown/ve-dropdown'
 import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
-// import VeIcon from '../../ve-icon/ve-icon'
+import VeIcon from '../../ve-icon/ve-icon'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { hasValue } from '@P/src/utils/index'
 

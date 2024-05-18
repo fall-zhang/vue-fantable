@@ -136,6 +136,10 @@ export function tableProps() {
     cellAutofillOption: {
       type: [Object, Boolean],
       default: function () {
+        // {
+        //   beforeAutofill()
+        //   afterAutofill()
+        // }
         return null
       },
     },
