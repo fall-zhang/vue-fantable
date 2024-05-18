@@ -72,7 +72,7 @@ import TableBody from './body/index'
 import TableFooter from './footer/index'
 import EditInput from './editor/index'
 import Selection from './selection/index'
-import clickoutside from '@P/src/directives/clickoutside'
+import clickOutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index'
@@ -89,7 +89,7 @@ type CommonRowItem = {
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE,
   directives: {
-    'click-outside': clickoutside,
+    'click-outside': clickOutside,
   },
   components: {
     VueDomResizeObserver, ColumnResizer, ColGroup, TableHeader, TableBody, TableFooter, EditInput, Selection, VeContextmenu
@@ -232,7 +232,7 @@ export default defineComponent({
     const tableBodyRef = ref()
     const tableRootRef = ref()
     const tableContainerWrapperRef = ref()
-    const tableContainerRef = ref<HTMLDivElement>()
+    const tableContainerRef = ref<VueElement>()
     const tableRef = ref()
     const tableContentWrapperRef = ref()
     const virtualPhantomRef = ref()
@@ -260,7 +260,8 @@ export default defineComponent({
 
     /* computed start */
     const actualRenderTableData = computed(() => {
-      return isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
+      const result = isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
+      return result
     })
     // return row keys
     const allRowKeys = computed(() => {
@@ -1323,6 +1324,7 @@ export default defineComponent({
       virtualScrollVisibleIndexs.value.end = end - 1
 
       virtualScrollVisibleData.value = props.tableData.slice(start, end)
+      console.log('🚀 ~ setVirtualScrollVisibleData ~ virtualScrollVisibleData.value:', virtualScrollVisibleData.value)
     }
 
     // get virtual scroll above count
@@ -1631,11 +1633,14 @@ export default defineComponent({
 
     // init scrolling
     function initScrolling() {
+      if (!tableContainerRef.value) {
+        throw new Error('can not find tableContainerRef')
+      }
       setScrolling(tableContainerRef.value)
     }
 
     // table click outside
-    function tableClickOutside(e) {
+    function tableClickOutside(e:any) {
       // exclude contextmenu panel clicked
       if (isContextmenuPanelClicked(e)) {
         return false
@@ -1672,8 +1677,8 @@ export default defineComponent({
       if (isCellEditing.value) {
         const { rowKey, colKey } = editingCell.value
 
-        const currentRow = props.tableData.find(
-          (x) => x[rowKeyFieldName] === rowKey,
+        const currentRow:any = props.tableData.find(
+          (x:any) => x[rowKeyFieldName] === rowKey,
         )
 
         if (currentRow) {
@@ -1723,7 +1728,7 @@ export default defineComponent({
     }
 
     // cell selection by click
-    function cellSelectionByClick({ rowData, column }) {
+    function cellSelectionByClick({ rowData, column }:any) {
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       // set cell selection and column to visible
       setCellSelection({
@@ -1742,7 +1747,7 @@ export default defineComponent({
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-    function bodyCellContextmenu({ event, rowData, column }) {
+    function bodyCellContextmenu({ event, rowData, column }:any) {
       if (props.editOption) {
         const rowKey = getRowKey(rowData, props.rowKeyFieldName)
         editCellByClick({
@@ -1756,12 +1761,12 @@ export default defineComponent({
     }
 
     /**
-         * @ 双击 body Cell
-         * @desc  recieve td double click event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
-    function bodyCellDoubleClick({ event, rowData, column }) {
+     * @ 双击 body Cell
+     * @desc  recieve td double click event
+     * @param {object} rowData - row data
+     * @param {object} column - column data
+     */
+    function bodyCellDoubleClick({ event, rowData, column }:any) {
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
         clearCellSelectionCurrentCell()
@@ -1788,7 +1793,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellClick({ event, rowData, column }) {
+    function bodyCellClick({ event, rowData, column }:any) {
       // feature...
     }
 
@@ -1798,7 +1803,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMousedown({ event, rowData, column }) {
+    function bodyCellMousedown({ event, rowData, column }:any) {
       if (!enableCellSelection.value) {
         return false
       }
@@ -1903,7 +1908,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMouseover({ event, rowData, column }) {
+    function bodyCellMouseover({ event, rowData, column }:any) {
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
@@ -1951,7 +1956,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMousemove({ event, column }) {
+    function bodyCellMousemove({ event, column }:any) {
       hooks.value.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, { event, column, })
     }
 
@@ -1961,22 +1966,22 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMouseup({ event, rowData, column }) {
+    function bodyCellMouseup({ event, rowData, column }:any) {
       // feature...
     }
 
     // header cell click
-    function headerCellClick({ event, column }) {
+    function headerCellClick({ event, column }:any) {
       // feature...
     }
 
     // header cell contextmenu
-    function headerCellContextmenu({ event, column }) {
+    function headerCellContextmenu({ event, column }:any) {
       setContextmenuOptions(column)
     }
 
     // set contextmenu options
-    function setContextmenuOptions(column) {
+    function setContextmenuOptions(column:any) {
       // header contextmenu
       if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         // set header contextmenu options before contextmen show
@@ -2005,7 +2010,7 @@ export default defineComponent({
     }
 
     // header cell mousedown
-    function headerCellMousedown({ event, column }) {
+    function headerCellMousedown({ event, column }:any) {
       if (!enableCellSelection.value) {
         return false
       }
@@ -2116,7 +2121,7 @@ export default defineComponent({
     }
 
     // header cell mouseover
-    function headerCellMouseover({ event, column }) {
+    function headerCellMouseover({ event, column }:any) {
       if (
         isHeaderCellMousedown.value &&
         !isOperationColumn(column.key, colgroups.value)
@@ -2151,7 +2156,7 @@ export default defineComponent({
     }
 
     // header cell mousemove
-    function headerCellMousemove({ event, column }) {
+    function headerCellMousemove({ event, column }:any) {
       hooks.value.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEMOVE, {
         event,
         column,
@@ -2159,7 +2164,7 @@ export default defineComponent({
     }
 
     // header cell mouseleave
-    function headerCellMouseleave({ event, column }) {
+    function headerCellMouseleave({ event, column }:any) {
       // todo
     }
 
@@ -2185,7 +2190,7 @@ export default defineComponent({
     }
 
     // is edit column
-    function isEditColumn(colKey) {
+    function isEditColumn(colKey:any) {
       return colgroups.value.some((x) => x.key === colKey && x.edit)
     }
 
@@ -2194,7 +2199,7 @@ export default defineComponent({
      * @desc  recieve td click event
      * @param {boolean} isDblclick - is dblclick
      */
-    function editCellByClick({ isDblclick, rowKey, colKey }) {
+    function editCellByClick({ isDblclick, rowKey, colKey }:any) {
       if (!props.editOption) return false
 
       // has edit column
@@ -2225,7 +2230,7 @@ export default defineComponent({
      * @param {object} column - column
      * @param {object} row - row data
      */
-    function setEditingCell({ rowKey, colKey, column, row }) {
+    function setEditingCell({ rowKey, colKey, column, row }:any) {
       editingCell.value = {
         rowKey,
         row: cloneDeep(row),
@@ -2235,7 +2240,7 @@ export default defineComponent({
     }
 
     // update editing cell value
-    function updateEditingCellValue(value) {
+    function updateEditingCellValue(value:any) {
       const columnField = editingCell.value.column?.field
       editingCell.value.row[columnField] = value
     }
@@ -2249,7 +2254,7 @@ export default defineComponent({
         rowKey: '',
         colKey: '',
         row: null,
-        column: null,
+        column: null
       }
     }
 
@@ -2264,7 +2269,7 @@ export default defineComponent({
     }
 
     // header contextmenu item click
-    function headerContextmenuItemClick(type) {
+    function headerContextmenuItemClick(type:any) {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
       const { afterMenuClick } = props.contextmenuHeaderOption
 
@@ -2341,7 +2346,7 @@ export default defineComponent({
     }
 
     // body contextmenu item click
-    function bodyContextmenuItemClick(type) {
+    function bodyContextmenuItemClick(type:any) {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
       const { afterMenuClick } = props.contextmenuBodyOption
 
@@ -2474,7 +2479,7 @@ export default defineComponent({
     }
 
     // editor paste
-    function editorPaste(event) {
+    function editorPaste(event:any) {
       if (!enableClipboard.value) {
         return false
       }
@@ -2501,7 +2506,6 @@ export default defineComponent({
         cellSelectionRangeData: cellSelectionRangeData.value,
         colgroups: colgroups.value,
         allRowKeys: allRowKeys.value,
-        rowKeyFieldName: props.rowKeyFieldName,
       })
 
       if (
@@ -2698,12 +2702,12 @@ export default defineComponent({
     }
 
     // set isColumnResizerHover
-    function setIsColumnResizerHover(val) {
+    function setIsColumnResizerHover(val:boolean) {
       isColumnResizerHover.value = val
     }
 
     // set isColumnResizing
-    function setIsColumnResizing(val) {
+    function setIsColumnResizing(val:boolean) {
       isColumnResizing.value = val
     }
 
@@ -2743,7 +2747,7 @@ export default defineComponent({
     }
 
     /*  set range cell selection and column to visible   */
-    function setRangeCellSelection(receive) {
+    function setRangeCellSelection(receive:any) {
       let {
         startRowKey,
         startColKey,
@@ -2840,7 +2844,7 @@ export default defineComponent({
       }
     }
 
-    function hideColumnsByKeys(keys) {
+    function hideColumnsByKeys(keys:any) {
       if (!isEmptyArray(keys)) {
         // 将要隐藏的列添加到 hiddenColumns 中
         // Add the columns you want to hide to hidden columns
@@ -2852,7 +2856,7 @@ export default defineComponent({
       }
     }
 
-    function showColumnsByKeys(keys) {
+    function showColumnsByKeys(keys:any) {
       if (!isEmptyArray(keys)) {
         // 将要显示的列从 hiddenColumns 中移除
         // Remove the columns to show from hidden columns
@@ -2867,7 +2871,7 @@ export default defineComponent({
       }
     }
     // table scroll to rowKey position
-    function scrollToRowKey({ rowKey }) {
+    function scrollToRowKey({ rowKey }:any) {
       if (isEmptyValue(rowKey)) {
         console.warn("Row key can't be empty!")
         return false
@@ -2885,10 +2889,14 @@ export default defineComponent({
 
         // fix bug #470
         setTimeout(() => {
-          scrollTo(tableContainerRef.value, {
-            top: scrollTop,
-            behavior: 'auto',
-          })
+          if (tableContainerRef.value) {
+            scrollTo(tableContainerRef.value, {
+              top: scrollTop,
+              behavior: 'auto',
+            })
+          } else {
+            throw new Error('can not find tableContainerRef')
+          }
         }, 200)
       } else {
         const rowEl = tableRootRef.value.$el.querySelector(
@@ -2897,14 +2905,16 @@ export default defineComponent({
 
         scrollTop = rowEl.offsetTop - headerTotalHeight.value
       }
-
+      if (!tableContainerRef.value) {
+        throw new Error('can not find tableContainerRef')
+      }
       scrollTo(tableContainerRef.value, {
         top: scrollTop,
         behavior: isVirtualScroll.value ? 'auto' : 'smooth',
       })
     }
     // scroll to col key position
-    function scrollToColKey({ colKey }) {
+    function scrollToColKey({ colKey }:any) {
       const column = getColumnByColKey(colKey, colgroups.value)
       if (column) {
         columnToVisible(column)
@@ -2988,7 +2998,7 @@ export default defineComponent({
       }
     }
     // set highlight row
-    function setHighlightRow({ rowKey }) {
+    function setHighlightRow({ rowKey }:Record<'rowKey', any>) {
       highlightRowKey.value = rowKey
     }
 
@@ -3149,6 +3159,7 @@ export default defineComponent({
     // const heightRowChange = EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE
     const heightRowChange = 'onHighlightRowChange'
     // body props
+    console.log('🚀 ~ setup ~ virtualScrollVisibleData.value:', virtualScrollVisibleData.value)
     const bodyProps = {
       class: [clsName('body'), tableBodyClass.value],
       tableViewportWidth: tableViewportWidth.value,
@@ -3156,7 +3167,8 @@ export default defineComponent({
       colgroups: colgroups.value,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
-      actualRenderTableData: actualRenderTableData.value,
+      // actualRenderTableData: actualRenderTableData.value,
+      actualRenderTableData,
       rowKeyFieldName: props.rowKeyFieldName,
       radioOption: props.radioOption,
       virtualScrollOption: props.virtualScrollOption,
@@ -3319,17 +3331,17 @@ export default defineComponent({
         enableStopEditing.value = false
       },
       // edit input value change
-      onEditInputValueChange: (value) => {
+      onEditInputValueChange: (value:any) => {
         updateEditingCellValue(value)
       },
       // copy
       onEditInputCopy,
       // paste
-      onEditInputPaste: (e) => {
+      onEditInputPaste: (e:any) => {
         editorPaste(e)
       },
       // cut
-      onEditInputCut: (e) => {
+      onEditInputCut: (e:any) => {
         editorCut(e)
       },
     }
@@ -3370,8 +3382,8 @@ export default defineComponent({
       })
 
       // receive row selected change
-      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params: boolean) => {
-        selectedAllChange(params)
+      eventCenter.value.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_CHANGE_TABLE, (params) => {
+        selectedAllChange(params as Record<'isSelected', boolean>)
       })
 
       // receive selected all info
@@ -3381,21 +3393,20 @@ export default defineComponent({
 
       // receive multiple header row height change
       eventCenter.value.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
-        ({ rowIndex, height }) => {
-          headerRowHeightChange({ rowIndex, height })
+        (params) => {
+          headerRowHeightChange(params as Record<'rowIndex'| 'height', any>)
         },
       )
 
       // receive virtual scroll row height change
-      eventCenter.value.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, ({ rowKey, height }) => {
-        bodyRowHeightChange({ rowKey, height })
+      eventCenter.value.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, (params) => {
+        bodyRowHeightChange(params as Record<'rowKey'| 'height', any >)
       })
 
       // receive footer row height change
-      eventCenter.value.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE,
-        ({ rowIndex, height }) => {
-          footRowHeightChange({ rowIndex, height })
-        },
+      eventCenter.value.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE, (params) => {
+        footRowHeightChange(params as Record<'rowIndex'| 'height', any>)
+      },
       )
 
       // receive body cell click
