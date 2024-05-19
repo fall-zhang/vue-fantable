@@ -15,7 +15,7 @@ import ExpandTr from './expand-tr'
 import BodyTrScrolling from './body-tr-scrolling'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 import { computed, defineComponent, inject, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
-import { Emitter, EventType } from 'mitt'
+import { EventType } from 'mitt'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY,
   props: {
@@ -48,8 +48,10 @@ export default defineComponent({
     // expand row option
     expandOption: {
       type: Object,
-      default: function () {
-        return null
+      default () {
+        return {
+          expandedRowKeys: ''
+        }
       },
     },
     // checkbox option
@@ -147,7 +149,7 @@ export default defineComponent({
     },
   },
   emits: ['highlightRowChange', 'bodyCellWidthChange'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const eventCenter = inject<Record<EventType, any>>('eventCenter')!
     /* data start */
     // columns widths map
@@ -270,6 +272,30 @@ export default defineComponent({
         })
       }
       return result
+    })
+    // 选中数量 + 禁用选中数量 === 总量，此时为 true
+    const isCheckboxSelectedAll = computed(() => {
+      if (props.allRowKeys.length > 0) {
+        const selectLength = internalCheckboxSelectedRowKeys.value.length
+        const disableLength = disableCheckboxUnselectedRowKeys.value.length
+        if (selectLength + disableLength === props.allRowKeys.length) {
+          return true
+        }
+      }
+      return false
+    })
+    // is checkbox indeterminate
+    const isCheckboxIndeterminate = computed(() => {
+      return (
+        internalCheckboxSelectedRowKeys.value.length > 0 &&
+                      internalCheckboxSelectedRowKeys.value.length < props.allRowKeys.length
+      )
+    },)
+    // 是否是受控属性（取决于selectedRowKey）
+    const isControlledRadio = computed(() => {
+      return (
+        props.radioOption && Object.keys(props.radioOption).includes('selectedRowKey')
+      )
     })
     /* computed end */
 
@@ -659,7 +685,9 @@ export default defineComponent({
       immediate: true,
     })
     // watch expandOption expandedRowKeys
-    watch(() => props.expandOption.expandedRowKeys, () => {
+    // console.log(props.expandOption)
+
+    watch(() => 'props.expandOption.expandedRowKeys', () => {
       initInternalExpandRowKeys()
     })
     // watch checkbox option
@@ -669,7 +697,7 @@ export default defineComponent({
       immediate: true,
     })
     // watch selectedRowKeys
-    watch(() => props.checkboxOption.selectedRowKeys, () => {
+    watch(() => 'props.checkboxOption.selectedRowKeys', () => {
       resetInternalCheckboxSelectedRowKeys()
     })
     // watch internalCheckboxSelectedRowKeys
@@ -684,36 +712,10 @@ export default defineComponent({
       immediate: true,
     },)
     // watch selectedRowKeys
-    watch(() => props.radioOption.selectedRowKey, () => {
+    watch(() => 'props.radioOption.selectedRowKey', () => {
       initInternalRadioSelectedRowKey()
     })
-
-    // 选中数量 + 禁用选中数量 === 总量，此时为 true
-    const isCheckboxSelectedAll = computed(() => {
-      if (props.allRowKeys.length > 0) {
-        const selectLength = internalCheckboxSelectedRowKeys.value.length
-        const disableLength = disableCheckboxUnselectedRowKeys.value.length
-        if (selectLength + disableLength === props.allRowKeys.length) {
-          return true
-        }
-      }
-      return false
-    })
-    // is checkbox indeterminate
-    const isCheckboxIndeterminate = computed(() => {
-      return (
-        internalCheckboxSelectedRowKeys.value.length > 0 &&
-                  internalCheckboxSelectedRowKeys.value.length < props.allRowKeys.length
-      )
-    },)
-    // 是否是受控属性（取决于selectedRowKey）
-    const isControlledRadio = computed(() => {
-      return (
-        props.radioOption && Object.keys(props.radioOption).includes('selectedRowKey')
-      )
-    })
-    /* computed end */
-    defineExpose({
+    expose({
       renderingRowKeys
     })
     return () => (
