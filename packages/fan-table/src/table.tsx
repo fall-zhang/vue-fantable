@@ -41,9 +41,7 @@ import {
   onBeforeDelete,
   onAfterDelete
 } from './util/clipboard'
-
 import { createLocale } from '@P/src/locale/index'
-
 import { KEY_CODES, MOUSE_EVENT_CLICK_TYPE } from '@P/src/utils/constant'
 import { getScrollbarWidth } from '@P/src/utils/scroll-bar'
 import {
@@ -79,7 +77,7 @@ import ColumnResizer from './column-resizer/index'
 import mitt from 'mitt'
 import { tableProps as fanTableProps } from './tableProps'
 import { tableInject } from './tableInject'
-import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
+import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, reactive, ref, shallowRef, toRaw, toRef, triggerRef, unref, watch } from 'vue'
 import { error } from 'console'
 const $t = createLocale(LOCALE_COMP_NAME)
 type CommonRowItem = {
@@ -123,7 +121,7 @@ export default defineComponent({
     const columnsOptionResetTime = ref(0)
 
     const cloneColumns = ref<any[]>([])
-    const virtualScrollVisibleData = ref<any[]>([])
+    const virtualScrollVisibleData = shallowRef<any[]>([])
     // virtual scroll visible indexs
     const virtualScrollVisibleIndexs = ref({
       start: -1,
@@ -158,7 +156,7 @@ export default defineComponent({
     const hasYScrollBar = ref(false)
 
     // preview table container scrollLeft （处理左列或右列固定效果）
-    const previewTableContainerScrollLeft = ref<null|number>(null)
+    const previewTableContainerScrollLeft = ref<null | number>(null)
     // header cell selection colKeys
     const headerIndicatorColKeys = ref({
       startColKey: '',
@@ -232,7 +230,7 @@ export default defineComponent({
     const tableBodyRef = ref()
     const tableRootRef = ref()
     const tableContainerWrapperRef = ref()
-    const tableContainerRef = ref<VueElement>()
+    const tableContainerRef = ref<HTMLElement>()
     const tableRef = ref()
     const tableContentWrapperRef = ref()
     const virtualPhantomRef = ref()
@@ -250,6 +248,14 @@ export default defineComponent({
     //         height: 100 // 自身高度
     //     }
     // ]
+    // const realRenderTableData = new Proxy(ref<any[]>([]), {
+    //   set(a:any, p, newVal) {
+    //     console.log('🚀 ~ set ~ p:', p)
+    //     console.log('🚀 ~ set ~ newVal:', newVal)
+    //     console.log('🚀 ~ set ~ a:', a)
+    //     return Reflect.get(a, p, newVal)
+    //   }
+    // })
     const editingCell = ref<{ rowKey: string, colKey: string, row: any, column: any }>({
       rowKey: '',
       colKey: '',
@@ -259,10 +265,7 @@ export default defineComponent({
     const scrollBarWidth = ref(0)
 
     /* computed start */
-    const actualRenderTableData = computed(() => {
-      const result = isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
-      return result
-    })
+
     // return row keys
     const allRowKeys = computed(() => {
       let result: any[] = []
@@ -285,10 +288,9 @@ export default defineComponent({
       if (virtualScrollOption) {
         const { bufferScale } = virtualScrollOption
 
-        const realBufferScale =
-          isNumber(bufferScale) && bufferScale > 0
-            ? bufferScale
-            : defaultVirtualScrollBufferScale.value
+        const realBufferScale = isNumber(bufferScale) && bufferScale > 0
+          ? bufferScale
+          : defaultVirtualScrollBufferScale.value
 
         result = realBufferScale * virtualScrollVisibleCount.value
       }
@@ -314,7 +316,7 @@ export default defineComponent({
         }
       }
       return result
-    },)
+    })
     // table container style
     const tableContainerStyle = computed(() => {
       const maxHeight = getValByUnit(props.maxHeight)
@@ -348,20 +350,20 @@ export default defineComponent({
         // if virtual scroll
         height: tableContainerHeight,
       }
-    },)
+    })
     // table style
     const tableStyle = computed(() => {
       return {
         width: getValByUnit(props.scrollWidth),
       }
-    },)
+    })
     // table class
     const tableClass = computed(() => {
       return {
         [clsName('border-x')]: props.borderX,
         [clsName('border-y')]: props.borderY,
       }
-    },)
+    })
     // table container class
     const tableContainerClass = computed(() => {
       const virtualScroll = clsName('virtual-scroll')
@@ -383,7 +385,7 @@ export default defineComponent({
         [cellSelection]: enableCellSelection.value,
       }
       return result
-    },)
+    })
     // table body class
     const tableBodyClass = computed(() => {
       let result = null
@@ -408,12 +410,12 @@ export default defineComponent({
       }
 
       return result
-    },)
+    })
     // is virtual scroll
     const isVirtualScroll = computed(() => {
       const virtualScrollOption = props.virtualScrollOption
       return virtualScrollOption && virtualScrollOption.enable
-    },)
+    })
     // has fixed column
     const hasFixedColumn = computed(() => {
       return colgroups.value.some(
@@ -421,30 +423,30 @@ export default defineComponent({
           x.fixed === COLUMN_FIXED_TYPE.LEFT ||
           x.fixed === COLUMN_FIXED_TYPE.RIGHT,
       )
-    },)
+    })
     // has left fixed column
     const hasLeftFixedColumn = computed(() => {
       return colgroups.value.some(
         (x) => x.fixed === COLUMN_FIXED_TYPE.LEFT,
       )
-    },)
+    })
     // has right fixed column
     const hasRightFixedColumn = computed(() => {
       return colgroups.value.some(
         (x) => x.fixed === COLUMN_FIXED_TYPE.RIGHT,
       )
-    },)
+    })
     // is editing cell
     const isCellEditing = computed(() => {
       return (
         !isEmptyValue(editingCell.value.rowKey) &&
         !isEmptyValue(editingCell.value.colKey)
       )
-    },)
+    })
     // has edit column
     const hasEditColumn = computed(() => {
       return colgroups.value.some((x) => x.edit)
-    },)
+    })
     // enable header contextmenu
     const enableHeaderContextmenu = computed(() => {
       let result = false
@@ -493,11 +495,11 @@ export default defineComponent({
         result = false
       }
       return result
-    },)
+    })
     // enable clipboard
     const enableClipboard = computed(() => {
       return props.rowKeyFieldName
-    },)
+    })
     // eanble width resize
     const enableColumnResize = computed(() => {
       let result = false
@@ -508,7 +510,7 @@ export default defineComponent({
         }
       }
       return result
-    },)
+    })
     // header total height
     const headerTotalHeight = computed(() => {
       let result = 0
@@ -518,13 +520,23 @@ export default defineComponent({
         }, 0)
       }
       return result
-    },)
+    })
     // footer total height
     const footerTotalHeight = computed(() => {
       return footerRows.value.reduce((total, currentVal) => {
         return currentVal.rowHeight + total
       }, 0)
-    },)
+    })
+    const actualRenderTableData = computed({
+      get: (val) => {
+        console.log('new', val)
+        return isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
+      },
+      set: (newVal:any[]) => {
+        console.log('🚀 ~ setup ~ newVal:', newVal)
+        return [...newVal]
+      }
+    })
     /* computed end */
 
     // method start
@@ -1243,7 +1255,7 @@ export default defineComponent({
      * @param {number} keyCode - current keyCode
      * @param {any} nextRowKey - next row key
      */
-    function rowToVisible(keyCode:number, nextRowKey:any) {
+    function rowToVisible(keyCode: number, nextRowKey: any) {
       if (!tableContainerRef.value) {
         throw new Error("can't not find tableContainerRef")
       }
@@ -1324,11 +1336,17 @@ export default defineComponent({
       virtualScrollVisibleIndexs.value.end = end - 1
 
       virtualScrollVisibleData.value = props.tableData.slice(start, end)
-      console.log('🚀 ~ setVirtualScrollVisibleData ~ virtualScrollVisibleData.value:', virtualScrollVisibleData.value)
+      actualRenderTableData.value = []
+      // console.log('update 🚀: 11111', JSON.stringify(virtualScrollVisibleData.value))
+      // realRenderTableData.value = virtualScrollVisibleData.value
+      // update
+      // console.log('update 🚀: 11111', JSON.stringify(actualRenderTableData.value))
+      // console.log('update 🚀: 89999', JSON.stringify(actualRenderTableData.value))
     }
 
     // get virtual scroll above count
     function getVirtualScrollAboveCount() {
+      console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:',)
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1336,11 +1354,13 @@ export default defineComponent({
           virtualScrollBufferCount.value,
         )
       }
+      console.log('🚀 ~ getVirtualScrollAboveCount ~ result:', result)
       return result
     }
 
     // get virtual scroll bellow count
     function getVirtualScrollBelowCount() {
+      console.log('🚀 ~ getVirtualScrollBelowCount ~ getVirtualScrollBelowCount:',)
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1348,7 +1368,7 @@ export default defineComponent({
           virtualScrollBufferCount.value
         )
       }
-
+      console.log('🚀 ~ getVirtualScrollBelowCount ~ result:', result)
       return result
     }
 
@@ -1358,18 +1378,16 @@ export default defineComponent({
 
       // 1、is virtualScroll
       // 2、has left fixed column and expand option（resolve expand row content sticky）
-
       if (isVirtualScroll.value || (hasLeftFixedColumn.value && props.expandOption)) {
         const props = {
           tagName: 'div',
           style: {
             width: '100%',
           },
-          onDomResizeChange: ({ width }:Record<'width', number>) => {
+          onDomResizeChange: ({ width }: Record<'width', number>) => {
             tableViewportWidth.value = width
           },
         }
-
         content = (
           <div
             ref={virtualPhantomRef}
@@ -1394,7 +1412,7 @@ export default defineComponent({
           ? virtualScrollOption.minRowHeight
           : defaultVirtualScrollMinRowHeight.value
 
-        virtualScrollPositions.value = props.tableData.map((item:any, index) => ({
+        virtualScrollPositions.value = props.tableData.map((item: any, index) => ({
           rowKey: item[props.rowKeyFieldName],
           height: minRowHeight,
           top: index * minRowHeight,
@@ -1404,7 +1422,7 @@ export default defineComponent({
     }
 
     // list item height change
-    function bodyRowHeightChange({ rowKey, height }:any) {
+    function bodyRowHeightChange({ rowKey, height }: any) {
       // 获取真实元素大小，修改对应的尺寸缓存
       const index = virtualScrollPositions.value.findIndex(
         (x) => x.rowKey === rowKey,
@@ -1468,7 +1486,7 @@ export default defineComponent({
       setTableContentTopValue({ top: startOffset })
     }
     // set table content top value
-    function setTableContentTopValue({ top }:Record<'top', number>) {
+    function setTableContentTopValue({ top }: Record<'top', number>) {
       window.requestAnimationFrame(() => {
         const ele = tableContentWrapperRef.value
         if (ele) {
@@ -1477,10 +1495,10 @@ export default defineComponent({
       })
     }
     // virtual scroll binary search
-    function virtualScrollBinarySearch(list:any, value:any):number {
+    function virtualScrollBinarySearch(list: any, value: any): number {
       let start = 0
       let end = list.length - 1
-      let tempIndex:number = -1
+      let tempIndex: number = -1
 
       while (start <= end) {
         const midIndex = parseInt(String((start + end) / 2))
@@ -1499,14 +1517,11 @@ export default defineComponent({
       return tempIndex
     }
     // table container virtual scroll handler
-    function tableContainerVirtualScrollHandler(tableContainerRef:VueElement) {
+    function tableContainerVirtualScrollHandler(tableContainerRef: HTMLElement) {
       const visibleCount = virtualScrollVisibleCount.value
-
       const virtualScrollOption = props.virtualScrollOption
-
       // 当前滚动位置
       const scrollTop = tableContainerRef.scrollTop || 0
-
       // 此时的开始索引
       // get virtual scroll start index
       const visibleStartIndex = virtualScrollBinarySearch(virtualScrollPositions.value, scrollTop)
@@ -1573,6 +1588,7 @@ export default defineComponent({
     }
     // init virtual scroll
     function initVirtualScroll() {
+      console.log('🚀 ~ initVirtualScroll: 11111')
       if (isVirtualScroll.value) {
         const startIndex = 0
 
@@ -1591,7 +1607,7 @@ export default defineComponent({
     }
 
     // set scrolling
-    function setScrolling(tableContainerRef:VueElement) {
+    function setScrolling(tableContainerRef: HTMLElement) {
       if (hasFixedColumn.value) {
         const { scrollWidth, clientWidth, scrollLeft } = tableContainerRef
         const previewScrollLeft = previewTableContainerScrollLeft.value
@@ -1618,6 +1634,7 @@ export default defineComponent({
 
     // set scroll bar status
     function setScrollBarStatus() {
+      // console.log('🚀 ~ setScrollBarStatus ~ setScrollBarStatus:')
       if (tableContainerRef.value) {
         const { scrollWidth, clientWidth, scrollHeight, clientHeight } = tableContainerRef.value
 
@@ -1633,6 +1650,7 @@ export default defineComponent({
 
     // init scrolling
     function initScrolling() {
+      console.log('🚀 ~ initScrolling ~ 555555:')
       if (!tableContainerRef.value) {
         throw new Error('can not find tableContainerRef')
       }
@@ -1640,7 +1658,7 @@ export default defineComponent({
     }
 
     // table click outside
-    function tableClickOutside(e:any) {
+    function tableClickOutside(e: any) {
       // exclude contextmenu panel clicked
       if (isContextmenuPanelClicked(e)) {
         return false
@@ -1677,8 +1695,8 @@ export default defineComponent({
       if (isCellEditing.value) {
         const { rowKey, colKey } = editingCell.value
 
-        const currentRow:any = props.tableData.find(
-          (x:any) => x[rowKeyFieldName] === rowKey,
+        const currentRow: any = props.tableData.find(
+          (x: any) => x[rowKeyFieldName] === rowKey,
         )
 
         if (currentRow) {
@@ -1728,7 +1746,7 @@ export default defineComponent({
     }
 
     // cell selection by click
-    function cellSelectionByClick({ rowData, column }:any) {
+    function cellSelectionByClick({ rowData, column }: any) {
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       // set cell selection and column to visible
       setCellSelection({
@@ -1747,7 +1765,7 @@ export default defineComponent({
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
-    function bodyCellContextmenu({ event, rowData, column }:any) {
+    function bodyCellContextmenu({ event, rowData, column }: any) {
       if (props.editOption) {
         const rowKey = getRowKey(rowData, props.rowKeyFieldName)
         editCellByClick({
@@ -1766,7 +1784,7 @@ export default defineComponent({
      * @param {object} rowData - row data
      * @param {object} column - column data
      */
-    function bodyCellDoubleClick({ event, rowData, column }:any) {
+    function bodyCellDoubleClick({ event, rowData, column }: any) {
       if (isOperationColumn(column.key, colgroups.value)) {
         // clear cell selection
         clearCellSelectionCurrentCell()
@@ -1793,7 +1811,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellClick({ event, rowData, column }:any) {
+    function bodyCellClick({ event, rowData, column }: any) {
       // feature...
     }
 
@@ -1803,7 +1821,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMousedown({ event, rowData, column }:any) {
+    function bodyCellMousedown({ event, rowData, column }: any) {
       if (!enableCellSelection.value) {
         return false
       }
@@ -1908,7 +1926,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMouseover({ event, rowData, column }:any) {
+    function bodyCellMouseover({ event, rowData, column }: any) {
       const rowKey = getRowKey(rowData, props.rowKeyFieldName)
       const colKey = column.key
 
@@ -1956,7 +1974,7 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMousemove({ event, column }:any) {
+    function bodyCellMousemove({ event, column }: any) {
       hooks.value.triggerHook(HOOKS_NAME.BODY_CELL_MOUSEMOVE, { event, column, })
     }
 
@@ -1966,22 +1984,22 @@ export default defineComponent({
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
-    function bodyCellMouseup({ event, rowData, column }:any) {
+    function bodyCellMouseup({ event, rowData, column }: any) {
       // feature...
     }
 
     // header cell click
-    function headerCellClick({ event, column }:any) {
+    function headerCellClick({ event, column }: any) {
       // feature...
     }
 
     // header cell contextmenu
-    function headerCellContextmenu({ event, column }:any) {
+    function headerCellContextmenu({ event, column }: any) {
       setContextmenuOptions(column)
     }
 
     // set contextmenu options
-    function setContextmenuOptions(column:any) {
+    function setContextmenuOptions(column: any) {
       // header contextmenu
       if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         // set header contextmenu options before contextmen show
@@ -2010,7 +2028,7 @@ export default defineComponent({
     }
 
     // header cell mousedown
-    function headerCellMousedown({ event, column }:any) {
+    function headerCellMousedown({ event, column }: any) {
       if (!enableCellSelection.value) {
         return false
       }
@@ -2121,7 +2139,7 @@ export default defineComponent({
     }
 
     // header cell mouseover
-    function headerCellMouseover({ event, column }:any) {
+    function headerCellMouseover({ event, column }: any) {
       if (
         isHeaderCellMousedown.value &&
         !isOperationColumn(column.key, colgroups.value)
@@ -2155,20 +2173,17 @@ export default defineComponent({
       }
     }
 
-    // header cell mousemove
-    function headerCellMousemove({ event, column }:any) {
+    function headerCellMousemove({ event, column }: any) {
       hooks.value.triggerHook(HOOKS_NAME.HEADER_CELL_MOUSEMOVE, {
         event,
         column,
       })
     }
 
-    // header cell mouseleave
-    function headerCellMouseleave({ event, column }:any) {
+    function headerCellMouseleave({ event, column }: any) {
       // todo
     }
 
-    // header mouseleave
     function headerMouseleave() {
       setIsColumnResizerHover(false)
     }
@@ -2189,8 +2204,7 @@ export default defineComponent({
       isAutofillStarting.value = true
     }
 
-    // is edit column
-    function isEditColumn(colKey:any) {
+    function isEditColumn(colKey: any) {
       return colgroups.value.some((x) => x.key === colKey && x.edit)
     }
 
@@ -2199,7 +2213,7 @@ export default defineComponent({
      * @desc  recieve td click event
      * @param {boolean} isDblclick - is dblclick
      */
-    function editCellByClick({ isDblclick, rowKey, colKey }:any) {
+    function editCellByClick({ isDblclick, rowKey, colKey }: any) {
       if (!props.editOption) return false
 
       // has edit column
@@ -2230,7 +2244,7 @@ export default defineComponent({
      * @param {object} column - column
      * @param {object} row - row data
      */
-    function setEditingCell({ rowKey, colKey, column, row }:any) {
+    function setEditingCell({ rowKey, colKey, column, row }: any) {
       editingCell.value = {
         rowKey,
         row: cloneDeep(row),
@@ -2240,7 +2254,7 @@ export default defineComponent({
     }
 
     // update editing cell value
-    function updateEditingCellValue(value:any) {
+    function updateEditingCellValue(value: any) {
       const columnField = editingCell.value.column?.field
       editingCell.value.row[columnField] = value
     }
@@ -2259,7 +2273,7 @@ export default defineComponent({
     }
 
     // contextmenu item click
-    function contextmenuItemClick(type:string) {
+    function contextmenuItemClick(type: string) {
       // header contextmenu
       if (contextMenuType.value === CONTEXTMENU_TYPES.HEADER_CONTEXTMENU) {
         headerContextmenuItemClick(type)
@@ -2269,7 +2283,7 @@ export default defineComponent({
     }
 
     // header contextmenu item click
-    function headerContextmenuItemClick(type:any) {
+    function headerContextmenuItemClick(type: any) {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
       const { afterMenuClick } = props.contextmenuHeaderOption
 
@@ -2346,7 +2360,7 @@ export default defineComponent({
     }
 
     // body contextmenu item click
-    function bodyContextmenuItemClick(type:any) {
+    function bodyContextmenuItemClick(type: any) {
       const { rowKey, colKey } = cellSelectionData.value.currentCell
       const { afterMenuClick } = props.contextmenuBodyOption
 
@@ -2400,26 +2414,15 @@ export default defineComponent({
           //     document.execCommand("paste", null, null);
           // }
           // remove rows
-          props.tableData.splice(
-            startRowIndex,
-            endRowIndex - startRowIndex + 1,
-          )
+          props.tableData.splice(startRowIndex, endRowIndex - startRowIndex + 1)
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_ROW === type) { // empty rows
           deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.EMPTY_CELL === type) { // empty rows
           deleteCellSelectionRangeValue()
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_ABOVE === type) { // insert row above
-          props.tableData.splice(
-            currentRowIndex,
-            0,
-            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }),
-          )
+          props.tableData.splice(currentRowIndex, 0, createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }))
         } else if (CONTEXTMENU_NODE_TYPES.INSERT_ROW_BELOW === type) { // insert row below
-          props.tableData.splice(
-            currentRowIndex + 1,
-            0,
-            createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }),
-          )
+          props.tableData.splice(currentRowIndex + 1, 0, createEmptyRowData({ colgroups: colgroups.value, rowKeyFieldName: props.rowKeyFieldName }))
         } else {
           throw new Error('该功能暂未实现' + type)
         }
@@ -2431,12 +2434,10 @@ export default defineComponent({
       if (!enableClipboard.value) {
         return false
       }
-
       // 正在编辑的单元格不进行自定义复制功能
       if (isCellEditing.value) {
         return false
       }
-
       const {
         copy,
         beforeCopy: beforeCopyCallback,
@@ -2446,9 +2447,7 @@ export default defineComponent({
       if (isBoolean(copy) && !copy) {
         return false
       }
-
       event.preventDefault()
-
       const selectionRangeData = getSelectionRangeData({
         cellSelectionRangeData: cellSelectionRangeData.value,
         resultType: 'flat',
@@ -2479,7 +2478,7 @@ export default defineComponent({
     }
 
     // editor paste
-    function editorPaste(event:any) {
+    function editorPaste(event: any) {
       if (!enableClipboard.value) {
         return false
       }
@@ -2508,11 +2507,7 @@ export default defineComponent({
         allRowKeys: allRowKeys.value,
       })
 
-      if (
-        response &&
-        Array.isArray(response.data) &&
-        response.data.length
-      ) {
+      if (response && Array.isArray(response.data) && response.data.length) {
         if (isFunction(beforePasteCallback)) {
           const allowPasting = beforePasteCallback(response)
           if (isBoolean(allowPasting) && !allowPasting) {
@@ -2702,22 +2697,22 @@ export default defineComponent({
     }
 
     // set isColumnResizerHover
-    function setIsColumnResizerHover(val:boolean) {
+    function setIsColumnResizerHover(val: boolean) {
       isColumnResizerHover.value = val
     }
 
     // set isColumnResizing
-    function setIsColumnResizing(val:boolean) {
+    function setIsColumnResizing(val: boolean) {
       isColumnResizing.value = val
     }
 
     // set cell selection and column to visible
     type CellSelectionProp = {
-      rowKey:any
+      rowKey: any
       colKey: any,
       isScrollToRow: boolean,
     }
-    function setCellSelection(receive:CellSelectionProp) {
+    function setCellSelection(receive: CellSelectionProp) {
       let {
         rowKey,
         colKey,
@@ -2747,7 +2742,7 @@ export default defineComponent({
     }
 
     /*  set range cell selection and column to visible   */
-    function setRangeCellSelection(receive:any) {
+    function setRangeCellSelection(receive: any) {
       let {
         startRowKey,
         startColKey,
@@ -2844,7 +2839,7 @@ export default defineComponent({
       }
     }
 
-    function hideColumnsByKeys(keys:any) {
+    function hideColumnsByKeys(keys: any) {
       if (!isEmptyArray(keys)) {
         // 将要隐藏的列添加到 hiddenColumns 中
         // Add the columns you want to hide to hidden columns
@@ -2856,7 +2851,7 @@ export default defineComponent({
       }
     }
 
-    function showColumnsByKeys(keys:any) {
+    function showColumnsByKeys(keys: any) {
       if (!isEmptyArray(keys)) {
         // 将要显示的列从 hiddenColumns 中移除
         // Remove the columns to show from hidden columns
@@ -2871,7 +2866,7 @@ export default defineComponent({
       }
     }
     // table scroll to rowKey position
-    function scrollToRowKey({ rowKey }:any) {
+    function scrollToRowKey({ rowKey }: any) {
       if (isEmptyValue(rowKey)) {
         console.warn("Row key can't be empty!")
         return false
@@ -2914,21 +2909,17 @@ export default defineComponent({
       })
     }
     // scroll to col key position
-    function scrollToColKey({ colKey }:any) {
+    function scrollToColKey({ colKey }: any) {
       const column = getColumnByColKey(colKey, colgroups.value)
       if (column) {
         columnToVisible(column)
       }
     }
     // start editing cell
-    function startEditingCell({
-      rowKey,
-      colKey,
-      defaultValue,
-    }: any) {
+    function startEditingCell({ rowKey, colKey, defaultValue, }: any) {
       if (!props.editOption) return false
 
-      let currentRow:any = props.tableData.find((x: any) => x[props.rowKeyFieldName] === rowKey)
+      let currentRow: any = props.tableData.find((x: any) => x[props.rowKeyFieldName] === rowKey)
 
       currentRow = cloneDeep(currentRow)
 
@@ -2969,11 +2960,8 @@ export default defineComponent({
       } else {
         editorInputStartValue.value = currentRow[currentColumn.field]
       }
-
-      if (
-        cellSelectionData.value.currentCell.colKey !== colKey ||
-        cellSelectionData.value.currentCell.rowKey !== rowKey
-      ) {
+      const tempCell = cellSelectionData.value.currentCell
+      if (tempCell.colKey !== colKey || tempCell.rowKey !== rowKey) {
         cellSelectionCurrentCellChange({ rowKey, colKey, })
       }
 
@@ -2998,7 +2986,7 @@ export default defineComponent({
       }
     }
     // set highlight row
-    function setHighlightRow({ rowKey }:Record<'rowKey', any>) {
+    function setHighlightRow({ rowKey }: Record<'rowKey', any>) {
       highlightRowKey.value = rowKey
     }
 
@@ -3017,7 +3005,7 @@ export default defineComponent({
       }
     }, {
       deep: true,
-      immediate: true,
+      immediate: true
     })
 
     // return row keys
@@ -3159,35 +3147,34 @@ export default defineComponent({
     // const heightRowChange = EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE
     const heightRowChange = 'onHighlightRowChange'
     // body props
-    console.log('🚀 ~ setup ~ virtualScrollVisibleData.value:', virtualScrollVisibleData.value)
-    const bodyProps = {
-      class: [clsName('body'), tableBodyClass.value],
-      tableViewportWidth: tableViewportWidth.value,
-      columnsOptionResetTime: columnsOptionResetTime.value,
-      colgroups: colgroups.value,
+    const bodyProps = reactive({
+      class: [clsName('body'), tableBodyClass],
+      tableViewportWidth,
+      columnsOptionResetTime,
+      colgroups,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
-      // actualRenderTableData: actualRenderTableData.value,
-      actualRenderTableData,
+      // actualRenderTableData,
       rowKeyFieldName: props.rowKeyFieldName,
       radioOption: props.radioOption,
       virtualScrollOption: props.virtualScrollOption,
-      isVirtualScroll: isVirtualScroll.value,
+      isVirtualScroll,
       cellStyleOption: props.cellStyleOption,
       cellSpanOption: props.cellSpanOption,
       eventCustomOption: props.eventCustomOption,
       cellSelectionOption: props.cellSelectionOption,
-      hasFixedColumn: hasFixedColumn.value,
-      cellSelectionData: cellSelectionData.value,
-      cellSelectionRangeData: cellSelectionRangeData.value,
-      allRowKeys: allRowKeys.value,
+      hasFixedColumn,
+      cellSelectionData,
+      cellSelectionRangeData,
+      allRowKeys,
       editOption: props.editOption,
-      highlightRowKey: highlightRowKey.value,
-      showVirtualScrollingPlaceholder: showVirtualScrollingPlaceholder.value,
-      bodyIndicatorRowKeys: bodyIndicatorRowKeys.value,
+      highlightRowKey,
+      showVirtualScrollingPlaceholder,
+      bodyIndicatorRowKeys,
       [widthChange]: debounce(bodyCellWidthChange, 0),
       [heightRowChange]: setHighlightRow,
-    }
+    })
+    console.log('🚀 ~ setup ~ bodyProps:', bodyProps)
 
     // footer props
     const footerProps = {
@@ -3202,16 +3189,7 @@ export default defineComponent({
       hasFixedColumn: hasFixedColumn.value,
       allRowKeys: allRowKeys.value,
       footerRows: footerRows.value,
-      click: () => {
-        stopEditingCell()
-      },
-    }
-
-    // table root props
-    const tableRootProps = {
-      class: {
-        'vue-table-root': true,
-      },
+      click: () => { stopEditingCell() },
     }
 
     // table container wrapper props
@@ -3224,8 +3202,9 @@ export default defineComponent({
         [clsName('border-around')]: props.borderAround,
       },
       tagName: 'div',
-      onDomResizeChange: ({ height }:Record<'height', number>) => {
+      onDomResizeChange: ({ height }: Record<'height', number>) => {
         tableOffestHeight.value = height
+        console.log('🚀 update onDomResizeChange')
         initVirtualScroll()
         // fixed #404
         initScrolling()
@@ -3280,7 +3259,7 @@ export default defineComponent({
     const tableWrapperProps = {
       class: [clsName('content-wrapper')],
       tagName: 'div',
-      onDomResizeChange: ({ height }:Record<'height', number>) => {
+      onDomResizeChange: ({ height }: Record<'height', number>) => {
         tableHeight.value = height
       },
     }
@@ -3331,17 +3310,17 @@ export default defineComponent({
         enableStopEditing.value = false
       },
       // edit input value change
-      onEditInputValueChange: (value:any) => {
+      onEditInputValueChange: (value: any) => {
         updateEditingCellValue(value)
       },
       // copy
       onEditInputCopy,
       // paste
-      onEditInputPaste: (e:any) => {
+      onEditInputPaste: (e: any) => {
         editorPaste(e)
       },
       // cut
-      onEditInputCut: (e:any) => {
+      onEditInputCut: (e: any) => {
         editorCut(e)
       },
     }
@@ -3350,7 +3329,7 @@ export default defineComponent({
     const contextmenuProps = {
       eventTarget: contextmenuEventTarget.value,
       options: contextmenuOptions.value,
-      onNodeClick: (type:string) => {
+      onNodeClick: (type: string) => {
         contextmenuItemClick(type)
       },
     }
@@ -3394,18 +3373,18 @@ export default defineComponent({
       // receive multiple header row height change
       eventCenter.value.on(GLOBAL_EVENT.HEADER_ROW_HEIGHT_CHANGE,
         (params) => {
-          headerRowHeightChange(params as Record<'rowIndex'| 'height', any>)
+          headerRowHeightChange(params as Record<'rowIndex' | 'height', any>)
         },
       )
 
       // receive virtual scroll row height change
       eventCenter.value.on(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE, (params) => {
-        bodyRowHeightChange(params as Record<'rowKey'| 'height', any >)
+        bodyRowHeightChange(params as Record<'rowKey' | 'height', any>)
       })
 
       // receive footer row height change
       eventCenter.value.on(GLOBAL_EVENT.FOOTER_ROW_HEIGHT_CHANGE, (params) => {
-        footRowHeightChange(params as Record<'rowIndex'| 'height', any>)
+        footRowHeightChange(params as Record<'rowIndex' | 'height', any>)
       },
       )
 
@@ -3494,11 +3473,11 @@ export default defineComponent({
       document.addEventListener('keydown', dealKeydownEvent)
 
       // init scrolling
-      initScrolling()
+      // initScrolling()
     })
 
     return () => (
-      <div ref={tableRootRef} {...tableRootProps}>
+      <div ref={tableRootRef} class='vue-table-root'>
         <VueDomResizeObserver ref={tableContainerWrapperRef} {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
           <div ref={tableContainerRef} {...tableContainerProps}>
             {/* virtual view phantom */}
@@ -3514,7 +3493,7 @@ export default defineComponent({
                 {/* table header */}
                 {props.showHeader && <TableHeader {...headerProps} />}
                 {/* table body */}
-                <TableBody ref={tableBodyRef} {...bodyProps} />
+                <TableBody ref={tableBodyRef} {...bodyProps} actualRenderTableData={ actualRenderTableData.value} />
                 {/* table footer */}
                 <TableFooter {...footerProps} />
               </table>

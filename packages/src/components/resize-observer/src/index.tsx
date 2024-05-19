@@ -23,7 +23,7 @@ export default defineComponent({
     removeResizeListener(this, this.resizeListener)
   },
   methods: {
-    resizeListener(contentRect) {
+    resizeListener(contentRect:any) {
       const { left, top, width, height } = contentRect
       this.$emit('dom-resize-change', {
         key: this.id,
@@ -32,25 +32,13 @@ export default defineComponent({
         width,
         height,
       })
-      // let parent = this.$parent
-      // while (!parent.name) {
-      //   parent = parent.$parent
-      // }
     },
   },
   render() {
-    // console.log(this)
-    // console.log(this.$slots)
-    // const CurrentTag = this.tagName
-    // const render =
     if (this.$slots?.default) {
       return <this.tagName>{this.$slots?.default()}</this.tagName>
     } else {
       return <this.tagName></this.tagName>
     }
   }
-  // setup(prop,{slot}) {
-  //   return () => (<prop.tagName>{slot.default}</prop.tagName>)
-  // },
-}
-)
+})
