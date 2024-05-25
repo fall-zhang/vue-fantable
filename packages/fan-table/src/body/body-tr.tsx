@@ -1,15 +1,14 @@
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
-import { isEmptyValue } from '../../../src/utils/index.js'
+import { isEmptyValue } from '@P/src/utils/index.js'
 import BodyTd from './body-td'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
-// import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, inject, reactive } from 'vue'
+import { EventType } from 'mitt'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TR,
   components: { BodyTd },
-  inject: ['eventCenter'],
   props: {
     rowData: {
       type: Object,
@@ -60,10 +59,7 @@ export default defineComponent({
       default: null,
     },
 
-    /*
-checkbox
-*/
-    // checkbox option
+    // checkbox
     checkboxOption: {
       type: Object,
       default: function () {
@@ -76,10 +72,7 @@ checkbox
         return null
       },
     },
-
-    /*
-radio
-*/
+    // radio
     radioOption: {
       type: Object,
       default: function () {
@@ -149,129 +142,103 @@ radio
       },
     },
   },
-  computed: {
-    // current row key
-    currentRowKey() {
-      const { rowKeyFieldName } = this
-      return rowKeyFieldName ? this.rowData[rowKeyFieldName] : null
-    },
-  },
-  methods: {
+  setup(props) {
+    const eventCenter = inject<Record<EventType, any>>('eventCenter')!
+    const currentRowKey = computed(() => {
+      const rowKeyFieldName = props.rowKeyFieldName
+      return rowKeyFieldName ? props.rowData[rowKeyFieldName] : null
+    })
+    // methods start
     // tr class
-    trClass() {
+    const trClass = computed(() => {
       let result = null
-
-      const { highlightRowKey, currentRowKey } = this
-
       let isHighlight = false
 
-      if (!isEmptyValue(highlightRowKey)) {
-        if (highlightRowKey === currentRowKey) {
+      if (!isEmptyValue(props.highlightRowKey)) {
+        if (props.highlightRowKey === currentRowKey.value) {
           isHighlight = true
         }
       }
-
       result = {
         [clsName('body-tr')]: true,
         [clsName('tr-highlight')]: isHighlight,
       }
 
       return result
-    },
+    })
     // click
-    rowClick(e, fn) {
+    function rowClick(e, fn) {
       fn && fn(e)
-
-      const { rowData, rowIndex } = this
       const rowInfo = {
-        rowData,
-        rowIndex,
+        rowData: props.rowData,
+        rowIndex: props.rowIndex,
       }
-      this.eventCenter.emit(GLOBAL_EVENT.BODY_ROW_CLICK,
+      eventCenter.emit(GLOBAL_EVENT.BODY_ROW_CLICK,
         rowInfo
       )
-    },
+    }
     // dblclick
-    rowDblclick(e, fn) {
+    function rowDblclick(e, fn) {
       fn && fn(e)
-    },
+    }
     // contextmenu
-    rowContextmenu(e, fn) {
+    function rowContextmenu(e, fn) {
       fn && fn(e)
-    },
+    }
     // mouseenter
-    rowMouseenter(e, fn) {
+    function rowMouseenter(e, fn) {
       fn && fn(e)
-    },
+    }
     // mouseleave
-    rowMouseleave(e, fn) {
+    function rowMouseleave(e, fn) {
       fn && fn(e)
-    },
+    }
     // mousemove
-    rowMousemove(e, fn) {
+    function rowMousemove(e, fn) {
       fn && fn(e)
-    },
+    }
     // mouseover
-    rowMouseover(e, fn) {
+    function rowMouseover(e, fn) {
       fn && fn(e)
-    },
+    }
     // mousedown
-    rowMousedown(e, fn) {
+    function rowMousedown(e, fn) {
       fn && fn(e)
-    },
+    }
     // mouseup
-    rowMouseup(e, fn) {
+    function rowMouseup(e, fn) {
       fn && fn(e)
-    },
-  },
+    }
+    // methods end
 
-  render() {
-    const {
-      colgroups,
-      expandOption,
-      expandRowChange,
-      isExpandRow,
-      expandedRowkeys,
-      checkboxOption,
-      rowKeyFieldName,
-      rowIndex,
-      rowData,
-      internalCheckboxSelectedRowKeys,
-      internalRadioSelectedRowKey,
-      radioOption,
-      cellStyleOption,
-      eventCustomOption,
-    } = this
-
-    // get td content
     const getTdContent = () => {
       // const onExpandRowChange = 'onExpandRowChange'
-      return colgroups.map((column) => {
+      return props.colgroups.map((column:any) => {
         const tdProps = {
           key: column.key,
-          rowIndex,
-          rowData,
+          rowIndex: props.rowIndex,
+          rowData: props.rowData,
           column,
-          columnCollection: this.columnCollection,
-          colgroups,
-          expandOption,
-          expandedRowkeys,
-          checkboxOption,
-          rowKeyFieldName,
-          allRowKeys: this.allRowKeys,
-          isExpandRow,
-          internalCheckboxSelectedRowKeys,
-          internalRadioSelectedRowKey,
-          radioOption,
-          cellStyleOption,
-          cellSpanOption: this.cellSpanOption,
-          eventCustomOption,
-          cellSelectionData: this.cellSelectionData,
-          cellSelectionRangeData: this.cellSelectionRangeData,
-          bodyIndicatorRowKeys: this.bodyIndicatorRowKeys,
-          editOption: this.editOption,
+          columnCollection: props.columnCollection,
+          colgroups: props.colgroups,
+          expandOption: props.expandOption,
+          expandedRowkeys: props.expandedRowkeys,
+          checkboxOption: props.checkboxOption,
+          rowKeyFieldName: props.rowKeyFieldName,
+          allRowKeys: props.allRowKeys,
+          isExpandRow: props.isExpandRow,
+          internalCheckboxSelectedRowKeys: props.internalCheckboxSelectedRowKeys,
+          internalRadioSelectedRowKey: props.internalRadioSelectedRowKey,
+          radioOption: props.radioOption,
+          cellStyleOption: props.cellStyleOption,
+          cellSpanOption: props.cellSpanOption,
+          eventCustomOption: props.eventCustomOption,
+          cellSelectionData: props.cellSelectionData,
+          cellSelectionRangeData: props.cellSelectionRangeData,
+          bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
+          editOption: props.editOption,
           // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
-          onExpandRowChange: () => expandRowChange(rowData, rowIndex),
+          onExpandRowChange: () => props.expandRowChange(props.rowData, props.rowIndex),
         }
         return <BodyTd {...tdProps} />
       })
@@ -281,9 +248,9 @@ radio
 
     // custom on row event
     let customEvents = {}
-    if (eventCustomOption) {
-      const { bodyRowEvents } = eventCustomOption
-      customEvents = bodyRowEvents ? bodyRowEvents({ row: rowData, rowIndex }) : {}
+    if (props.eventCustomOption) {
+      const { bodyRowEvents } = props.eventCustomOption
+      customEvents = bodyRowEvents ? bodyRowEvents({ row: props.rowData, rowIndex: props.rowIndex }) : {}
     }
 
     const {
@@ -299,25 +266,24 @@ radio
     } = customEvents
 
     const events = {
-      onClick: (e) => this.rowClick(e, click),
-      onDblclick: (e) => this.rowDblclick(e, dblclick),
-      onContextmenu: (e) => this.rowContextmenu(e, contextmenu),
-      onMouseenter: (e) => this.rowMouseenter(e, mouseenter),
-      onMouseleave: (e) => this.rowMouseleave(e, mouseleave),
-      onMousemove: (e) => this.rowMousemove(e, mousemove),
-      onMouseover: (e) => this.rowMouseover(e, mouseover),
-      onMousedown: (e) => this.rowMousedown(e, mousedown),
-      onMouseup: (e) => this.rowMouseup(e, mouseup)
+      onClick: (e:MouseEvent) => rowClick(e, click),
+      onDblclick: (e:MouseEvent) => rowDblclick(e, dblclick),
+      onContextmenu: (e) => rowContextmenu(e, contextmenu),
+      onMouseenter: (e) => rowMouseenter(e, mouseenter),
+      onMouseleave: (e) => rowMouseleave(e, mouseleave),
+      onMousemove: (e) => rowMousemove(e, mousemove),
+      onMouseover: (e) => rowMouseover(e, mouseover),
+      onMousedown: (e) => rowMousedown(e, mousedown),
+      onMouseup: (e) => rowMouseup(e, mouseup)
     }
-    const trClass = this.trClass()
-    if (this.isVirtualScroll) {
-      const props = {
+    if (props.isVirtualScroll) {
+      const props = reactive({
         class: trClass,
         tagName: 'tr',
-        id: this.currentRowKey,
-        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
+        id: currentRowKey,
+        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: currentRowKey,
         onDomResizeChange: ({ key, height }) => {
-          this.eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
+          eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
             {
               rowKey: key,
               height,
@@ -325,7 +291,7 @@ radio
           )
         },
         ...events,
-      }
+      })
 
       result = (
         <VueDomResizeObserver {...props}>
@@ -333,15 +299,16 @@ radio
         </VueDomResizeObserver>
       )
     } else {
-      const props = {
+      const props = reactive({
         class: trClass,
-        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: this.currentRowKey,
+        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: currentRowKey,
         ...events,
-      }
+      })
 
       result = <tr {...props}>{getTdContent()}</tr>
     }
 
-    return result
-  },
+    return () => result
+  }
 })
+// 348
