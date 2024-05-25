@@ -16,7 +16,7 @@
       ]
     },
     "lib": [
-      "ESNext",
+      "ES2023",
       "DOM",
       "DOM.Iterable",
     ],

@@ -10,10 +10,8 @@
     "dist/**"
   ],
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
     "lib": [
-      "ESNext",
+      "ES2020",
       "DOM.Iterable",
       "DOM"
     ],
