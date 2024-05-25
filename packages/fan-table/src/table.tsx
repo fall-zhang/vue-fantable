@@ -66,7 +66,7 @@ import {
 } from './util/constant'
 import ColGroup from './colgroup/index'
 import TableHeader from './header/index'
-import TableBody from './body/index'
+import TableBody from './body/body'
 import TableFooter from './footer/index'
 import EditInput from './editor/index'
 import Selection from './selection/index'
@@ -77,8 +77,7 @@ import ColumnResizer from './column-resizer/index'
 import mitt from 'mitt'
 import { tableProps as fanTableProps } from './tableProps'
 import { tableInject } from './tableInject'
-import { VueElement, computed, defineComponent, inject, nextTick, onMounted, onUnmounted, provide, reactive, ref, shallowRef, toRaw, toRef, triggerRef, unref, watch } from 'vue'
-import { error } from 'console'
+import { computed, defineComponent, nextTick, onMounted, onUnmounted, provide, reactive, ref, shallowRef, watch } from 'vue'
 const $t = createLocale(LOCALE_COMP_NAME)
 type CommonRowItem = {
   rowHeight: number
@@ -106,8 +105,7 @@ export default defineComponent({
     // 存储当前隐藏列信息
     //   hidden columns
     const hiddenColumns = ref<any[]>([])
-    // inject
-    provide('eventCenter', mitt())
+
     // is group header
     const isGroupHeader = ref(false)
     const editorInputStartValue = ref('')
@@ -209,7 +207,7 @@ export default defineComponent({
     const tableOffestHeight = ref(0)
     const tableHeight = ref(0)
     // highlight row key
-    const highlightRowKey = ref('')
+    const highlightRowKey = ref<number>(-1)
 
     // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
     // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
@@ -223,21 +221,19 @@ export default defineComponent({
     const isColumnResizerHover = ref(false)
     // is column resizing
     const isColumnResizing = ref(false)
-
     /* data end */
 
     /*  DOM refs */
     const tableBodyRef = ref()
     const tableRootRef = ref()
     const tableContainerWrapperRef = ref()
-    const tableContainerRef = ref<HTMLElement>()
+    const tableContainerRef = ref<HTMLDivElement>()
     const tableRef = ref()
     const tableContentWrapperRef = ref()
     const virtualPhantomRef = ref()
     const editInputRef = ref<any>()
     const cellSelectionRef = ref()
     const contextmenuRef = ref()
-
     const virtualScrollPositions = shallowRef<any[]>([])
     // virtual scroll positions（非响应式）
     // virtualScrollPositions = [
@@ -329,10 +325,8 @@ export default defineComponent({
           console.error("maxHeight prop is required when 'virtualScrollOption.enable = true'")
         }
       } else {
-        /*
-          fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
-          fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
-        */
+        // fixed:虚拟滚动表格行展开的 fan-table 存在固定头时（sticky 冲突），表格样式错乱的问题
+        // fixed:When there is a fixed header in the fan-table expanded by the row of the virtual rolling table(header sticky conflict),Incorrect table presentation
         tableContainerHeight = tableHeight.value
         /*
           有横向滚动条时，表格高度需要加上滚动条的宽度
@@ -360,6 +354,7 @@ export default defineComponent({
     // table class
     const tableClass = computed(() => {
       return {
+        [clsName('content')]: true,
         [clsName('border-x')]: props.borderX,
         [clsName('border-y')]: props.borderY,
       }
@@ -404,6 +399,7 @@ export default defineComponent({
       const clsStripe = clsName('stripe')
       const rowHover = clsName('stripe')
       result = {
+        [clsName('body')]: true,
         [clsStripe]: stripe === true, // 默认不开启
         [rowHover]: hoverHighlight !== false, // 默认开启
         [clsName('row-highlight')]: clickHighlight !== false, // 默认开启
@@ -529,11 +525,9 @@ export default defineComponent({
     })
     const actualRenderTableData = computed({
       get: (val) => {
-        console.log('new', val)
         return isVirtualScroll.value ? virtualScrollVisibleData.value : props.tableData
       },
       set: (newVal:any[]) => {
-        console.log('🚀 ~ setup ~ newVal:', newVal)
         return [...newVal]
       }
     })
@@ -1278,15 +1272,9 @@ export default defineComponent({
         if (keyCode === KEY_CODES.ARROW_UP) {
           let diff = 0
           if (isVirtualScroll.value) {
-            diff =
-              headerTotalHeight.value -
-              (trOffsetTop -
-                (containerScrollTop - parentOffsetTop))
+            diff = headerTotalHeight.value - (trOffsetTop - (containerScrollTop - parentOffsetTop))
           } else {
-            diff =
-              containerScrollTop +
-              headerTotalHeight.value -
-              trOffsetTop
+            diff = containerScrollTop + headerTotalHeight.value - trOffsetTop
           }
 
           if (diff > 0) {
@@ -1337,16 +1325,11 @@ export default defineComponent({
 
       virtualScrollVisibleData.value = props.tableData.slice(start, end)
       actualRenderTableData.value = []
-      // console.log('update 🚀: 11111', JSON.stringify(virtualScrollVisibleData.value))
-      // realRenderTableData.value = virtualScrollVisibleData.value
-      // update
-      // console.log('update 🚀: 11111', JSON.stringify(actualRenderTableData.value))
-      // console.log('update 🚀: 89999', JSON.stringify(actualRenderTableData.value))
     }
 
     // get virtual scroll above count
     function getVirtualScrollAboveCount() {
-      console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:',)
+      console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:')
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1381,9 +1364,7 @@ export default defineComponent({
       if (isVirtualScroll.value || (hasLeftFixedColumn.value && props.expandOption)) {
         const props = {
           tagName: 'div',
-          style: {
-            width: '100%',
-          },
+          style: { width: '100%', },
           onDomResizeChange: ({ width }: Record<'width', number>) => {
             tableViewportWidth.value = width
           },
@@ -1588,7 +1569,7 @@ export default defineComponent({
     }
     // init virtual scroll
     function initVirtualScroll() {
-      console.log('🚀 ~ initVirtualScroll: 11111')
+      // console.log('🚀 ~ initVirtualScroll: 11111')
       if (isVirtualScroll.value) {
         const startIndex = 0
 
@@ -1805,7 +1786,7 @@ export default defineComponent({
       }
     }
 
-    /**
+    /** 点击 bodyCell
     * @bodyCellClick
     * @desc  recieve td click event
     * @param {object} rowData - row data
@@ -2430,7 +2411,7 @@ export default defineComponent({
     }
 
     // editor copy
-    function onEditInputCopy(event) {
+    function onEditInputCopy(event:Event) {
       if (!enableClipboard.value) {
         return false
       }
@@ -2987,6 +2968,7 @@ export default defineComponent({
     }
     // set highlight row
     function setHighlightRow({ rowKey }: Record<'rowKey', any>) {
+      console.log('🚀 ~ setHighlightRow ~ rowKey:', rowKey)
       highlightRowKey.value = rowKey
     }
 
@@ -3113,48 +3095,44 @@ export default defineComponent({
     })
 
     // header props
-    const headerProps = {
+    const headerProps = reactive({
       class: clsName('header'),
       style: {
-        cursor:
-          isColumnResizerHover.value || isColumnResizing.value
-            ? 'col-resize'
-            : '',
+        cursor: (isColumnResizerHover.value || isColumnResizing.value)
+          ? 'col-resize'
+          : '',
       },
-      columnsOptionResetTime: columnsOptionResetTime.value,
-      tableViewportWidth: tableViewportWidth.value,
-      groupColumns: groupColumns.value,
-      colgroups: colgroups.value,
-      isGroupHeader: isGroupHeader.value,
+      columnsOptionResetTime,
+      tableViewportWidth,
+      groupColumns,
+      colgroups,
+      isGroupHeader,
       fixedHeader: props.fixedHeader,
       checkboxOption: props.checkboxOption,
       sortOption: props.sortOption,
       cellStyleOption: props.cellStyleOption,
       eventCustomOption: props.eventCustomOption,
-      headerRows: headerRows.value,
-      cellSelectionData: cellSelectionData.value,
-      cellSelectionRangeData: cellSelectionRangeData.value,
-      headerIndicatorColKeys: headerIndicatorColKeys.value,
+      headerRows,
+      cellSelectionData,
+      cellSelectionRangeData,
+      headerIndicatorColKeys,
       onClick: () => {
         stopEditingCell()
       },
       onMouseleave: () => {
         headerMouseleave()
       },
-    }
-    // const widthChange = EMIT_EVENTS.BODY_CELL_WIDTH_CHANGE
-    const widthChange = 'onBodyCellWidthChange'
-    // const heightRowChange = EMIT_EVENTS.HIGHLIGHT_ROW_CHANGE
-    const heightRowChange = 'onHighlightRowChange'
+    })
+
     // body props
     const bodyProps = reactive({
-      class: [clsName('body'), tableBodyClass],
+      class: tableBodyClass,
       tableViewportWidth,
       columnsOptionResetTime,
       colgroups,
       expandOption: props.expandOption,
       checkboxOption: props.checkboxOption,
-      // actualRenderTableData,
+      actualRenderTableData,
       rowKeyFieldName: props.rowKeyFieldName,
       radioOption: props.radioOption,
       virtualScrollOption: props.virtualScrollOption,
@@ -3171,26 +3149,25 @@ export default defineComponent({
       highlightRowKey,
       showVirtualScrollingPlaceholder,
       bodyIndicatorRowKeys,
-      [widthChange]: debounce(bodyCellWidthChange, 0),
-      [heightRowChange]: setHighlightRow,
+      onBodyCellWidthChange: debounce(bodyCellWidthChange, 0),
+      onHighlightRowChange: setHighlightRow,
     })
-    console.log('🚀 ~ setup ~ bodyProps:', bodyProps)
 
     // footer props
-    const footerProps = {
+    const footerProps = reactive({
       class: [clsName('footer')],
-      colgroups: colgroups.value,
+      colgroups,
       footerData: props.footerData,
       rowKeyFieldName: props.rowKeyFieldName,
       cellStyleOption: props.cellStyleOption,
       fixedFooter: props.fixedFooter,
       cellSpanOption: props.cellSpanOption,
       eventCustomOption: props.eventCustomOption,
-      hasFixedColumn: hasFixedColumn.value,
-      allRowKeys: allRowKeys.value,
-      footerRows: footerRows.value,
+      hasFixedColumn,
+      allRowKeys,
+      footerRows,
       click: () => { stopEditingCell() },
-    }
+    })
 
     // table container wrapper props
     const tableContainerWrapperProps = {
@@ -3204,7 +3181,6 @@ export default defineComponent({
       tagName: 'div',
       onDomResizeChange: ({ height }: Record<'height', number>) => {
         tableOffestHeight.value = height
-        console.log('🚀 update onDomResizeChange')
         initVirtualScroll()
         // fixed #404
         initScrolling()
@@ -3214,9 +3190,9 @@ export default defineComponent({
     }
 
     // table container props
-    const tableContainerProps = {
-      class: tableContainerClass.value,
-      style: tableContainerStyle.value,
+    const tableContainerProps = reactive({
+      class: tableContainerClass,
+      style: tableContainerStyle,
       onScroll: () => {
         if (!tableContainerRef.value) {
           throw new Error('can not find tableContainerRef')
@@ -3236,13 +3212,11 @@ export default defineComponent({
 
           previewVirtualScrollStartIndex.value = startIndex
 
-          // default placeholder per scrolling row count
           if (differ > defaultPlaceholderPerScrollingRowCount.value) {
             showVirtualScrollingPlaceholder.value = true
           } else {
             showVirtualScrollingPlaceholder.value = false
           }
-
           debounceScrollEnded()
         }
       },
@@ -3253,57 +3227,58 @@ export default defineComponent({
       onMousemove: () => {
         // todo
       },
-    }
+    })
 
     // table wrapper props
-    const tableWrapperProps = {
+    const tableWrapperProps = reactive({
       class: [clsName('content-wrapper')],
       tagName: 'div',
       onDomResizeChange: ({ height }: Record<'height', number>) => {
         tableHeight.value = height
       },
-    }
+    })
 
     // tale props
-    const tableProps = {
-      class: [clsName('content'), tableClass.value],
-      style: tableStyle.value,
-    }
+    const tableProps = reactive({
+      class: tableClass,
+      style: tableStyle,
+    })
+
     // selection props
-    const selectionProps = {
-      tableEl: tableRef.value,
-      allRowKeys: allRowKeys.value,
-      colgroups: colgroups.value,
-      parentRendered: parentRendered.value,
-      hooks: hooks.value,
-      cellSelectionData: cellSelectionData.value,
-      isAutofillStarting: isAutofillStarting.value,
-      cellSelectionRangeData: cellSelectionRangeData.value,
-      currentCellSelectionType: currentCellSelectionType.value,
-      showVirtualScrollingPlaceholder: showVirtualScrollingPlaceholder.value,
-      isVirtualScroll: isVirtualScroll.value,
-      virtualScrollVisibleIndexs: virtualScrollVisibleIndexs.value,
-      isCellEditing: isCellEditing.value,
+    const selectionProps = reactive({
+      tableEl: tableRef,
+      allRowKeys,
+      colgroups,
+      parentRendered,
+      hooks,
+      cellSelectionData,
+      isAutofillStarting,
+      cellSelectionRangeData,
+      currentCellSelectionType,
+      showVirtualScrollingPlaceholder,
+      isVirtualScroll,
+      virtualScrollVisibleIndexs,
+      isCellEditing,
       cellAutofillOption: props.cellAutofillOption,
       onCellSelectionRangeDataChange: (newData: any) => {
         cellSelectionRangeDataChange(newData)
       },
-    }
+    })
     // edit input props
-    const editInputProps = {
-      hooks: hooks.value,
-      parentRendered: parentRendered.value,
-      inputStartValue: editorInputStartValue.value,
+    const editInputProps = reactive({
+      hooks,
+      parentRendered,
+      inputStartValue: editorInputStartValue,
       rowKeyFieldName: props.rowKeyFieldName,
       tableData: props.tableData,
-      cellSelectionData: cellSelectionData.value,
-      colgroups: colgroups.value,
-      editingCell: editingCell.value,
-      isCellEditing: isCellEditing.value,
+      cellSelectionData,
+      colgroups,
+      editingCell,
+      isCellEditing,
       allRowKeys,
-      hasXScrollBar: hasXScrollBar.value,
-      hasYScrollBar: hasYScrollBar.value,
-      hasRightFixedColumn: hasRightFixedColumn.value,
+      hasXScrollBar,
+      hasYScrollBar,
+      hasRightFixedColumn,
       scrollBarWidth: getTableScrollBarWidth(),
       // edit input click
       onEditInputClick: () => {
@@ -3323,30 +3298,29 @@ export default defineComponent({
       onEditInputCut: (e: any) => {
         editorCut(e)
       },
-    }
+    })
 
     // 直接在组件上写事件，单元测试无法通过。如 on={{"on-node-click":()=>{}}}
-    const contextmenuProps = {
-      eventTarget: contextmenuEventTarget.value,
-      options: contextmenuOptions.value,
+    const contextmenuProps = reactive({
+      eventTarget: contextmenuEventTarget,
+      options: contextmenuOptions,
       onNodeClick: (type: string) => {
         contextmenuItemClick(type)
       },
-    }
+    })
 
-    // column resizer props
-    const columnResizerProps = {
-      parentRendered: parentRendered.value,
-      tableContainerEl: tableContainerRef.value,
-      hooks: hooks.value,
-      colgroups: colgroups.value,
-      isColumnResizerHover: isColumnResizerHover.value,
-      isColumnResizing: isColumnResizing.value,
+    const columnResizerProps = reactive({
+      parentRendered,
+      tableContainerEl: tableContainerRef,
+      hooks,
+      colgroups,
+      isColumnResizerHover,
+      isColumnResizing,
       setIsColumnResizerHover,
       setIsColumnResizing,
       setColumnWidth,
       columnWidthResizeOption: props.columnWidthResizeOption,
-    }
+    })
 
     onMounted(() => {
       parentRendered.value = true
@@ -3475,7 +3449,8 @@ export default defineComponent({
       // init scrolling
       // initScrolling()
     })
-
+    // inject
+    provide('eventCenter', eventCenter.value)
     return () => (
       <div ref={tableRootRef} class='vue-table-root'>
         <VueDomResizeObserver ref={tableContainerWrapperRef} {...tableContainerWrapperProps} v-click-outside={tableClickOutside}>
@@ -3493,7 +3468,7 @@ export default defineComponent({
                 {/* table header */}
                 {props.showHeader && <TableHeader {...headerProps} />}
                 {/* table body */}
-                <TableBody ref={tableBodyRef} {...bodyProps} actualRenderTableData={ actualRenderTableData.value} />
+                <TableBody ref={tableBodyRef} {...bodyProps} />
                 {/* table footer */}
                 <TableFooter {...footerProps} />
               </table>
