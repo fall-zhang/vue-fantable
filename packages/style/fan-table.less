@@ -1,4 +1,4 @@
-:root{
+:root {
   --ve-virtual-phantom-index: -1;
   --ve-normal-cell-selection-border-index: 0;
   --ve-normal-cell-selection-corner-index: 1;
@@ -210,12 +210,8 @@
 
           // 行点击高亮
           &.fan-table-row-highlight {
-            tr.fan-table-body-tr {
-              &.fan-table-tr-highlight {
-                td {
-                  background-color: var(--fan-table-body-row-highlight-background-color);
-                }
-              }
+            tr.fan-table-body-tr.fan-table-tr-highlight td {
+              background-color: var(--fan-table-body-row-highlight-background-color);
             }
           }
 
