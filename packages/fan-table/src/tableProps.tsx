@@ -1,5 +1,11 @@
 export function tableProps() {
   return {
+    // 接管模式，数据交给 fan-table 处理
+    takeoverMode: {
+      required: false,
+      type: Boolean,
+      default: false
+    },
     tableData: {
       required: true,
       type: Array,
