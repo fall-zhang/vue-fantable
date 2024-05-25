@@ -1,6 +1,6 @@
 .ve-radio *,
-.ve-radio *:before,
-.ve-radio *:after {
+.ve-radio *::before,
+.ve-radio *::after {
   box-sizing: border-box;
 }
 
@@ -53,7 +53,7 @@
       border-radius: 100px;
       transition: all 0.3s;
 
-      &:after {
+      &::after {
         position: absolute;
         top: 3px;
         left: 3px;
@@ -73,7 +73,7 @@
 
     // 选中效果
     &.ve-radio-checked {
-      &:after {
+      &::after {
         position: absolute;
         top: 0;
         left: 0;
@@ -90,7 +90,7 @@
         border-color: var(--ve-radio-checked-border-color);
       }
 
-      .ve-radio-inner:after {
+      .ve-radio-inner::after {
         transform: scale(1);
         opacity: 1;
         transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
@@ -108,7 +108,7 @@
         border-color: #d9d9d9 !important;
         cursor: not-allowed;
 
-        &:after {
+        &::after {
           background-color: #00000033;
         }
       }
