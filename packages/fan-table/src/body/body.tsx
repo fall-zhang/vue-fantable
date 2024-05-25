@@ -14,140 +14,12 @@ import BodyTr from './body-tr'
 import ExpandTr from './expand-tr'
 import BodyTrScrolling from './body-tr-scrolling'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import { computed, defineComponent, inject, nextTick, onMounted, ref, shallowRef, watch } from 'vue'
+import { computed, defineComponent, inject, nextTick, onMounted, reactive, ref, shallowRef, watch } from 'vue'
 import { EventType } from 'mitt'
+import { bodyProps } from './bodyProps'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY,
-  props: {
-    tableViewportWidth: {
-      type: Number,
-      default: 0,
-    },
-    columnsOptionResetTime: {
-      type: Number,
-      default: 0,
-    },
-    colgroups: {
-      type: Array,
-      required: true,
-      default: () => ([])
-    },
-    actualRenderTableData: {
-      type: Array,
-      required: true,
-    },
-    // 没有使用的属性
-    hasFixedColumn: {
-      type: Boolean,
-      default: false,
-    },
-    allRowKeys: {
-      type: Array,
-      required: true,
-    },
-    // expand row option
-    expandOption: {
-      type: Object,
-      default () {
-        return {
-          expandedRowKeys: ''
-        }
-      },
-    },
-    // checkbox option
-    checkboxOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // radio option
-    radioOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // virual scroll
-    virtualScrollOption: {
-      type: Object,
-      default: null,
-    },
-    // is virtual scroll
-    isVirtualScroll: {
-      type: Boolean,
-      default: false,
-    },
-    // is scrolling
-    showVirtualScrollingPlaceholder: {
-      type: Boolean,
-      default: false,
-    },
-    rowKeyFieldName: {
-      type: String,
-      default: null,
-    },
-    // cell style option
-    cellStyleOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // cell span option
-    cellSpanOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // highlight row key
-    highlightRowKey: {
-      type: [String, Number],
-      default: null,
-    },
-    // event custom option
-    eventCustomOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // cell selection option
-    cellSelectionOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // cell selection data
-    cellSelectionData: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // cell selection range data
-    cellSelectionRangeData: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    bodyIndicatorRowKeys: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-    // edit option
-    editOption: {
-      type: Object,
-      default: function () {
-        return null
-      },
-    },
-  },
+  props: bodyProps(),
   emits: ['highlightRowChange', 'bodyCellWidthChange'],
   setup(props, { emit, expose }) {
     const eventCenter = inject<Record<EventType, any>>('eventCenter')!
@@ -163,7 +35,7 @@ export default defineComponent({
     const internalRadioSelectedRowKey = ref<any>(null)
 
     const virtualScrollPreviewRenderedRowKeys = ref<any[]>([])
-    const virtualScrollRepeatRenderedRowKeys = ref([])
+    const virtualScrollRepeatRenderedRowKeys = ref<any[]>([])
     /* data end */
     /* computed start */
     // column collenction info
@@ -738,7 +610,7 @@ export default defineComponent({
           })}
         </tr>
         {props.actualRenderTableData.map((rowData:any, rowIndex) => {
-          const trProps = {
+          const trProps = reactive({
             key: getTrKey({ rowData, rowIndex }),
             rowIndex,
             rowData,
@@ -749,7 +621,6 @@ export default defineComponent({
             radioOption: props.radioOption,
             rowKeyFieldName: props.rowKeyFieldName,
             allRowKeys: props.allRowKeys,
-            expandRowChange,
             internalCheckboxSelectedRowKeys: internalCheckboxSelectedRowKeys.value,
             internalRadioSelectedRowKey: internalRadioSelectedRowKey.value,
             isVirtualScroll: props.isVirtualScroll,
@@ -763,21 +634,18 @@ export default defineComponent({
             columnCollection: columnCollection.value,
             cellSelectionRangeData: props.cellSelectionRangeData,
             bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
-          }
+            expandRowChange,
+          })
 
           if (props.showVirtualScrollingPlaceholder) {
             const trPropsScrolling = {
               key: getTrKey({ rowData, rowIndex }),
               colgroups: props.colgroups,
             }
-
-            if (
-              virtualScrollRepeatRenderedRowKeys.value.indexOf(rowData[props.rowKeyFieldName]) !== -1
-            ) {
-              return [
-                // body tr
-                <BodyTr {...trProps} />,
-              ]
+            const fieldName = rowData[props.rowKeyFieldName]
+            const exist = virtualScrollRepeatRenderedRowKeys.value.indexOf(fieldName) !== -1
+            if (exist) {
+              return [<BodyTr {...trProps} />]
             } else {
               return <BodyTrScrolling {...trPropsScrolling} />
             }
