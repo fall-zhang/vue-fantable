@@ -233,7 +233,7 @@ export function onBeforePaste({
     allRowKeys.length - 1,
   )
 
-  const response = {
+  const response:Record<string, any> = {
     selectionRangeIndexes: {
       startColIndex,
       endColIndex,

@@ -4,13 +4,13 @@ import {
   COLUMN_FIXED_TYPE,
   AUTOFILLING_DIRECTION,
 } from './constant'
-import { MOUSE_EVENT_CLICK_TYPE } from '../../../src/utils/constant'
+import { MOUSE_EVENT_CLICK_TYPE } from '@P/src/utils/constant'
 import {
   isEmptyValue,
   isEmptyArray,
   isFunction,
 } from '@P/src/utils/index'
-import { getRandomId } from '../../../src/utils/random'
+import { getRandomId } from '@P/src/utils/random'
 
 /**
  * @clsName
@@ -354,7 +354,7 @@ export function getHeaderContextmenuOptionCollection($t:TransFun) {
 }
 
 // get body contextmenu option collection
-export function getBodyContextmenuOptionCollection($t) {
+export function getBodyContextmenuOptionCollection($t:any) {
   return [
     {
       type: CONTEXTMENU_NODE_TYPES.SEPARATOR,
@@ -587,8 +587,7 @@ export function setBodyContextmenuOptions({
       })
     }
 
-    const bodyContextmenuOptionCollection =
-            getBodyContextmenuOptionCollection($t)
+    const bodyContextmenuOptionCollection = getBodyContextmenuOptionCollection($t)
 
     contextmenus.forEach((contextmenu) => {
       const contentmenuCollectionItem =
