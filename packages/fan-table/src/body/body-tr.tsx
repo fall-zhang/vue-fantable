@@ -4,7 +4,7 @@ import { isEmptyValue } from '@P/src/utils/index.js'
 import BodyTd from './body-td'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
-import { computed, defineComponent, inject, reactive } from 'vue'
+import { VueElement, computed, defineComponent, inject, reactive } from 'vue'
 import { EventType } from 'mitt'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_TR,
@@ -210,39 +210,41 @@ export default defineComponent({
       fn && fn(e)
     }
     // methods end
+    console.log(props.colgroups)
 
-    const getTdContent = () => {
-      // const onExpandRowChange = 'onExpandRowChange'
-      return props.colgroups.map((column:any) => {
-        const tdProps = {
-          key: column.key,
-          rowIndex: props.rowIndex,
-          rowData: props.rowData,
-          column,
-          columnCollection: props.columnCollection,
-          colgroups: props.colgroups,
-          expandOption: props.expandOption,
-          expandedRowkeys: props.expandedRowkeys,
-          checkboxOption: props.checkboxOption,
-          rowKeyFieldName: props.rowKeyFieldName,
-          allRowKeys: props.allRowKeys,
-          isExpandRow: props.isExpandRow,
-          internalCheckboxSelectedRowKeys: props.internalCheckboxSelectedRowKeys,
-          internalRadioSelectedRowKey: props.internalRadioSelectedRowKey,
-          radioOption: props.radioOption,
-          cellStyleOption: props.cellStyleOption,
-          cellSpanOption: props.cellSpanOption,
-          eventCustomOption: props.eventCustomOption,
-          cellSelectionData: props.cellSelectionData,
-          cellSelectionRangeData: props.cellSelectionRangeData,
-          bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
-          editOption: props.editOption,
-          // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
-          onExpandRowChange: () => props.expandRowChange(props.rowData, props.rowIndex),
-        }
-        return <BodyTd {...tdProps} />
-      })
-    }
+    const TdContent = () => <>
+      {
+        props.colgroups.map((column:any) => {
+          const tdProps = reactive({
+            key: column.key,
+            rowIndex: props.rowIndex,
+            rowData: props.rowData,
+            column,
+            columnCollection: props.columnCollection,
+            colgroups: props.colgroups,
+            expandOption: props.expandOption,
+            expandedRowkeys: props.expandedRowkeys,
+            checkboxOption: props.checkboxOption,
+            rowKeyFieldName: props.rowKeyFieldName,
+            allRowKeys: props.allRowKeys,
+            isExpandRow: props.isExpandRow,
+            internalCheckboxSelectedRowKeys: props.internalCheckboxSelectedRowKeys,
+            internalRadioSelectedRowKey: props.internalRadioSelectedRowKey,
+            radioOption: props.radioOption,
+            cellStyleOption: props.cellStyleOption,
+            cellSpanOption: props.cellSpanOption,
+            eventCustomOption: props.eventCustomOption,
+            cellSelectionData: props.cellSelectionData,
+            cellSelectionRangeData: props.cellSelectionRangeData,
+            bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
+            editOption: props.editOption,
+            // const onExpandRowChange= EMIT_EVENTS.EXPAND_ROW_CHANGE
+            onExpandRowChange: () => props.expandRowChange(props.rowData, props.rowIndex),
+          })
+          return <BodyTd {...tdProps} />
+        })
+      }
+    </>
 
     let result = null
 
@@ -277,11 +279,11 @@ export default defineComponent({
       onMouseup: (e) => rowMouseup(e, mouseup)
     }
     if (props.isVirtualScroll) {
-      const props = reactive({
+      const vDOMProps = reactive({
         class: trClass,
         tagName: 'tr',
         id: currentRowKey,
-        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: currentRowKey,
+        'row-key': currentRowKey,
         onDomResizeChange: ({ key, height }) => {
           eventCenter.emit(GLOBAL_EVENT.BODY_ROW_HEIGHT_CHANGE,
             {
@@ -294,18 +296,20 @@ export default defineComponent({
       })
 
       result = (
-        <VueDomResizeObserver {...props}>
-          {getTdContent()}
+        <VueDomResizeObserver {...vDOMProps}>
+          <TdContent></TdContent>
         </VueDomResizeObserver>
       )
     } else {
-      const props = reactive({
+      const trProps = reactive({
         class: trClass,
-        [COMPS_CUSTOM_ATTRS.BODY_ROW_KEY]: currentRowKey,
+        'row-key': currentRowKey,
         ...events,
       })
 
-      result = <tr {...props}>{getTdContent()}</tr>
+      result = <tr {...trProps}>
+        <TdContent></TdContent>
+      </tr>
     }
     // console.log("🚀 ~ setup ~ result:", result)
     return () => result
