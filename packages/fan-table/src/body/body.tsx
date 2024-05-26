@@ -17,6 +17,7 @@ import { GLOBAL_EVENT } from '@P/events/global-events.js'
 import { computed, defineComponent, inject, nextTick, onMounted, reactive, ref, shallowRef, watch } from 'vue'
 import { EventType } from 'mitt'
 import { bodyProps } from './bodyProps'
+
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY,
   props: bodyProps(),
@@ -332,16 +333,16 @@ export default defineComponent({
     // get expand row
     function getExpandRowComp({ rowData, rowIndex }:any) {
       if (isExpandRow({ rowData, rowIndex })) {
-        const expandTrProps = {
+        const expandTrProps = reactive({
           tableViewportWidth: props.tableViewportWidth,
           colgroups: props.colgroups,
           expandOption: props.expandOption,
-          expandedRowkeys: expandedRowkeys.value,
-          expandColumn: expandColumn.value,
+          expandedRowkeys,
+          expandColumn,
           rowKeyFieldName: props.rowKeyFieldName,
           rowData,
           rowIndex,
-        }
+        })
 
         return <ExpandTr {...expandTrProps} />
       }
@@ -466,11 +467,10 @@ export default defineComponent({
     }
 
     /**
-     * @checkboxSelectedAllChange
      * @desc  selected all change
      * @param {bool} isSelected - is selected
      */
-    function checkboxSelectedAllChange({ isSelected }:Record<'isSelected', any>) {
+    function checkboxSelectedAllChange({ isSelected }:Record<'isSelected', boolean>) {
       if (!props.checkboxOption) return
       const { selectedAllChange, selectedRowKeys } = props.checkboxOption
 
@@ -587,77 +587,81 @@ export default defineComponent({
     watch(() => 'props.radioOption.selectedRowKey', () => {
       initInternalRadioSelectedRowKey()
     })
+
     expose({
       renderingRowKeys
     })
+
     return () => (
       <tbody>
         {/* Measure each column width with additional hidden col */}
         <tr style="height:0;">
-          {props.colgroups.map((column:any) => {
-            const measureTdProps = {
-              key: getDomResizeObserverCompKey(column.key, props.columnsOptionResetTime),
-              tagName: 'td',
-              id: column.key,
-              onDomResizeChange: tdSizeChange,
-              style: {
-                padding: 0,
-                border: 0,
-                height: 0,
-              },
-            }
-            return <VueDomResizeObserver {...measureTdProps} />
-          })}
-        </tr>
-        {props.actualRenderTableData.map((rowData:any, rowIndex) => {
-          const trProps = reactive({
-            key: getTrKey({ rowData, rowIndex }),
-            rowIndex,
-            rowData,
-            colgroups: props.colgroups,
-            expandOption: props.expandOption,
-            expandedRowkeys: expandedRowkeys.value,
-            checkboxOption: props.checkboxOption,
-            radioOption: props.radioOption,
-            rowKeyFieldName: props.rowKeyFieldName,
-            allRowKeys: props.allRowKeys,
-            internalCheckboxSelectedRowKeys: internalCheckboxSelectedRowKeys.value,
-            internalRadioSelectedRowKey: internalRadioSelectedRowKey.value,
-            isVirtualScroll: props.isVirtualScroll,
-            isExpandRow: isExpandRow({ rowData, rowIndex }),
-            cellStyleOption: props.cellStyleOption,
-            cellSpanOption: props.cellSpanOption,
-            highlightRowKey: props.highlightRowKey,
-            eventCustomOption: props.eventCustomOption,
-            cellSelectionData: props.cellSelectionData,
-            editOption: props.editOption,
-            columnCollection: columnCollection.value,
-            cellSelectionRangeData: props.cellSelectionRangeData,
-            bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
-            expandRowChange,
-          })
-
-          if (props.showVirtualScrollingPlaceholder) {
-            const trPropsScrolling = {
-              key: getTrKey({ rowData, rowIndex }),
-              colgroups: props.colgroups,
-            }
-            const fieldName = rowData[props.rowKeyFieldName]
-            const exist = virtualScrollRepeatRenderedRowKeys.value.indexOf(fieldName) !== -1
-            if (exist) {
-              return [<BodyTr {...trProps} />]
-            } else {
-              return <BodyTrScrolling {...trPropsScrolling} />
-            }
-          } else {
-            return [
-              // body tr
-              <BodyTr {...trProps} />,
-              // expand row
-              getExpandRowComp({ rowData, rowIndex }),
-            ]
+          {
+            props.colgroups.map((column:any) => {
+              const measureTdProps = {
+                key: getDomResizeObserverCompKey(column.key, props.columnsOptionResetTime),
+                tagName: 'td',
+                id: column.key,
+                onDomResizeChange: tdSizeChange,
+                style: {
+                  padding: 0,
+                  border: 0,
+                  height: 0,
+                },
+              }
+              return <VueDomResizeObserver {...measureTdProps} />
+            })
           }
-        })}
+        </tr>
+        {
+          props.actualRenderTableData.map((rowData:any, rowIndex) => {
+            const trProps = reactive({
+              key: getTrKey({ rowData, rowIndex }),
+              rowIndex,
+              rowData,
+              colgroups: props.colgroups,
+              expandOption: props.expandOption,
+              expandedRowkeys,
+              checkboxOption: props.checkboxOption,
+              radioOption: props.radioOption,
+              rowKeyFieldName: props.rowKeyFieldName,
+              allRowKeys: props.allRowKeys,
+              internalCheckboxSelectedRowKeys,
+              internalRadioSelectedRowKey,
+              isVirtualScroll: props.isVirtualScroll,
+              isExpandRow: isExpandRow({ rowData, rowIndex }),
+              cellStyleOption: props.cellStyleOption,
+              cellSpanOption: props.cellSpanOption,
+              highlightRowKey: props.highlightRowKey,
+              eventCustomOption: props.eventCustomOption,
+              cellSelectionData: props.cellSelectionData,
+              editOption: props.editOption,
+              columnCollection,
+              cellSelectionRangeData: props.cellSelectionRangeData,
+              bodyIndicatorRowKeys: props.bodyIndicatorRowKeys,
+              expandRowChange,
+            })
+
+            if (props.showVirtualScrollingPlaceholder) {
+              const trPropsScrolling = reactive({
+                key: getTrKey({ rowData, rowIndex }),
+                colgroups: props.colgroups,
+              })
+              const fieldName = rowData[props.rowKeyFieldName]
+              const exist = virtualScrollRepeatRenderedRowKeys.value.indexOf(fieldName) !== -1
+              if (exist) {
+                return [<BodyTr {...trProps} />]
+              } else {
+                return <BodyTrScrolling {...trPropsScrolling} />
+              }
+            } else {
+              return [
+                <BodyTr {...trProps} />,
+                // expand row
+                getExpandRowComp({ rowData, rowIndex }),
+              ]
+            }
+          })}
       </tbody>
     )
   },
