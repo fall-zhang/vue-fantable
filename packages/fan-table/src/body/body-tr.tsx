@@ -307,7 +307,7 @@ export default defineComponent({
 
       result = <tr {...props}>{getTdContent()}</tr>
     }
-
+    // console.log("🚀 ~ setup ~ result:", result)
     return () => result
   }
 })

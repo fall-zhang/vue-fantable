@@ -16,6 +16,7 @@ export function bodyProps() {
     actualRenderTableData: {
       type: Array,
       required: true,
+      default: () => ([])
     },
     // 没有使用的属性
     hasFixedColumn: {
@@ -25,6 +26,7 @@ export function bodyProps() {
     allRowKeys: {
       type: Array,
       required: true,
+      default: () => ([])
     },
     // expand row option
     expandOption: {

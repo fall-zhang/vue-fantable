@@ -195,8 +195,7 @@ export default defineComponent({
     const isBodyCellMousedown = ref(false)
     const isBodyOperationColumnMousedown = ref(false)
     const isAutofillStarting = ref(false)
-    // autofilling direction
-    const autofillingDirection = ref(null)
+    const autoFillingDirection = ref(null)
     // current cell selection type
     const currentCellSelectionType = ref('')
     /**
@@ -814,14 +813,14 @@ export default defineComponent({
             allRowKeys: allRowKeys.value,
           })
         ) {
-          if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
+          if (autoFillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
             currentCellData = {
               rowKey: topRowKey,
               colKey: leftColKey,
             }
             normalEndCellData = { rowKey: bottomRowKey, colKey }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.DOWN
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.DOWN
           ) {
             currentCellData = {
               rowKey: topRowKey,
@@ -829,7 +828,7 @@ export default defineComponent({
             }
             normalEndCellData = { rowKey, colKey: rightColKey }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.UP
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.UP
           ) {
             currentCellData = {
               rowKey,
@@ -840,7 +839,7 @@ export default defineComponent({
               colKey: rightColKey,
             }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.LEFT
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.LEFT
           ) {
             currentCellData = { rowKey: topRowKey, colKey }
             normalEndCellData = {
@@ -859,7 +858,7 @@ export default defineComponent({
           currentCell.rowKey !== rowKey ||
           currentCell.colKey !== colKey
         ) {
-          if (autofillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
+          if (autoFillingDirection.value === AUTOFILLING_DIRECTION.RIGHT) {
             currentCellData = {
               rowKey,
               colKey: leftColKey,
@@ -869,7 +868,7 @@ export default defineComponent({
               colKey,
             }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.DOWN
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.DOWN
           ) {
             currentCellData = {
               rowKey: topRowKey,
@@ -880,7 +879,7 @@ export default defineComponent({
               colKey: leftColKey,
             }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.UP
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.UP
           ) {
             currentCellData = {
               rowKey,
@@ -891,7 +890,7 @@ export default defineComponent({
               colKey: leftColKey,
             }
           } else if (
-            autofillingDirection.value === AUTOFILLING_DIRECTION.LEFT
+            autoFillingDirection.value === AUTOFILLING_DIRECTION.LEFT
           ) {
             currentCellData = {
               rowKey,
@@ -913,7 +912,7 @@ export default defineComponent({
         allRowKeys: allRowKeys.value,
         colgroups: colgroups.value,
         rowKeyFieldName: props.rowKeyFieldName,
-        direction: autofillingDirection.value,
+        direction: autoFillingDirection.value,
         currentCellSelectionType: currentCellSelectionType.value,
         cellSelectionRangeData: cellSelectionRangeData.value,
         nextCurrentCell: currentCellData,
@@ -970,7 +969,7 @@ export default defineComponent({
 
     // autofilling direction change
     function autofillingDirectionChange(direction: any) {
-      autofillingDirection.value = direction
+      autoFillingDirection.value = direction
     }
 
     // set current cell selection type
@@ -1329,7 +1328,7 @@ export default defineComponent({
 
     // get virtual scroll above count
     function getVirtualScrollAboveCount() {
-      console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:')
+      // console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:')
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1337,13 +1336,13 @@ export default defineComponent({
           virtualScrollBufferCount.value,
         )
       }
-      console.log('🚀 ~ getVirtualScrollAboveCount ~ result:', result)
+      // console.log('🚀 ~ getVirtualScrollAboveCount ~ result:', result)
       return result
     }
 
     // get virtual scroll bellow count
     function getVirtualScrollBelowCount() {
-      console.log('🚀 ~ getVirtualScrollBelowCount ~ getVirtualScrollBelowCount:',)
+      // console.log('🚀 ~ getVirtualScrollBelowCount ~ getVirtualScrollBelowCount:',)
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1351,7 +1350,7 @@ export default defineComponent({
           virtualScrollBufferCount.value
         )
       }
-      console.log('🚀 ~ getVirtualScrollBelowCount ~ result:', result)
+      // console.log('🚀 ~ getVirtualScrollBelowCount ~ result:', result)
       return result
     }
 
@@ -2968,7 +2967,7 @@ export default defineComponent({
     }
     // set highlight row
     function setHighlightRow({ rowKey }: Record<'rowKey', any>) {
-      console.log('🚀 ~ setHighlightRow ~ rowKey:', rowKey)
+      // console.log('🚀 ~ setHighlightRow ~ rowKey:', rowKey)
       highlightRowKey.value = rowKey
     }
 

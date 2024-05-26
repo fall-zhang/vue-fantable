@@ -44,10 +44,7 @@ export default defineComponent({
 
       const { disableSelectedRowKeys } = checkboxOption
 
-      if (
-        Array.isArray(disableSelectedRowKeys) &&
-disableSelectedRowKeys.includes(rowKey)
-      ) {
+      if (Array.isArray(disableSelectedRowKeys) && disableSelectedRowKeys.includes(rowKey)) {
         result = true
       }
 
@@ -79,9 +76,7 @@ disableSelectedRowKeys.includes(rowKey)
 
       const { rowKey, internalCheckboxSelectedRowKeys } = this
 
-      if (
-        Array.isArray(internalCheckboxSelectedRowKeys) &&
-internalCheckboxSelectedRowKeys.includes(rowKey)
+      if (Array.isArray(internalCheckboxSelectedRowKeys) && internalCheckboxSelectedRowKeys.includes(rowKey)
       ) {
         result = true
       }
