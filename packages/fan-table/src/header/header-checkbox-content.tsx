@@ -3,7 +3,7 @@ import { COMPS_NAME, EMIT_EVENTS } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-import { defineComponent, inject, onMounted, onUnmounted, ref } from 'vue'
+import { defineComponent, inject, onMounted, onUnmounted, reactive, ref } from 'vue'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_HEADER_CHECKBOX_CONTENT,
   components: {
@@ -21,7 +21,7 @@ export default defineComponent({
   },
   setup() {
     const isSelected = ref(false)
-    const isIndeterminate = ref(false)
+    const indeterminate = ref(false)
 
     const eventCenter:any = inject('eventCenter')
 
@@ -36,15 +36,15 @@ export default defineComponent({
     // set selected all info
     function setSelectedAllInfo({ isSelected: newState, isIndeterminate }:any) {
       isSelected.value = newState
-      isIndeterminate.value = isIndeterminate
+      indeterminate.value = isIndeterminate
     }
-    const checkboxProps = {
+    const checkboxProps = reactive({
       class: clsName('checkbox-wrapper'),
       isControlled: true,
       isSelected,
-      indeterminate: isIndeterminate,
+      indeterminate,
       onCheckedChange: (isSelectedParam:boolean) => selectedChange(isSelectedParam),
-    }
+    })
     onMounted(() => {
       // receive selected all info
       eventCenter.on(GLOBAL_EVENT.CHECKBOX_SELECTED_ALL_INFO, (params:boolean) => {
