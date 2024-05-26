@@ -117,14 +117,12 @@ export function tableProps() {
         return null
       },
     },
-    // checkbox option
     checkboxOption: {
       type: Object,
       default: function () {
         return null
       },
     },
-    // radio option
     radioOption: {
       type: Object,
       default: function () {

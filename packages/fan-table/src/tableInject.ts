@@ -1,19 +1,20 @@
-import { inject, provide } from 'vue'
-
-const groupData = Symbol('groupData')
+import { provide } from 'vue'
 
 export function tableInject() {
-  provide('fan-groupData', 'groupData')
+  provide('groupData', 'groupData')
   provide('fan-parentRendered', false)
   provide('fan-cellSelectionData', false)
   provide('fan-parentRendered', false)
   provide('fan-checkboxOption', false)
-  provide('allRowKeys', false)
-  provide('rowKeyFieldName', false)
-  provide('cellStyleOption', false)
-  provide('cellSpanOption', false)
-  provide('eventCustomOption', false)
-  provide('cellSelectionData', false)
-  provide('hasFixedColumn', false)
-  provide('colgroups', false)
+  provide('fan-allRowKeys', false)
+  provide('fan-rowKeyFieldName', false)
+  provide('fan-cellStyleOption', false)
+  provide('fan-cellSpanOption', false)
+  provide('fan-eventCustomOption', false)
+  provide('fan-cellSelectionData', false)
+  provide('fan-hasFixedColumn', false)
+  // 高亮的行
+  provide('fan-highlightRowKey', false)
+  provide('fan-col-groups', false)
+  // tableEl?
 }

@@ -601,7 +601,6 @@ export default defineComponent({
       mouseup,
     } = customEvents
 
-    // td props
     const tdProps = {
       class: this.bodyTdClass(),
       style: this.bodyTdStyle(),

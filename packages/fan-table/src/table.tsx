@@ -851,9 +851,8 @@ export default defineComponent({
           // return if within the range
           return false
         }
-      } else if ( // cell selection single auto fill
-        currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.SINGLE
-      ) {
+      } else if (currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.SINGLE) {
+        // cell selection single auto fill
         if (
           currentCell.rowKey !== rowKey ||
           currentCell.colKey !== colKey
@@ -1519,6 +1518,7 @@ export default defineComponent({
 
       if (!showVirtualScrollingPlaceholder.value) {
         const bodyElement = tableBodyRef.value
+        // console.log('🚀 ~ tableContainerVirtualScrollHandler ~ tableBodyRef.value:', tableBodyRef.value)
 
         if (bodyElement) {
           bodyElement.renderingRowKeys(
@@ -3168,7 +3168,6 @@ export default defineComponent({
       click: () => { stopEditingCell() },
     })
 
-    // table container wrapper props
     const tableContainerWrapperProps = {
       style: {
         width: '100%',
@@ -3188,7 +3187,6 @@ export default defineComponent({
       },
     }
 
-    // table container props
     const tableContainerProps = reactive({
       class: tableContainerClass,
       style: tableContainerStyle,
@@ -3228,7 +3226,6 @@ export default defineComponent({
       },
     })
 
-    // table wrapper props
     const tableWrapperProps = reactive({
       class: [clsName('content-wrapper')],
       tagName: 'div',
@@ -3237,13 +3234,11 @@ export default defineComponent({
       },
     })
 
-    // tale props
     const tableProps = reactive({
       class: tableClass,
       style: tableStyle,
     })
 
-    // selection props
     const selectionProps = reactive({
       tableEl: tableRef,
       allRowKeys,
@@ -3263,7 +3258,7 @@ export default defineComponent({
         cellSelectionRangeDataChange(newData)
       },
     })
-    // edit input props
+
     const editInputProps = reactive({
       hooks,
       parentRendered,
