@@ -3,12 +3,11 @@ import { COMPS_NAME } from '../util/constant'
 import { clsName } from '../util/index'
 // import eventCenter from '@P/events/event-center'
 import { GLOBAL_EVENT } from '@P/events/global-events'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, inject, reactive, ref, watch } from 'vue'
+import { EventType } from 'mitt'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_BODY_CHECKBOX_CONTENT,
-  inject: ['eventCenter'],
   props: {
-    // checkbox option
     checkboxOption: {
       type: Object,
       default: function () {
@@ -26,93 +25,62 @@ export default defineComponent({
       },
     },
   },
-  data() {
-    return {
-      isSelected: false,
-    }
-  },
-  computed: {
-    // disabled
-    disabled() {
+
+  setup(props,) {
+    const isSelected = ref(false)
+    const eventCenter = inject<Record<EventType, any>>('eventCenter')!
+
+    const disabled = computed(() => {
       let result = false
-
-      const { checkboxOption, rowKey } = this
-
-      if (!checkboxOption) {
+      if (!props.checkboxOption) {
         return
       }
+      const { disableSelectedRowKeys } = props.checkboxOption
 
-      const { disableSelectedRowKeys } = checkboxOption
-
-      if (Array.isArray(disableSelectedRowKeys) && disableSelectedRowKeys.includes(rowKey)) {
+      if (Array.isArray(disableSelectedRowKeys) && disableSelectedRowKeys.includes(props.rowKey)) {
         result = true
       }
 
       return result
-    },
-
+    })
     // 是否是受控属性（取决于selectedRowKeys）
-    isControlledProp() {
-      const { checkboxOption } = this
-
-      return (
-        checkboxOption && Array.isArray(checkboxOption.selectedRowKeys)
-      )
-    },
-  },
-  watch: {
-    // watch internalCheckboxSelectedRowKeys
-    internalCheckboxSelectedRowKeys: {
-      handler: function () {
-        this.initSelected()
-      },
-      immediate: true,
-    },
-  },
-  methods: {
-    // init selected
-    initSelected() {
+    const isControlledProp = computed(() => {
+      const checkboxOption = props.checkboxOption
+      return checkboxOption && Array.isArray(checkboxOption.selectedRowKeys)
+    },)
+    watch(() => props.internalCheckboxSelectedRowKeys, () => {
+      // init selected
       let result = false
-
-      const { rowKey, internalCheckboxSelectedRowKeys } = this
-
-      if (Array.isArray(internalCheckboxSelectedRowKeys) && internalCheckboxSelectedRowKeys.includes(rowKey)
-      ) {
+      const selectKeys = props.internalCheckboxSelectedRowKeys
+      if (Array.isArray(selectKeys) && selectKeys.includes(props.rowKey)) {
         result = true
       }
-
-      this.isSelected = result
-    },
+      isSelected.value = result
+    }, {
+      immediate: true,
+    },)
 
     // selected change
-    selectedChange(isSelected:boolean) {
-      const { isControlledProp } = this
-
+    function selectedChange(isRecSelected:boolean) {
       // 非受控
-      if (!isControlledProp) {
-        this.isSelected = isSelected
+      if (!isControlledProp.value) {
+        isSelected.value = isRecSelected
       }
+      eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE, {
+        rowKey: props.rowKey,
+        isSelected: isRecSelected,
+      })
+    }
 
-      this.eventCenter.emit(GLOBAL_EVENT.CHECKBOX_SELECTED_ROW_CHANGE,
-        {
-          rowKey: this.rowKey,
-          isSelected,
-        },
-      )
-    },
-  },
-  render() {
-    const { isSelected, selectedChange, disabled } = this
-
-    const checkboxProps = {
+    const checkboxProps = reactive({
       class: clsName('checkbox-wrapper'),
       isControlled: true,
       isSelected,
       disabled,
       onCheckedChange: (isSelected:boolean) => selectedChange(isSelected),
-    }
+    })
 
-    return <VeCheckbox {...checkboxProps} />
+    return () => <VeCheckbox {...checkboxProps} />
   },
-}
-)
+})
+// 118
