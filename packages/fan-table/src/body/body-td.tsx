@@ -1,5 +1,5 @@
 import { clsName, getRowKeysByRangeRowKeys } from '../util/index.js'
-import { isNumber, isBoolean, isEmptyValue } from '../../../src/utils/index.js'
+import { isNumber, isBoolean, isEmptyValue } from '@P/src/utils/index.js'
 
 import {
   COMPS_NAME,
@@ -159,21 +159,17 @@ export default defineComponent({
     }
   },
   computed: {
-    // current column collection item
     // 1、Cache the style、class of each column
     currentColumnCollectionItem() {
       const { columnCollection, column } = this
       return columnCollection.find((x) => x.colKey === column.key)
     },
-
-    // current row key
     currentRowKey() {
       const { rowData, rowKeyFieldName } = this
       return rowData[rowKeyFieldName]
     },
   },
   watch: {
-    // watch row data
     rowData: {
       handler(rowData) {
         const column = this.column
@@ -186,10 +182,6 @@ export default defineComponent({
     },
   },
   methods: {
-    /*
-         * @bodyTdStyle
-         * @desc body td style
-         */
     bodyTdStyle() {
       const { currentColumnCollectionItem } = this
 
@@ -201,14 +193,8 @@ export default defineComponent({
           currentColumnCollectionItem.style,
         )
       }
-
       return result
     },
-
-    /*
-         * @bodyTdClass
-         * @desc body td class
-         */
     bodyTdClass() {
       const { currentColumnCollectionItem } = this
 
@@ -242,10 +228,7 @@ export default defineComponent({
       }
 
       // cell style option
-      if (
-        cellStyleOption &&
-                typeof cellStyleOption.bodyCellClass === 'function'
-      ) {
+      if (cellStyleOption && typeof cellStyleOption.bodyCellClass === 'function') {
         const customClass = cellStyleOption.bodyCellClass({
           row: rowData,
           column,
@@ -318,7 +301,6 @@ export default defineComponent({
         const _lineClamp = isNumber(lineClamp) ? lineClamp : 1
         result['-webkit-line-clamp'] = _lineClamp
       }
-
       return result
     },
 
@@ -338,7 +320,6 @@ export default defineComponent({
           },
           h,
         )
-
         content = renderResult
       } else {
         content = rawCellValue
@@ -390,8 +371,7 @@ export default defineComponent({
           column: this.column,
           radioOption: this.radioOption,
           rowKey: this.rowData[this.rowKeyFieldName],
-          internalRadioSelectedRowKey:
-                            this.internalRadioSelectedRowKey,
+          internalRadioSelectedRowKey: this.internalRadioSelectedRowKey,
         }
 
         return <BodyRadioContent {...radioProps} />
@@ -649,5 +629,5 @@ export default defineComponent({
       </td>
     )
   },
-}
-)
+})
+// 653

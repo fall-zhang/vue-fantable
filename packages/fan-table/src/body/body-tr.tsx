@@ -311,7 +311,6 @@ export default defineComponent({
         <TdContent></TdContent>
       </tr>
     }
-    // console.log("🚀 ~ setup ~ result:", result)
     return () => result
   }
 })
