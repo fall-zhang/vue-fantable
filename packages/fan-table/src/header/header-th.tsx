@@ -7,8 +7,8 @@ import {
   getColKeysByRangeColKeys,
   getColKeysByHeaderColumn,
 } from '../util/index.js'
-import { getValByUnit, isEmptyValue } from '../../../src/utils/index.js'
-import { COMPS_NAME, COLUMN_TYPES, EMIT_EVENTS } from '../util/constant'
+import { getValByUnit, isEmptyValue } from '@P/src/utils/index.js'
+import { COMPS_NAME, COLUMN_TYPES } from '../util/constant'
 import VeIcon from '@P/ve-icon/ve-icon.js'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
@@ -129,7 +129,7 @@ export default defineComponent({
       return result
     },
     // is first right fixed column
-    isfirstRightFixedColumn() {
+    isFirstRightFixedColumn() {
       let result = false
 
       const { groupColumn, groupColumnItem: column } = this
@@ -147,8 +147,7 @@ export default defineComponent({
       }
       return result
     },
-    // is last column
-    isLastCloumn() {
+    isLastColumn() {
       let result = false
 
       const { colgroups, groupColumnItem: column } = this
@@ -170,7 +169,7 @@ export default defineComponent({
       return result
     },
     // is sortable column
-    isSortableCloumn() {
+    isSortableColumn() {
       let result = false
 
       const { sortColumns, groupColumnItem } = this
@@ -184,21 +183,16 @@ export default defineComponent({
     },
   },
   methods: {
-    /*
-         * @getTheadThClass
-         * @desc  get thead th class
-         * @param {string} fixed - 固定方式
-         */
+    // fixed - 固定方式
     getTheadThClass({ fixed }) {
       const result = {
         [clsName('header-th')]: true,
         [clsName('fixed-left')]: fixed === 'left',
         [clsName('fixed-right')]: fixed === 'right',
         [clsName('last-left-fixed-column')]: this.isLastLeftFixedColumn,
-        [clsName('first-right-fixed-column')]:
-                    this.isfirstRightFixedColumn,
-        [clsName('last-column')]: this.isLastCloumn,
-        [clsName('sortable-column')]: this.isSortableCloumn,
+        [clsName('first-right-fixed-column')]: this.isFirstRightFixedColumn,
+        [clsName('last-column')]: this.isLastColumn,
+        [clsName('sortable-column')]: this.isSortableColumn,
       }
 
       const {
@@ -221,12 +215,11 @@ export default defineComponent({
           if (leftColKey === rightColKey) {
             indicatorColKeys = [leftColKey]
           } else {
-            indicatorColKeys =
-                            getColKeysByRangeColKeys({
-                              colKey1: leftColKey,
-                              colKey2: rightColKey,
-                              colgroups,
-                            }) ?? []
+            indicatorColKeys = getColKeysByRangeColKeys({
+              colKey1: leftColKey,
+              colKey2: rightColKey,
+              colgroups,
+            }) ?? []
           }
 
           let showIndicator = false
@@ -252,10 +245,7 @@ export default defineComponent({
         }
       }
 
-      if (
-        cellStyleOption &&
-                typeof cellStyleOption.headerCellClass === 'function'
-      ) {
+      if (cellStyleOption && typeof cellStyleOption.headerCellClass === 'function') {
         const customClass = cellStyleOption.headerCellClass({
           column,
           rowIndex,
@@ -267,14 +257,10 @@ export default defineComponent({
 
       return result
     },
-    /*
-         * @getTheadThStyle
-         * @desc  get body td style
-         * @param {string} _keys - 当前列包含的key（单元格合并时有多个key值）
-         * @param {string} align - 居中方式
-         * @param {bool} fixed - 固定方式
-         * @param {number} rowIndex - 当前行号
-         */
+    // {string} _keys - 当前列包含的key（单元格合并时有多个key值）
+    // {string} align - 居中方式
+    // {bool} fixed - 固定方式
+    // {number} rowIndex - 当前行号
     getTheadThStyle({ _keys, align, fixed }, rowIndex) {
       const result = {}
 
@@ -585,7 +571,7 @@ export default defineComponent({
       onClick: (e) => {
         this.cellClick(e, click)
         if (
-          this.isSortableCloumn && e.target instanceof HTMLTableCellElement
+          this.isSortableColumn && e.target instanceof HTMLTableCellElement
         ) {
           this.sortChange()
         }
@@ -630,5 +616,5 @@ export default defineComponent({
       </th>
     )
   },
-}
-)
+})
+// 634

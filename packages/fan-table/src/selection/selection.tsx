@@ -46,7 +46,6 @@ export default defineComponent({
       type: Object,
       required: true,
     },
-    // cell autofill option
     cellAutofillOption: {
       type: [Object, Boolean],
       default: function () {
@@ -236,7 +235,7 @@ export default defineComponent({
 
       if (
         !isEmptyValue(normalEndCell.rowKey) &&
-              !isEmptyValue(normalEndCell.colKey)
+        !isEmptyValue(normalEndCell.colKey)
       ) {
         setSelectionPositions({
           type: 'normalEndCell',
@@ -256,7 +255,7 @@ export default defineComponent({
     function setCellSelectionRangeData() {
       const { currentCell, normalEndCell } = props.cellSelectionData
 
-      let result = {}
+      let result:Record<string, any> = {}
 
       if (props.currentCellSelectionType === CURRENT_CELL_SELECTION_TYPES.SINGLE) {
         result = {
@@ -323,7 +322,14 @@ export default defineComponent({
     }
 
     // get cell position by column key
-    function getCellPositionByColKey({ tableLeft, tableTop, colKey, isFirstRow, isLastRow }) {
+    type CellPositionByColKeyParam = {
+      tableLeft: any
+      tableTop: any
+      colKey: any
+      isFirstRow?: boolean
+      isLastRow?: boolean
+    }
+    function getCellPositionByColKey({ tableLeft, tableTop, colKey, isFirstRow, isLastRow }:CellPositionByColKeyParam) {
       if (!selectionBordersVisibility.value) {
         return false
       }
@@ -365,7 +371,7 @@ export default defineComponent({
       }
 
       const { left: tableLeft, top: tableTop } =
-              props.tableEl.getBoundingClientRect()
+        props.tableEl.getBoundingClientRect()
 
       let isCurrentCellOverflow = false
       let isNormalEndCellOverflow = false
@@ -404,7 +410,7 @@ export default defineComponent({
       // current cell overflow or normal end cell overflow && is virtual scroll
       if (
         (isCurrentCellOverflow || isNormalEndCellOverflow) &&
-              props.isVirtualScroll
+        props.isVirtualScroll
       ) {
         const { currentCell, normalEndCell } = props.cellSelectionData
         // 弥补的
@@ -436,21 +442,21 @@ export default defineComponent({
               isFirstRow: true,
             })
           } else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
-          // 下方超出
+            // 下方超出
             mackUpRect = getCellPositionByColKey({
               ...mackUpRectParams,
               isLastRow: true,
             })
           }
         } else {
-        // 仅更新 top 值
-        // 上方超出
+          // 仅更新 top 值
+          // 上方超出
           if (mackUpRowIndex < virtualScrollVisibleIndexs.start) {
             mackUpRect = {
               top: 0,
             }
           } else if (mackUpRowIndex > virtualScrollVisibleIndexs.end) {
-          // 下方超出
+            // 下方超出
             mackUpRect = {
               top: props.tableEl.clientHeight,
             }
@@ -485,7 +491,7 @@ export default defineComponent({
     // 1、selection current
     // 2、auto fill area
     function getSelectionCurrent({ fixedType }) {
-      const result:Record<string, any> = {
+      const result: Record<string, any> = {
         selectionCurrent: null,
         autoFillArea: null,
       }
@@ -567,7 +573,7 @@ export default defineComponent({
     // 1、normal area
     // 2、auto fill area
     function getSelectionAreas({ fixedType }) {
-      const result = {
+      const result: Record<string, any> = {
         normalArea: null,
         autoFillArea: null,
       }
@@ -625,27 +631,27 @@ export default defineComponent({
       // end cell column key right
       if (leftmostColKey === currentCell.colKey) {
         borders.borderWidth =
-                  normalEndCellRect.left -
-                  currentCellRect.left +
-                  normalEndCellRect.width +
-                  1
+          normalEndCellRect.left -
+          currentCellRect.left +
+          normalEndCellRect.width +
+          1
 
         borders.topBorder.left = currentCellRect.left - 1
         borders.bottomBorder.left = currentCellRect.left - 1
         borders.leftBorder.left = currentCellRect.left - 1
         borders.rightBorder.left =
-                  normalEndCellRect.left + normalEndCellRect.width - 1
+          normalEndCellRect.left + normalEndCellRect.width - 1
       } else if (leftmostColKey === normalEndCell.colKey) {
-      // end cell column key left or equal
+        // end cell column key left or equal
         borders.borderWidth =
-                  currentCellRect.left -
-                  normalEndCellRect.left +
-                  currentCellRect.width +
-                  1
+          currentCellRect.left -
+          normalEndCellRect.left +
+          currentCellRect.width +
+          1
 
         borders.topBorder.left = normalEndCellRect.left - 1
         borders.rightBorder.left =
-                  currentCellRect.left + currentCellRect.width - 1
+          currentCellRect.left + currentCellRect.width - 1
         borders.bottomBorder.left = normalEndCellRect.left - 1
         borders.leftBorder.left = normalEndCellRect.left - 1
       }
@@ -653,26 +659,26 @@ export default defineComponent({
       // end cell below
       if (normalEndCellRect.top > currentCellRect.top) {
         borders.borderHeight =
-                  normalEndCellRect.top -
-                  currentCellRect.top +
-                  normalEndCellRect.height
+          normalEndCellRect.top -
+          currentCellRect.top +
+          normalEndCellRect.height
 
         borders.topBorder.top = currentCellRect.top - 1
         borders.rightBorder.top = currentCellRect.top
         borders.bottomBorder.top =
-                  normalEndCellRect.top + normalEndCellRect.height - 1
+          normalEndCellRect.top + normalEndCellRect.height - 1
         borders.leftBorder.top = currentCellRect.top
       } else if (normalEndCellRect.top <= currentCellRect.top) {
-      // end cell above or equal
+        // end cell above or equal
         borders.borderHeight =
-                  currentCellRect.top -
-                  normalEndCellRect.top +
-                  currentCellRect.height
+          currentCellRect.top -
+          normalEndCellRect.top +
+          currentCellRect.height
 
         borders.topBorder.top = normalEndCellRect.top - 1
         borders.rightBorder.top = normalEndCellRect.top
         borders.bottomBorder.top =
-                  currentCellRect.top + currentCellRect.height - 1
+          currentCellRect.top + currentCellRect.height - 1
         borders.leftBorder.top = normalEndCellRect.top
       }
 
@@ -719,7 +725,7 @@ export default defineComponent({
     }
 
     // get selection auto fill
-    function getSelectionAutofillArea({ areaPostions, fixedType }) {
+    function getSelectionAutofillArea({ areaPostions, fixedType }:Record<'areaPostions'|'fixedType', any>) {
       let result = null
       if (!props.isAutofillStarting) {
         return result
@@ -814,9 +820,9 @@ export default defineComponent({
 
         borders.borderWidth = areaPostions.borderWidth
         borders.borderHeight =
-                  autoFillEndCellRect.top -
-                  areaPostions.bottomBorder.top +
-                  autoFillEndCellRect.height
+          autoFillEndCellRect.top -
+          areaPostions.bottomBorder.top +
+          autoFillEndCellRect.height
 
         borders.rightBorder.top = areaPostions.bottomBorder.top
         borders.rightBorder.left = areaPostions.rightBorder.left
@@ -828,10 +834,10 @@ export default defineComponent({
         borders.leftBorder.left = areaPostions.leftBorder.left
 
         borders.bottomBorder.top =
-                  autoFillEndCellRect.top + autoFillEndCellRect.height - 1
+          autoFillEndCellRect.top + autoFillEndCellRect.height - 1
         borders.bottomBorder.left = areaPostions.bottomBorder.left
       } else if (autoFillEndCellRect.top < areaPostions.topBorder.top) {
-      // end cell above
+        // end cell above
         autofillingDirection = AUTOFILLING_DIRECTION.UP
 
         rangeColKey1 = leftColKey
@@ -841,7 +847,7 @@ export default defineComponent({
 
         borders.borderWidth = areaPostions.borderWidth
         borders.borderHeight =
-                  areaPostions.topBorder.top - autoFillEndCellRect.top
+          areaPostions.topBorder.top - autoFillEndCellRect.top
 
         borders.topBorder.top = autoFillEndCellRect.top - 1
         borders.topBorder.left = areaPostions.topBorder.left
@@ -856,9 +862,9 @@ export default defineComponent({
         borders.leftBorder.left = areaPostions.leftBorder.left
       } else if (
         rightmostColKey === autoFillEndCell.colKey &&
-              !isEmptyValue(rightmostColKey)
+        !isEmptyValue(rightmostColKey)
       ) {
-      // auto fill end cell right
+        // auto fill end cell right
         autofillingDirection = AUTOFILLING_DIRECTION.RIGHT
 
         rangeColKey1 = getNextColKey({
@@ -870,10 +876,10 @@ export default defineComponent({
         borders.leftBorder.show = false
 
         borders.borderWidth =
-                  autoFillEndCellRect.left -
-                  areaPostions.rightBorder.left +
-                  autoFillEndCellRect.width +
-                  1
+          autoFillEndCellRect.left -
+          areaPostions.rightBorder.left +
+          autoFillEndCellRect.width +
+          1
         borders.borderHeight = areaPostions.borderHeight
 
         borders.topBorder.top = areaPostions.topBorder.top
@@ -881,15 +887,15 @@ export default defineComponent({
 
         borders.rightBorder.top = areaPostions.topBorder.top
         borders.rightBorder.left =
-                  autoFillEndCellRect.left + autoFillEndCellRect.width - 1
+          autoFillEndCellRect.left + autoFillEndCellRect.width - 1
 
         borders.bottomBorder.top = areaPostions.bottomBorder.top
         borders.bottomBorder.left = areaPostions.rightBorder.left - 1
       } else if (
         leftmostColKey === autoFillEndCell.colKey &&
-              !isEmptyValue(leftmostColKey)
+        !isEmptyValue(leftmostColKey)
       ) {
-      // auto fill end cell left
+        // auto fill end cell left
         autofillingDirection = AUTOFILLING_DIRECTION.LEFT
 
         rangeColKey1 = getPreviewColKey({
@@ -901,7 +907,7 @@ export default defineComponent({
         borders.rightBorder.show = false
 
         borders.borderWidth =
-                  areaPostions.leftBorder.left - autoFillEndCellRect.left + 1
+          areaPostions.leftBorder.left - autoFillEndCellRect.left + 1
         borders.borderHeight = areaPostions.borderHeight
 
         borders.topBorder.top = areaPostions.topBorder.top
@@ -922,7 +928,7 @@ export default defineComponent({
       if (isBoolean(directionX) && !directionX) {
         if (
           autofillingDirection === AUTOFILLING_DIRECTION.LEFT ||
-                  autofillingDirection === AUTOFILLING_DIRECTION.RIGHT
+          autofillingDirection === AUTOFILLING_DIRECTION.RIGHT
         ) {
           return false
         }
@@ -931,7 +937,7 @@ export default defineComponent({
       if (isBoolean(directionY) && !directionY) {
         if (
           autofillingDirection === AUTOFILLING_DIRECTION.UP ||
-                  autofillingDirection === AUTOFILLING_DIRECTION.DOWN
+          autofillingDirection === AUTOFILLING_DIRECTION.DOWN
         ) {
           return false
         }
@@ -968,18 +974,18 @@ export default defineComponent({
     }
 
     // get borders
-    interface GetBorderAgu{
-      borderWidth:any
-      borderHeight:any
-      topBorder:any
-      rightBorder:any
-      bottomBorder:any
-      leftBorder:any
-      corner:any
-      className:any
-      fixedType:any
-      totalColKeys:any
-      fixedColKeys:any
+    interface GetBorderAgu {
+      borderWidth: any
+      borderHeight: any
+      topBorder: any
+      rightBorder: any
+      bottomBorder: any
+      leftBorder: any
+      corner: any
+      className: any
+      fixedType: any
+      totalColKeys: any
+      fixedColKeys: any
     }
     function getBorders({
       borderWidth,
@@ -993,7 +999,7 @@ export default defineComponent({
       fixedType,
       totalColKeys,
       fixedColKeys,
-    }:GetBorderAgu) {
+    }: GetBorderAgu) {
       let isRender = true
 
       if (fixedType) {
@@ -1084,14 +1090,14 @@ export default defineComponent({
           left: cornerLeft + 'px',
           borderWidth: `1px ${cornerBorderRightWidth} ${cornerBorderBottomtWidth} 1px`,
         },
-        onMousedown: (e:MouseEvent) => {
+        onMousedown: (e: MouseEvent) => {
           eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEDOWN,
             {
               event: e,
             },
           )
         },
-        onMouseup: (e:MouseEvent) => {
+        onMouseup: (e: MouseEvent) => {
           eventCenter.emit(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP,
             {
               event: e,
@@ -1155,6 +1161,15 @@ export default defineComponent({
     }
 
     // get area rect
+    type AreaLayerParam = {
+      borderWidth: any
+      borderHeight: any
+      topBorder: any
+      className: any
+      fixedType: any
+      totalColKeys: any
+      fixedColKeys: any
+    }
     function getAreaLayer({
       borderWidth,
       borderHeight,
@@ -1163,7 +1178,7 @@ export default defineComponent({
       fixedType,
       totalColKeys,
       fixedColKeys,
-    }) {
+    }: AreaLayerParam) {
       const colgroups = props.colgroups
 
       let isRender = true
@@ -1175,7 +1190,7 @@ export default defineComponent({
           colgroups,
         })
       } else {
-      // middle normal area
+        // middle normal area
         isRender = isExistNotFixedColKey({
           colKeys: totalColKeys,
           colgroups,
@@ -1375,7 +1390,7 @@ export default defineComponent({
     },)
     // watch current cell
     watch(() => 'props.cellSelectionData.currentCell',
-      function (val:any) {
+      function (val: any) {
         const { rowKey, colKey } = val
         if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
           setCurrentCellEl()
@@ -1442,7 +1457,7 @@ export default defineComponent({
     if (!selectionBordersVisibility.value) {
       return null
     }
-    const containerStyle:Record<string, string> = { visibility: props.isCellEditing ? 'hidden' : '' }
+    const containerStyle: Record<string, string> = { visibility: props.isCellEditing ? 'hidden' : '' }
     return () => (
       <div
         class={clsName('selection-wrapper')}
