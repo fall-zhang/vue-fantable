@@ -1,11 +1,10 @@
 import { clsName, getFixedTotalWidthByColumnKey } from '../util/index'
-import { INSTANCE_METHODS } from './constant'
 import { COMPS_NAME, HOOKS_NAME } from '../util/constant'
 import focus from '@P/src/directives/focus.js'
-import { autoResize } from '@P/src/utils/auto-resize'
+import { autoResize as autoResizeBase } from '@P/src/utils/auto-resize'
 import { isEmptyValue, debounce } from '@P/src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '@P/src/utils/dom'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_EDIT_INPUT,
   directives: {
@@ -29,7 +28,6 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    // table data
     tableData: {
       type: Array,
       required: true,
@@ -38,17 +36,14 @@ export default defineComponent({
       type: Array,
       required: true,
     },
-    // cell selection option
     cellSelectionData: {
       type: Object,
       required: true,
     },
-    // editing cell
     editingCell: {
       type: Object,
       required: true,
     },
-    // is editing cell
     isCellEditing: {
       type: Boolean,
       required: true,
@@ -63,7 +58,6 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
-    // has right fixed column
     hasRightFixedColumn: {
       type: Boolean,
       required: true,
@@ -74,84 +68,61 @@ export default defineComponent({
     },
   },
   emits: ['editInputValueChange', 'editInputClick', 'editInputCopy', 'editInputPaste', 'editInputCut'],
-  data() {
-    return {
-      textareaInputRef: 'textareaInputRef',
-      // raw cell value
-      rawCellValue: '',
-      // display textarea
-      displayTextarea: false,
-      // virtual scroll overflowViewport
-      overflowViewport: false,
-      // textarea element rect
-      textareaRect: {
-        left: 0,
-        top: 0,
-      },
-      // table element
-      tableEl: null,
-      // cell element
-      cellEl: null,
-      // auto resize
-      autoResize: null,
-      // is edit cell focus
-      isEditCellFocus: false,
-    }
-  },
-  computed: {
-    // current column
-    currentColumn() {
+  setup(props, { emit }) {
+    const textareaInputRef = ref()
+    // raw cell value
+    const rawCellValue = ref('')
+    // display textarea
+    const displayTextarea = ref(false)
+    // virtual scroll overflowViewport
+    const overflowViewport = ref(false)
+    // textarea element rect
+    const textareaRect = ref({
+      left: 0,
+      top: 0,
+    },)
+    // table element
+    const tableEl = ref()
+    // cell element
+    const containerEl = ref()
+    const cellEl = ref()
+    const autoResize = ref()
+    const isEditCellFocus = ref(false)
+    const currentColumn = computed(() => {
       let result = null
+      const { currentCell } = props.cellSelectionData
 
-      const { colgroups, cellSelectionData } = this
-
-      const { currentCell } = cellSelectionData
-
-      if (
-        !isEmptyValue(currentCell.rowKey) &&
-                !isEmptyValue(currentCell.colKey)
-      ) {
-        result = colgroups.find((x) => x.key === currentCell.colKey)
+      if (!isEmptyValue(currentCell.rowKey) && !isEmptyValue(currentCell.colKey)) {
+        result = props.colgroups.find((x) => x.key === currentCell.colKey)
       }
 
       return result
-    },
+    })
 
     // container class
-    containerClass() {
+    const containerClass = computed(() => {
       let result = null
-
-      const { displayTextarea, overflowViewport } = this
 
       result = {
         [clsName('edit-input-container')]: true,
-        [clsName('edit-input-container-show')]:
-                    displayTextarea && !overflowViewport,
+        [clsName('edit-input-container-show')]: displayTextarea.value && !overflowViewport.value,
       }
 
       return result
-    },
+    },)
 
     // container style
-    containerStyle() {
+    const containerStyle = computed(() => {
       let result = {}
+      const { top, left } = textareaRect.value
 
-      const {
-        displayTextarea,
-        overflowViewport,
-        textareaRect,
-        currentColumn: column,
-      } = this
-
-      const { top, left } = textareaRect
-
-      if (displayTextarea && !overflowViewport) {
+      if (displayTextarea.value && !overflowViewport.value) {
         result = {
           top: top + 'px',
           left: left + 'px',
           height: null,
           // because @ve-fixed-body-cell-index: 10;
-          'z-index': column.fixed ? 10 : 0,
+          'z-index': currentColumn.value.fixed ? 10 : 0,
           opacity: 1,
         }
       } else {
@@ -165,10 +136,10 @@ export default defineComponent({
       }
 
       return result
-    },
+    },)
 
     // textarea class
-    textareaClass() {
+    const textareaClass = computed(() => {
       let result = null
 
       result = {
@@ -176,160 +147,134 @@ export default defineComponent({
       }
 
       return result
-    },
-  },
+    },)
+    watch(() => props.parentRendered, (val) => {
+      if (val) {
+      // fixed #471
+        setTableEl()
 
-  watch: {
-    parentRendered: {
-      handler(val) {
-        if (val) {
-          // fixed #471
-          this.setTableEl()
-
-          // add table container scroll hook
-          this.hooks.addHook(
-            HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-            () => {
-              if (this.displayTextarea) {
-                if (!this.cellEl) {
-                  this.setCellEl()
-                }
+        // add table container scroll hook
+        props.hooks.addHook(
+          HOOKS_NAME.TABLE_CONTAINER_SCROLL,
+          () => {
+            if (displayTextarea.value) {
+              if (!cellEl.value) {
+                setCellEl()
               }
-              this.debounceSetCellEl()
-              this.setTextareaPosition()
-              this.debounceSetTextareaPosition()
-            },
-          )
-          // add table size change hook
-          this.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
+            }
+            debounceSetCellEl()
             this.setTextareaPosition()
-          })
-        }
-      },
+            this.debounceSetTextareaPosition()
+          },
+        )
+        // add table size change hook
+        props.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
+          this.setTextareaPosition()
+        })
+      }
+    }, {
       immediate: true,
-    },
+    })
     // cell selection key data
-    'cellSelectionData.currentCell': {
-      handler(val) {
-        this.isEditCellFocus = false
+    watch(() => 'props.cellSelectionData.currentCell', (val) => {
+      isEditCellFocus.value = false
 
-        const { rowKey, colKey } = val
-        if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-          this.setCellEl()
-          // wait for selection cell rendered
-          this.$nextTick(() => {
-            this.setTextareaPosition()
-            setTimeout(() => {
-              this.isEditCellFocus = true
-            })
+      const { rowKey, colKey } = val
+      if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
+        setCellEl()
+        // wait for selection cell rendered
+        this.$nextTick(() => {
+          this.setTextareaPosition()
+          setTimeout(() => {
+            isEditCellFocus.value = true
           })
-        }
-      },
+        })
+      }
+    }, {
       deep: true,
       immediate: true,
-    },
+    })
     // watch normal end cell
-    'cellSelectionData.normalEndCell': {
-      handler: function (val) {
-        /*
-          trigger editor(textarea) element select
-          解决通过点击的区域选择，无法复制的问题
-        */
-        if (!isEmptyValue(val.colKey)) {
-          this[INSTANCE_METHODS.TEXTAREA_SELECT]()
-        }
-      },
+    watch(() => 'props.cellSelectionData.normalEndCell', () => {
+      // trigger editor(textarea) element select
+      // 解决通过点击的区域选择，无法复制的问题
+      if (!isEmptyValue(val.colKey)) {
+        textareaSelect()
+      }
+    }, {
       deep: true,
       immediate: true,
-    },
+    })
     // is editing cell
-    isCellEditing: {
-      handler: function (val) {
-        if (val) {
-          this.showTextarea()
-        } else {
-          this.hideTextarea()
-        }
-      },
+    watch(() => props.isCellEditing, (val) => {
+      if (val) {
+        showTextarea()
+      } else {
+        hideTextarea()
+      }
+    }, {
       deep: true,
       immediate: true,
-    },
-    inputStartValue: {
-      handler: function () {
-        this.setRawCellValue()
-      },
+    })
+    watch(() => props.inputStartValue, () => {
+      this.setRawCellValue()
+    }, {
       immediate: true,
-    },
-  },
-  created() {
+    })
     // debounce set textarea position
     this.debounceSetTextareaPosition = debounce(
       this.setTextareaPosition,
       210,
     )
     // debounce set cell el
-    this.debounceSetCellEl = debounce(() => {
-      if (this.displayTextarea) {
-        if (!this.cellEl) {
-          this.setCellEl()
+    const debounceSetCellEl = debounce(() => {
+      if (displayTextarea.value) {
+        if (!cellEl.value) {
+          setCellEl()
         }
       }
     }, 200)
-  },
-  mounted() {
-    this.autoResize = autoResize()
-  },
-  unmounted() {
-    this.textareaUnObserve()
-  },
+    onMounted(() => {
+      autoResize.value = autoResizeBase()
+    })
+    onUnmounted(() => {
+      this.textareaUnObserve()
+    })
 
-  methods: {
     // set table element
-    setTableEl() {
+    function setTableEl() {
       this.$nextTick(() => {
-        const tableEl = this.$el.previousElementSibling
-        this.tableEl = tableEl
+        tableEl.value = containerEl.value.previousElementSibling
       })
-    },
-
+    }
     // set cell element
-    setCellEl() {
-      const { cellSelectionData, tableEl } = this
+    function setCellEl() {
+      const { rowKey, colKey } = props.cellSelectionData.currentCell
 
-      const { rowKey, colKey } = cellSelectionData.currentCell
-
-      if (tableEl) {
-        const cellEl = tableEl.querySelector(
+      if (tableEl.value) {
+        const queryCellEl = tableEl.value.querySelector(
           `tbody.fan-table-body tr[row-key="${rowKey}"] td[col-key="${colKey}"]`,
         )
 
-        if (cellEl) {
-          this.cellEl = cellEl
-          this.overflowViewport = false
+        if (queryCellEl) {
+          cellEl.value = queryCellEl
+          overflowViewport.value = false
         }
       }
-    },
-
-    // set textarea position
-    setTextareaPosition() {
+    }
+    function setTextareaPosition() {
       const {
-        hasXScrollBar,
-        hasYScrollBar,
-        scrollBarWidth,
-        colgroups,
         hasRightFixedColumn,
         currentColumn: column,
-        cellEl,
-        tableEl,
       } = this
 
-      if (cellEl && tableEl) {
+      if (cellEl.value && tableEl.value) {
         const {
           left: tableLeft,
           top: tableTop,
           right: tableRight,
           bottom: tableBottom,
-        } = tableEl.getBoundingClientRect()
+        } = tableEl.value.getBoundingClientRect()
 
         const {
           left: cellLeft,
@@ -338,42 +283,39 @@ export default defineComponent({
           width: cellWidth,
           right: cellRight,
           bottom: cellBottom,
-        } = cellEl.getBoundingClientRect()
+        } = cellEl.value.getBoundingClientRect()
 
         if (cellHeight && cellWidth) {
           let maxHeight = cellHeight + tableBottom - cellBottom
           let maxWidth = cellWidth + tableRight - cellRight
 
           // has horizontal scroll bar
-          if (hasXScrollBar) {
-            maxHeight -= scrollBarWidth
+          if (props.hasXScrollBar) {
+            maxHeight -= props.scrollBarWidth
           }
 
           // has vertical scroll bar
-          if (hasYScrollBar) {
-            maxWidth -= scrollBarWidth
+          if (props.hasYScrollBar) {
+            maxWidth -= props.scrollBarWidth
           }
 
-          /*
-                    If the right fixed column is included, the max width of the textarea needs to be subtracted from the sum of the right fixed columns
-                    如果包含右固定列，编辑框最大宽度需要去减去右固定列之和的宽度
-                    */
+          // If the right fixed column is included, the max width of the textarea needs to be subtracted from the sum of the right fixed columns
+          // 如果包含右固定列，编辑框最大宽度需要去减去右固定列之和的宽度
           if (hasRightFixedColumn) {
             if (column && !column.fixed) {
-              const rightFixedTotalWidth =
-                                getFixedTotalWidthByColumnKey({
-                                  colgroups,
-                                  colKey: column.key,
-                                  fixed: 'right',
-                                })
+              const rightFixedTotalWidth = getFixedTotalWidthByColumnKey({
+                colgroups: props.colgroups,
+                colKey: column.key,
+                fixed: 'right',
+              })
               if (rightFixedTotalWidth) {
                 maxWidth -= rightFixedTotalWidth
               }
             }
           }
 
-          this.autoResize.init(
-            this.$refs[this.textareaInputRef],
+          autoResize.value.init(
+            textareaInputRef.value,
             {
               minHeight: Math.min(cellHeight, maxHeight),
               maxHeight, // TEXTAREA should never be higher than visible part of the viewport (should not cover the scrollbar)
@@ -383,72 +325,60 @@ export default defineComponent({
             true, // observe textarea change\cut\paste etc.
           )
 
-          this.textareaRect = {
+          textareaRect.value = {
             left: cellLeft - tableLeft,
             top: cellTop - tableTop,
           }
         } else {
-          /*
-            存在以下可能：
-            1、虚拟滚动超出viewport
-            2、单元格被删除（通过右键菜单等方式）
-            */
-
+          // 存在以下可能：
+          // 1、虚拟滚动超出 viewport
+          // 2、单元格被删除（通过右键菜单等方式）
           // fixed #477
-          this.textareaRect = {
+          textareaRect.value = {
             left: 0,
             top: 0,
           }
-          this.cellEl = null
-          this.overflowViewport = true
+          cellEl.value = null
+          overflowViewport.value = true
         }
       }
-    },
-
-    // show textarea
-    showTextarea() {
+    }
+    function showTextarea() {
       this.setRawCellValue()
-      this.displayTextarea = true
-    },
-
-    // hide textarea
-    hideTextarea() {
-      this.displayTextarea = false
+      displayTextarea.value = true
+    }
+    function hideTextarea() {
+      displayTextarea.value = false
       this.textareaUnObserve()
-    },
-
+    }
     // textarea unObserve
-    textareaUnObserve() {
-      if (this.autoResize) {
-        this.autoResize.unObserve()
+    function textareaUnObserve() {
+      if (autoResize.value) {
+        autoResize.value.unObserve()
       }
-    },
-
+    }
     // set raw cell value
-    setRawCellValue() {
-      this.rawCellValue = this.inputStartValue
-    },
-
+    function setRawCellValue() {
+      rawCellValue.value = this.inputStartValue
+    }
     // textarea value change
-    textareaValueChange(val) {
-      // this.$emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
-      this.$emit('editInputValueChange', val)
-    },
-
+    function textareaValueChange(val) {
+      // emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
+      emit('editInputValueChange', val)
+    }
     // textarea select
-    [INSTANCE_METHODS.TEXTAREA_SELECT]() {
-      const textareaInputEl = this.$refs[this.textareaInputRef]
+    function textareaSelect() {
+      const textareaInputEl = textareaInputRef.value
       if (textareaInputEl) {
         textareaInputEl.select()
       }
-    },
-
+    }
     // textarea add new line
-    [INSTANCE_METHODS.TEXTAREA_ADD_NEW_LINE]() {
-      const { isCellEditing, editingCell } = this
+    function textareaAddNewLine() {
+      const { editingCell } = this
 
-      if (isCellEditing) {
-        const textareaInputEl = this.$refs[this.textareaInputRef]
+      if (props.isCellEditing) {
+        const textareaInputEl = textareaInputRef.value
 
         const caretPosition = getCaretPosition(textareaInputEl)
 
@@ -465,62 +395,51 @@ export default defineComponent({
         textareaInputEl.value = newValue
 
         // 手动赋值不会触发textarea 文本变化事件,需要手动更新 editingCell 值
-        this.textareaValueChange(newValue)
+        textareaValueChange(newValue)
 
         setCaretPosition(textareaInputEl, caretPosition + 1)
       }
-    },
-  },
-  render() {
-    const {
-      containerClass,
-      containerStyle,
-      textareaClass,
-      rawCellValue,
-      isCellEditing,
-      isEditCellFocus,
-    } = this
-
-    const containerProps = {
+    }
+    const containerProps = reactive({
       style: containerStyle,
       class: containerClass,
-    }
+    })
 
-    const textareaProps = {
-      ref: this.textareaInputRef,
+    const textareaProps = reactive({
       class: textareaClass,
       value: rawCellValue,
       tabindex: -1,
       onInput: (e:Event) => {
-        if (e.target && isCellEditing) {
-          this.textareaValueChange(e.target.value)
-          this.rawCellValue = e.target.value
+        if (e.target && props.isCellEditing) {
+          textareaValueChange(e.target.value)
+          rawCellValue.value = e.target.value
         }
       },
       onClick: () => {
-        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
-        this.$emit('editInputClick')
-        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+        // emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
+        emit('editInputClick')
+        // emit(EMIT_EVENTS.EDIT_INPUT_CLICK)
       },
       onCopy: (e: ClipboardEvent) => {
-        this.$emit('editInputCopy', e)
-        // this.$emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
+        emit('editInputCopy', e)
+        // emit(EMIT_EVENTS.EDIT_INPUT_COPY, e)
       },
       onPaste: (e: ClipboardEvent) => {
-        this.$emit('editInputPaste', e)
-        // this.$emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
+        emit('editInputPaste', e)
+        // emit(EMIT_EVENTS.EDIT_INPUT_PASTE, e)
       },
       onCut: (e: ClipboardEvent) => {
-        this.$emit('editInputCut', e)
-        // this.$emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
+        emit('editInputCut', e)
+        // emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
       },
-    }
+    })
 
-    return (
-      <div {...containerProps}>
-        <textarea {...textareaProps} v-focus={isEditCellFocus}
+    return () => (
+      <div ref={containerEl} {...containerProps}>
+        <textarea ref={textareaInputRef} {...textareaProps} v-focus={isEditCellFocus.value}
         ></textarea>
       </div>
     )
   },
 })
+// 526
