@@ -1,5 +1,4 @@
 import { clsName, getFixedTotalWidthByColumnKey } from '../util/index'
-import { INSTANCE_METHODS } from './constant'
 import { COMPS_NAME, HOOKS_NAME } from '../util/constant'
 import focus from '@P/src/directives/focus.js'
 import { autoResize } from '@P/src/utils/auto-resize'
@@ -236,7 +235,7 @@ export default defineComponent({
           解决通过点击的区域选择，无法复制的问题
         */
         if (!isEmptyValue(val.colKey)) {
-          this[INSTANCE_METHODS.TEXTAREA_SELECT]()
+          this.textareaSelect()
         }
       },
       deep: true,
@@ -436,7 +435,7 @@ export default defineComponent({
     },
 
     // textarea select
-    [INSTANCE_METHODS.TEXTAREA_SELECT]() {
+    textareaSelect() {
       const textareaInputEl = this.$refs[this.textareaInputRef]
       if (textareaInputEl) {
         textareaInputEl.select()
@@ -444,7 +443,7 @@ export default defineComponent({
     },
 
     // textarea add new line
-    [INSTANCE_METHODS.TEXTAREA_ADD_NEW_LINE]() {
+    textareaAddNewLine() {
       const { isCellEditing, editingCell } = this
 
       if (isCellEditing) {

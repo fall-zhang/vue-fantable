@@ -1,9 +1,10 @@
-import { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import VeDropdown from './src/index'
 
-VeDropdown.install = function (Vue:App) {
-  Vue.component('FanDropdown', VeDropdown)
-  Vue.component(VeDropdown.name, VeDropdown)
+VeDropdown.install = function (app:App) {
+  app.component('FanDropdown', VeDropdown)
+  app.component(VeDropdown.name!, VeDropdown)
 }
+export { VeDropdown }
 
-export default VeDropdown
+export default VeDropdown as typeof VeDropdown & Plugin

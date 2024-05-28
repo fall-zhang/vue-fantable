@@ -210,8 +210,6 @@ export default defineComponent({
       fn && fn(e)
     }
     // methods end
-    console.log(props.colgroups)
-
     const TdContent = () => <>
       {
         props.colgroups.map((column:any) => {

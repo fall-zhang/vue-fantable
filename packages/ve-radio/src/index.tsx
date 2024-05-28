@@ -1,7 +1,8 @@
 import { clsName } from './util/index'
 import { COMPS_NAME } from './util/constant'
 import { hasValue } from '@P/src/utils/index'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: COMPS_NAME.VE_RADIO,
   props: {
     // 当前 checkbox 选中状态,实现 v-model
@@ -121,3 +122,4 @@ export default {
     )
   },
 }
+)

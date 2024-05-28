@@ -5,10 +5,11 @@ import { COMPS_NAME, LOCALE_COMP_NAME } from './util/constant'
 import { clsName } from './util/index'
 import { createLocale } from '@P/src/locale/index'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
+import { defineComponent } from 'vue'
 
 const t = createLocale(LOCALE_COMP_NAME)
 
-export default {
+export default defineComponent({
   name: COMPS_NAME.VE_PAGINATION,
 
   components: {
@@ -306,4 +307,4 @@ export default {
       })}
     </ul>
   },
-}
+})

@@ -1,11 +1,14 @@
-import { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import VeSelect from './src/select'
 
-VeSelect.install = function (Vue:App) {
-  Vue.component('FanSelect', VeSelect)
-  Vue.component(VeSelect.name, VeSelect)
+VeSelect.install = function (app:App) {
+  app.component('FanSelect', VeSelect)
+  app.component(VeSelect.name!, VeSelect)
+  return app
 }
+
 export {
   VeSelect
 }
-export default VeSelect
+
+export default VeSelect as typeof VeSelect & Plugin

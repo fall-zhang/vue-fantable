@@ -1,4 +1,4 @@
-import { App, createApp } from 'vue'
+import { App, Plugin, createApp } from 'vue'
 import VeLoadingJsx from './src/loading.vue'
 import { addClass, removeClass } from '../src/utils/dom.js'
 import { clsName } from './src/util/index'
@@ -81,4 +81,4 @@ VeLoading.install = function (app: App) {
   app.config.globalProperties.$veLoading = VeLoading
 }
 
-export default VeLoading
+export default VeLoading as typeof VeLoading & Plugin

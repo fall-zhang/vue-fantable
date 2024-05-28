@@ -1,9 +1,9 @@
-import { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import VePagination from './src/index'
 
 VePagination.install = function (Vue:App) {
   Vue.component('FanPagination', VePagination)
-  Vue.component(VePagination.name, VePagination)
+  Vue.component(VePagination.name!, VePagination)
 }
 
-export default VePagination
+export default VePagination as typeof VePagination & Plugin

@@ -1,9 +1,11 @@
-import { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import VeRadio from './src/index'
 
-VeRadio.install = function (Vue:App) {
-  Vue.component('FanRadio', VeRadio)
-  Vue.component(VeRadio.name, VeRadio)
+VeRadio.install = function (app:App) {
+  app.component('FanRadio', VeRadio)
+  app.component(VeRadio.name!, VeRadio)
 }
 
-export default VeRadio
+export { VeRadio }
+
+export default VeRadio as typeof VeRadio & Plugin

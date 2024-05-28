@@ -1,9 +1,8 @@
-import { App } from 'vue'
+import type { App, Plugin } from 'vue'
 import VeContextmenu from './src/index'
-
-VeContextmenu.install = function (Vue:App) {
-  Vue.component('FanContextmenu', VeContextmenu)
-  Vue.component(VeContextmenu.name, VeContextmenu)
+VeContextmenu.install = function (app:App) {
+  app.component('FanContextmenu', VeContextmenu)
+  app.component(VeContextmenu.name!, VeContextmenu)
 }
-
-export default VeContextmenu
+export { VeContextmenu }
+export default VeContextmenu as typeof VeContextmenu & Plugin

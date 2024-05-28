@@ -12,7 +12,7 @@ import VeRadio from './ve-radio/ve-radio.js'
 import VeSelect from './ve-select/ve-select.js'
 import FanTable from './fan-table/fan-table.js'
 import { version } from '../package.json'
-import { App } from 'vue'
+import { App, Plugin } from 'vue'
 // const app = createApp({})
 const VeTable = FanTable
 const components = {
@@ -58,17 +58,5 @@ export {
 
 export default {
   install,
-  version,
-  VeCheckbox,
-  VeCheckboxGroup,
-  VeContextmenu,
-  VeDropdown,
-  VeIcon,
-  VeLoading,
-  VeLocale,
-  VePagination,
-  VeRadio,
-  VeSelect,
-  VeTable,
-  FanTable
-}
+  version
+}as Plugin
