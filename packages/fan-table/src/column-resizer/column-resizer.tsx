@@ -246,7 +246,7 @@ export default defineComponent({
       },
     }
 
-    return (
+    return () => (
       <div class={clsName('column-resizer')}>
         <div {...columnResizerHandlerProps} />
         <div {...columnResizerLineProps} />

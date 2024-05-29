@@ -288,8 +288,6 @@ export default defineComponent({
 
       return result
     },
-
-    // get ellipsis content style
     getEllipsisContentStyle() {
       const result = {}
 
@@ -303,8 +301,6 @@ export default defineComponent({
       }
       return result
     },
-
-    // get render content
     getRenderContent(h) {
       let content = null
 
@@ -345,8 +341,6 @@ export default defineComponent({
 
       return content
     },
-
-    // get chcekbox content
     getCheckboxContent() {
       if (this.column.type === COLUMN_TYPES.CHECKBOX) {
         // checkbox content props
@@ -362,8 +356,6 @@ export default defineComponent({
       }
       return null
     },
-
-    // get radio content
     getRadioContent() {
       if (this.column.type === COLUMN_TYPES.RADIO) {
         // radio props
@@ -378,8 +370,6 @@ export default defineComponent({
       }
       return null
     },
-
-    // get cell span
     getCellSpan() {
       const { cellSpanOption, rowData, column, rowIndex } = this
       let rowspan = 1
@@ -404,7 +394,6 @@ export default defineComponent({
 
       return { rowspan, colspan }
     },
-    // cell click
     cellClick(e, fn) {
       fn && fn(e)
 
@@ -440,7 +429,6 @@ export default defineComponent({
         }
       }
     },
-    // dblclick
     cellDblclick(e, fn) {
       fn && fn(e)
 
@@ -454,7 +442,6 @@ export default defineComponent({
         },
       )
     },
-    // contextmenu
     cellContextmenu(e, fn) {
       fn && fn(e)
 
@@ -468,15 +455,12 @@ export default defineComponent({
         },
       )
     },
-    // mouseenter
     cellMouseenter(e, fn) {
       fn && fn(e)
     },
-    // mouseleave
     cellMouseleave(e, fn) {
       fn && fn(e)
     },
-    // mousemove
     cellMousemove(e, fn) {
       fn && fn(e)
 
@@ -490,7 +474,6 @@ export default defineComponent({
         },
       )
     },
-    // mouseover
     cellMouseover(e, fn) {
       fn && fn(e)
 
@@ -504,21 +487,17 @@ export default defineComponent({
         },
       )
     },
-    // mousedown
     cellMousedown(e, fn) {
       fn && fn(e)
 
       const { column, rowData } = this
 
-      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN,
-        {
-          event: e,
-          rowData,
-          column,
-        },
-      )
+      this.eventCenter.emit(GLOBAL_EVENT.BODY_CELL_MOUSEDOWN, {
+        event: e,
+        rowData,
+        column,
+      })
     },
-    // mouseup
     cellMouseup(e, fn) {
       fn && fn(e)
 
@@ -618,7 +597,7 @@ export default defineComponent({
 
     return (
       <td {...tdProps}>
-        {/* expadn tr icon */}
+        {/* expand tr icon */}
         {isExpandRow && <ExpandTrIcon {...expandIconProps} />}
         {/* checkbox content */}
         {this.getCheckboxContent()}
