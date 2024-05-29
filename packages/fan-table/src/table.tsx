@@ -68,7 +68,8 @@ import ColGroup from './colgroup/index'
 import TableHeader from './header/index'
 import TableBody from './body/body'
 import TableFooter from './footer/index'
-import EditInput from './editor/index'
+import EditInput from './editor/editor'
+// import EditInput from './editor/index'
 import Selection from './selection/index'
 import clickOutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
@@ -958,7 +959,6 @@ export default defineComponent({
       }
     }
 
-    // cell selection range data change
     function cellSelectionRangeDataChange(newData: any) {
       cellSelectionRangeData.value = Object.assign(
         cellSelectionRangeData.value,
@@ -966,12 +966,10 @@ export default defineComponent({
       )
     }
 
-    // autofilling direction change
     function autofillingDirectionChange(direction: any) {
       autoFillingDirection.value = direction
     }
 
-    // set current cell selection type
     function setCurrentCellSelectionType() {
       const { currentCell, normalEndCell } = cellSelectionData.value
 
@@ -1082,7 +1080,6 @@ export default defineComponent({
           // add new line
           if (altKey) {
             const editInputEditor = editInputRef.value
-
             editInputEditor.textareaAddNewLine()
           } else if (shiftKey) { // direction up
             direction = CELL_SELECTION_DIRECTION.UP
@@ -1256,7 +1253,7 @@ export default defineComponent({
         scrollTop: containerScrollTop,
       } = tableContainerRef.value
 
-      const nextRowEl = tableRootRef.value.$el.querySelector(
+      const nextRowEl = tableRootRef.value.querySelector(
         `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${nextRowKey}"]`,
       )
 
@@ -1630,7 +1627,6 @@ export default defineComponent({
 
     // init scrolling
     function initScrolling() {
-      console.log('🚀 ~ initScrolling ~ 555555:')
       if (!tableContainerRef.value) {
         throw new Error('can not find tableContainerRef')
       }
@@ -1741,7 +1737,7 @@ export default defineComponent({
 
     /**
          * @bodyCellContextmenu
-         * @desc  recieve td right click\contextmenu event
+         * @desc  receive td right click\contextmenu event
          * @param {object} rowData - row data
          * @param {object} column - column data
          */
@@ -1760,7 +1756,7 @@ export default defineComponent({
 
     /**
      * @ 双击 body Cell
-     * @desc  recieve td double click event
+     * @desc  receive td double click event
      * @param {object} rowData - row data
      * @param {object} column - column data
      */
@@ -1786,8 +1782,7 @@ export default defineComponent({
     }
 
     /** 点击 bodyCell
-    * @bodyCellClick
-    * @desc  recieve td click event
+    * @desc  receive td click event
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
@@ -1796,11 +1791,10 @@ export default defineComponent({
     }
 
     /**
-    * @bodyCellMousedown
-    * @desc  recieve td mousedown event
-    * @param {object} rowData - row data
-    * @param {object} column - column data
-    */
+     * @desc  receive td mousedown event
+     * @param {object} rowData - row data
+     * @param {object} column - column data
+     */
     function bodyCellMousedown({ event, rowData, column }: any) {
       if (!enableCellSelection.value) {
         return false
@@ -1815,9 +1809,7 @@ export default defineComponent({
       const mouseEventClickType = getMouseEventClickType(event)
 
       if (isOperationColumn(colKey, colgroups.value)) {
-        // clear header indicator colKeys
         clearHeaderIndicatorColKeys()
-
         isBodyOperationColumnMousedown.value = true
 
         const {
@@ -1829,24 +1821,16 @@ export default defineComponent({
         let newStartRowKey = startRowKey
         let newEndRowKey = endRowKey
 
-        if (
-          shiftKey &&
-          (startRowKeyIndex > -1 || currentCell.rowIndex > -1)
-        ) {
-          newStartRowKey = isEmptyValue(currentCell.rowKey)
-            ? startRowKey
-            : currentCell.rowKey
+        if (shiftKey && (startRowKeyIndex > -1 || currentCell.rowIndex > -1)) {
+          newStartRowKey = isEmptyValue(currentCell.rowKey) ? startRowKey : currentCell.rowKey
           newEndRowKey = rowKey
         } else {
           const currentRowIndex = allRowKeys.value.indexOf(rowKey)
 
           // 左键点击 || 不在当前选择行内
-          if (
-            mouseEventClickType ===
-            MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE ||
-            currentRowIndex < startRowKeyIndex ||
-            currentRowIndex > endRowKeyIndex
-          ) {
+          const isLeftMouseClick = mouseEventClickType === MOUSE_EVENT_CLICK_TYPE.LEFT_MOUSE
+          const outOfCurrentRow = currentRowIndex < startRowKeyIndex || currentRowIndex > endRowKeyIndex
+          if (isLeftMouseClick || outOfCurrentRow) {
             newStartRowKey = rowKey
             newEndRowKey = rowKey
           }
@@ -1873,9 +1857,7 @@ export default defineComponent({
         })
 
         if (isClearByRightClick) {
-          // clear header indicator colKeys
           clearHeaderIndicatorColKeys()
-          // clear body indicator colKeys
           clearBodyIndicatorRowKeys()
 
           if (shiftKey && currentCell.rowIndex > -1) {
@@ -1884,7 +1866,6 @@ export default defineComponent({
               colKey,
             })
           } else {
-            // cell selection by click
             cellSelectionByClick({ rowData, column })
             clearCellSelectionNormalEndCell()
           }
@@ -1902,7 +1883,7 @@ export default defineComponent({
 
     /**
     * @bodyCellMouseover
-    * @desc  recieve td mouseover event
+    * @desc  receive td mouseover event
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
@@ -1950,7 +1931,7 @@ export default defineComponent({
 
     /**
     * @bodyCellMousemove
-    * @desc  recieve td mousemove event
+    * @desc  receive td mousemove event
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
@@ -1960,7 +1941,7 @@ export default defineComponent({
 
     /**
     * @bodyCellMouseup
-    * @desc  recieve td mouseup event
+    * @desc  receive td mouseup event
     * @param {object} rowData - row data
     * @param {object} column - column data
     */
@@ -2118,7 +2099,6 @@ export default defineComponent({
       })
     }
 
-    // header cell mouseover
     function headerCellMouseover({ event, column }: any) {
       if (
         isHeaderCellMousedown.value &&
@@ -2168,7 +2148,6 @@ export default defineComponent({
       setIsColumnResizerHover(false)
     }
 
-    // table container mouseup
     function tableContainerMouseup() {
       isHeaderCellMousedown.value = false
       isBodyCellMousedown.value = false
@@ -2177,8 +2156,7 @@ export default defineComponent({
     }
 
     /**
-     * @cellSelectionCornerMousedown
-     * @desc  recieve cell selection corner mousedown
+     * @desc  receive cell selection corner mousedown
      */
     function cellSelectionCornerMousedown() {
       isAutofillStarting.value = true
@@ -2189,8 +2167,7 @@ export default defineComponent({
     }
 
     /**
-     * @editCellByClick
-     * @desc  recieve td click event
+     * @desc  receive td click event
      * @param {boolean} isDblclick - is dblclick
      */
     function editCellByClick({ isDblclick, rowKey, colKey }: any) {
@@ -2874,7 +2851,7 @@ export default defineComponent({
           }
         }, 200)
       } else {
-        const rowEl = tableRootRef.value.$el.querySelector(
+        const rowEl = tableRootRef.value.querySelector(
           `tbody tr[${COMPS_CUSTOM_ATTRS.BODY_ROW_KEY}="${rowKey}"]`,
         )
 
@@ -3038,9 +3015,8 @@ export default defineComponent({
       }
     }, { immediate: true, })
 
-    //  watch virtualScrollOption enable
     //  允许按需开启虚拟滚动
-    watch(() => props.virtualScrollOption.enable, (newVal) => {
+    watch(() => props.virtualScrollOption?.enable, (newVal) => {
       // enable virtual scroll
       if (newVal) {
         initVirtualScrollPositions()
@@ -3319,6 +3295,7 @@ export default defineComponent({
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
+      console.log('3333333333333333333333333', 'querySelector' in tableRootRef.value)
       contextmenuEventTarget.value = tableRootRef.value.querySelector(
         `.${clsName('content')}`,
       )
@@ -3388,7 +3365,7 @@ export default defineComponent({
 
       // receive selection corner mouseup
       eventCenter.value.on(GLOBAL_EVENT.SELECTION_CORNER_MOUSEUP, (params) => {
-        // recieve cell selection corner mouseup
+        // receive cell selection corner mouseup
         isAutofillStarting.value = false
       })
 

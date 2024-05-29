@@ -137,8 +137,6 @@ export function encodeToSpreadsheetStr(arr:any[]) {
 }
 
 /**
- * @onBeforeCopy
- * @desc on before copy
  * @param {Event} event
  * @return {selectionRangeIndexes,selectionRangeKeys,data}
  */
@@ -148,8 +146,7 @@ export function onBeforeCopy({
   colgroups,
   allRowKeys,
 }) {
-  const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-        cellSelectionRangeData
+  const { leftColKey, rightColKey, topRowKey, bottomRowKey } = cellSelectionRangeData
 
   const selectionRangeIndexes = {
     startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
@@ -220,9 +217,8 @@ export function onBeforePaste({
 
   const decodePasteData = decodeSpreadsheetStr(pastedData)
 
-  const startColIndex = colgroups.findIndex(
-    (x) => x.key === cellSelectionRangeData.leftColKey,
-  )
+  const startColIndex = colgroups.findIndex((x) =>
+    x.key === cellSelectionRangeData.leftColKey)
   const endColIndex = Math.min(
     startColIndex + decodePasteData[0].length - 1,
     colgroups.length - 1,
@@ -298,8 +294,7 @@ export function onBeforeCut({
   colgroups,
   allRowKeys,
 }) {
-  const { leftColKey, rightColKey, topRowKey, bottomRowKey } =
-        cellSelectionRangeData
+  const { leftColKey, rightColKey, topRowKey, bottomRowKey } = cellSelectionRangeData
 
   const selectionRangeIndexes = {
     startColIndex: colgroups.findIndex((x) => x.key === leftColKey),
@@ -339,8 +334,7 @@ export function onAfterCut({
 }) {
   const spreadsheetStr = encodeToSpreadsheetStr(selectionRangeData)
 
-  const { endColIndex, endRowIndex, startColIndex, startRowIndex } =
-        selectionRangeIndexes
+  const { endColIndex, endRowIndex, startColIndex, startRowIndex } = selectionRangeIndexes
 
   // 移除制定的表格数据
   const fieldNames = colgroups

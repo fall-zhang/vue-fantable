@@ -4,7 +4,7 @@ import focus from '@P/src/directives/focus.js'
 import { autoResize as autoResizeBase } from '@P/src/utils/auto-resize'
 import { isEmptyValue, debounce } from '@P/src/utils/index.js'
 import { getCaretPosition, setCaretPosition } from '@P/src/utils/dom'
-import { computed, defineComponent, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, defineComponent, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 export default defineComponent({
   name: COMPS_NAME.FAN_TABLE_EDIT_INPUT,
   directives: {
@@ -68,7 +68,7 @@ export default defineComponent({
     },
   },
   emits: ['editInputValueChange', 'editInputClick', 'editInputCopy', 'editInputPaste', 'editInputCut'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const textareaInputRef = ref()
     // raw cell value
     const rawCellValue = ref('')
@@ -80,7 +80,7 @@ export default defineComponent({
     const textareaRect = ref({
       left: 0,
       top: 0,
-    },)
+    })
     // table element
     const tableEl = ref()
     // cell element
@@ -147,29 +147,30 @@ export default defineComponent({
       }
 
       return result
-    },)
+    })
     watch(() => props.parentRendered, (val) => {
       if (val) {
       // fixed #471
         setTableEl()
 
         // add table container scroll hook
-        props.hooks.addHook(
-          HOOKS_NAME.TABLE_CONTAINER_SCROLL,
-          () => {
-            if (displayTextarea.value) {
-              if (!cellEl.value) {
-                setCellEl()
-              }
+        props.hooks.addHook(HOOKS_NAME.TABLE_CONTAINER_SCROLL, () => {
+          if (displayTextarea.value) {
+            if (!cellEl.value) {
+              setCellEl()
             }
-            debounceSetCellEl()
-            this.setTextareaPosition()
-            this.debounceSetTextareaPosition()
-          },
+          }
+          debounceSetCellEl()
+          setTextareaPosition()
+          debounce(
+            setTextareaPosition,
+            210,
+          )
+        },
         )
         // add table size change hook
         props.hooks.addHook(HOOKS_NAME.TABLE_SIZE_CHANGE, () => {
-          this.setTextareaPosition()
+          setTextareaPosition()
         })
       }
     }, {
@@ -177,14 +178,15 @@ export default defineComponent({
     })
     // cell selection key data
     watch(() => 'props.cellSelectionData.currentCell', (val) => {
+      console.log('🚀 ~ watch ~ val:----', val)
       isEditCellFocus.value = false
 
       const { rowKey, colKey } = val
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         setCellEl()
         // wait for selection cell rendered
-        this.$nextTick(() => {
-          this.setTextareaPosition()
+        nextTick(() => {
+          setTextareaPosition()
           setTimeout(() => {
             isEditCellFocus.value = true
           })
@@ -195,7 +197,7 @@ export default defineComponent({
       immediate: true,
     })
     // watch normal end cell
-    watch(() => 'props.cellSelectionData.normalEndCell', () => {
+    watch(() => 'props.cellSelectionData.normalEndCell', (val) => {
       // trigger editor(textarea) element select
       // 解决通过点击的区域选择，无法复制的问题
       if (!isEmptyValue(val.colKey)) {
@@ -217,15 +219,10 @@ export default defineComponent({
       immediate: true,
     })
     watch(() => props.inputStartValue, () => {
-      this.setRawCellValue()
+      setRawCellValue()
     }, {
       immediate: true,
     })
-    // debounce set textarea position
-    this.debounceSetTextareaPosition = debounce(
-      this.setTextareaPosition,
-      210,
-    )
     // debounce set cell el
     const debounceSetCellEl = debounce(() => {
       if (displayTextarea.value) {
@@ -238,16 +235,15 @@ export default defineComponent({
       autoResize.value = autoResizeBase()
     })
     onUnmounted(() => {
-      this.textareaUnObserve()
+      textareaUnObserve()
     })
 
-    // set table element
     function setTableEl() {
-      this.$nextTick(() => {
+      nextTick(() => {
         tableEl.value = containerEl.value.previousElementSibling
       })
     }
-    // set cell element
+
     function setCellEl() {
       const { rowKey, colKey } = props.cellSelectionData.currentCell
 
@@ -258,15 +254,13 @@ export default defineComponent({
 
         if (queryCellEl) {
           cellEl.value = queryCellEl
+          console.log('🚀 ~ setCellEl ~ cellEl:', cellEl)
           overflowViewport.value = false
         }
       }
     }
     function setTextareaPosition() {
-      const {
-        hasRightFixedColumn,
-        currentColumn: column,
-      } = this
+      const column = currentColumn.value
 
       if (cellEl.value && tableEl.value) {
         const {
@@ -301,7 +295,7 @@ export default defineComponent({
 
           // If the right fixed column is included, the max width of the textarea needs to be subtracted from the sum of the right fixed columns
           // 如果包含右固定列，编辑框最大宽度需要去减去右固定列之和的宽度
-          if (hasRightFixedColumn) {
+          if (props.hasRightFixedColumn) {
             if (column && !column.fixed) {
               const rightFixedTotalWidth = getFixedTotalWidthByColumnKey({
                 colgroups: props.colgroups,
@@ -344,12 +338,12 @@ export default defineComponent({
       }
     }
     function showTextarea() {
-      this.setRawCellValue()
+      setRawCellValue()
       displayTextarea.value = true
     }
     function hideTextarea() {
       displayTextarea.value = false
-      this.textareaUnObserve()
+      textareaUnObserve()
     }
     // textarea unObserve
     function textareaUnObserve() {
@@ -359,7 +353,7 @@ export default defineComponent({
     }
     // set raw cell value
     function setRawCellValue() {
-      rawCellValue.value = this.inputStartValue
+      rawCellValue.value = String(props.inputStartValue)
     }
     // textarea value change
     function textareaValueChange(val) {
@@ -375,14 +369,12 @@ export default defineComponent({
     }
     // textarea add new line
     function textareaAddNewLine() {
-      const { editingCell } = this
-
       if (props.isCellEditing) {
         const textareaInputEl = textareaInputRef.value
 
         const caretPosition = getCaretPosition(textareaInputEl)
 
-        let value = editingCell.row[editingCell.colKey]
+        let value = props.editingCell.row[props.editingCell.colKey]
         // solve error of number slice method
         value += ''
 
@@ -397,7 +389,7 @@ export default defineComponent({
         // 手动赋值不会触发textarea 文本变化事件,需要手动更新 editingCell 值
         textareaValueChange(newValue)
 
-        setCaretPosition(textareaInputEl, caretPosition + 1)
+        setCaretPosition(textareaInputEl, caretPosition + 1, null)
       }
     }
     const containerProps = reactive({
@@ -433,7 +425,9 @@ export default defineComponent({
         // emit(EMIT_EVENTS.EDIT_INPUT_CUT, e)
       },
     })
-
+    expose({
+      textareaAddNewLine
+    })
     return () => (
       <div ref={containerEl} {...containerProps}>
         <textarea ref={textareaInputRef} {...textareaProps} v-focus={isEditCellFocus.value}
