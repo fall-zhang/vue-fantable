@@ -197,20 +197,16 @@ export default defineComponent({
     const isBodyOperationColumnMousedown = ref(false)
     const isAutofillStarting = ref(false)
     const autoFillingDirection = ref(null)
-    // current cell selection type
     const currentCellSelectionType = ref('')
-    /**
-          table offest height（开启虚拟滚动时使用）
-          1、当 :max-height="500" 时使用 max-height
-          2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffestHeight
-          */
-    const tableOffestHeight = ref(0)
+    // table offset height（开启虚拟滚动时使用）
+    // 1、当 :max-height="500" 时使用 max-height
+    // 2、当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时使用 tableOffsetHeight
+    const tableOffsetHeight = ref(0)
     const tableHeight = ref(0)
-    // highlight row key
     const highlightRowKey = ref<number>(-1)
 
     // 是否允许按下方向键时，停止编辑并移动选中单元格。当双击可编辑单元格或者点击输入文本框时设置为false值
-    // 像excel一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
+    // 像 excel 一样：如果直接在可编辑单元格上输入内容后，按下上、下、左、右按键可以直接选中其他单元格，并停止当前单元格编辑状态
     // like Excel:If you directly enter content in an editable cell, press the up, down, left and right buttons to directly select other cells and stop editing the current cell
     const enableStopEditing = ref(true)
     // contextmenu event target
@@ -262,7 +258,6 @@ export default defineComponent({
 
     /* computed start */
 
-    // return row keys
     const allRowKeys = computed(() => {
       let result: any[] = []
 
@@ -306,9 +301,9 @@ export default defineComponent({
 
         if (isNumber(maxHeight)) {
           result = Math.ceil(maxHeight / minRowHeight)
-        } else if (tableOffestHeight.value) {
+        } else if (tableOffsetHeight.value) {
           // 修复当动态高度 当 max-height="calc(100vh - 210px)" 或者 max-height="80%" 时无法计算的问题
-          result = Math.ceil(tableOffestHeight.value / minRowHeight)
+          result = Math.ceil(tableOffsetHeight.value / minRowHeight)
         }
       }
       return result
@@ -414,10 +409,8 @@ export default defineComponent({
     })
     // has fixed column
     const hasFixedColumn = computed(() => {
-      return colgroups.value.some(
-        (x) =>
-          x.fixed === COLUMN_FIXED_TYPE.LEFT ||
-          x.fixed === COLUMN_FIXED_TYPE.RIGHT,
+      return colgroups.value.some((x) =>
+        x.fixed === COLUMN_FIXED_TYPE.LEFT || x.fixed === COLUMN_FIXED_TYPE.RIGHT
       )
     })
     // has left fixed column
@@ -703,16 +696,14 @@ export default defineComponent({
     function cellSelectionCurrentCellChange({ rowKey, colKey }: any) {
       cellSelectionData.value.currentCell.colKey = colKey
       cellSelectionData.value.currentCell.rowKey = rowKey
-      cellSelectionData.value.currentCell.rowIndex =
-        allRowKeys.value.indexOf(rowKey)
+      cellSelectionData.value.currentCell.rowIndex = allRowKeys.value.indexOf(rowKey)
     }
 
     // cell selection end cell change
     function cellSelectionNormalEndCellChange({ rowKey, colKey }: any) {
       cellSelectionData.value.normalEndCell.colKey = colKey
       cellSelectionData.value.normalEndCell.rowKey = rowKey
-      cellSelectionData.value.normalEndCell.rowIndex =
-        allRowKeys.value.indexOf(rowKey)
+      cellSelectionData.value.normalEndCell.rowIndex = allRowKeys.value.indexOf(rowKey)
     }
 
     // cell selection auto fill cell change
@@ -780,7 +771,6 @@ export default defineComponent({
       bodyIndicatorRowKeys.value.endRowKeyIndex = -1
     }
 
-    // set cell selection by autofill
     function setCellSelectionByAutofill() {
       const { autoFillEndCell, currentCell } = cellSelectionData.value
 
@@ -803,9 +793,7 @@ export default defineComponent({
         cellSelectionRangeData.value
 
       // cell selection range auto fill
-      if (
-        currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.RANGE
-      ) {
+      if (currentCellSelectionType.value === CURRENT_CELL_SELECTION_TYPES.RANGE) {
         if (
           !isCellInSelectionRange({
             cellData: autoFillEndCell,
@@ -867,9 +855,7 @@ export default defineComponent({
               rowKey,
               colKey,
             }
-          } else if (
-            autoFillingDirection.value === AUTOFILLING_DIRECTION.DOWN
-          ) {
+          } else if (autoFillingDirection.value === AUTOFILLING_DIRECTION.DOWN) {
             currentCellData = {
               rowKey: topRowKey,
               colKey: leftColKey,
@@ -878,9 +864,7 @@ export default defineComponent({
               rowKey,
               colKey: leftColKey,
             }
-          } else if (
-            autoFillingDirection.value === AUTOFILLING_DIRECTION.UP
-          ) {
+          } else if (autoFillingDirection.value === AUTOFILLING_DIRECTION.UP) {
             currentCellData = {
               rowKey,
               colKey: leftColKey,
@@ -889,9 +873,7 @@ export default defineComponent({
               rowKey: bottomRowKey,
               colKey: leftColKey,
             }
-          } else if (
-            autoFillingDirection.value === AUTOFILLING_DIRECTION.LEFT
-          ) {
+          } else if (autoFillingDirection.value === AUTOFILLING_DIRECTION.LEFT) {
             currentCellData = {
               rowKey,
               colKey,
@@ -978,10 +960,7 @@ export default defineComponent({
       if (isEmptyValue(currentCell.rowKey) || isEmptyValue(currentCell.colKey)) {
         result = ''
       } else {
-        if (
-          !isEmptyValue(normalEndCell.rowKey) &&
-          !isEmptyValue(normalEndCell.colKey)
-        ) {
+        if (!isEmptyValue(normalEndCell.rowKey) && !isEmptyValue(normalEndCell.colKey)) {
           result = CURRENT_CELL_SELECTION_TYPES.RANGE
         } else {
           result = CURRENT_CELL_SELECTION_TYPES.SINGLE
@@ -3154,7 +3133,7 @@ export default defineComponent({
       },
       tagName: 'div',
       onDomResizeChange: ({ height }: Record<'height', number>) => {
-        tableOffestHeight.value = height
+        tableOffsetHeight.value = height
         initVirtualScroll()
         // fixed #404
         initScrolling()
