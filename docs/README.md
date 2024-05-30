@@ -34,8 +34,8 @@ pnpm run dev
   - [ ] 异步加载模式，拆分为三步进行加载
 - [ ] 使用 TS 重构应用（V1.0）
   - [x] 添加 TS 类型支持
-  - [ ] 使用
-  - [ ] 所有组件使用 setup 重写
+  - [x] 修复点击单个单元格，整行无法高亮的问题
+  - [ ] 300 行以下的所有组件使用 setup 重构系统
   - [ ] 所有组件补充临时类型（难推断的用 any
   - [ ] 移除过时的 API（document.execCommand，keyCode）argument 的使用
   - [ ] 组件改写为组合式 API 形式
@@ -43,7 +43,7 @@ pnpm run dev
 - [ ] 最后支持原生（V2.0无框架依赖）
   - [ ] 使用 shadow dom 替代
 
-## 更新计划
+## 文档更新计划
 
 - [x] 移除 theme-switch-tool
 - [x] 移除 vue-lazy-container

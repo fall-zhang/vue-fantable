@@ -7,8 +7,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
       "@P/*": [
-        "packages/*"
+        "../packages/*"
       ]
     },
     "lib": [
