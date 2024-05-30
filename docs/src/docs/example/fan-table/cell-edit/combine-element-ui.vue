@@ -58,7 +58,7 @@ export default {
               <el-date-picker
                 size="small"
                 value={row.date}
-                on-input={(val) => {
+                onInput={(val) => {
                   row.date = val
                   this.cellDataChange(row, column, val)
                 }}
@@ -81,10 +81,10 @@ export default {
                 size="small"
                 min={1}
                 value={row.age}
-                on-input={(val) => {
+                onInput={(val) => {
                   row.age = val
                 }}
-                on-change={(val) => {
+                onChange={(val) => {
                   this.cellDataChange(row, column, val)
                 }}
               ></el-input-number>
@@ -102,7 +102,7 @@ export default {
               <el-select
                 size="small"
                 value={row.gender}
-                on-input={(val) => {
+                onInput={(val) => {
                   row.gender = val
                   this.cellDataChange(row, column, val)
                 }}

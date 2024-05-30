@@ -2,9 +2,11 @@
   <div class="api-tpl">
     <vue-anchor :is-edit="false" :label="getAnchor" />
     <div class="api-tpl-desc">{{ desc }}</div>
-    <fan-table class="tpl-table " :columns="columns" :table-data="cloneTable" :border-around="true" :border-x="true"
+    {{ columns }}
+    <fan-table class="tpl-table" :columns="columns" :table-data="cloneTable" border-aroundborder-x
       :border-y="false" row-key-field-name="__key__" :expand-option="expandOption"
       :cell-selection-option="cellSelectionOption" />
+    {{ cloneTable }}
   </div>
 </template>
 
@@ -62,7 +64,6 @@ export default {
           }))
         }
         // console.log(this.cloneTable, this.columns);
-        //
         setTimeout(() => {
           console.log(this.cloneTable, this.columns)
           this.$forceUpdate()
