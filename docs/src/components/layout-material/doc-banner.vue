@@ -104,7 +104,7 @@ import locale from '@/comp/locale'
 import I18nMixins from '@/comp/mixins/i18n-mixins'
 import ThemeSwitchMixins from '@/comp/mixins/theme-switch-mixins'
 import clickoutside from '@/comp/directives/clickoutside'
-import { version as latestVersion } from '@P/index'
+import { version as latestVersion } from 'vue-fantable/packages/index'
 
 import { getVersions } from '@/api/index'
 import FoldingFan from '@/components/icons/folding-fan.vue'

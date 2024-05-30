@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES2021",
+    "module": "ES2022",
     // This compiler run should only output d.ts files
     // Types should go into this directory.
     // Removing this would place the .d.ts files

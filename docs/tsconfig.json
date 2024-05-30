@@ -3,6 +3,7 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "src/**/*.ts",
+    "../packages/*",
   ],
   "compilerOptions": {
     "baseUrl": "./",
@@ -10,8 +11,8 @@
       "@/*": [
         "src/*"
       ],
-      "@P/*": [
-        "../packages/*"
+      "vue-fantable/*": [
+        "../*"
       ]
     },
     "lib": [
