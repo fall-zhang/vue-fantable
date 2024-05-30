@@ -242,9 +242,6 @@ export default defineComponent({
     // ]
     // const realRenderTableData = new Proxy(ref<any[]>([]), {
     //   set(a:any, p, newVal) {
-    //     console.log('🚀 ~ set ~ p:', p)
-    //     console.log('🚀 ~ set ~ newVal:', newVal)
-    //     console.log('🚀 ~ set ~ a:', a)
     //     return Reflect.get(a, p, newVal)
     //   }
     // })
@@ -1303,7 +1300,6 @@ export default defineComponent({
 
     // get virtual scroll above count
     function getVirtualScrollAboveCount() {
-      // console.log('🚀 ~ getVirtualScrollAboveCount ~ getVirtualScrollAboveCount:')
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1311,13 +1307,11 @@ export default defineComponent({
           virtualScrollBufferCount.value,
         )
       }
-      // console.log('🚀 ~ getVirtualScrollAboveCount ~ result:', result)
       return result
     }
 
     // get virtual scroll bellow count
     function getVirtualScrollBelowCount() {
-      // console.log('🚀 ~ getVirtualScrollBelowCount ~ getVirtualScrollBelowCount:',)
       let result = 0
       if (isVirtualScroll.value) {
         result = Math.min(
@@ -1325,7 +1319,6 @@ export default defineComponent({
           virtualScrollBufferCount.value
         )
       }
-      // console.log('🚀 ~ getVirtualScrollBelowCount ~ result:', result)
       return result
     }
 
@@ -1494,7 +1487,6 @@ export default defineComponent({
 
       if (!showVirtualScrollingPlaceholder.value) {
         const bodyElement = tableBodyRef.value
-        // console.log('🚀 ~ tableContainerVirtualScrollHandler ~ tableBodyRef.value:', tableBodyRef.value)
 
         if (bodyElement) {
           bodyElement.renderingRowKeys(
@@ -1544,7 +1536,6 @@ export default defineComponent({
     }
     // init virtual scroll
     function initVirtualScroll() {
-      // console.log('🚀 ~ initVirtualScroll: 11111')
       if (isVirtualScroll.value) {
         const startIndex = 0
 
@@ -1590,7 +1581,6 @@ export default defineComponent({
 
     // set scroll bar status
     function setScrollBarStatus() {
-      // console.log('🚀 ~ setScrollBarStatus ~ setScrollBarStatus:')
       if (tableContainerRef.value) {
         const { scrollWidth, clientWidth, scrollHeight, clientHeight } = tableContainerRef.value
 
@@ -2923,7 +2913,6 @@ export default defineComponent({
     }
     // set highlight row
     function setHighlightRow({ rowKey }: Record<'rowKey', any>) {
-      // console.log('🚀 ~ setHighlightRow ~ rowKey:', rowKey)
       highlightRowKey.value = rowKey
     }
 
@@ -3274,7 +3263,7 @@ export default defineComponent({
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
-      console.log('3333333333333333333333333', 'querySelector' in tableRootRef.value)
+      // console.log('3333333333333333333333333', 'querySelector' in tableRootRef.value)
       contextmenuEventTarget.value = tableRootRef.value.querySelector(
         `.${clsName('content')}`,
       )

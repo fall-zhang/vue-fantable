@@ -71,9 +71,7 @@ function VeLoading(options = {}) {
   addClass(loadingOptions.parentElement, PARENT_RELATIVE_CLASS)
 
   const loadingInstance = createInstance(loadingOptions)
-  // console.log("🚀 ~ VeLoading ~ loadingInstance:", loadingInstance)
   loadingOptions.parentElement.appendChild(loadingInstance?.$el)
-  // console.log("🚀 ~ VeLoading ~ loadingOptions.parentElement:", loadingOptions.parentElement)
   return loadingInstance
 }
 

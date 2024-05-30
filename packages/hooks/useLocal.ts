@@ -6,7 +6,6 @@ import type { LocalInfo } from '@P/ve-locale/local'
 const defaultLang = shallowRef(cloneDeep(LangEN))
 
 export const useLocal = (local: LocalInfo) => {
-  console.log('🚀 ~ useLocal ~ local:', local)
   triggerRef(defaultLang)
   if (local.pagination) {
     defaultLang.value.pagination = local.pagination
