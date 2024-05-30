@@ -177,8 +177,7 @@ export default defineComponent({
       immediate: true,
     })
     // cell selection key data
-    watch(() => 'props.cellSelectionData.currentCell', (val) => {
-      console.log('🚀 ~ watch ~ val:----', val)
+    watch(() => props.cellSelectionData?.currentCell, (val) => {
       isEditCellFocus.value = false
 
       const { rowKey, colKey } = val
@@ -197,7 +196,7 @@ export default defineComponent({
       immediate: true,
     })
     // watch normal end cell
-    watch(() => 'props.cellSelectionData.normalEndCell', (val) => {
+    watch(() => props.cellSelectionData?.normalEndCell, (val) => {
       // trigger editor(textarea) element select
       // 解决通过点击的区域选择，无法复制的问题
       if (!isEmptyValue(val.colKey)) {
@@ -254,7 +253,6 @@ export default defineComponent({
 
         if (queryCellEl) {
           cellEl.value = queryCellEl
-          console.log('🚀 ~ setCellEl ~ cellEl:', cellEl)
           overflowViewport.value = false
         }
       }
@@ -356,7 +354,7 @@ export default defineComponent({
       rawCellValue.value = String(props.inputStartValue)
     }
     // textarea value change
-    function textareaValueChange(val) {
+    function textareaValueChange(val:string) {
       // emit(EMIT_EVENTS.EDIT_INPUT_VALUE_CHANGE, val)
       emit('editInputValueChange', val)
     }
@@ -401,7 +399,7 @@ export default defineComponent({
       class: textareaClass,
       value: rawCellValue,
       tabindex: -1,
-      onInput: (e:Event) => {
+      onInput: (e:InputEvent) => {
         if (e.target && props.isCellEditing) {
           textareaValueChange(e.target.value)
           rawCellValue.value = e.target.value

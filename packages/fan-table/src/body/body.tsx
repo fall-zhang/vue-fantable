@@ -559,7 +559,7 @@ export default defineComponent({
     // watch expandOption expandedRowKeys
     // console.log(props.expandOption)
 
-    watch(() => 'props.expandOption.expandedRowKeys', () => {
+    watch(() => props.expandOption?.expandedRowKeys, () => {
       initInternalExpandRowKeys()
     })
     // watch checkbox option
@@ -569,7 +569,7 @@ export default defineComponent({
       immediate: true,
     })
     // watch selectedRowKeys
-    watch(() => 'props.checkboxOption.selectedRowKeys', () => {
+    watch(() => props.checkboxOption?.selectedRowKeys, () => {
       resetInternalCheckboxSelectedRowKeys()
     })
     // watch internalCheckboxSelectedRowKeys
@@ -584,7 +584,7 @@ export default defineComponent({
       immediate: true,
     },)
     // watch selectedRowKeys
-    watch(() => 'props.radioOption.selectedRowKey', () => {
+    watch(() => props.radioOption?.selectedRowKey, () => {
       initInternalRadioSelectedRowKey()
     })
 

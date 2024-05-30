@@ -1389,7 +1389,7 @@ export default defineComponent({
       immediate: true,
     },)
     // watch current cell
-    watch(() => 'props.cellSelectionData.currentCell',
+    watch(() => props.cellSelectionData?.currentCell,
       function (val: any) {
         const { rowKey, colKey } = val
         if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
@@ -1404,7 +1404,7 @@ export default defineComponent({
         immediate: true,
       })
     // watch normal end cell
-    watch(() => 'props.cellSelectionData.normalEndCell', function (val) {
+    watch(() => props.cellSelectionData?.normalEndCell, function (val) {
       const { rowKey, colKey } = val
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         // set normal end cell el
@@ -1419,7 +1419,7 @@ export default defineComponent({
       immediate: true,
     },)
     // watch autofill cell
-    watch(() => 'props.cellSelectionData.autoFillEndCell', function (val) {
+    watch(() => props.cellSelectionData?.autoFillEndCell, function (val) {
       const { rowKey, colKey } = val
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         setAutofillEndCellEl()
