@@ -23,8 +23,8 @@ const distConfig = defineConfig({
   output: [{
     format: 'es',
     dir: './libs/lang',
-    entryFileNames: `[name].js`,
-    chunkFileNames: '[name]-[hash].js',
+    entryFileNames: `[name].ts`,
+    chunkFileNames: '[name]-[hash].ts',
     exports: 'named',
     plugins: [],
     manualChunks: []
@@ -49,13 +49,13 @@ const distConfig = defineConfig({
 
 const libConfig = defineConfig({
   // clean: true,
-  input: 'packages/index.js',
+  input: 'packages/index.ts',
   external: ['vue'],
   output: [{
     format: 'es',
     dir: './libs',
-    entryFileNames: `main.js`,
-    chunkFileNames: '[name].js',
+    entryFileNames: `main.ts`,
+    chunkFileNames: '[name].ts',
     exports: 'named',
     plugins: [],
     manualChunks: []
