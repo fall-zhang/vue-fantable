@@ -1,32 +1,28 @@
 <template>
-    <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.columnHiddenOption.data"
-            :columns="db.columnHiddenOption.columns"
-        />
-    </div>
+  <div>
+    <tpl :desc="desc" :anchor="anchor" :table-data="db.columnHiddenOption.data"
+      :columns="db.columnHiddenOption.columns" />
+  </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl.vue";
-import { db } from "./db";
+import tpl from '@/comp/api-tpl.vue'
+import { db } from './db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "Column hidden option",
-        },
-        desc: {
-            type: String,
-            default: "columnHiddenOption",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: 'Column hidden option',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'columnHiddenOption',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

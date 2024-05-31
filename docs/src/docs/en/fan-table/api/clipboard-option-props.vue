@@ -1,32 +1,27 @@
 <template>
-    <div>
-        <tpl
-            :desc="desc"
-            :anchor="anchor"
-            :table-data="db.clipboardOption.data"
-            :columns="db.clipboardOption.columns"
-        />
-    </div>
+  <div>
+    <tpl :desc="desc" :anchor="anchor" :table-data="db.clipboardOption.data" :columns="db.clipboardOption.columns" />
+  </div>
 </template>
 <script>
-import tpl from "@/comp/api-tpl.vue";
-import { db } from "./db";
+import tpl from '@/comp/api-tpl.vue'
+import { db } from './db'
 export default {
-    components: { tpl },
-    props: {
-        anchor: {
-            type: String,
-            default: "Clipboard option",
-        },
-        desc: {
-            type: String,
-            default: "clipboardOption",
-        },
+  components: { tpl },
+  props: {
+    anchor: {
+      type: String,
+      default: 'Clipboard option',
     },
-    data() {
-        return {
-            db: db,
-        };
+    desc: {
+      type: String,
+      default: 'clipboardOption',
     },
-};
+  },
+  data() {
+    return {
+      db,
+    }
+  },
+}
 </script>

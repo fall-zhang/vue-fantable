@@ -1,6 +1,6 @@
 <template>
   <div class="normal-data-grid">
-    <!-- <div class="operation">
+    <div class="operation">
       <div class="operation-item">
         {{ currentLocal["dataRows"] }}
         <el-select v-model="dataRow" style="width: 160px" size="small" @change="dataRowChange">
@@ -40,7 +40,7 @@
         row-key-field-name="rowKey" :cell-style-option="cellStyleOption" :expand-option="expandOption"
         :radio-option="radioOption" :checkbox-option="checkboxOption" :row-style-option="rowStyleOption"
         :cell-selection-option="cellSelectionOption" :column-width-resize-option="columnWidthResizeOption" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -428,13 +428,13 @@ export default {
     this.initSourceData()
   },
   mounted() {
-    // this.loadingInstance = this.$veLoading({
-    //   target: this.$refs.tableRef.$el,
-    //   // 等同于
-    //   // target: document.querySelector('#demo-loading-container'),
-    //   // target:"#loading-container"
-    //   name: 'grid',
-    // })
+    this.loadingInstance = this.$veLoading({
+      target: this.$refs.tableRef.$el,
+      // 等同于
+      // target: document.querySelector('#demo-loading-container'),
+      // target:"#loading-container"
+      name: 'grid',
+    })
   },
   methods: {
     // virtual scrolling

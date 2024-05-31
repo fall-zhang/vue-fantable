@@ -3034,7 +3034,8 @@ export default defineComponent({
       hideColumnsByKeys,
       showColumnsByKeys,
       scrollToRowKey,
-      scrollToColKey
+      scrollToColKey,
+      scrollTo
     })
 
     // header props
@@ -3263,7 +3264,6 @@ export default defineComponent({
     onMounted(() => {
       parentRendered.value = true
       // set contextmenu event target
-      // console.log('3333333333333333333333333', 'querySelector' in tableRootRef.value)
       contextmenuEventTarget.value = tableRootRef.value.querySelector(
         `.${clsName('content')}`,
       )
