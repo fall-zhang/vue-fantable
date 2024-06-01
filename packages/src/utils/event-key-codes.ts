@@ -43,9 +43,20 @@ export function isInputKeyCode(event:KeyboardEvent) {
 }
 
 // is direction key code
-export function isDirectionKeyCode(keyCode) {
-  return [37, 38, 39, 40].indexOf(keyCode) > -1
-}
+// @unused
+// export function isDirectionKeyCode(keyCode:number) {
+//   return [37, 38, 39, 40].includes(keyCode)
+// }
 
-// is single key
-// export function isSingleKey() {}
+type Direction = 'left'|'right'|'down'|'up' |'empty'
+export function getDirection(event:KeyboardEvent): Direction {
+  const { key } = event
+  let direction:Direction = 'empty'
+  switch (key) {
+  case 'ArrowUp': direction = 'up'; break
+  case 'ArrowLeft': direction = 'left'; break
+  case 'ArrowRight': direction = 'right'; break
+  case 'ArrowDown': direction = 'down'; break
+  }
+  return direction
+}

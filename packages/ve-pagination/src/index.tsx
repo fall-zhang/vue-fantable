@@ -94,8 +94,8 @@ export default defineComponent({
 
     Jumper: {
       methods: {
-        jumperEnter(event) {
-          if (event.keyCode !== 13) return
+        jumperEnter(event:KeyboardEvent) {
+          if (event.key !== 'Enter') return
 
           const val = this.$parent.getValidNum(event.target.value)
           event.target.value = val
