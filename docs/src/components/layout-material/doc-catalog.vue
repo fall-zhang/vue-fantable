@@ -2,7 +2,7 @@
   <div class="catalog-container">
     <ul v-show="catalogData && catalogData.length > 0" class="catalog-ul">
       <li class="catalog-li-title">
-        {{ catalogTitle }}
+         {{ catalogTitle }}
       </li>
       <li v-for="(item, index) in catalogData" :key="index" :title="item.label" class="catalog-li">
         <a @click.stop="goAnchor(item.id)">
@@ -13,13 +13,15 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 import locale from '@/comp/locale'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from '@/comp/mixins/i18n-mixins'
 
 export default {
   name: 'VueCatalog',
+  components: {
+  },
   mixins: [I18nMixins],
   props: {
     catalogData: {

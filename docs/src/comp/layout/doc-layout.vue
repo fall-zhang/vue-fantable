@@ -6,10 +6,13 @@
         <ul class="menu-root">
           <template v-for="(config, index) in routerConfig">
             <li v-if="config.children" :key="index">
-              <a class="main-wrapper-sidebar-link" href="javascript:javascript:void(0);">
-                {{ config.name }}
+              <a :class="{
+                'main-wrapper-sidebar-link': true,
+                'link-rotate': true
+              }" @click="onToggleCollapse(config)">
+                {{ config.name }} <CollapseIcon></CollapseIcon>
               </a>
-              <ul class="menu-sub">
+              <ul class="menu-sub" v-show="visibleMenuList.includes(config.name)">
                 <router-link v-for="( subConfig, subIndex ) in config.children" :key="subIndex"
                   :to="`/${currentDocLang}/doc/${config.path}/${subConfig.path}`">
                   <li>
@@ -61,6 +64,7 @@
 <script>
 import DocCatalog from '@/components/layout-material/doc-catalog.vue'
 import DocFooter from '@/components/layout-material/doc-footer.vue'
+import CollapseIcon from '@/components/icons/collapse-icon.vue'
 import routers from '@/router/locale/index'
 import { goTobyAnchorId } from '@/utils/index'
 import I18nMixins from './../mixins/i18n-mixins'
@@ -68,12 +72,13 @@ import { UpOne } from '@icon-park/vue-next'
 
 export default {
   name: 'DocLayout',
-  components: { DocFooter, DocCatalog, UpOne },
+  components: { DocFooter, DocCatalog, UpOne, CollapseIcon },
   mixins: [I18nMixins],
   data() {
     return {
       showBackTop: false,
       catalogData: [],
+      visibleMenuList: [],
       showHide: false, // 是否显示内置组件
     }
   },
@@ -102,7 +107,14 @@ export default {
     onBackTop() {
       window.scroll(0, 0)
     },
-
+    onToggleCollapse(configItem) {
+      const menuItemName = configItem.name
+      if (this.visibleMenuList.includes(menuItemName)) {
+        this.visibleMenuList = this.visibleMenuList.filter(item => item !== menuItemName)
+      } else {
+        this.visibleMenuList.push(menuItemName)
+      }
+    },
     handleScroll() {
       const scrollTop =
         document.documentElement.scrollTop ||

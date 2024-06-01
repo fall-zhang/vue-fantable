@@ -67,7 +67,8 @@
         }
 
         a {
-          margin: 0 @-main-left-content-padding;
+          // margin: 0 @-main-left-content-padding;
+          padding-left: @-main-left-content-padding;
           display: inline-block;
           font-size: 14px;
           width: 100%;
@@ -100,14 +101,19 @@
         }
 
         .main-wrapper-sidebar-link {
-          display: inline-block;
+          // display: inline-block;
+          cursor: pointer;
+          transition: .6s;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           width: 100%;
-          line-height: 40px;
-          margin-top: 20px;
-          margin-bottom: 10px;
+          line-height: 32px;
+          padding-top: 20px;
+          padding-bottom: 10px;
           font-size: 16px;
           color: #666666;
-          cursor: default;
+          // cursor: default;
           /* border-bottom: 1px solid #eee; */
         }
 
