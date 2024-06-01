@@ -22,6 +22,7 @@ import { isEmptyValue, isBoolean, debounce } from '@P/src/utils/index.js'
 import { GLOBAL_EVENT } from '@P/events/global-events'
 import { computed, defineComponent, inject, nextTick, ref, watch } from 'vue'
 import { EventType } from 'mitt'
+type ColumnFixedType = 'left'|'right' |''
 
 export default defineComponent({
   name: 'FanTableSelection',
@@ -156,14 +157,12 @@ export default defineComponent({
       }
       return result
     })
-    // show corner
+    // show selection-corner
     const showCorner = computed(() => {
       let result = true
-      if (props.cellAutofillOption) {
+      if (props.cellAutofillOption && typeof props.cellAutofillOption === 'object') {
         const { directionX, directionY } = props.cellAutofillOption
-        if (
-          isBoolean(directionY) && !directionY && isBoolean(directionX) && !directionX
-        ) {
+        if (isBoolean(directionY) && !directionY && isBoolean(directionX) && !directionX) {
           result = false
         }
       } else {
@@ -174,14 +173,14 @@ export default defineComponent({
     })
     // corner cell info
     const cornerCellInfo = computed(() => {
-      const colgroups = props.colgroups
+      const colgroups:any = props.colgroups
       const { rightColKey, bottomRowKey } = props.cellSelectionRangeData
 
       let isLastColumn = false
       if (isLastColumnByColKey(rightColKey, colgroups)) {
         isLastColumn = true
       } else {
-        const index = colgroups.findIndex((x) => x.key === rightColKey)
+        const index = colgroups.findIndex((x:any) => x.key === rightColKey)
         // right col is right fixed and current col is not right fixed
         const nextFixedRight = colgroups[index + 1].fixed === COLUMN_FIXED_TYPE.RIGHT
         const thisNotFixedRight = colgroups[index].fixed !== COLUMN_FIXED_TYPE.RIGHT
@@ -199,47 +198,45 @@ export default defineComponent({
         isLastColumn,
         isLastRow,
       }
-    },)
+    })
     // is first selection row
     const isFirstSelectionRow = computed(() => {
       return props.allRowKeys[0] === props.cellSelectionRangeData.topRowKey
-    },)
+    })
     // is first selection column
     const isFirstSelectionCol = computed(() => {
-      return props.colgroups[0].key === props.cellSelectionRangeData.leftColKey
-    },)
+      const colgroups:any = props.colgroups
+      return colgroups[0].key === props.cellSelectionRangeData.leftColKey
+    })
     // is first not fixed selection column
     const isFirstNotFixedSelectionCol = computed(() => {
       let result = false
 
-      if (props.colgroups.find((x) => x.fixed === 'left')) {
-        const col = props.colgroups.find((x) => !x.fixed)
+      if (props.colgroups.find((x:any) => x.fixed === 'left')) {
+        const col:any = props.colgroups.find((x:any) => !x.fixed)
         if (col && col.field === props.cellSelectionRangeData.leftColKey) {
           result = true
         }
       }
 
       return result
-    },)
+    })
     // computed end
+
     // method start
     function resetCellPositions() {
       const { currentCell, normalEndCell } = props.cellSelectionData
       if (
         !isEmptyValue(currentCell.rowKey) && !isEmptyValue(currentCell.colKey)
       ) {
-        setSelectionPositions({
-          type: 'currentCell',
-        })
+        setSelectionPositions('currentCell')
       }
 
       if (
         !isEmptyValue(normalEndCell.rowKey) &&
         !isEmptyValue(normalEndCell.colKey)
       ) {
-        setSelectionPositions({
-          type: 'normalEndCell',
-        })
+        setSelectionPositions('normalEndCell')
       }
     }
 
@@ -298,8 +295,7 @@ export default defineComponent({
       emit('cellSelectionRangeDataChange', result)
     }
 
-    // get cell position
-    function getCellPosition({ cellEl, tableLeft, tableTop }) {
+    function getCellPosition({ cellEl, tableLeft, tableTop }:any) {
       if (!selectionBordersVisibility.value) {
         return false
       }
@@ -321,7 +317,6 @@ export default defineComponent({
       }
     }
 
-    // get cell position by column key
     type CellPositionByColKeyParam = {
       tableLeft: any
       tableTop: any
@@ -358,7 +353,8 @@ export default defineComponent({
     }
 
     // set selection positions
-    function setSelectionPositions({ type }) {
+    type SelectionType = 'currentCell' |'normalEndCell'|'autoFillEndCell'
+    function setSelectionPositions(type:SelectionType) {
       const virtualScrollVisibleIndexs = props.virtualScrollVisibleIndexs
 
       // table empty
@@ -384,6 +380,7 @@ export default defineComponent({
             tableLeft,
             tableTop,
           })
+
           if (rect) {
             isCurrentCellOverflow = false
             cellSelectionRect.value.currentCellRect = rect
@@ -391,7 +388,7 @@ export default defineComponent({
         }
       }
 
-      // set nromal end cell position`
+      // set normal end cell position`
       if (type === 'normalEndCell') {
         isNormalEndCellOverflow = true
         if (normalEndCellEl.value) {
@@ -408,10 +405,8 @@ export default defineComponent({
       }
 
       // current cell overflow or normal end cell overflow && is virtual scroll
-      if (
-        (isCurrentCellOverflow || isNormalEndCellOverflow) &&
-        props.isVirtualScroll
-      ) {
+      const cellOverflow = isCurrentCellOverflow || isNormalEndCellOverflow
+      if (cellOverflow && props.isVirtualScroll) {
         const { currentCell, normalEndCell } = props.cellSelectionData
         // 弥补的
         let mackUpColKey
@@ -490,7 +485,7 @@ export default defineComponent({
     }
     // 1、selection current
     // 2、auto fill area
-    function getSelectionCurrent({ fixedType }) {
+    function getSelectionCurrent(fixedType:ColumnFixedType) {
       const result: Record<string, any> = {
         selectionCurrent: null,
         autoFillArea: null,
@@ -572,7 +567,7 @@ export default defineComponent({
 
     // 1、normal area
     // 2、auto fill area
-    function getSelectionAreas({ fixedType }) {
+    function getSelectionAreas(fixedType:ColumnFixedType) {
       const result: Record<string, any> = {
         normalArea: null,
         autoFillArea: null,
@@ -923,7 +918,9 @@ export default defineComponent({
       } else {
         return result
       }
-
+      if (typeof props.cellAutofillOption !== 'object') {
+        throw new TypeError('cellAutofillOption 类型不正确')
+      }
       const { directionX, directionY } = props.cellAutofillOption
       if (isBoolean(directionX) && !directionX) {
         if (
@@ -973,7 +970,6 @@ export default defineComponent({
       return result
     }
 
-    // get borders
     interface GetBorderAgu {
       borderWidth: any
       borderHeight: any
@@ -1231,7 +1227,7 @@ export default defineComponent({
     }
 
     //  用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
-    function getTableFirstRowCellByColKey(colKey) {
+    function getTableFirstRowCellByColKey(colKey:any) {
       let result = null
 
       if (props.tableEl) {
@@ -1240,7 +1236,7 @@ export default defineComponent({
       return result
     }
     // 用作跨页单元格选择，表格大小变化或者存在横向滚动条时，区域选择位置自动校准
-    function getTableLastRowCellByColKey(colKey) {
+    function getTableLastRowCellByColKey(colKey:any) {
       let result = null
 
       if (props.tableEl) {
@@ -1251,8 +1247,7 @@ export default defineComponent({
       return result
     }
 
-    // get table el
-    function getTableCellEl({ rowKey, colKey }) {
+    function getTableCellEl({ rowKey, colKey }:any) {
       let result = null
 
       if (props.tableEl) {
@@ -1263,7 +1258,6 @@ export default defineComponent({
       return result
     }
 
-    // set current cell el
     function setCurrentCellEl() {
       const { rowKey, colKey } = props.cellSelectionData.currentCell
 
@@ -1278,7 +1272,6 @@ export default defineComponent({
       }
     }
 
-    // set normal end cell el
     function setNormalEndCellEl() {
       const { rowKey, colKey } = props.cellSelectionData.normalEndCell
 
@@ -1293,7 +1286,6 @@ export default defineComponent({
       }
     }
 
-    // set auto fill cell el
     function setAutofillEndCellEl() {
       const { rowKey, colKey } = props.cellSelectionData.autoFillEndCell
 
@@ -1308,7 +1300,6 @@ export default defineComponent({
       }
     }
 
-    // clear auto fill end cell rect
     function clearAutofillEndCellRect() {
       autoFillEndCellEl.value = null
       cellSelectionRect.value.autoFillEndCellRect = {
@@ -1319,7 +1310,6 @@ export default defineComponent({
       }
     }
 
-    // clear current cell rect
     function clearCurrentCellRect() {
       currentCellEl.value = null
       cellSelectionRect.value.currentCellRect = {
@@ -1330,7 +1320,6 @@ export default defineComponent({
       }
     }
 
-    // clear normal end cell rect
     function clearNormalEndCellRect() {
       normalEndCellEl.value = null
       cellSelectionRect.value.normalEndCellRect = {
@@ -1356,7 +1345,7 @@ export default defineComponent({
             debounceSetCellEls()
 
             resetCellPositions()
-            // debounce reset cell positions
+
             debounceResetCellPositions()
           },
         )
@@ -1374,7 +1363,6 @@ export default defineComponent({
             })
           },
         )
-
         // add clipboard cell value change hook
         props.hooks.addHook(
           HOOKS_NAME.CLIPBOARD_CELL_VALUE_CHANGE,
@@ -1387,14 +1375,14 @@ export default defineComponent({
       }
     }, {
       immediate: true,
-    },)
-    // watch current cell
+    })
     watch(() => props.cellSelectionData?.currentCell,
       function (val: any) {
+        // console.log('🚀 ~ setup ~ val:', val)
         const { rowKey, colKey } = val
         if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
           setCurrentCellEl()
-          setSelectionPositions({ type: 'currentCell' })
+          setSelectionPositions('currentCell')
         } else {
           clearCurrentCellRect()
         }
@@ -1403,13 +1391,12 @@ export default defineComponent({
         deep: true,
         immediate: true,
       })
-    // watch normal end cell
     watch(() => props.cellSelectionData?.normalEndCell, function (val) {
       const { rowKey, colKey } = val
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         // set normal end cell el
         setNormalEndCellEl()
-        setSelectionPositions({ type: 'normalEndCell' })
+        setSelectionPositions('normalEndCell')
       } else {
         clearNormalEndCellRect()
       }
@@ -1417,13 +1404,13 @@ export default defineComponent({
     }, {
       deep: true,
       immediate: true,
-    },)
+    })
     // watch autofill cell
     watch(() => props.cellSelectionData?.autoFillEndCell, function (val) {
       const { rowKey, colKey } = val
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
         setAutofillEndCellEl()
-        setSelectionPositions({ type: 'autoFillEndCell' })
+        setSelectionPositions('autoFillEndCell')
       } else {
         clearAutofillEndCellRect()
       }
@@ -1432,30 +1419,57 @@ export default defineComponent({
       immediate: true,
     })
     // watch end
-
-    // fixed left
-    const fixedLeftSelectionCurrent = getSelectionCurrent({ fixedType: COLUMN_FIXED_TYPE.LEFT, })
-    const fixedLeftSelectionArea = getSelectionAreas({ fixedType: COLUMN_FIXED_TYPE.LEFT, })
-
-    const fixedLeftAutoFillArea = fixedLeftSelectionCurrent.autoFillArea || fixedLeftSelectionArea.autoFillArea
-
-    // middle
-    const middleSelectionCurrent = getSelectionCurrent({ fixedType: '' })
-    const middleSelectionArea = getSelectionAreas({ fixedType: '' })
-
-    const middleAutoFillArea = middleSelectionCurrent.autoFillArea || middleSelectionArea.autoFillArea
-
-    // fixed right
-    const fixedRightSelectionCurrent = getSelectionCurrent({
-      fixedType: COLUMN_FIXED_TYPE.RIGHT,
-    })
-    const fixedRightSelectionArea = getSelectionAreas({
-      fixedType: COLUMN_FIXED_TYPE.RIGHT,
-    })
-
-    const fixedRightAutoFillArea = fixedRightSelectionCurrent.autoFillArea || fixedRightSelectionArea.autoFillArea
     if (!selectionBordersVisibility.value) {
-      return null
+      return <></>
+    }
+
+    function FixedLeftSelection() {
+      const fixedLeftSelectionCurrent = getSelectionCurrent('left')
+      const fixedLeftSelectionArea = getSelectionAreas('left')
+
+      const fixedLeftAutoFillArea = fixedLeftSelectionCurrent.autoFillArea || fixedLeftSelectionArea.autoFillArea
+      return (<div class={clsName('selection-fixed-left')}>
+        {/* current */}
+        {fixedLeftSelectionCurrent.selectionCurrent}
+        {/* area */}
+        {fixedLeftSelectionArea.normalArea}
+        {/* auto fill */}
+        {fixedLeftAutoFillArea}
+        {/* area layer */}
+        {fixedLeftSelectionArea.normalAreaLayer}
+      </div>)
+    }
+    function MiddleAreaSelection() {
+      const middleSelectionCurrent = getSelectionCurrent('')
+      const middleSelectionArea = getSelectionAreas('')
+
+      const middleAutoFillArea = middleSelectionCurrent.autoFillArea || middleSelectionArea.autoFillArea
+      return <div class={clsName('selection-middle')}>
+        {/* current */}
+        {middleSelectionCurrent.selectionCurrent && <middleSelectionCurrent.selectionCurrent />}
+        {/* area */}
+        {middleSelectionArea.normalArea && <middleSelectionArea.normalArea />}
+        {/* auto fill */}
+        {middleAutoFillArea && <middleAutoFillArea />}
+        {/* area layer */}
+        {middleSelectionArea.normalArea && <middleSelectionArea.normalAreaLayer />}
+      </div>
+    }
+    function FixedRightSelection() {
+      const fixedRightSelectionCurrent = getSelectionCurrent('right')
+      const fixedRightSelectionArea = getSelectionAreas('right')
+
+      const fixedRightAutoFillArea = fixedRightSelectionCurrent.autoFillArea || fixedRightSelectionArea.autoFillArea
+      return <div class={clsName('selection-fixed-right')}>
+        {/* current */}
+        {fixedRightSelectionCurrent.selectionCurrent}
+        {/* area */}
+        {fixedRightSelectionArea.normalArea}
+        {/* auto fill */}
+        {fixedRightAutoFillArea}
+        {/* area layer */}
+        {fixedRightSelectionArea.normalAreaLayer}
+      </div>
     }
     const containerStyle: Record<string, string> = { visibility: props.isCellEditing ? 'hidden' : '' }
     return () => (
@@ -1463,36 +1477,9 @@ export default defineComponent({
         class={clsName('selection-wrapper')}
         style={containerStyle}
       >
-        <div class={clsName('selection-fixed-left')}>
-          {/* current */}
-          {fixedLeftSelectionCurrent.selectionCurrent}
-          {/* area */}
-          {fixedLeftSelectionArea.normalArea}
-          {/* auto fill */}
-          {fixedLeftAutoFillArea}
-          {/* area layer */}
-          {fixedLeftSelectionArea.normalAreaLayer}
-        </div>
-        <div class={clsName('selection-middle')}>
-          {/* current */}
-          {middleSelectionCurrent.selectionCurrent}
-          {/* area */}
-          {middleSelectionArea.normalArea}
-          {/* auto fill */}
-          {middleAutoFillArea}
-          {/* area layer */}
-          {middleSelectionArea.normalAreaLayer}
-        </div>
-        <div class={clsName('selection-fixed-right')}>
-          {/* current */}
-          {fixedRightSelectionCurrent.selectionCurrent}
-          {/* area */}
-          {fixedRightSelectionArea.normalArea}
-          {/* auto fill */}
-          {fixedRightAutoFillArea}
-          {/* area layer */}
-          {fixedRightSelectionArea.normalAreaLayer}
-        </div>
+        <FixedLeftSelection />
+        <MiddleAreaSelection/>
+        <FixedRightSelection/>
       </div>
     )
   }
