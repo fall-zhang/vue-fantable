@@ -69,7 +69,7 @@ export default defineComponent({
   },
   emits: ['editInputValueChange', 'editInputClick', 'editInputCopy', 'editInputPaste', 'editInputCut'],
   setup(props, { emit, expose }) {
-    const textareaInputRef = ref()
+    const textareaInputRef = ref<HTMLTextAreaElement>()
     // raw cell value
     const rawCellValue = ref('')
     // display textarea
@@ -195,6 +195,13 @@ export default defineComponent({
       deep: true,
       immediate: true,
     })
+    // watch 替代 focus
+    // watch(isEditCellFocus, (newVal) => {
+    //   if (newVal === true) {
+    //     nextTick(() => textareaInputRef.value?.focus())
+    //   }
+    //   console.log('🚀 ~ watch ~ textareaInputRef.value:', textareaInputRef.value)
+    // })
     // watch normal end cell
     watch(() => props.cellSelectionData?.normalEndCell, (val) => {
       // trigger editor(textarea) element select
@@ -376,10 +383,8 @@ export default defineComponent({
         // solve error of number slice method
         value += ''
 
-        const newValue = `${value.slice(
-          0,
-          caretPosition,
-        )}\n${value.slice(caretPosition)}`
+        const newValue = `${value.slice(0, caretPosition)}
+        ${value.slice(caretPosition)}`
 
         // 直接更新 textarea 值
         textareaInputEl.value = newValue
@@ -424,7 +429,8 @@ export default defineComponent({
       },
     })
     expose({
-      textareaAddNewLine
+      textareaAddNewLine,
+      textareaSelect
     })
     return () => (
       <div ref={containerEl} {...containerProps}>
