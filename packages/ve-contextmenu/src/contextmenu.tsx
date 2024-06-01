@@ -3,14 +3,13 @@ import { VeIcon } from '@P/ve-icon/ve-icon'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { getMousePosition, getViewportOffset } from '@P/src/utils/dom'
 import {
-  INIT_DATA,
+  INIT_PARENT_DEEP,
   CONTEXTMENU_NODE_TYPES,
 } from './util/constant'
 import { getRandomId } from '@P/src/utils/random'
 import { debounce, cloneDeep } from '@P/src/utils/index.js'
 import eventsOutside from '@P/src/directives/events-outside'
 import { defineComponent } from 'vue'
-
 export default defineComponent({
   name: 'VeContextmenu',
   directives: {
@@ -223,7 +222,7 @@ export default defineComponent({
           parentId: currentMenu ? currentMenu.id : rootContextmenuId,
           parentDeep: currentMenu
             ? currentMenu.deep
-            : INIT_DATA.PARENT_DEEP,
+            : INIT_PARENT_DEEP,
           menus,
         })
       }
