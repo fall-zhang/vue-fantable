@@ -9,7 +9,7 @@ import {
 import { getRandomId } from '@P/src/utils/random'
 import { debounce, cloneDeep } from '@P/src/utils/index.js'
 import eventsOutside from '@P/src/directives/events-outside'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 export default defineComponent({
   name: 'VeContextmenu',
   directives: {
@@ -26,189 +26,155 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['nodeClick'],
-  data() {
-    return {
-      internalOptions: [],
-      panelOptions: [],
-      // event target element
-      eventTargetEl: '',
-      // root contextmenu id
-      rootContextmenuId: '',
-      /*
-      is children panels clicked
-      如果点击了则不关闭 panels
-      */
-      isChildrenPanelsClicked: false,
-      /*
-      is panel right direction
-      决定了子 panel 默认展示方向
-      */
-      isPanelRightDirection: true,
-      /*
-      is panels remove
-      防止hover后菜单被移除，仍然显示子集菜单的问题
-      */
-      isPanelsEmptyed: true,
-    }
-  },
-  computed: {
+
+  setup(props, { expose, emit }) {
+    const internalOptions = ref<any[]>([])
+    const panelOptions = ref<any[]>([])
+    const eventTargetEl = ref()
+    const rootContextmenuId = ref('')
+    // 如果点击了则不关闭 panels
+    const isChildrenPanelsClicked = ref(false)
+    // 决定了子 panel 默认展示方向
+    const isPanelRightDirection = ref(true)
+    /*
+    is panels remove
+    防止hover后菜单被移除，仍然显示子集菜单的问题
+    */
+    const isPanelsEmptied = ref(true)
     // active menus ids
-    activeMenuIds() {
-      const { panelOptions } = this
+    const activeMenuIds = computed(() => {
+      return panelOptions.value.map((x:any) => x.parentId)
+    })
 
-      return panelOptions.map((x) => x.parentId)
+    watch(() => props.options, (val) => {
+      if (Array.isArray(val) && val.length > 0) {
+        /*
+        如果配置项修改,则重新销毁并创建
+        */
+        removeOrEmptyPanels(true)
+        rootContextmenuId.value = getRandomIdWithPrefix()
+        createInternalOptions()
+        createPanelOptions({ options: internalOptions.value })
+        resetContextmenu()
+        addRootContextmenuPanelToBody()
+      }
     },
-  },
-
-  watch: {
-    options: {
-      handler(val) {
-        if (Array.isArray(val) && val.length > 0) {
-          /*
-          如果配置项修改,则重新销毁并创建
-          */
-          this.removeOrEmptyPanels(true)
-          this.rootContextmenuId = this.getRandomIdWithPrefix()
-          this.createInternalOptions()
-          this.createPanelOptions({ options: this.internalOptions })
-          this.resetContextmenu()
-          this.addRootContextmenuPanelToBody()
-        }
-      },
+    {
       immediate: true,
-    },
-    eventTarget: {
-      handler(val) {
-        if (val) {
-          this.registerContextmenuEvent()
-        }
-      },
-      immediate: true,
-    },
-  },
+    })
+    watch(() => props.eventTarget, (val) => {
+      if (val) {
+        registerContextmenuEvent()
+      }
+    },    {      immediate: true    })
 
-  created() {
-    this.debounceCreatePanelByHover = debounce(
-      this.createPanelByHover,
-      300,
-    )
-  },
+    onMounted(() => {
+      addRootContextmenuPanelToBody()
+    })
 
-  mounted() {
-    this.addRootContextmenuPanelToBody()
-  },
+    onUnmounted(() => {
+      removeContextmenuEvent()
+      removeOrEmptyPanels(true)
+    })
 
-  unmounted() {
-    this.removeContextmenuEvent()
-    this.removeOrEmptyPanels(true)
-  },
-
-  methods: {
     // get random id
-    getRandomIdWithPrefix() {
+    function getRandomIdWithPrefix() {
       return clsName(getRandomId())
-    },
+    }
 
     // has children
-    hasChildren(option) {
+    function hasChildren(option) {
       return Array.isArray(option.children) && option.children.length
-    },
+    }
 
     // get panel option by menu id
-    getPanelOptionByMenuId(options, menuId) {
+    function getPanelOptionByMenuId(options, menuId) {
       for (let i = 0; i < options.length; i++) {
         if (options[i].id === menuId) {
           return options[i].children
         }
 
         if (options[i].children) {
-          const panelOption = this.getPanelOptionByMenuId(
+          const panelOption = getPanelOptionByMenuId(
             options[i].children,
             menuId,
           )
           if (panelOption) return panelOption
         }
       }
-    },
+    }
 
     // get parent contextmenu panel element
-    getParentContextmenuPanelEl(contextmenuPanelId) {
+    function getParentContextmenuPanelEl(contextmenuPanelId) {
       let result
 
-      const { panelOptions } = this
-
-      const panelIndex = panelOptions.findIndex(
+      const panelIndex = panelOptions.value.findIndex(
         (x) => x.parentId === contextmenuPanelId,
       )
       if (panelIndex > 0) {
         // preview panel's panelId
-        const parentPanelId = panelOptions[panelIndex - 1].parentId
+        const parentPanelId = panelOptions.value[panelIndex - 1].parentId
         result = document.querySelector(`#${parentPanelId}`)
       }
       return result
-    },
+    }
 
     // create panel by hover
-    createPanelByHover({ event, menu }) {
-      const { internalOptions, panelOptions } = this
-
+    function createPanelByHover({ event, menu }) {
       // 如果被移除则不创建
-      if (this.isPanelsEmptyed) {
+      if (isPanelsEmptied) {
         return false
       }
 
       // has already exists
-      if (panelOptions.findIndex((x) => x.parentId === menu.id) > -1) {
+      if (panelOptions.value.findIndex((x) => x.parentId === menu.id) > -1) {
         return false
       }
 
       // remove panels
       // 移除 panel 深度大于等于当前悬浮菜单的。从后往前删除
-      const deletePanelDeeps = panelOptions
+      const deletePanelDeeps = panelOptions.value
         .filter((x) => x.parentDeep >= menu.deep)
         .map((x) => x.parentDeep)
         .reverse()
 
       if (deletePanelDeeps.length) {
         for (let i = deletePanelDeeps.length - 1; i >= 0; i--) {
-          const delIndex = panelOptions.findIndex(
+          const delIndex = panelOptions.value.findIndex(
             (x) => x.parentDeep === deletePanelDeeps[i],
           )
           if (delIndex > -1) {
-            this.panelOptions.splice(delIndex, 1)
+            panelOptions.value.splice(delIndex, 1)
           }
         }
       }
 
-      const panelOption = this.getPanelOptionByMenuId(
-        internalOptions,
+      const panelOption = getPanelOptionByMenuId(
+        internalOptions:internalOptions.value,
         menu.id,
       )
 
       if (panelOption) {
-        this.createPanelOptions({
+        createPanelOptions({
           options: panelOption,
           currentMenu: menu,
         })
 
-        this.$nextTick(() => {
-          this.addContextmenuPanelToBody({
+        nextTick(() => {
+          addContextmenuPanelToBody({
             contextmenuId: menu.id,
           })
 
-          this.showContextmenuPanel({
+          showContextmenuPanel({
             event,
             contextmenuId: menu.id,
           })
         })
       }
-    },
+    }
 
     // create panels option
-    createPanelOptions({ options, currentMenu }) {
-      const { hasChildren, rootContextmenuId } = this
-
+    function createPanelOptions({ options, currentMenu }) {
       if (Array.isArray(options)) {
         //
         const menus = options.map((option) => {
@@ -218,58 +184,54 @@ export default defineComponent({
           }
         })
 
-        this.panelOptions.push({
-          parentId: currentMenu ? currentMenu.id : rootContextmenuId,
+        panelOptions.value.push({
+          parentId: currentMenu ? currentMenu.id : rootContextmenuId.value,
           parentDeep: currentMenu
             ? currentMenu.deep
             : INIT_PARENT_DEEP,
           menus,
         })
       }
-    },
+    }
 
     // create internal options recursion
-    createInternalOptionsRecursion(options, deep = 0) {
-      options.id = this.getRandomIdWithPrefix()
+    function createInternalOptionsRecursion(options, deep = 0) {
+      options.id = getRandomIdWithPrefix()
       options.deep = deep
       deep++
       if (Array.isArray(options.children)) {
         options.children.map((option) => {
-          return this.createInternalOptionsRecursion(option, deep)
+          return createInternalOptionsRecursion(option, deep)
         })
       }
 
       return options
-    },
+    }
 
     // create internal options
-    createInternalOptions() {
-      this.internalOptions = cloneDeep(this.options).map((option) => {
-        return this.createInternalOptionsRecursion(option)
+    function createInternalOptions() {
+      internalOptions.value = cloneDeep(props.options).map((option) => {
+        return createInternalOptionsRecursion(option)
       })
-    },
+    }
 
     // show root contextmenu panel
-    showRootContextmenuPanel(event) {
+    function showRootContextmenuPanel(event) {
       event.preventDefault()
-      const { rootContextmenuId } = this
-
-      if (rootContextmenuId) {
+      if (rootContextmenuId.value) {
         // refresh contextmenu
-        this.resetContextmenu()
-        this.showContextmenuPanel({
+        resetContextmenu()
+        showContextmenuPanel({
           event,
-          contextmenuId: rootContextmenuId,
+          contextmenuId: rootContextmenuId.value,
           isRootContextmenu: true,
         })
-        this.isPanelsEmptyed = false
+        isPanelsEmptied.value = false
       }
-    },
+    }
 
     // show contextmenu panel
-    showContextmenuPanel({ event, contextmenuId, isRootContextmenu }:any) {
-      const { getParentContextmenuPanelEl } = this
-
+    function showContextmenuPanel({ event, contextmenuId, isRootContextmenu }:any) {
       const contextmenuPanelEl = document.querySelector(`#${contextmenuId}`)
 
       if (contextmenuPanelEl) {
@@ -297,10 +259,10 @@ export default defineComponent({
           // 右方宽度够显示
           if (clickRight >= currentPanelWidth) {
             panelX = clickLeft
-            this.isPanelRightDirection = true
+            isPanelRightDirection.value = true
           } else { // 右方宽度不够显示在鼠标点击左方
             panelX = clickLeft - currentPanelWidth
-            this.isPanelRightDirection = false
+            isPanelRightDirection.value = false
           }
 
           // 下方高度够显示
@@ -332,7 +294,7 @@ export default defineComponent({
             let panelY = 0
 
             // 如果默认展示在右方向
-            if (this.isPanelRightDirection) {
+            if (isPanelRightDirection.value) {
               // 右方宽度够显示
               if (parentPanelRight >= currentPanelWidth) {
                 panelX = parentPanelLeft + parentPanelWidth
@@ -360,27 +322,24 @@ export default defineComponent({
           }
         }
       }
-    },
-
+    }
     // empty contextmenu panels
-    emptyContextmenuPanels() {
-      // wait for children panel clicked by setTimeout
-      // 如果点击的是非 root panel 不关闭
+    function emptyContextmenuPanels() {
+    // wait for children panel clicked by setTimeout
+    // 如果点击的是非 root panel 不关闭
       setTimeout(() => {
-        if (this.isChildrenPanelsClicked) {
-          this.isChildrenPanelsClicked = false
+        if (isChildrenPanelsClicked.value) {
+          isChildrenPanelsClicked.value = false
         } else {
-          this.removeOrEmptyPanels()
-          this.isPanelsEmptyed = true
+          removeOrEmptyPanels()
+          isPanelsEmptied.value = true
         }
       })
-    },
+    }
 
     // remove or empty panels
-    removeOrEmptyPanels(isRemove) {
-      const { panelOptions } = this
-
-      panelOptions.forEach((panelOption) => {
+    function removeOrEmptyPanels(isRemove?:boolean) {
+      panelOptions.value.forEach((panelOption) => {
         const contextmenuPanelEl = document.querySelector(
           `#${panelOption.parentId}`,
         )
@@ -392,16 +351,16 @@ export default defineComponent({
           }
         }
       })
-    },
+    }
 
     // reset contextmeny
-    resetContextmenu() {
-      this.panelOptions = []
-      this.createPanelOptions({ options: this.internalOptions })
-    },
+    function resetContextmenu() {
+      panelOptions.value = []
+      createPanelOptions({ options: internalOptions.value })
+    }
 
     // add context menu panel to body
-    addContextmenuPanelToBody({ contextmenuId }) {
+    function addContextmenuPanelToBody({ contextmenuId }) {
       const contextmenuPanelEl = document.querySelector(`#${contextmenuId}`)
 
       if (contextmenuPanelEl) {
@@ -413,85 +372,77 @@ export default defineComponent({
 
         document.body.appendChild(containerEl)
       }
-    },
+    }
 
     // add root contextmenu panel to body
-    addRootContextmenuPanelToBody() {
-      if (this.rootContextmenuId) {
-        this.addContextmenuPanelToBody({
-          contextmenuId: this.rootContextmenuId,
+    function addRootContextmenuPanelToBody() {
+      if (rootContextmenuId.value) {
+        addContextmenuPanelToBody({
+          contextmenuId: rootContextmenuId.value,
         })
       }
-    },
+    }
 
     // 注册菜单事件
-    registerContextmenuEvent() {
-      const { eventTarget } = this
+    function registerContextmenuEvent() {
+      const  eventTarget  = props.eventTarget
 
       if (typeof eventTarget === 'string' && eventTarget.length > 0) {
-        this.eventTargetEl = document.querySelector(eventTarget)
+        eventTargetEl.value = document.querySelector(eventTarget)
       } else {
-        this.eventTargetEl = eventTarget
+        eventTargetEl.value = eventTarget
       }
 
-      if (this.eventTargetEl) {
+      if (eventTargetEl.value) {
         // contextmenu is on the current element
-        this.eventTargetEl.addEventListener(
+        eventTargetEl.value.addEventListener(
           'contextmenu',
-          this.showRootContextmenuPanel,
+          showRootContextmenuPanel,
         )
       }
-    },
+    }
 
-    // unregister contextmen event
-    removeContextmenuEvent() {
-      if (this.eventTargetEl) {
-        this.eventTargetEl.removeEventListener(
+    // unregister contextmenu event
+    function removeContextmenuEvent() {
+      if (eventTargetEl.value) {
+        eventTargetEl.value.removeEventListener(
           'contextmenu',
-          this.showRootContextmenuPanel,
+          showRootContextmenuPanel,
         )
       }
-    },
+    }
 
     // hide contextmenu
-    hideContextmenu() {
-      this.emptyContextmenuPanels()
-    },
-  },
-
-  render() {
-    const {
-      panelOptions,
-      activeMenuIds,
-      hasChildren,
-      emptyContextmenuPanels,
-      debounceCreatePanelByHover,
-    } = this
+    function hideContextmenu() {
+      emptyContextmenuPanels()
+    }
 
     const contextmenuProps = {
       class: ['ve-contextmenu'],
       style: { display: 'none' },
     }
-
+    const debounceCreatePanelByHover = debounce(
+      createPanelByHover,      300,
+    )
     return (
       <div {...contextmenuProps}>
-        {panelOptions.map((panelOption, panelIndex) => {
+        {panelOptions.value.map((panelOption, panelIndex) => {
           const contextmenuPanelProps = {
             ref: panelOption.parentId,
             class: clsName('panel'),
             onClick: () => {
               if (panelIndex !== 0) {
-                this.isChildrenPanelsClicked = true
+                isChildrenPanelsClicked.value = true
               }
             },
-            onContextmenu: (e:Event) => {
+            onContextmenu: (e: Event) => {
               e.preventDefault()
             },
           }
           return (
             <div {...contextmenuPanelProps} v-events-outside={{
               events: ['click'],
-              callback: (e:Event) => {
+              callback: (e: Event) => {
                 // only for root panel
                 if (panelIndex === 0) {
                   emptyContextmenuPanels()
@@ -508,10 +459,10 @@ export default defineComponent({
                     contextmenuNodeProps = {
                       class: {
                         [clsName('node')]: true,
-                        [nodeActive]: activeMenuIds.includes(menu.id),
+                        [nodeActive]: activeMenuIds.value.includes(menu.id),
                         [nodeDisable]: menu.disabled
                       },
-                      onMouseover: (event) => {
+                      onMouseover: (event:MouseEvent) => {
                         // disable
                         if (!menu.disabled) {
                           debounceCreatePanelByHover({ event, menu })
@@ -520,7 +471,7 @@ export default defineComponent({
                       onClick: () => {
                         if (!menu.disabled && !hasChildren(menu)) {
                           // EMIT_EVENTS.ON_NODE_CLICK,
-                          this.$emit('nodeClick', menu.type)
+                          emit('nodeClick', menu.type)
                           setTimeout(() => {
                             emptyContextmenuPanels()
                           }, 50)
