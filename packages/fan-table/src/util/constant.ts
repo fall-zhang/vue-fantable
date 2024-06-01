@@ -145,34 +145,6 @@ export const COMPS_CUSTOM_ATTRS = {
   BODY_COLUMN_KEY: 'col-key',
 }
 
-// instance methods
-export const INSTANCE_METHODS = {
-  // scroll to pixels
-  SCROLL_TO: 'scrollTo',
-  // scroll to rowKey
-  SCROLL_TO_ROW_KEY: 'scrollToRowKey',
-  // scroll to colKey
-  SCROLL_TO_COL_KEY: 'scrollToColKey',
-  // start editing cell
-  START_EDITING_CELL: 'startEditingCell',
-  // stop editing cell
-  STOP_EDITING_CELL: 'stopEditingCell',
-  // set highlight row
-  SET_HIGHLIGHT_ROW: 'setHighlightRow',
-  // set cell selection
-  SET_CELL_SELECTION: 'setCellSelection',
-  // set range cell selection
-  SET_RANGE_CELL_SELECTION: 'setRangeCellSelection',
-  // get range cell selection
-  GET_RANGE_CELL_SELECTION: 'getRangeCellSelection',
-  // set all cell selection
-  SET_ALL_CELL_SELECTION: 'setAllCellSelection',
-  // hide columns by keys
-  HIDE_COLUMNS_BY_KEYS: 'hideColumnsByKeys',
-  // show columns by keys
-  SHOW_COLUMNS_BY_KEYS: 'showColumnsByKeys',
-}
-
 // contextmenu types
 export const CONTEXTMENU_TYPES = {
   HEADER_CONTEXTMENU: 'headerContextmenu',

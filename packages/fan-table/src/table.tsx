@@ -70,7 +70,7 @@ import TableBody from './body/body'
 import TableFooter from './footer/index'
 import EditInput from './editor/editor'
 // import EditInput from './editor/index'
-import Selection from './selection/index'
+import Selection from './selection/selection'
 import clickOutside from '@P/src/directives/clickoutside'
 import VueDomResizeObserver from '@P/src/components/resize-observer/index'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
@@ -968,16 +968,16 @@ export default defineComponent({
     }
 
     // deal keydown event
-    function dealKeydownEvent(event: any) {
-      const { keyCode, ctrlKey, shiftKey, altKey } = event
+    function dealKeydownEvent(event: KeyboardEvent) {
+      const { key, ctrlKey, shiftKey, altKey } = event
 
       const { rowKey, colKey } = cellSelectionData.value.currentCell
 
       const currentColumn = colgroups.value.find((x) => x.key === colKey)
 
       if (!isEmptyValue(rowKey) && !isEmptyValue(colKey)) {
-        switch (keyCode) {
-        case KEY_CODES.TAB: {
+        switch (key) {
+        case 'Tab': {
           let direction
           if (shiftKey) {
             direction = CELL_SELECTION_DIRECTION.LEFT
@@ -993,7 +993,7 @@ export default defineComponent({
           event.preventDefault()
           break
         }
-        case KEY_CODES.ARROW_LEFT: {
+        case 'ArrowLeft': {
           const direction = CELL_SELECTION_DIRECTION.LEFT
           if (enableStopEditing.value) {
             selectCellByDirection({
@@ -1008,7 +1008,7 @@ export default defineComponent({
 
           break
         }
-        case KEY_CODES.ARROW_RIGHT: {
+        case 'ArrowRight': {
           const direction = CELL_SELECTION_DIRECTION.RIGHT
 
           if (enableStopEditing.value) {
@@ -1023,7 +1023,7 @@ export default defineComponent({
           }
           break
         }
-        case KEY_CODES.ARROW_UP: {
+        case 'ArrowUp': {
           const direction = CELL_SELECTION_DIRECTION.UP
 
           if (enableStopEditing.value) {
@@ -1036,7 +1036,7 @@ export default defineComponent({
           }
           break
         }
-        case KEY_CODES.ARROW_DOWN: {
+        case 'ArrowDown': {
           const direction = CELL_SELECTION_DIRECTION.DOWN
 
           if (enableStopEditing.value) {
@@ -1051,7 +1051,7 @@ export default defineComponent({
           }
           break
         }
-        case KEY_CODES.ENTER: {
+        case 'Enter': {
           let direction
           // add new line
           if (altKey) {
@@ -1076,7 +1076,7 @@ export default defineComponent({
           event.preventDefault()
           break
         }
-        case KEY_CODES.SPACE: {
+        case ' ': {
           if (!isCellEditing.value) {
             // start editing and enter a space
             startEditingCell({
@@ -1089,7 +1089,7 @@ export default defineComponent({
 
           break
         }
-        case KEY_CODES.BACK_SPACE: {
+        case 'Backspace': {
           if (!isCellEditing.value) {
             // start editing and clear value
             startEditingCell({
@@ -1102,7 +1102,7 @@ export default defineComponent({
 
           break
         }
-        case KEY_CODES.DELETE: {
+        case 'Delete': {
           if (!isCellEditing.value) {
             // delete cell selection range value
             deleteCellSelectionRangeValue()
@@ -1111,7 +1111,7 @@ export default defineComponent({
 
           break
         }
-        case KEY_CODES.F2: {
+        case 'F2': {
           if (!isCellEditing.value) {
             if (currentColumn.edit) {
               // start editing cell and don't allow stop eidting by direction key
@@ -1171,7 +1171,6 @@ export default defineComponent({
     }
 
     /**
-      * @columnToVisible
       * @desc  column to visible
       * @param {object} nextColumn - next column
       */
@@ -1217,7 +1216,6 @@ export default defineComponent({
     /**
      * @rowToVisible
      * @desc  row to visible
-     * @param {number} keyCode - current keyCode
      * @param {any} nextRowKey - next row key
      */
     function rowToVisible(keyCode: number, nextRowKey: any) {
@@ -1234,8 +1232,7 @@ export default defineComponent({
       )
 
       if (nextRowEl) {
-        const { offsetTop: trOffsetTop, clientHeight: trClientHeight } =
-          nextRowEl
+        const { offsetTop: trOffsetTop, clientHeight: trClientHeight } = nextRowEl
 
         const parentOffsetTop = tableContentWrapperRef.value.$el.offsetTop
 
@@ -1254,9 +1251,7 @@ export default defineComponent({
         } else if (keyCode === KEY_CODES.ARROW_DOWN) { // arrow down
           let diff = 0
           if (isVirtualScroll.value) {
-            diff =
-              trOffsetTop -
-              (containerScrollTop - parentOffsetTop) +
+            diff = trOffsetTop - (containerScrollTop - parentOffsetTop) +
               trClientHeight +
               footerTotalHeight.value -
               containerClientHeight
@@ -1658,7 +1653,6 @@ export default defineComponent({
               changeValue,
             })
             if (isBoolean(allowChange) && !allowChange) {
-              // celar editing cell
               clearEditingCell()
               return false
             }
@@ -1681,7 +1675,6 @@ export default defineComponent({
               changeValue,
             })
 
-          // celar editing cell
           clearEditingCell()
         }
 
@@ -1705,11 +1698,11 @@ export default defineComponent({
     }
 
     /**
-         * @bodyCellContextmenu
-         * @desc  receive td right click\contextmenu event
-         * @param {object} rowData - row data
-         * @param {object} column - column data
-         */
+     * @bodyCellContextmenu
+     * @desc  receive td right click\contextmenu event
+     * @param {object} rowData - row data
+     * @param {object} column - column data
+     */
     function bodyCellContextmenu({ event, rowData, column }: any) {
       if (props.editOption) {
         const rowKey = getRowKey(rowData, props.rowKeyFieldName)
