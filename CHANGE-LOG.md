@@ -8,6 +8,13 @@ Vx.x.x(TPL)
 - Documents
 - Dependencies Changes
 
+### V0.2.8
+
+#### Feature
+
+- 修复选中 cell 时，移动方向键，滚动条不移动的问题
+- 修复 hover 行高亮的问题
+
 ### V0.2.5
 
 #### Feature
