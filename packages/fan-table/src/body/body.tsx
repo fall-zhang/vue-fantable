@@ -9,7 +9,7 @@ import {
   COLUMN_TYPES,
   EXPAND_TRIGGER_TYPES,
 } from '../util/constant'
-import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
+import VueDomResizeObserver from '@P/src/components/resize-observer//resize-observer.js'
 import BodyTr from './body-tr'
 import ExpandTr from './expand-tr'
 import BodyTrScrolling from './body-tr-scrolling'

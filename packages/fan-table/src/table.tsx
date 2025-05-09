@@ -72,7 +72,7 @@ import EditInput from './editor/editor'
 // import EditInput from './editor/index'
 import Selection from './selection/selection'
 import clickOutside from '@P/src/directives/clickoutside'
-import VueDomResizeObserver from '@P/src/components/resize-observer/index'
+import VueDomResizeObserver from '@P/src/components/resize-observer/resize-observer'
 import VeContextmenu from '@P/ve-contextmenu/ve-contextmenu.js'
 import ColumnResizer from './column-resizer/index'
 import mitt from 'mitt'
@@ -389,7 +389,7 @@ export default defineComponent({
         stripe = rowStyleOption.stripe
       }
       const clsStripe = clsName('stripe')
-      const rowHover = clsName('stripe')
+      const rowHover = clsName('row-hover')
       result = {
         [clsName('body')]: true,
         [clsStripe]: stripe === true, // 默认不开启
@@ -1175,7 +1175,7 @@ export default defineComponent({
       * @param {object} nextColumn - next column
       */
     function columnToVisible(nextColumn: any) {
-      if (!nextColumn || nextColumn) return
+      // if (!nextColumn || nextColumn) return
       if (!hasXScrollBar.value) return false
       if (!tableContainerRef.value) {
         throw new Error("can't not find tableContainerRef")
@@ -1990,6 +1990,7 @@ export default defineComponent({
       // 需要先将之前选中单元格元素清空
       if (isEmptyValue(headerIndicatorColKeys.value.startColKey)) {
         // 值的比较（currentCell.colKey 会变化）
+          console.log("🚀 ~ table.tsx:1999 ~ headerCellMousedown ~ cellSelectionRef:", cellSelectionRef)
         if (
           JSON.stringify(colKeys) !==
           JSON.stringify([currentCell.colKey])

@@ -1,7 +1,7 @@
 import FooterTd from './footer-td'
 import { clsName } from '../util/index.js'
 import { COMPS_NAME, COMPS_CUSTOM_ATTRS } from '../util/constant'
-import VueDomResizeObserver from '@P/src/components/resize-observer/index'
+import VueDomResizeObserver from '@P/src/components/resize-observer/resize-observer'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 import { defineComponent } from 'vue'
 // import eventCenter from '@P/events/event-center.js'

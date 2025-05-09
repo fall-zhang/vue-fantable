@@ -1,7 +1,7 @@
 import HeaderTh from './header-th'
 import { clsName, getDomResizeObserverCompKey } from '../util/index.js'
 import { COMPS_NAME } from '../util/constant'
-import VueDomResizeObserver from '@P/src/components/resize-observer/index.js'
+import VueDomResizeObserver from '@P/src/components/resize-observer/resize-observer.js'
 // import eventCenter from '@P/events/event-center.js'
 import { GLOBAL_EVENT } from '@P/events/global-events.js'
 import { defineComponent } from 'vue'

@@ -1,4 +1,4 @@
-import { useLocal, getLocal } from '@P/hooks/useLocal'
+import { useLocal, getLocal } from '@P/src/hooks/useLocal'
 import type { LocalInfo } from './local'
 
 export default {
