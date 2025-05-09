@@ -1,4 +1,5 @@
-export default {
+import { ObjectDirective } from "vue"
+const ClickOutsideDirective:ObjectDirective = {
   mounted(el, binding, vNode) {
     if (typeof binding.value !== 'function') {
       let msg = `in [clickoutside] directives, provided expression '${binding.expression}' is not a function `
@@ -29,3 +30,5 @@ export default {
     el.__clickOutSide__ = null
   },
 }
+
+export default ClickOutsideDirective

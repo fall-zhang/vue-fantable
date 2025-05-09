@@ -5,8 +5,7 @@ import { VeIcon } from '@P/ve-icon/ve-icon'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { hasValue } from '@P/src/utils/index'
 import { selectProps } from './selectProps'
-import { computed, ref, watch, EmitsOptions, AppContext, defineComponent } from 'vue'
-import type { SelectProps } from './selectProps'
+import { computed, ref, watch, defineComponent } from 'vue'
 import deepClone from '@P/src/utils/cloneDeep'
 export default defineComponent({
   name: COMPS_NAME.VE_SELECT,
@@ -62,7 +61,6 @@ export default defineComponent({
 
     // dropdown change event
     function dropdownChange() {
-      // 使用户传入的 v-model 生效
       emit('update:modelValue', internalOptions.value)
       emit('selectChange', internalOptions.value)
     }

@@ -3,6 +3,8 @@
   desc: 绑定元素触发的事件不在指定事件中，将会触发。此指令可替代 clickoutside
 */
 
+import { ObjectDirective } from "vue"
+
 export default {
   mounted (el, binding, vNode) {
     const { events, callback } = binding.value
@@ -40,4 +42,4 @@ export default {
     })
     el.__eventsOutside__ = null
   },
-}
+} satisfies ObjectDirective

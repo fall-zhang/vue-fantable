@@ -10,7 +10,6 @@ export type SelectProps ={
   modelValue: Array<string|number|boolean>
   items:SelectItem[]
   textAlign: 'left' |'center' |'right'
-
   // 是否支持自定义输入
   customable:boolean
   placeholder:string

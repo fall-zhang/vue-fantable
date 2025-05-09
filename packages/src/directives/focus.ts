@@ -1,7 +1,7 @@
 /*
   element focus
 */
-import { nextTick } from 'vue'
+import { nextTick, ObjectDirective } from 'vue'
 export default {
   updated(el, binding, vnode) {
     const value = binding.value
@@ -27,4 +27,5 @@ export default {
       }
     }
   },
-}
+} satisfies ObjectDirective
+

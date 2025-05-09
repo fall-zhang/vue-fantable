@@ -28,4 +28,4 @@ export const GLOBAL_EVENT = {
   CHECKBOX_SELECTED_ROW_CHANGE: 'checkbox-selected-row-change',
   RADIO_SELECTED_ROW_CHANGE: 'radio-selected-row-change',
   BODY_ROW_CLICK: 'body-row-click',
-}
+} as const

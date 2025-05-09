@@ -1,13 +1,13 @@
 // 适配 TS 暂时保留
 import VeDropdown from '../../ve-dropdown/ve-dropdown'
-import { COMPS_NAME } from './util/constant'
 import { clsName } from './util/index'
 import VeIcon from '../../ve-icon/ve-icon'
 import { ICON_NAMES } from '@P/ve-icon/src/util/constant'
 import { hasValue } from '@P/src/utils/index'
+import { defineComponent } from 'vue'
 
-export default {
-  name: COMPS_NAME.VE_SELECT,
+export default defineComponent({
+  name: 'VeSelect',
   props: {
     width: {
       type: Number,
@@ -192,4 +192,4 @@ export default {
       </VeDropdown>
     )
   },
-}
+})
