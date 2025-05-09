@@ -92,7 +92,7 @@ export default defineComponent({
   },
   emits: ['cellSelectionRangeDataChange'],
 
-  setup(props, { emit }) {
+  setup(props, { emit ,expose}) {
     const eventCenter = inject<Record<EventType, any>>('eventCenter')!
     // data start
     const currentCellEl = ref()
@@ -1319,7 +1319,7 @@ export default defineComponent({
         height: 0,
       }
     }
-
+  
     function clearNormalEndCellRect() {
       normalEndCellEl.value = null
       cellSelectionRect.value.normalEndCellRect = {
@@ -1417,6 +1417,10 @@ export default defineComponent({
     }, {
       deep: true,
       immediate: true,
+    })
+      expose({
+      clearCurrentCellRect,
+      clearNormalEndCellRect
     })
     // watch end
     if (!selectionBordersVisibility.value) {
