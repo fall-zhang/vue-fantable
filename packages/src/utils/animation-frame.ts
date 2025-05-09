@@ -4,14 +4,7 @@ https://github.com/bvaughn/react-virtualized/blob/HEAD/source/utils/animationFra
 */
 
 // Properly handle server-side rendering.
-let win
-if (typeof window !== 'undefined') {
-  win = window
-} else if (typeof self !== 'undefined') {
-  win = self
-} else {
-  win = {}
-}
+let win = globalThis
 
 // requestAnimationFrame() shim by Paul Irish
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/

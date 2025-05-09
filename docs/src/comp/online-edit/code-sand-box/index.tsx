@@ -118,7 +118,7 @@ new Vue({
           build: 'vue-cli-service build',
           lint: 'vue-cli-service lint',
         },
-        browserslist: ['> 1%', 'last 2 versions', 'not ie <= 8'],
+        browserslist: ['> 1%', 'last 2 versions'],
       }
 
       const codesanboxPrefillConfig = {

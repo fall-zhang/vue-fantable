@@ -150,7 +150,7 @@ export default defineComponent({
       }
 
       const panelOption = getPanelOptionByMenuId(
-        internalOptions:internalOptions.value,
+        internalOptions.value,
         menu.id,
       )
 

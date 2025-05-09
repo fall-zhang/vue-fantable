@@ -34,8 +34,6 @@ export function autoResize() {
 
     if (text.textContent !== undefined) {
       text.textContent = el.value + newChar
-    } else {
-      text.data = el.value + newChar // IE8
     }
     span.style.fontSize = getComputedStyle(el).fontSize
     span.style.fontFamily = getComputedStyle(el).fontFamily

@@ -182,8 +182,6 @@ export function onAfterCopy({ event, selectionRangeData }) {
 
   if (event.clipboardData) {
     event.clipboardData.setData('text/plain', spreadsheetStr)
-  } else if (window.clipboardData) { // IE browser
-    window.clipboardData.setData('Text', spreadsheetStr)
   }
 }
 
@@ -351,8 +349,6 @@ export function onAfterCut({
 
   if (event.clipboardData) {
     event.clipboardData.setData('text/plain', spreadsheetStr)
-  } else if (window.clipboardData) { // IE browser
-    window.clipboardData.setData('Text', spreadsheetStr)
   }
 }
 

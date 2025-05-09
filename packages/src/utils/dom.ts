@@ -185,9 +185,7 @@ export function getCaretPosition(el) {
   if (el.selectionStart) {
     return el.selectionStart
   } else if (rootDocument.selection) {
-    // IE8
     el.focus()
-
     const r = rootDocument.selection.createRange()
 
     if (r === null) {
