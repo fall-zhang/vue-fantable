@@ -414,7 +414,7 @@ export function setHeaderContextmenuOptions({
   allRowKeys,
   headerIndicatorColKeys,
   enableHeaderContextmenu,
-  t,
+  $t,
 }) {
   const result = []
 
@@ -462,8 +462,7 @@ export function setHeaderContextmenuOptions({
       })
     }
 
-    const headerContextmenuOptionCollection =
-            getHeaderContextmenuOptionCollection(t)
+    const headerContextmenuOptionCollection = getHeaderContextmenuOptionCollection($t)
 
     contextmenus.forEach((contextmenu) => {
       const contentmenuCollectionItem =
