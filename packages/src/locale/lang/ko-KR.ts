@@ -3,7 +3,7 @@ export default {
     goto: '이동',
     page: '페이지',
     itemsPerPage: ' / 페이지',
-    total: (total) => `총 ${total}`,
+    total: (total:string|number) => `총 ${total}`,
     prev5: '5페이지 뒤로 이동',
     next5: '5페이지 앞으로 이동',
   },

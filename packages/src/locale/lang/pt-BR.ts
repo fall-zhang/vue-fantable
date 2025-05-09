@@ -3,7 +3,7 @@ export default {
     goto: 'Ir para',
     page: '',
     itemsPerPage: ' / página',
-    total: (total) => `Total ${total}`,
+    total: (total:string|number) => `Total ${total}`,
     prev5: 'Retornar 5 páginas',
     next5: 'Avançar 5 páginas',
   },

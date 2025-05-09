@@ -3,7 +3,7 @@ export default {
     goto: 'Перейти на',
     page: '',
     itemsPerPage: ' строк',
-    total: (total) => `Всего: ${total}`,
+    total: (total:string|number) => `Всего: ${total}`,
     prev5: 'Предыдущие 5 страниц',
     next5: 'Следующие 5 страниц',
   },

@@ -3,7 +3,7 @@ export default {
     goto: '前往',
     page: '页',
     itemsPerPage: ' 条/页',
-    total: (total) => `共 ${total} 条`,
+    total: (total:string|number) => `共 ${total} 条`,
     prev5: '向前 5 页',
     next5: '向后 5 页',
   },

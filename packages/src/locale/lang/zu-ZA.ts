@@ -3,7 +3,7 @@ export default {
     goto: 'Iya ku',
     page: '',
     itemsPerPage: ' / Emakhasi',
-    total: (total) => `Okuphelele ${total}`,
+    total: (total:string|number) => `Okuphelele ${total}`,
     prev5: '5 Esedlule Emakhasi',
     next5: '5 Emakhasi Lalandzelako',
   },
